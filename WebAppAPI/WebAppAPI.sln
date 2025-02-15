@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.Domain", "Core\WebAppAPI.Domain\WebAppAPI.Domain.csproj", "{7055BD89-FBCA-4B3C-99F4-BA8557055F91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.Application", "Core\WebAppAPI.Application\WebAppAPI.Application.csproj", "{A2BD6A04-0955-4B7F-B898-42265548F110}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C183E935-AEA2-4887-9237-AD4F42E04F25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.Infrastructure", "Infrastructure\WebAppAPI.Infrastructure\WebAppAPI.Infrastructure.csproj", "{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.Persistence", "Infrastructure\WebAppAPI.Persistence\WebAppAPI.Persistence.csproj", "{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{FF0758D6-B1FB-405A-BD9C-9C82DCD3E90F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.API", "Presentation\WebAppAPI.API\WebAppAPI.API.csproj", "{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7055BD89-FBCA-4B3C-99F4-BA8557055F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7055BD89-FBCA-4B3C-99F4-BA8557055F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7055BD89-FBCA-4B3C-99F4-BA8557055F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7055BD89-FBCA-4B3C-99F4-BA8557055F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2BD6A04-0955-4B7F-B898-42265548F110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2BD6A04-0955-4B7F-B898-42265548F110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2BD6A04-0955-4B7F-B898-42265548F110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2BD6A04-0955-4B7F-B898-42265548F110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7055BD89-FBCA-4B3C-99F4-BA8557055F91} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A2BD6A04-0955-4B7F-B898-42265548F110} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17} = {C183E935-AEA2-4887-9237-AD4F42E04F25}
+		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70} = {C183E935-AEA2-4887-9237-AD4F42E04F25}
+		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA} = {FF0758D6-B1FB-405A-BD9C-9C82DCD3E90F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7FFEE717-2D24-465C-9603-463DA533D3D6}
+	EndGlobalSection
+EndGlobal
