@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // It printed as GMT '+3+3'. Use 'UtcNow' in the relevant place instead.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

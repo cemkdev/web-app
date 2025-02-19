@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppAPI.Application.Repositories;
 using WebAppAPI.Persistence.Contexts;
+using WebAppAPI.Persistence.Repositories;
 
 namespace WebAppAPI.Persistence
 {
@@ -18,6 +20,15 @@ namespace WebAppAPI.Persistence
             // But which server? -> postgresql. That's why we need to install the relevant package to this project.
             // If you execute migration commands via the dotnet CLI, you don't need this service.
             services.AddDbContext<WebAppAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
+
+            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
+            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
+
+            services.AddScoped<IOrderReadRepository, OrderReadRepository>();
+            services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
+
+            services.AddScoped<IProductReadRepository, ProductReadRepository>();
+            services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
         }
     }
 }
