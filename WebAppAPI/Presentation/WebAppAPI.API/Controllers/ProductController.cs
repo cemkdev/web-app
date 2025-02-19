@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAppAPI.Application.Repositories;
+using WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.API.Controllers
 {
@@ -29,6 +30,13 @@ namespace WebAppAPI.API.Controllers
             });
 
             await _productWriteRepository.SaveAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            Product product = await _productReadRepository.GetByIdAsync(id);
+            return Ok(product);
         }
     }
 }
