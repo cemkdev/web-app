@@ -10,5 +10,6 @@ namespace WebAppAPI.Domain.Entities.Common
     {
         public Guid Id { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }
