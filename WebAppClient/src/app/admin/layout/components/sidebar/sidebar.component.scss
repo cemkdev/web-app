@@ -1,0 +1,43 @@
+.menu-icon {
+    display: inline-flex;
+    width: auto;
+    height: auto;
+    margin-bottom: 1%;
+    padding-bottom: 0;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.collapsed {
+    &.menu-items {
+        padding: 0%;
+        .mdc-list-item__primary-text {
+            display: none;
+        }
+    }
+
+    &.menu-container {
+        .admin-title {
+            display: none;
+        }
+    }
+}
+
+// .expanded {
+//
+// }
+
+.admin-title {
+    display: flex;
+    text-align: center;
+    padding-left: 5px;
+    padding-top: 5px;
+    line-height: 1;
+    transform: translateY(-5px);
+}

@@ -1,7 +1,53 @@
-<h1>Main Site - NavBar</h1>
-<a routerLink="">Home</a> | <a routerLink="products">Products</a> | <a routerLink="basket">Basket</a> | <a
-    routerLink="admin">Admin</a>
+<mat-toolbar id="my-header">
+    <div class="home-section">
+        <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="home-icon"></a>
+    </div>
 
-<br>
+    <div class="expanded-navbar"></div>
+    <a mat-button *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active"
+        class="expanded-navbar-items">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <div class="menuItems" matListItemTitle>{{item.label}}</div>
+    </a>
+
+    <span class="example-spacer"></span>
+
+    <div class="collapsed-navbar">
+        <button mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <a mat-menu-item *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active">
+                <mat-icon>{{item.icon}}</mat-icon>
+                <div>{{item.label}}</div>
+            </a>
+        </mat-menu>
+    </div>
+
+    <!-- <button mat-icon-button (click)="darkMode.set(!darkMode())">
+        @if(darkMode()){
+        <mat-icon>dark_mode</mat-icon>
+        } @else {
+        <mat-icon>light_mode</mat-icon>
+        }
+    </button> -->
+    <button mat-icon-button (click)="themeService.toggleTheme()">
+        <mat-icon *ngIf="themeService.currentTheme() == 'dark'">dark_mode</mat-icon>
+        <mat-icon *ngIf="themeService.currentTheme() == 'light'">light_mode</mat-icon>
+    </button>
+    <a mat-flat-button class="logout-extended">
+        <mat-icon>logout</mat-icon>
+        <div class="text">Log Out</div>
+    </a>
+    <a mat-mini-fab class="logout-mini">
+        <mat-icon>logout</mat-icon>
+    </a>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
+
+<mat-toolbar id="my-footer">
+    <mat-toolbar-row>
+        <span>© 2025 - Jam</span>
+    </mat-toolbar-row>
+</mat-toolbar>

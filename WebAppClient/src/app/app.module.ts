@@ -5,6 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { UiModule } from './ui/ui.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,9 +21,13 @@ import { UiModule } from './ui/ui.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AdminModule, UiModule
+    AdminModule, UiModule,
+    MatIconModule, MatButtonModule, MatToolbarModule, MatMenuModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

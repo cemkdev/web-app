@@ -5,7 +5,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 
-
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatListModule, MatButtonModule, MatIconModule, MatGridListModule, MatTooltipModule
   ],
   exports: [
     HeaderComponent,
@@ -23,4 +28,6 @@ import { RouterModule } from '@angular/router';
     FooterComponent
   ]
 })
-export class ComponentsModule { }
+export class ComponentsModule {
+
+}

@@ -1,8 +1,39 @@
-<h3>Admin Sidebar</h3>
-<ul>
-    <li><a routerLink="/admin">Dashboard</a></li>
-    <li><a routerLink="customers">Customers</a></li>
-    <li><a routerLink="products">Products</a></li>
-    <li><a routerLink="orders">Orders</a></li>
-    <li><a routerLink="">Show the Main Site</a></li>
-</ul>
+<mat-nav-list>
+    <div class="menu-container" [ngClass]="collapsedClass">
+        <!-- The "collapsed.set(!collapsed())" operation is performed directly with the click event. -->
+        <a mat-list-item (click)="collapsed.set(!collapsed()); emitCollapseChange()" class="example-icon menu-icon"
+            aria-label="Example icon-button with menu">
+            <mat-icon>menu</mat-icon>
+        </a>
+        <div class="admin-title"><span>Admin Panel</span></div>
+    </div>
+    <a mat-list-item class="menu-items" [ngClass]="collapsedClass" *ngFor="let item of menuItems()"
+        [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive"
+        [routerLinkActiveOptions]="{exact: true}" [matTooltip]="collapsed() ? item.label : ''"
+        matTooltipPosition="right">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span matListItemTitle class="menu-item-labels">{{item.label}}</span>
+    </a>
+</mat-nav-list>
+
+<!-- <mat-list>
+    @for (item of menuItems; track item) {
+    <a mat-list-item [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span matListItemTitle>{{item.label}}</span>
+    </a>
+    }
+</mat-list> -->
+
+<!-- <mat-list>
+    @for (menu of menus; track menu) {
+    <a mat-list-item id="mat-icon" routerLink={{menu.url}}>
+        <div matListItemTitle>
+            <button mat-button color="warn" class="side-menu-button">
+                <mat-icon matListItemIcon class="material-symbols-outlined">{{menu.icon}}</mat-icon>
+                {{menu.name}}
+            </button>
+        </div>
+    </a>
+    }
+</mat-list> -->
