@@ -29,6 +29,7 @@ export class ThemeService {
     } else {
       this.document.documentElement.classList.remove('dark');
     }
+    this.document.documentElement.setAttribute('data-bs-theme', theme);
 
     this.setThemeInLocalStorage(theme)
   }

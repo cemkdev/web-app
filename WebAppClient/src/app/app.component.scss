@@ -7,7 +7,6 @@
 .home-section {
   position: relative;
   height: 100%;
-  //min-width: 15%;
   width: 120px;
   padding: 0;
   margin-bottom: 14px;
@@ -16,7 +15,6 @@
 
 .home-icon {
   object-fit: contain;
-  //min-width: 80%;
   width: 100%;
   height: auto;
   transform: scale(1.5);
@@ -92,4 +90,115 @@
   .logout-extended {
     display: none !important;
   }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#my-header-bs {
+  z-index: 5;
+  top: 0;
+  box-shadow: 0px 3px 5px rgba(65, 65, 65, 0.3);
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+
+#my-header-bs .expanded-navbar-bs {
+  margin-left: 70px;
+}
+
+.home-section-bs {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  height: 65px;
+  width: 140px;
+  padding: 0;
+  margin-bottom: 0px;
+  margin-left: 35px;
+}
+
+.home-icon-bs {
+  object-fit: contain;
+  object-position: 15px;
+  width: 120px;
+  height: auto;
+  transform: scale(1.4);
+  margin-right: 10%;
+  padding-bottom: 15px;
+}
+
+@media (max-width: 960px) {
+  .home-section-bs {
+    width: 160px;
+    margin-bottom: 10px;
+    margin-left: 45px;
+  }
+  .home-icon-bs {
+    width: 140px;
+    object-position: 7px;
+  }
+  .navbar-toggler {
+    margin-right: 25px;
+  }
+}
+
+#navbarSupportedContent,
+.show,
+.container-fluid {
+  padding: 0;
+  margin: 0;
+}
+
+#navbarSupportedContent.show {
+  .navbar-right {
+    margin-top: 80px;
+    margin-left: 70px;
+    margin-bottom: 10px;
+  }
+  #go-admin-panel {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .nav-link:hover {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.log-out {
+  margin-right: 25px;
+}
+
+.nav-link {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 5px;
+  transition:
+    background-color 0.3s,
+    border-radius 0.3s; /* Geçiş animasyonu */
+  span {
+    opacity: 0.8;
+  }
+  &.active {
+    font-size: large;
+
+    span {
+      opacity: 1;
+    }
+  }
+
+  &.active#go-admin-panel {
+    font-size: medium;
+  }
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  transform: translateY(-5px); /* Y ekseninde 5px yukarı */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge ekle */
 }

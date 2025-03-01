@@ -1,0 +1,78 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$dark-theme: mat.define-theme(
+    (
+        color: ()
+    )
+);
+
+html.dark {
+    @include mat.theme($dark-theme);
+
+    background: mat.get-theme-color($dark-theme, surface);
+
+    /////////////////////// TOOLBAR ///////////////////////
+    @include mat.toolbar-overrides(
+        (
+            container-background-color: var(--mat-sys-on-secondary),
+            container-text-color: var(--dark-mode-title-text-color)
+        )
+    );
+    .mat-toolbar > a.active {
+        opacity: 0.9;
+        color: var(--dark-mode-title-text-color);
+        mat-icon {
+            color: var(--dark-mode-title-text-color);
+        }
+    }
+    mat-icon {
+        color: var(--dark-mode-title-text-color);
+    }
+
+    .logout-extended,
+    .logout-mini {
+        mat-icon {
+            color: var(--mat-sys-on-surface);
+        }
+        color: var(--mat-sys-on-surface) !important;
+        background-color: var(--log-out) !important;
+
+        &:hover {
+            background-color: var(--log-out-hover) !important;
+        }
+    }
+
+    /////////////////////// SIDENAV ///////////////////////
+    @include mat.list-overrides(
+        (
+            list-item-leading-icon-color: rgb(255, 255, 255, 0.75),
+            list-item-label-text-color: rgb(255, 255, 255, 0.75),
+            list-item-hover-leading-icon-color: var(--mat-sys-primary),
+            list-item-hover-label-text-color: var(--mat-sys-primary),
+            active-indicator-color: var(--mat-sys-outline-variant)
+        )
+    );
+
+    .mat-mdc-nav-list .mat-mdc-list-item.mdc-list-item--activated {
+        background-color: var(--mat-sys-on-tertiary-fixed-variant);
+        opacity: 0.9;
+    }
+    .mdc-list-item--activated {
+        .mat-mdc-list-item-title {
+            color: var(--dark-mode-title-text-color);
+        }
+    }
+    .mdc-list-item--activated {
+        .mdc-list-item__start {
+            color: var(--dark-mode-title-text-color);
+        }
+    }
+
+    @include mat.sidenav-overrides(
+        (
+            container-background-color: var(--mat-sys-background),
+            content-background-color: var(--mat-sys-surface-container)
+        )
+    );
+}

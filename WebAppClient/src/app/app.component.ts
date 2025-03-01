@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, effect, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 
 export interface MenuItem {
@@ -16,12 +16,6 @@ export interface MenuItem {
 })
 export class AppComponent {
   readonly themeService = inject(ThemeService);
-
-  // darkMode = signal(false);
-
-  // setDarkMode = effect(() => {
-  //   document.documentElement.classList.toggle('dark', this.darkMode());
-  // });
 
   menuItems = signal<MenuItem[]>([
     {

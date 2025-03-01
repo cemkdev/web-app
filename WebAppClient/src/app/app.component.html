@@ -1,14 +1,15 @@
-<mat-toolbar id="my-header">
+<!-- <mat-toolbar id="my-header">
     <div class="home-section">
         <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="home-icon"></a>
     </div>
 
-    <div class="expanded-navbar"></div>
-    <a mat-button *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active"
-        class="expanded-navbar-items">
-        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <div class="menuItems" matListItemTitle>{{item.label}}</div>
-    </a>
+    <div class="expanded-navbar">
+        <a mat-button *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active"
+            class="expanded-navbar-items">
+            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+            <div class="menuItems" matListItemTitle>{{item.label}}</div>
+        </a>
+    </div>
 
     <span class="example-spacer"></span>
 
@@ -24,13 +25,6 @@
         </mat-menu>
     </div>
 
-    <!-- <button mat-icon-button (click)="darkMode.set(!darkMode())">
-        @if(darkMode()){
-        <mat-icon>dark_mode</mat-icon>
-        } @else {
-        <mat-icon>light_mode</mat-icon>
-        }
-    </button> -->
     <button mat-icon-button (click)="themeService.toggleTheme()">
         <mat-icon *ngIf="themeService.currentTheme() == 'dark'">dark_mode</mat-icon>
         <mat-icon *ngIf="themeService.currentTheme() == 'light'">light_mode</mat-icon>
@@ -42,12 +36,58 @@
     <a mat-mini-fab class="logout-mini">
         <mat-icon>logout</mat-icon>
     </a>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="my-header-bs">
+    <div class="container-fluid">
+        <div class="home-section-bs">
+            <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="home-icon-bs"></a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 expanded-navbar-bs">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'home'" routerLinkActive="active"><span>Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'products'" routerLinkActive="active"><span>Products</span></a>
+                </li>
+
+                <div class="custom-border-vertical"></div>
+                <div class="custom-border-horizontal"></div>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="go-admin-panel" [routerLink]="'admin'" routerLinkActive="active">
+                        <i class="bi bi-person-workspace"></i>
+                        <span>Admin Panel</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-right">
+                <button class="btn btn-light" id="add-to-cart" type="button" [routerLink]="'basket'"
+                    routerLinkActive="active">
+                    <i class="bi bi-cart-check" style="font-size: 25px;"></i>
+                </button>
+                <button class="btn btn-outline-secondary" id="theme-toggle-button" (click)="themeService.toggleTheme()"
+                    style="font-size: 21px; margin-right: 5px;">
+                    <i class="bi bi-brightness-high-fill" *ngIf="themeService.currentTheme() == 'light'"></i>
+                    <i class="bi bi-moon-fill" *ngIf="themeService.currentTheme() == 'dark'"></i>
+                </button>
+                <button class="btn btn-danger log-out" type="button">
+                    <i class="bi bi-box-arrow-right"></i>Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
 
 <router-outlet></router-outlet>
 
-<mat-toolbar id="my-footer">
+<!-- <mat-toolbar id="my-footer">
     <mat-toolbar-row>
         <span>© 2025 - Jam</span>
     </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> -->

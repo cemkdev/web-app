@@ -1,0 +1,103 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$light-theme: mat.define-theme(
+    (
+        color: ()
+    )
+);
+
+html {
+    @include mat.theme($light-theme);
+
+    background: mat.get-theme-color($light-theme, surface);
+
+    * {
+        transition: all 50ms ease-in-out !important;
+    }
+    /////////////////////// TOOLBAR ///////////////////////
+    @include mat.toolbar-overrides(
+        (
+            container-text-color: var(--mat-sys-primary)
+        )
+    );
+
+    mat-icon {
+        color: var(--mat-sys-primary);
+    }
+
+    .mat-toolbar > a.active {
+        color: var(--mat-sys-on-primary);
+        background: var(--mat-sys-on-tertiary-fixed-variant);
+        opacity: 0.5;
+        mat-icon {
+            color: var(--mat-sys-on-primary);
+        }
+    }
+
+    @include mat.menu-overrides(
+        (
+            item-label-text-color: var(--mat-sys-primary),
+            item-icon-color: var(--mat-sys-primary)
+        )
+    );
+
+    .mat-mdc-menu-item {
+        &.active {
+            background-color: var(--mat-sys-on-tertiary-fixed-variant-opaque);
+        }
+    }
+
+    .logout-extended,
+    .logout-mini {
+        mat-icon {
+            color: var(--mat-sys-on-primary);
+        }
+        color: var(--mat-sys-on-primary) !important;
+        background-color: var(--log-out) !important;
+
+        &:hover {
+            background-color: var(--log-out-hover) !important;
+        }
+    }
+
+    /////////////////////// SIDENAV ///////////////////////
+    @include mat.list-overrides(
+        (
+            list-item-leading-icon-color: rgb(0, 0, 0, 0.75),
+            list-item-label-text-color: rgb(0, 0, 0, 0.75),
+            list-item-hover-leading-icon-color: var(--mat-sys-primary),
+            list-item-hover-label-text-color: var(--mat-sys-primary),
+            active-indicator-color: var(--mat-sys-outline-variant)
+        )
+    );
+
+    .mat-mdc-nav-list .mat-mdc-list-item {
+        border-radius: 0.725rem;
+    }
+
+    .mat-mdc-nav-list .mat-mdc-list-item.mdc-list-item--activated {
+        background-color: var(--mat-sys-on-tertiary-fixed-variant-light);
+        opacity: 0.9;
+    }
+
+    a.router-link-active {
+        background-color: transparent !important; /* Seçili öğe rengini şeffaf yap */
+    }
+    .mdc-list-item--activated {
+        .mat-mdc-list-item-title {
+            color: var(--mat-sys-primary);
+        }
+    }
+    .mdc-list-item--activated {
+        .mdc-list-item__start {
+            color: var(--mat-sys-primary);
+        }
+    }
+
+    @include mat.sidenav-overrides(
+        (
+            content-background-color: var(--mat-sys-surface-variant)
+        )
+    );
+}
