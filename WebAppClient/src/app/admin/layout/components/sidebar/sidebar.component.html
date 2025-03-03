@@ -1,5 +1,5 @@
 <mat-nav-list>
-    <div class="menu-container" [ngClass]="collapsedClass">
+    <div class="sidenav-title-row" [ngClass]="collapsedClass">
         <!-- The "collapsed.set(!collapsed())" operation is performed directly with the click event. -->
         <a mat-list-item (click)="collapsed.set(!collapsed()); emitCollapseChange()" class="example-icon menu-icon"
             aria-label="Example icon-button with menu">
@@ -7,12 +7,12 @@
         </a>
         <div class="admin-title"><span>Admin Panel</span></div>
     </div>
-    <a mat-list-item class="menu-items" [ngClass]="collapsedClass" *ngFor="let item of menuItems()"
+    <a mat-list-item class="sidenav-items" [ngClass]="collapsedClass" *ngFor="let item of menuItems()"
         [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive"
         [routerLinkActiveOptions]="{exact: true}" [matTooltip]="collapsed() ? item.label : ''"
         matTooltipPosition="right">
         <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-        <span matListItemTitle class="menu-item-labels">{{item.label}}</span>
+        <span matListItemTitle class="sidenav-item-labels">{{item.label}}</span>
     </a>
 </mat-nav-list>
 

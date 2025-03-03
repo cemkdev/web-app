@@ -1,0 +1,85 @@
+[data-bs-theme="light"] {
+    // Navbar background color
+    #my-header-bs {
+        background-color: var(--light-background) !important;
+    }
+
+    // Collapsed navbar dropdown area background color
+    #navbarSupportedContent.show {
+        background-color: var(--gray-background);
+    }
+
+    // Navbar button colors
+    .nav-link {
+        color: var(--dark-text);
+    }
+
+    // Button colors that redirect to the Admin Panel
+    #go-admin-panel {
+        border: 1px solid teal !important;
+
+        color: teal !important;
+        background-color: rgba(80, 80, 80, 0.1);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        &.active {
+            background-color: teal !important;
+            color: var(--light-text) !important;
+            border-color: teal !important;
+        }
+    }
+
+    // Custom Vertical Line/Border for Navbar
+    .custom-border-vertical {
+        border-color: var(--dark-text);
+        opacity: 0.5;
+        border-left: 2px solid;
+        margin-right: 30px;
+        margin-left: 30px;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+    // Custom Horizontal Line/Border for Navbar
+    .custom-border-horizontal {
+        border-color: var(--dark-text);
+        opacity: 0.5;
+        border-bottom: 2px solid;
+        margin-left: 0;
+        width: 140px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: none;
+    }
+
+    // Add-to-cart button adjustments
+    #add-to-cart {
+        color: var(--dark-text);
+        background-color: var(--yellow-1-pale);
+        &.active {
+            color: var(--dark-text);
+            background-color: var(--yellow-1);
+        }
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--yellow-1);
+        }
+    }
+
+    // Theme toggle button - button and hover state background color
+    #theme-toggle-button {
+        color: var(--dark-text);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+    }
+
+    .btn-danger.log-out {
+        background-color: rgba(184, 9, 9, 0.85) !important;
+    }
+    .btn-danger:hover.log-out {
+        background-color: rgba(184, 9, 9, 0.6) !important;
+    }
+}

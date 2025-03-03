@@ -12,7 +12,6 @@ export class LayoutComponent {
   collapsed = signal(false);
   isOverlayVisible = true;
   private layoutSubscription: any; // Track screen size with BreakpointObserver
-  private isFirstRun = true;
 
   constructor(private breakpointObserver: BreakpointObserver) { }
 
@@ -27,7 +26,7 @@ export class LayoutComponent {
     return this.collapsed() ? 'collapsed' : 'expanded';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.layoutSubscription = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(result => {
         if (result.matches) {
@@ -38,6 +37,7 @@ export class LayoutComponent {
         }
       });
   }
+
   ngOnDestroy() {
     if (this.layoutSubscription) {
       this.layoutSubscription.unsubscribe();

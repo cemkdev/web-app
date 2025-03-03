@@ -1,102 +1,117 @@
-@use "@angular/material" as mat;
+// @use "@angular/material" as mat;
 
-.example-spacer {
-  flex: 1 1 auto;
-}
+// ///////////////////////////////////////////////////////////////////////////
+// ////////// || /////////////////////////////////////////////// || //////////
+// ////////// || ////////// Toolbar Header Adjusments ////////// || //////////
+// ////////// vv /////////////////////////////////////////////// vv //////////
+// ///////////////////////////////////////////////////////////////////////////
+// //
+// // Toolbar - Header style
+// #my-header {
+//   position: sticky;
+//   z-index: 5;
+//   top: 0;
+//   box-shadow: 0px 3px 5px rgba(65, 65, 65, 0.3);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
 
-.home-section {
-  position: relative;
-  height: 100%;
-  width: 120px;
-  padding: 0;
-  margin-bottom: 14px;
-  margin-left: 35px;
-}
+// // Logo field style
+// .home-section {
+//   position: relative;
+//   height: 100%;
+//   width: 120px;
+//   padding: 0;
+//   margin-bottom: 14px;
+//   margin-left: 35px;
+// }
 
-.home-icon {
-  object-fit: contain;
-  width: 100%;
-  height: auto;
-  transform: scale(1.5);
-  margin-right: 10%;
-}
+// // Image style in logo field
+// .home-icon {
+//   object-fit: contain;
+//   width: 100%;
+//   height: auto;
+//   transform: scale(1.5);
+//   margin-right: 10%;
+// }
 
-.app-name {
-  padding-left: 5%;
-  padding-top: 15%;
-  text-align: center;
-  font-size: 140%;
-  font-weight: 500;
-}
+// // Toolbar - Header expanded state nav buttons margin-left
+// #my-header .expanded-toolbar {
+//   margin-left: 70px;
+// }
 
-#my-header {
-  position: sticky;
-  z-index: 5;
-  top: 0;
-  box-shadow: 0px 3px 5px rgba(65, 65, 65, 0.3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+// // Big screens toolbar adjustment
+// @media (min-width: 960px) {
+//   .collapsed-toolbar {
+//     display: none;
+//   }
+//   .logout-mini {
+//     display: none !important;
+//   }
+// }
 
-#my-footer {
-  position: relative;
-  z-index: 5;
-  bottom: 0;
-  box-shadow: 0px 3px 3px 5px rgba(65, 65, 65, 0.3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-height: 50px !important;
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-size: small;
-  }
-}
+// // Medium/Small screens toolbar adjustment
+// @media (max-width: 960px) {
+//   .expanded-toolbar-items {
+//     display: none !important;
+//   }
+//   .home-section {
+//     width: 100px;
+//     margin-bottom: 10px;
+//     margin-left: 15px;
+//   }
+//   .logout-extended {
+//     display: none !important;
+//   }
+// }
 
-#my-footer {
-  @include mat.toolbar-overrides(
-    (
-      standard-height: 50px
-    )
-  );
-}
+// // Toolbar divider between right and left fields(buttons)
+// .example-spacer {
+//   flex: 1 1 auto;
+// }
 
-#my-header .expanded-navbar {
-  margin-left: 70px;
-}
+// ///////////////////////////////////////////////////////////////////////////
+// ////////// || /////////////////////////////////////////////// || //////////
+// ////////// || ////////// Toolbar Footer Adjusments ////////// || //////////
+// ////////// vv /////////////////////////////////////////////// vv //////////
+// ///////////////////////////////////////////////////////////////////////////
+// //
 
-@media (min-width: 960px) {
-  .collapsed-navbar {
-    display: none;
-  }
-  .logout-mini {
-    display: none !important;
-  }
-}
+// // Toolbar - Footer style
+// #my-footer {
+//   position: relative;
+//   z-index: 5;
+//   bottom: 0;
+//   box-shadow: 0px 3px 3px 5px rgba(65, 65, 65, 0.3);
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   max-height: 50px !important;
+//   span {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 100%;
+//     font-size: small;
+//   }
+// }
 
-@media (max-width: 960px) {
-  .expanded-navbar-items {
-    display: none !important;
-  }
-  .home-section {
-    width: 100px;
-    margin-bottom: 10px;
-    margin-left: 15px;
-  }
-  .logout-extended {
-    display: none !important;
-  }
-}
+// // Toolbar - Footer height
+// #my-footer {
+//   @include mat.toolbar-overrides(
+//     (
+//       standard-height: 50px
+//     )
+//   );
+// }
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+// Navbar general adjustments
 #my-header-bs {
   z-index: 5;
   top: 0;
@@ -106,11 +121,13 @@
   padding: 0;
 }
 
+// Expanded Navbar margin-left for starting alignment
 #my-header-bs .expanded-navbar-bs {
   margin-left: 70px;
 }
 
-.home-section-bs {
+// Logo area adjustments
+.logo-section-bs {
   position: relative;
   overflow: hidden;
   display: inline-block;
@@ -121,31 +138,72 @@
   margin-left: 35px;
 }
 
-.home-icon-bs {
+// Logo icon adjustments in logo area
+.logo-icon-bs {
   object-fit: contain;
   object-position: 15px;
   width: 120px;
   height: auto;
   transform: scale(1.4);
   margin-right: 10%;
-  padding-bottom: 15px;
+  padding-bottom: 25px;
 }
 
+// Medium and small screens 'Logo area' and 'toggle-navbar button' adjustments
 @media (max-width: 960px) {
-  .home-section-bs {
+  .logo-section-bs {
     width: 160px;
     margin-bottom: 10px;
     margin-left: 45px;
   }
-  .home-icon-bs {
+  .logo-icon-bs {
     width: 140px;
     object-position: 7px;
   }
   .navbar-toggler {
     margin-right: 25px;
+    font-size: medium;
   }
 }
 
+// Collapsed navbar dropdown area adjustments
+#navbarSupportedContent.show {
+  font-size: small;
+  padding-top: 10px;
+  box-shadow: 10px 5px 15px 2px rgba(0, 0, 0, 0.1);
+
+  .navbar-right {
+    margin-top: 30px;
+    margin-left: 70px;
+    margin-bottom: 10px;
+  }
+  .nav-link:hover {
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .nav-link.active {
+    font-size: small;
+  }
+
+  #go-admin-panel {
+    font-size: small;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  #add-to-cart,
+  #theme-toggle-button,
+  .log-out {
+    font-size: small;
+  }
+  #go-admin-panel {
+    font-size: small;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+// Collapsed navbar dropdown area adjustments
 #navbarSupportedContent,
 .show,
 .container-fluid {
@@ -153,52 +211,123 @@
   margin: 0;
 }
 
-#navbarSupportedContent.show {
-  .navbar-right {
-    margin-top: 80px;
-    margin-left: 70px;
-    margin-bottom: 10px;
-  }
-  #go-admin-panel {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-  .nav-link:hover {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
-
-.log-out {
-  margin-right: 25px;
-}
-
+// Navbar menu buttons adjustments
 .nav-link {
   display: inline-block;
   text-decoration: none;
-  border-radius: 5px;
   transition:
     background-color 0.3s,
-    border-radius 0.3s; /* Geçiş animasyonu */
+    border-radius 0.3s; /* Transition animation */
   span {
     opacity: 0.8;
   }
+
+  // Navbar menu buttons hover-state adjustments
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    transform: translateY(-5px); /* 5px up on the Y-axis */
+    box-shadow: 0 4px 6px rgba(73, 73, 73, 0.1);
+    &.active {
+      background-color: none;
+      border-radius: none;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  // Do this, when button is active -(!) look at the setting below for #go-admin-panel button
   &.active {
     font-size: large;
-
     span {
       opacity: 1;
     }
   }
 
+  // But, when button is active state, #go-admin-panel button should be the same size.
   &.active#go-admin-panel {
     font-size: medium;
   }
 }
 
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  transform: translateY(-5px); /* Y ekseninde 5px yukarı */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge ekle */
+// Expanded Navbar dropdown area - add 'Custom Vertical Line/Border'
+#my-header-bs .expanded-navbar-bs {
+  .custom-border-vertical {
+    display: block;
+  }
+  .custom-border-horizontal {
+    display: none;
+  }
+}
+// Collapsed Navbar dropdown area - add 'Custom Horizontal Line/Border'
+#navbarSupportedContent.show {
+  .custom-border-vertical {
+    display: none;
+  }
+  .custom-border-horizontal {
+    display: block;
+  }
+  .custom-border-horizontal.collapsed-bottom {
+    display: block;
+    margin-bottom: 15px;
+    width: 95%;
+  }
+}
+
+// Button adjustments that redirect to the Admin Panel
+#go-admin-panel {
+  margin-left: 12px;
+  border-radius: 5px !important;
+  &:hover {
+    border-radius: 5px !important;
+    transform: translateY(-5px); /* 5px up on the Y-axis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  &.active {
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Collapsed Navbar dropdown area - #go-admin-panel adjusments
+#navbarSupportedContent.show {
+  #go-admin-panel {
+    margin-top: 10px;
+    margin-left: 0 !important;
+  }
+}
+
+// Add-to-cart button adjustments
+#add-to-cart {
+  border-radius: 10px !important;
+  padding: 2px 20px;
+  padding-right: 10px;
+  border: none;
+  box-shadow: 0 1px 2px rgba(73, 73, 73, 0.1);
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px); /* 5px up on the Y-axis */
+  }
+  &.active {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Theme toggle button adjusments
+#theme-toggle-button {
+  border: none !important;
+  padding-right: 2px;
+  &:hover {
+    border-radius: 10px !important;
+    transform: translateY(-2px) !important; /* 5px up on the Y-axis */
+    box-shadow: 0 2px 4px rgba(73, 73, 73, 0.1) !important;
+  }
+}
+
+// Log-out button adjustments
+.log-out {
+  margin-right: 25px;
 }

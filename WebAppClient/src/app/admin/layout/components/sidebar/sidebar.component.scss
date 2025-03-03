@@ -1,12 +1,11 @@
-.menu-icon {
-    display: inline-flex;
-    width: auto;
-    height: auto;
-    margin-bottom: 1%;
-    padding-bottom: 0;
-}
-
-.menu-container {
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////// || /////////////////////////////////////////////////////////////////////// || //////////
+////////// || ////////// Sidenav Head Adjusments (Collapse Button & Title) ////////// || //////////
+////////// vv /////////////////////////////////////////////////////////////////////// vv //////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Sidenav 'collapse button' and sidenav title style
+.sidenav-title-row {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
@@ -14,15 +13,48 @@
     font-weight: 500;
 }
 
+// Sidenav 'collapse button' style
+.menu-icon {
+    display: inline-flex;
+    width: auto;
+    height: auto;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+// Sidenav title style
+.admin-title {
+    display: flex;
+    text-align: center;
+    padding-left: 5px;
+    padding-top: 5px;
+    line-height: 1;
+    transform: translateY(-5px);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+////////// || /////////////////////////////////////////////////// || //////////
+////////// || ////////// Sidenav List Items Adjusments ////////// || //////////
+////////// vv /////////////////////////////////////////////////// vv //////////
+///////////////////////////////////////////////////////////////////////////////
+//
+// Sidenav items background radius (Selected or hover states)
+.mat-mdc-nav-list .mat-mdc-list-item {
+    border-radius: 5px;
+}
+
+// Remove sidenav item labels(texts) and sidenav title when collapsed
 .collapsed {
-    &.menu-items {
+    // Remove sidenav item labels(texts)
+    &.sidenav-items {
         padding: 0%;
         .mdc-list-item__primary-text {
             display: none;
         }
     }
 
-    &.menu-container {
+    // Remove sidenav title
+    &.sidenav-title-row {
         .admin-title {
             display: none;
         }
@@ -32,12 +64,3 @@
 // .expanded {
 //
 // }
-
-.admin-title {
-    display: flex;
-    text-align: center;
-    padding-left: 5px;
-    padding-top: 5px;
-    line-height: 1;
-    transform: translateY(-5px);
-}

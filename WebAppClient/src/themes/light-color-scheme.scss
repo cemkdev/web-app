@@ -1,0 +1,103 @@
+@use "./admin/buttons/light-material-buttons.scss";
+@use "./admin/toolbar/light-toolbar.scss" as admin-light-toolbar;
+@use "./admin/sidenav/light-sidenav.scss";
+@use "./admin/alertify/light-alerts.scss";
+
+@use "./layout/toolbar/light-toolbar.scss" as layout-light-toolbar;
+@use "./layout/buttons/light-bs-buttons.scss";
+
+html {
+    // Primary Color
+    --primary-text: rgb(38, 67, 116);
+    --primary-text-dark: rgb(18, 43, 95);
+    --primary-text-lighter: rgb(38, 67, 116, 0.7);
+
+    // Primary Background Color
+    // Light-BG
+    --primary-bg-lightBG: rgb(50, 73, 112);
+    // Dark-BG
+    --primary-bg-lighter-lighter: rgb(66, 110, 185);
+    --primary-bg-lighter: rgb(43, 74, 126);
+    --primary-bg: rgb(37, 63, 107);
+    --primary-bg-dark: rgb(32, 54, 94);
+
+    // Light Text - Dark Background
+    --light-text: rgb(230, 238, 255);
+    --light-darker-text: rgb(215, 221, 233);
+    --light-text-transparent: rgb(230, 238, 255, 0.8);
+    --white-text: rgb(255, 255, 255);
+
+    // Light Background Colors
+    --light-background: rgb(249 249 255);
+    --gray-background: rgb(224 226 236);
+    --light-background-bs-navbar: rgb(230, 217, 233);
+    --light-background-bs-navbar-collapsed: rgb(205, 189, 209);
+
+    // Dark Text - Light Background
+    --dark-text: rgb(39, 41, 46);
+    --dark-text-lighter: rgb(60, 63, 70);
+    --dark-text-transparent: rgb(39, 41, 46, 0.9);
+    --black-text: rgb(0, 0, 0);
+
+    // Dark Background Colors
+    --dark-background: rgb(24, 28, 36);
+    --dark-background-blueish-darker: rgb(22, 26, 34);
+    --dark-background-darker: rgb(21, 24, 29);
+    --dark-background-darkest: rgb(19, 21, 27);
+
+    // Yellow Colour Scale
+    --yellow-1: rgba(252, 255, 66, 0.8);
+    --yellow-1-darker: rgba(200, 202, 52, 0.8);
+    --yellow-1-pale: rgba(253, 255, 134, 0.6);
+
+    // Theme Main Tertiary(third) Color
+    --tertiary: rgb(87, 62, 92);
+    --tertiary-transparent: rgba(87, 62, 92, 0.6);
+    --tertiary-transparent-more: rgba(87, 62, 92, 0.5);
+    --tertiary-light: rgb(208, 181, 218);
+    --tertiary-lighter: rgb(206, 182, 214);
+    --tertiary-dark: rgb(64, 42, 68);
+
+    // Message
+    --message-bg: rgb(198, 198, 198);
+    --message-bg-hover: rgb(198, 198, 198, 0.8);
+    --message-bg-lighter: rgb(198, 198, 198);
+    --message-bg-hover-lighter: rgb(198, 198, 198, 0.8);
+    --message-bg-white: var(--light-background);
+    --message-bg-white-darker: rgb(210, 210, 216);
+
+    // Notify
+    --notify-bg: rgb(68, 104, 184);
+    --notify-bg-darker: rgb(54, 84, 148);
+    --notify-bg-hover: rgb(170, 199, 255, 0.8);
+    --notify-bg-lighter: rgb(173, 196, 240, 0.7);
+    --notify-bg-hover-lighter: rgb(170, 199, 255, 0.5);
+
+    // Success
+    --success-bg: rgb(54, 145, 84);
+    --success-bg-darker: rgb(46, 124, 72);
+    --success-bg-hover: rgba(54, 145, 84, 0.8);
+    --success-bg-lighter: rgb(54, 145, 84, 0.7);
+    --success-bg-hover-lighter: rgba(54, 145, 84, 0.5);
+
+    // Warning
+    --warning-bg: rgb(196, 96, 53);
+    --warning-bg-darker: rgb(173, 85, 47);
+    --warning-bg-hover: rgb(196, 96, 53, 0.8);
+    --warning-bg-lighter: rgb(196, 96, 53, 0.7);
+    --warning-bg-hover-lighter: rgb(196, 96, 53, 0.5);
+
+    // Error - different than dark-color-scheme
+    --error-bg: rgb(172, 35, 35);
+    --error-bg-darker: rgb(148, 30, 30);
+    --error-bg-hover: rgb(172, 35, 35, 0.8);
+    --error-bg-lighter: rgb(172, 35, 35, 0.7);
+    --error-bg-hover-lighter: rgb(172, 35, 35, 0.5);
+
+    // Dismiss
+    --dismiss-bg: rgb(136, 136, 136);
+    --dismiss-bg-darker: rgb(119, 119, 119);
+    --dismiss-bg-hover: rgb(136, 136, 136, 0.8);
+    --dismiss-bg-lighter: rgb(136, 136, 136, 0.7);
+    --dismiss-bg-hover-lighter: rgb(136, 136, 136, 0.5);
+}

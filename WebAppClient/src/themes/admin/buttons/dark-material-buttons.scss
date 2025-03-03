@@ -1,0 +1,470 @@
+// Basic: mat-button
+html.dark {
+    .mat-mdc-button.mat-message {
+        color: var(--message-bg);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--message-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-notify {
+        color: var(--notify-bg);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--notify-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-success {
+        color: var(--success-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--success-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-warning {
+        color: var(--warning-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--warning-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-error {
+        color: var(--error-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--error-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-dismiss {
+        color: var(--dismiss-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--dismiss-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-tertiary {
+        color: var(--tertiary-light);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--tertiary-transparent);
+        }
+        &.active {
+            color: var(--dark-text);
+            background-color: var(--tertiary-transparent);
+        }
+    }
+}
+
+// Raised: mat-raised-button
+html.dark {
+    .mdc-button--raised.mat-message {
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-warning {
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Stroked: mat-stroked-button
+html.dark {
+    .mdc-button--outlined.mat-message {
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-warning {
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Flat: mat-flat-button
+html.dark {
+    .mdc-button--unelevated.mat-message {
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-warning {
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Fab: mat-fab
+html.dark {
+    .mat-mdc-fab.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-warning {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Mini Fab: mat-mini-fab
+html.dark {
+    .mdc-fab--mini.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-warning {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Extended Fab: mat-fab extended
+html.dark {
+    .mdc-fab--extended.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--message-bg);
+        &:hover {
+            background-color: var(--message-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-warning {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary-transparent);
+        &:hover {
+            background-color: var(--tertiary);
+        }
+    }
+}
+
+// Toolbar Buttons: color:"transparent-tertiary"
+html.dark {
+    .mdc-fab--extended.mat-transparent-tertiary {
+        height: 40px;
+        width: auto;
+        margin: 0px 5px;
+        border-radius: 1.5rem;
+    }
+
+    .mdc-fab--extended.mat-transparent-tertiary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: transparent;
+        &:hover {
+            mat-icon {
+                color: var(--light-text);
+            }
+            color: var(--light-text);
+            background-color: var(--tertiary-transparent);
+        }
+    }
+
+    .mdc-fab--extended.mat-transparent-tertiary.active {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--tertiary-transparent);
+    }
+}

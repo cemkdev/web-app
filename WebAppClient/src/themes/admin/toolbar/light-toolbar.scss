@@ -1,0 +1,24 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+html {
+    // Toolbar background color
+    .mat-toolbar {
+        background-color: var(--light-background);
+    }
+
+    // Collapsed toolbar all items text-icon colors
+    .mat-mdc-menu-item {
+        .mat-icon {
+            color: var(--dark-text);
+        }
+        span {
+            color: var(--dark-text);
+        }
+    }
+
+    // Collapsed toolbar active item background colors
+    .mat-mdc-menu-item.active {
+        background-color: var(--mat-sys-on-tertiary-fixed-variant-opaque);
+    }
+}

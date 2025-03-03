@@ -3,24 +3,24 @@
         <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="home-icon"></a>
     </div>
 
-    <div class="expanded-navbar">
-        <a mat-button *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active"
-            class="expanded-navbar-items">
+    <div class="expanded-toolbar">
+        <a mat-fab extended color="transparent-tertiary" *ngFor="let item of menuItems()" [routerLink]="item.route"
+            routerLinkActive="active" class="expanded-toolbar-items">
             <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-            <div class="menuItems" matListItemTitle>{{item.label}}</div>
+            {{item.label}}
         </a>
     </div>
 
     <span class="example-spacer"></span>
 
-    <div class="collapsed-navbar">
+    <div class="collapsed-toolbar">
         <button mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu">
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
             <a mat-menu-item *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive="active">
                 <mat-icon>{{item.icon}}</mat-icon>
-                <div>{{item.label}}</div>
+                {{item.label}}
             </a>
         </mat-menu>
     </div>
@@ -29,19 +29,19 @@
         <mat-icon *ngIf="themeService.currentTheme() == 'dark'">dark_mode</mat-icon>
         <mat-icon *ngIf="themeService.currentTheme() == 'light'">light_mode</mat-icon>
     </button>
-    <a mat-flat-button class="logout-extended">
+    <a mat-flat-button color="error" class="logout-extended">
         <mat-icon>logout</mat-icon>
         <div class="text">Log Out</div>
     </a>
-    <a mat-mini-fab class="logout-mini">
+    <a mat-mini-fab color="error" class="logout-mini">
         <mat-icon>logout</mat-icon>
     </a>
 </mat-toolbar> -->
 
 <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="my-header-bs">
     <div class="container-fluid">
-        <div class="home-section-bs">
-            <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="home-icon-bs"></a>
+        <div class="logo-section-bs">
+            <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="logo-icon-bs"></a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +67,7 @@
                 </li>
             </ul>
             <div class="navbar-right">
+                <div class="custom-border-horizontal collapsed-bottom"></div>
                 <button class="btn btn-light" id="add-to-cart" type="button" [routerLink]="'basket'"
                     routerLinkActive="active">
                     <i class="bi bi-cart-check" style="font-size: 25px;"></i>

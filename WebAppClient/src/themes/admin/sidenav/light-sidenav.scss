@@ -1,0 +1,62 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+html {
+    // Sidenav Container-Content Colors (Container: Entire sidenav. Content is right partition of that.)
+    @include mat.sidenav-overrides(
+        (
+            container-background-color: var(--light-background),
+            content-background-color: var(--gray-background)
+        )
+    );
+
+    // Inactive Item Text-Icon Normal State Colors
+    .mat-mdc-list-item {
+        .mat-mdc-list-item-title {
+            color: var(--dark-text);
+        }
+        .mdc-list-item__start {
+            color: var(--dark-text);
+        }
+    }
+
+    // Inactive Item Text-Icon Hover State Colors
+    .mat-mdc-list-item:hover {
+        .mat-mdc-list-item-title {
+            color: var(--primary-bg);
+        }
+        .mdc-list-item__start {
+            color: var(--primary-bg);
+        }
+    }
+
+    // Active Item Background Color
+    .mat-mdc-nav-list .mat-mdc-list-item.mdc-list-item--activated {
+        background-color: var(--primary-bg-lightBG);
+        opacity: 0.9;
+    }
+
+    // Active Item Text Color
+    .mdc-list-item--activated {
+        .mat-mdc-list-item-title {
+            color: var(--white-text);
+        }
+        &:hover {
+            .mat-mdc-list-item-title {
+                color: var(--white-text);
+            }
+        }
+    }
+
+    // Active Item Icon Color
+    .mdc-list-item--activated {
+        .mdc-list-item__start {
+            color: var(--white-text);
+        }
+        &:hover {
+            .mdc-list-item__start {
+                color: var(--white-text);
+            }
+        }
+    }
+}
