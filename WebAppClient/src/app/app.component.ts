@@ -1,11 +1,12 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 
-export interface MenuItem {
-  icon: string;
-  label: string;
-  route: string;
-}
+// export interface MenuItem {
+//   icon: string;
+//   label: string;
+//   route: string;
+// }
 
 @Component({
   selector: 'app-root',
@@ -17,26 +18,31 @@ export interface MenuItem {
 export class AppComponent {
   readonly themeService = inject(ThemeService);
 
-  menuItems = signal<MenuItem[]>([
-    {
-      icon: 'home',
-      label: 'Home',
-      route: 'home',
-    },
-    {
-      icon: 'category',
-      label: 'Products',
-      route: 'products',
-    },
-    {
-      icon: 'shopping_cart',
-      label: 'Basket',
-      route: 'basket',
-    },
-    {
-      icon: 'admin_panel_settings',
-      label: 'Admin',
-      route: 'admin',
-    },
-  ]);
+  constructor(private toastrService: CustomToastrService) { }
+
+
+
+
+  // menuItems = signal<MenuItem[]>([
+  //   {
+  //     icon: 'home',
+  //     label: 'Home',
+  //     route: 'home',
+  //   },
+  //   {
+  //     icon: 'category',
+  //     label: 'Products',
+  //     route: 'products',
+  //   },
+  //   {
+  //     icon: 'shopping_cart',
+  //     label: 'Basket',
+  //     route: 'basket',
+  //   },
+  //   {
+  //     icon: 'admin_panel_settings',
+  //     label: 'Admin',
+  //     route: 'admin',
+  //   },
+  // ]);
 }

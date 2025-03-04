@@ -5,6 +5,8 @@
 
 @use "./layout/toolbar/light-toolbar.scss" as layout-light-toolbar;
 @use "./layout/buttons/light-bs-buttons.scss";
+@use "./layout/toastr/light-toastr.scss";
+@use "./layout/toastr/dark-toastr.scss";
 
 html {
     // Primary Color
@@ -17,14 +19,18 @@ html {
     --primary-bg-lightBG: rgb(50, 73, 112);
     // Dark-BG
     --primary-bg-lighter-lighter: rgb(66, 110, 185);
+    --primary-bg-lighter-transparent: rgb(43, 74, 126, 0.9);
     --primary-bg-lighter: rgb(43, 74, 126);
     --primary-bg: rgb(37, 63, 107);
     --primary-bg-dark: rgb(32, 54, 94);
+    --primary-bg-transparent: rgb(37, 63, 107, 0.8);
+    --primary-bg-more-transparent: rgb(37, 63, 107, 0.7);
 
     // Light Text - Dark Background
     --light-text: rgb(230, 238, 255);
     --light-darker-text: rgb(215, 221, 233);
     --light-text-transparent: rgb(230, 238, 255, 0.8);
+    --light-text-more-transparent: rgb(230, 238, 255, 0.6);
     --white-text: rgb(255, 255, 255);
 
     // Light Background Colors
@@ -49,6 +55,15 @@ html {
     --yellow-1: rgba(252, 255, 66, 0.8);
     --yellow-1-darker: rgba(200, 202, 52, 0.8);
     --yellow-1-pale: rgba(253, 255, 134, 0.6);
+
+    // Teal Colour Scale
+    --teal-lighter-pale-transparent: rgb(73, 173, 173, 0.6);
+    --teal-lighter-pale: rgb(73, 173, 173);
+    --teal-lighter: rgb(0, 170, 170);
+    --teal: rgb(0, 128, 128);
+    --teal-darker: rgb(0, 94, 94);
+    --teal-darker-pale: rgb(33, 92, 92);
+    --teal-pale: rgb(58, 134, 134);
 
     // Theme Main Tertiary(third) Color
     --tertiary: rgb(87, 62, 92);
@@ -81,6 +96,7 @@ html {
     --success-bg-hover-lighter: rgba(54, 145, 84, 0.5);
 
     // Warning
+    --warning-bg-vivid: rgb(230, 116, 11);
     --warning-bg: rgb(196, 96, 53);
     --warning-bg-darker: rgb(173, 85, 47);
     --warning-bg-hover: rgb(196, 96, 53, 0.8);

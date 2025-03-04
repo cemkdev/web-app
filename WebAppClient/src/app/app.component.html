@@ -41,7 +41,10 @@
 <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="my-header-bs">
     <div class="container-fluid">
         <div class="logo-section-bs">
-            <a href="/"><img src="web-app-logo.png" alt="web-app-icon" class="logo-icon-bs"></a>
+            <a href="/"><img src="web-app-logo-dark.png" alt="web-app-icon" class="logo-icon-bs"
+                    *ngIf="themeService.currentTheme() == 'light'"></a>
+            <a href="/"><img src="web-app-logo-light.png" alt="web-app-icon" class="logo-icon-bs"
+                    *ngIf="themeService.currentTheme() == 'dark'"></a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,15 +73,18 @@
                 <div class="custom-border-horizontal collapsed-bottom"></div>
                 <button class="btn btn-light" id="add-to-cart" type="button" [routerLink]="'basket'"
                     routerLinkActive="active">
-                    <i class="bi bi-cart-check" style="font-size: 25px;"></i>
+                    <i class="bi bi-cart-check"></i>
                 </button>
-                <button class="btn btn-outline-secondary" id="theme-toggle-button" (click)="themeService.toggleTheme()"
-                    style="font-size: 21px; margin-right: 5px;">
+                <button class="btn btn-outline-secondary" id="theme-toggle-button" (click)="themeService.toggleTheme()">
                     <i class="bi bi-brightness-high-fill" *ngIf="themeService.currentTheme() == 'light'"></i>
                     <i class="bi bi-moon-fill" *ngIf="themeService.currentTheme() == 'dark'"></i>
                 </button>
-                <button class="btn btn-danger log-out" type="button">
-                    <i class="bi bi-box-arrow-right"></i>Log Out
+
+                <button class="btn custom-login" type="button">
+                    <i class="bi bi-box-arrow-in-right"></i>Sign Up
+                </button>
+                <button class="btn custom-logout" type="button">
+                    Sign Out<i class="bi bi-box-arrow-right"></i>
                 </button>
             </div>
         </div>

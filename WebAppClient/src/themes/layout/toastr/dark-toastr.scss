@@ -1,0 +1,14 @@
+[data-bs-theme="dark"] {
+    #toast-container .toast-success {
+        background-color: var(--success-bg);
+    }
+    #toast-container .toast-info {
+        background-color: var(--notify-bg);
+    }
+    #toast-container .toast-warning {
+        background-color: var(--warning-bg-vivid);
+    }
+    #toast-container .toast-error {
+        background-color: var(--error-bg);
+    }
+}

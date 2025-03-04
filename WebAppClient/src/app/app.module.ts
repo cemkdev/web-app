@@ -14,6 +14,9 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { RouterModule } from '@angular/router';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,7 +26,10 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     AdminModule, UiModule,
     MatIconModule, MatButtonModule, MatToolbarModule, MatMenuModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
+
   ],
   providers: [
     provideAnimationsAsync()

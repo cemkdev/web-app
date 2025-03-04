@@ -119,11 +119,12 @@
   display: flex;
   justify-content: space-between;
   padding: 0;
+  padding-right: 0px;
 }
 
-// Expanded Navbar margin-left for starting alignment
+// Navbar margin-left for starting alignment
 #my-header-bs .expanded-navbar-bs {
-  margin-left: 70px;
+  margin-left: 30px;
 }
 
 // Logo area adjustments
@@ -131,34 +132,35 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
-  height: 65px;
-  width: 140px;
-  padding: 0;
+  height: 60px;
+  width: 200px;
+  padding-left: 15px;
   margin-bottom: 0px;
-  margin-left: 35px;
+  margin-left: 15px;
 }
 
 // Logo icon adjustments in logo area
 .logo-icon-bs {
   object-fit: contain;
-  object-position: 15px;
+  object-position: 5px;
   width: 120px;
   height: auto;
   transform: scale(1.4);
   margin-right: 10%;
-  padding-bottom: 25px;
+  padding-bottom: 0;
 }
 
 // Medium and small screens 'Logo area' and 'toggle-navbar button' adjustments
 @media (max-width: 960px) {
   .logo-section-bs {
-    width: 160px;
-    margin-bottom: 10px;
-    margin-left: 45px;
+    height: 60px;
+    width: 200px;
+    margin-bottom: 0px;
+    margin-left: 15px;
   }
   .logo-icon-bs {
-    width: 140px;
-    object-position: 7px;
+    width: 120px;
+    object-position: 5px;
   }
   .navbar-toggler {
     margin-right: 25px;
@@ -171,6 +173,10 @@
   font-size: small;
   padding-top: 10px;
   box-shadow: 10px 5px 15px 2px rgba(0, 0, 0, 0.1);
+
+  .expanded-navbar-bs {
+    margin-left: 70px !important;
+  }
 
   .navbar-right {
     margin-top: 30px;
@@ -270,12 +276,15 @@
   .custom-border-horizontal.collapsed-bottom {
     display: block;
     margin-bottom: 15px;
-    width: 95%;
+    width: 98%;
   }
 }
 
 // Button adjustments that redirect to the Admin Panel
 #go-admin-panel {
+  .bi {
+    margin-right: 10px;
+  }
   margin-left: 12px;
   border-radius: 5px !important;
   &:hover {
@@ -301,9 +310,11 @@
 
 // Add-to-cart button adjustments
 #add-to-cart {
+  .bi {
+    font-size: 25px;
+  }
   border-radius: 10px !important;
   padding: 2px 20px;
-  padding-right: 10px;
   border: none;
   box-shadow: 0 1px 2px rgba(73, 73, 73, 0.1);
   &:hover {
@@ -318,8 +329,11 @@
 
 // Theme toggle button adjusments
 #theme-toggle-button {
+  font-size: 21px;
+  //margin-right: 5px;
   border: none !important;
-  padding-right: 2px;
+  padding-right: 12px;
+  border-radius: 10px !important;
   &:hover {
     border-radius: 10px !important;
     transform: translateY(-2px) !important; /* 5px up on the Y-axis */
@@ -327,7 +341,6 @@
   }
 }
 
-// Log-out button adjustments
-.log-out {
-  margin-right: 25px;
+.navbar-right {
+  margin-right: 15px;
 }
