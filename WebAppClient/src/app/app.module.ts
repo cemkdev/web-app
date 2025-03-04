@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -28,8 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatIconModule, MatButtonModule, MatToolbarModule, MatMenuModule,
     RouterModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
-
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
     provideAnimationsAsync()
