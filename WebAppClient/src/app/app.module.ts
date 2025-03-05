@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgxSpinnerModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: "baseUrl", useValue: "https://localhost:7198/api", multi: true },
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })

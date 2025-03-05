@@ -6,8 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
 builder.Services.AddPersistenceServices();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-    policy.WithOrigins("http://localhost:4200/", "https://localhost:4200/").AllowAnyHeader().AllowAnyMethod()
+    policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod()
 ));
+//builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+//    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
+//));
 
 builder.Services.AddControllers();
 

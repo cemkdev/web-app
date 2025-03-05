@@ -51,6 +51,7 @@ namespace WebAppAPI.Persistence.Repositories
             return Remove(model); // The above Remove method.
         }
 
+        // When we update a tracked entity, the EF Tracking mechanism will already recognize it as an update, and calling SaveAsync will be enough. The Update method here is actually for operations where the entity is not being tracked.
         public bool Update(T model)
         {
             EntityEntry<T> entityEntry = Table.Update(model);

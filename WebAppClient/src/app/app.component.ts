@@ -1,7 +1,6 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-declare var $: any;
 
 // export interface MenuItem {
 //   icon: string;
@@ -47,7 +46,3 @@ export class AppComponent {
   //   },
   // ]);
 }
-
-$.get("https://localhost:7198/api/product", data => {
-  console.log(data);
-});

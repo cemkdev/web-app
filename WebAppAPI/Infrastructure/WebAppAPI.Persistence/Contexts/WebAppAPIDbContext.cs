@@ -31,7 +31,8 @@ namespace WebAppAPI.Persistence.Contexts
                 var _ = item.State switch
                 {
                     EntityState.Added => item.Entity.DateCreated = DateTime.UtcNow,
-                    EntityState.Modified => item.Entity.DateUpdated = DateTime.UtcNow
+                    EntityState.Modified => item.Entity.DateUpdated = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
                 };
             }
 
