@@ -1,9 +1,9 @@
 // Basic: mat-button
 html {
     .mat-mdc-button.mat-message {
-        color: var(--dark-text);
+        color: var(--light-text);
         &:hover {
-            color: var(--dark-text);
+            color: var(--light-text);
             background-color: var(--message-bg-hover-lighter);
         }
     }
@@ -57,6 +57,13 @@ html {
 
 // Raised: mat-raised-button
 html {
+    .mdc-button--raised.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg-lighter-lighter);
+        &:hover {
+            background-color: var(--primary-bg-electric);
+        }
+    }
     .mdc-button--raised.mat-message {
         color: var(--dark-text);
         background-color: var(--message-bg);
@@ -110,6 +117,13 @@ html {
 
 // Stroked: mat-stroked-button
 html {
+    .mdc-button--outlined.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-lighter);
+        }
+    }
     .mdc-button--outlined.mat-message {
         color: var(--dark-text);
         background-color: var(--message-bg);
@@ -163,6 +177,13 @@ html {
 
 // Flat: mat-flat-button
 html {
+    .mdc-button--unelevated.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-lighter);
+        }
+    }
     .mdc-button--unelevated.mat-message {
         color: var(--dark-text);
         background-color: var(--message-bg);
@@ -216,6 +237,16 @@ html {
 
 // Fab: mat-fab
 html {
+    .mat-mdc-fab.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-lighter);
+        }
+    }
     .mat-mdc-fab.mat-message {
         mat-icon {
             color: var(--dark-text);
@@ -290,6 +321,16 @@ html {
 
 // Mini Fab: mat-mini-fab
 html {
+    .mdc-fab--mini.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-lighter);
+        }
+    }
     .mdc-fab--mini.mat-message {
         mat-icon {
             color: var(--dark-text);
@@ -364,6 +405,16 @@ html {
 
 // Extended Fab: mat-fab extended
 html {
+    .mdc-fab--extended.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-lighter);
+        }
+    }
     .mdc-fab--extended.mat-message {
         mat-icon {
             color: var(--dark-text);

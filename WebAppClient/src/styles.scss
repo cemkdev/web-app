@@ -8,6 +8,14 @@
 
 @include mat.core();
 
+html {
+  @include mat.theme(
+    (
+      color: mat.$azure-palette
+    )
+  );
+}
+
 $light-theme: mat.define-theme(
   (
     color: ()

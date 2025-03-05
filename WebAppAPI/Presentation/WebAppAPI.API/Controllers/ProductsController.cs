@@ -43,7 +43,6 @@ namespace WebAppAPI.API.Controllers
                 Stock = model.Stock,
                 Price = model.Price
             });
-
             await _productWriteRepository.SaveAsync();
 
             return StatusCode((int)HttpStatusCode.Created);
