@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\WebAppAPI.Application\WebAppAPI.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\WebAppAPI.Infrastructure\WebAppAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\WebAppAPI.Persistence\WebAppAPI.Persistence.csproj" />
   </ItemGroup>
 

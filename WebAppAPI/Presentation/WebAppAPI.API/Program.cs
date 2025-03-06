@@ -1,3 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using WebAppAPI.Application.Validators.Products;
+using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,18 +13,15 @@ builder.Services.AddPersistenceServices();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod()
 ));
-//builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-//    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
-//));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductCreateValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // It printed as GMT '+3+3'. Use 'UtcNow' in the relevant place instead.
 
 if (app.Environment.IsDevelopment())
 {
