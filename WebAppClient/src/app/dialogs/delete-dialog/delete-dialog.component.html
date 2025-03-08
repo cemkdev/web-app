@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Warning!</h2>
+<mat-dialog-content>
+    <p>Would you like to delete?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="error" [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>

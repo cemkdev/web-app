@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, output } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { Create_Product } from '../../../../contracts/create_product';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
@@ -17,6 +17,8 @@ export class CreateComponent extends BaseComponent {
     super(spinner)
   }
 
+  @Output() createdProduct = new EventEmitter<Create_Product>();
+
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
 
     this.showSpinner(SpinnerType.BallAtom);
@@ -26,33 +28,6 @@ export class CreateComponent extends BaseComponent {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
-
-    if (!name.value) {
-      this.alertify.message("Please enter a 'Product' name", {
-        dismissOthers: true,
-        messageType: MessageType.Error,
-        position: Position.TopRight
-      });
-      return;
-    }
-    if (!stock.value) {
-      this.alertify.message("Please enter a proper 'Stock' value", {
-        dismissOthers: true,
-        messageType: MessageType.Error,
-        position: Position.TopRight
-      });
-      return;
-    }
-    if (!price.value) {
-      this.alertify.message("Please enter a proper 'Price' value", {
-        dismissOthers: true,
-        messageType: MessageType.Error,
-        position: Position.TopRight
-      });
-      return;
-    }
-
-
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallAtom);
       this.alertify.message("The product has been successfully added.", {
@@ -60,7 +35,9 @@ export class CreateComponent extends BaseComponent {
         messageType: MessageType.Success,
         position: Position.TopRight
       });
+      this.createdProduct.emit(create_product);
     }, errorMessage => {
+      this.hideSpinner(SpinnerType.BallAtom);
       this.alertify.message(errorMessage, {
         dismissOthers: true,
         messageType: MessageType.Error,

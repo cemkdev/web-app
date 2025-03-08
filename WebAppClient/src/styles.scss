@@ -11,7 +11,10 @@
 html {
   @include mat.theme(
     (
-      color: mat.$azure-palette
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette
+      )
     )
   );
 }
