@@ -7,6 +7,7 @@ import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/
 import { HttpClientService } from '../../services/common/http-client.service';
 import { AlertifyService, MessageType, Position } from '../../services/admin/alertify.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from '../../services/common/dialog.service';
 
 declare var $: any;
 
@@ -24,53 +25,61 @@ export class DeleteDirective {
     private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     private alertifyService: AlertifyService,
-    readonly dialog: MatDialog
+    readonly dialog: MatDialog,
+    private dialogService: DialogService
   ) { }
 
   // DELETE
   @HostListener("click")
   async onclick() {
-    this.openDialog(async () => {
-      this.spinner.show(SpinnerType.BallAtom);
-      const btn: HTMLButtonElement = this.element.nativeElement;
-      //await this.productService.delete(btn.parentElement.id);
-      this.httpClientService.delete({
-        controller: this.controller
-      }, btn.parentElement.id).subscribe(data => {
-        $(btn.parentElement.parentElement).animate({
-          left: '100%'
-        }, 300, () => {
-          $(btn.parentElement.parentElement).fadeOut(100, () => {
-            this.callback.emit();
-            this.alertifyService.message("Item has been successfully deleted.", {
-              dismissOthers: true,
-              messageType: MessageType.Success,
-              position: Position.TopRight
-            })
+
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
+        this.spinner.show(SpinnerType.BallAtom);
+        const btn: HTMLButtonElement = this.element.nativeElement;
+        //await this.productService.delete(btn.parentElement.id);
+        this.httpClientService.delete({
+          controller: this.controller
+        }, btn.parentElement.id).subscribe(data => {
+          $(btn.parentElement.parentElement).animate({
+            left: '100%'
+          }, 300, () => {
+            $(btn.parentElement.parentElement).fadeOut(100, () => {
+              this.callback.emit();
+              this.alertifyService.message("Item has been successfully deleted.", {
+                dismissOthers: true,
+                messageType: MessageType.Success,
+                position: Position.TopRight
+              })
+            });
           });
+        }, (errorResponse: HttpErrorResponse) => {
+          this.spinner.hide(SpinnerType.BallAtom);
+          this.alertifyService.message("An error occurred and 'item' could not be deleted.", {
+            dismissOthers: true,
+            messageType: MessageType.Error,
+            position: Position.TopRight
+          })
         });
-      }, (errorResponse: HttpErrorResponse) => {
-        this.spinner.hide(SpinnerType.BallAtom);
-        this.alertifyService.message("An error occurred and Item could not be deleted.", {
-          dismissOthers: true,
-          messageType: MessageType.Error,
-          position: Position.TopRight
-        })
-      });
-    });
-  }
-
-  // Delete-Dialog
-  openDialog(afterClosed: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: 'auto',
-      data: DeleteState.Yes
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == DeleteState.Yes) {
-        afterClosed();
       }
     });
   }
+
+
+
+  // // Delete-Dialog
+  // openDialog(afterClosed: any): void {
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     width: 'auto',
+  //     data: DeleteState.Yes
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result == DeleteState.Yes) {
+  //       afterClosed();
+  //     }
+  //   });
+  // }
 }

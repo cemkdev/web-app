@@ -19,13 +19,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { provideHttpClient } from '@angular/common/http';
 
-//import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
-//import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
-
 @NgModule({
   declarations: [
-    AppComponent,
-    //DeleteDialogComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +31,7 @@ import { provideHttpClient } from '@angular/common/http';
     RouterModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule,
-    //MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose
+    NgxSpinnerModule
   ],
   providers: [
     provideAnimationsAsync(),

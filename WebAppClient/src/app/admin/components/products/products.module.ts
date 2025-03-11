@@ -16,8 +16,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 
 import { DeleteDirective } from '../../../directives/admin/delete.directive';
-import { DeleteDialogComponent } from '../../../dialogs/delete-dialog/delete-dialog.component';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { DialogModule } from '../../../dialogs/dialog.module';
+import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
     CreateComponent,
     ListComponent,
     DeleteDirective,
-    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +33,8 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
     ]),
     MatSidenavModule, MatInputModule, MatFormFieldModule, MatButtonModule,
     MatTableModule, MatPaginatorModule, MatIconModule,
-    MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose // MatDialog
+    FileUploadModule,
+    DialogModule
   ]
 })
 export class ProductsModule { }
