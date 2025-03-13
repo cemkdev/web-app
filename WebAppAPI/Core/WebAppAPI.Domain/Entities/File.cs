@@ -12,6 +12,7 @@ namespace WebAppAPI.Domain.Entities
     {
         public string FileName { get; set; }
         public string Path { get; set; }
+        public string Storage { get; set; }
 
         [NotMapped]
         public override DateTime DateUpdated { get => base.DateUpdated; set => base.DateUpdated = value; }
