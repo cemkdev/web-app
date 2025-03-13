@@ -98,7 +98,7 @@ namespace WebAppAPI.Infrastructure.Services
                 string fileNewName = await FileRenameAsync(uploadPath, file.FileName);
                 bool result = await CopyFileAsync($"{uploadPath}\\{fileNewName}", file);
 
-                data.Add((fileNewName, $"{uploadPath}\\{fileNewName}"));
+                data.Add((fileNewName, $"{path}\\{fileNewName}"));
                 results.Add(result);
             }
 

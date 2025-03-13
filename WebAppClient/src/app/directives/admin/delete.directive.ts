@@ -55,6 +55,7 @@ export class DeleteDirective {
               })
             });
           });
+          this.spinner.hide(SpinnerType.BallAtom);
         }, (errorResponse: HttpErrorResponse) => {
           this.spinner.hide(SpinnerType.BallAtom);
           this.alertifyService.message("An error occurred and 'item' could not be deleted.", {
