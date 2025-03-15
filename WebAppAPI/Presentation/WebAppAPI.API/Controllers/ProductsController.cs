@@ -116,7 +116,7 @@ namespace WebAppAPI.API.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Upload()
         {
-            var data = await _storageService.UploadAsync("resource/files", Request.Form.Files);
+            var data = await _storageService.UploadAsync("files", Request.Form.Files);
 
             //var data = await _fileService.UploadAsync("resource/files", Request.Form.Files);
 

@@ -4,7 +4,7 @@ using WebAppAPI.Application.Abstractions.Storage.Local;
 
 namespace WebAppAPI.Infrastructure.Services.Storage.Local
 {
-    public class LocalStorage : ILocalStorage
+    public class LocalStorage : Storage, ILocalStorage
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -51,14 +51,13 @@ namespace WebAppAPI.Infrastructure.Services.Storage.Local
                 Directory.CreateDirectory(uploadPath);
 
             List<(string fileName, string path)> data = new();
-
             foreach (IFormFile file in files)
             {
-                await CopyFileAsync($"{uploadPath}\\{file.Name}", file);
+                string formattedFileName = await FormatFileNameAsync(uploadPath, file.Name, HasFile);
 
-                data.Add((file.Name, $"{path}\\{file.Name}"));
+                await CopyFileAsync($"{uploadPath}\\{formattedFileName}", file);
+                data.Add((formattedFileName, $"{path}\\{formattedFileName}"));
             }
-
             return data;
 
             //todo Eğer ki yukarıdaki if geçerli değilse, burada, dosyaların sunucuda yüklenirken hata alındığına dair uyarıcı bir exception oluşturulup fırlatılması gerekiyor.

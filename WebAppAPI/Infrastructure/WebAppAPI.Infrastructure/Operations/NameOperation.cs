@@ -25,7 +25,7 @@ namespace WebAppAPI.Infrastructure.Operations
 
             return name;
 
-            //todo Burada her dönüşüm yapıldığında yeni string oluşturuluyor. Bunları daha maliyetsiz string düzenleme yöntemleri ile güncelle. Burada ek olarak birden fazla boşluk art arda geliyorsa ("     " şeklinde) veya birden fazla tire ("-----" şeklinde), bunları da kontrol et. Ayrıca tarih eklemesi yapılarak sonuna milisaniyeye kadar, bu da FileRenameAsync() method'undaki sorunu çözebilir. Düşük de olsa aynı denk gelme ihtimaline karşı o method'da o da kontrol edilebilir. Ancak sonuncu haricindekilere bir artırarak numara eklemek güzel ve daha önce çıkmış bir algoritma sorusuydu bu sebeple bunu çözülmesi daha yarayışlı olacaktır.
+            //todo Burada her dönüşüm yapıldığında yeni string oluşturuluyor. Bunları daha maliyetsiz string düzenleme yöntemleri ile güncelle.
         }
     }
 }

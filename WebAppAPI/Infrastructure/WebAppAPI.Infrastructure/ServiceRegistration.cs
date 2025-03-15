@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Abstractions.Storage;
 using WebAppAPI.Infrastructure.Enums;
-using WebAppAPI.Infrastructure.Services;
 using WebAppAPI.Infrastructure.Services.Storage;
+using WebAppAPI.Infrastructure.Services.Storage.Azure;
 using WebAppAPI.Infrastructure.Services.Storage.Local;
 
 namespace WebAppAPI.Infrastructure
@@ -19,7 +14,7 @@ namespace WebAppAPI.Infrastructure
             serviceCollection.AddScoped<IStorageService, StorageService>();
         }
 
-        public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : class, IStorage
+        public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
         {
             serviceCollection.AddScoped<IStorage, T>();
         }
@@ -32,7 +27,7 @@ namespace WebAppAPI.Infrastructure
                     serviceCollection.AddScoped<IStorage, LocalStorage>();
                     break;
                 case StorageType.Azure:
-                    //serviceCollection.AddScoped<IStorage, AzureStorage>();
+                    serviceCollection.AddScoped<IStorage, AzureStorage>();
                     break;
                 case StorageType.AWS:
                     //serviceCollection.AddScoped<IStorage, AWSStorage>();
