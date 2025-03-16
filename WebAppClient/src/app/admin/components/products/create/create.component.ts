@@ -14,17 +14,15 @@ import { FileUploadOptions } from '../../../../services/common/file-upload/file-
 })
 export class CreateComponent extends BaseComponent {
 
-  constructor(spinner: NgxSpinnerService, private productService: ProductService, private alertify: AlertifyService) {
+  constructor(
+    spinner: NgxSpinnerService,
+    private productService: ProductService,
+    private alertify: AlertifyService
+  ) {
     super(spinner)
   }
 
   @Output() createdProduct = new EventEmitter<Create_Product>();
-  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
-    controller: "products",
-    action: "upload",
-    isAdminPage: true,
-    accept: ".png, .jpg, .jpeg, .pdf, .json, .txt"
-  }
 
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
 

@@ -13,7 +13,6 @@ export class DialogService {
   ) { }
 
   openDialog(dialogParameters: Partial<DialogParameters>): void {
-    debugger;
     const dialogRef = this.dialog.open(dialogParameters.componentType, {
       width: dialogParameters.options?.width,
       height: dialogParameters.options?.height,

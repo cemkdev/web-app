@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAppAPI.Persistence.Contexts;
@@ -11,9 +12,10 @@ using WebAppAPI.Persistence.Contexts;
 namespace WebAppAPI.Persistence.Migrations
 {
     [DbContext(typeof(WebAppAPIDbContext))]
-    partial class WebAppAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315234702_mig_5")]
+    partial class mig_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,21 +37,6 @@ namespace WebAppAPI.Persistence.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("OrderProduct");
-                });
-
-            modelBuilder.Entity("ProductProductImageFile", b =>
-                {
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductImageFilesId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("ProductId", "ProductImageFilesId");
-
-                    b.HasIndex("ProductImageFilesId");
-
-                    b.ToTable("ProductProductImageFile");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
@@ -176,6 +163,11 @@ namespace WebAppAPI.Persistence.Migrations
                 {
                     b.HasBaseType("WebAppAPI.Domain.Entities.File");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("ProductId");
+
                     b.HasDiscriminator().HasValue("ProductImageFile");
                 });
 
@@ -194,21 +186,6 @@ namespace WebAppAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductProductImageFile", b =>
-                {
-                    b.HasOne("WebAppAPI.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebAppAPI.Domain.Entities.ProductImageFile", null)
-                        .WithMany()
-                        .HasForeignKey("ProductImageFilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Order", b =>
                 {
                     b.HasOne("WebAppAPI.Domain.Entities.Customer", "Customer")
@@ -220,9 +197,25 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.ProductImageFile", b =>
+                {
+                    b.HasOne("WebAppAPI.Domain.Entities.Product", "Product")
+                        .WithMany("ProductImageFiles")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("ProductImageFiles");
                 });
 #pragma warning restore 612, 618
         }

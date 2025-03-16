@@ -86,64 +86,7 @@ export class FileUploadComponent {
         });
       }
     })
-
-
-    //this.openDialog(
-    // () => {
-    //   this.httpClientService.post({
-    //     controller: this.options.controller,
-    //     action: this.options.action,
-    //     queryString: this.options.queryString,
-    //     headers: new HttpHeaders({ "responseType": "blob" })
-    //   }, fileData).subscribe(data => {
-    //     const successMessage: string = "The files have been successfully uploaded.";
-
-    //     if (this.options.isAdminPage) {
-    //       this.alertifyService.message(successMessage, {
-    //         dismissOthers: true,
-    //         messageType: MessageType.Success,
-    //         position: Position.TopRight
-    //       })
-    //     } else {
-    //       this.customToastrService.message(successMessage, "Great!", {
-    //         messageType: ToastrMessageType.Success,
-    //         position: ToastrPosition.TopRight
-    //       });
-    //     }
-    //   }, (errorResponse: HttpErrorResponse) => {
-    //     const errorMessage: string = "An error occurred and files could not be uploaded.";
-
-    //     if (this.options.isAdminPage) {
-    //       this.alertifyService.message(errorMessage, {
-    //         dismissOthers: true,
-    //         messageType: MessageType.Error,
-    //         position: Position.TopRight
-    //       })
-    //     } else {
-    //       this.customToastrService.message(errorMessage, "Oops!", {
-    //         messageType: ToastrMessageType.Error,
-    //         position: ToastrPosition.TopRight
-    //       });
-    //     }
-    //   });
-    // }
-    //);
   }
-
-  // // FileUpload-Dialog
-  // openDialog(afterClosed: any): void {
-  //   const dialogRef = this.dialog.open(FileUploadDialogComponent, {
-  //     width: 'auto',
-  //     data: FileUploadDialogState.Yes
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result == FileUploadDialogState.Yes) {
-  //       afterClosed();
-  //     }
-  //   });
-  // }
-
 }
 
 export class FileUploadOptions {

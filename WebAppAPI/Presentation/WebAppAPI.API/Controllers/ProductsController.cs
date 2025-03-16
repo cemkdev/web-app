@@ -114,38 +114,36 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Upload()
+        public async Task<IActionResult> Upload(string id)
         {
-            var data = await _storageService.UploadAsync("files", Request.Form.Files);
+            List<(string fileName, string pathOrContainerName)> data = await _storageService.UploadAsync("images", Request.Form.Files);
 
-            //var data = await _fileService.UploadAsync("resource/files", Request.Form.Files);
+            Product product = await _productReadRepository.GetByIdAsync(id);
 
-            await _productImageFileWriteRepository.AddRangeAsync(data.Select(d => new ProductImageFile()
+            //// Bu da Product'ın ilişkisel olan navigation property'si üzerinden Add() diyerek döne döne foreach ile elimizdeki bütün ProductImageFile'leri eklenmesi yöntemi.
+            //// Ama biz alttaki yöntemi kullanacağız.
+            //foreach (var file in data)
+            //{
+            //    product.ProductImageFiles.Add(new()
+            //    {
+            //        FileName = file.fileName,
+            //        Path = file.pathOrContainerName,
+            //        Storage = _storageService.StorageName,
+            //        Product = new List<Product>() { product }
+            //    });
+            //}
+
+            // Bu da ProductImageFile üzerinden onlar eklenirken Product'ların var olan AddRangeAsync() method'umuzla eklenmesi.
+            // Yani bu açıklama tam doğru oldu mu bilmiyorum ama bunun gibi bir şey.
+            await _productImageFileWriteRepository.AddRangeAsync(data.Select(d => new ProductImageFile
             {
                 FileName = d.fileName,
                 Path = d.pathOrContainerName,
-                Storage = _storageService.StorageName
+                Storage = _storageService.StorageName,
+                Product = new List<Product>() { product }
             }).ToList());
+
             await _productImageFileWriteRepository.SaveAsync();
-
-            //await _invoiceFileWriteRepository.AddRangeAsync(data.Select(d => new InvoiceFile()
-            //{
-            //    FileName = d.fileName,
-            //    Path = d.path,
-            //    Price = new Random().Next()
-            //}).ToList());
-            //await _invoiceFileWriteRepository.SaveAsync();
-
-            //await _fileWriteRepository.AddRangeAsync(data.Select(d => new Domain.Entities.File()
-            //{
-            //    FileName = d.fileName,
-            //    Path = d.path
-            //}).ToList());
-            //await _fileWriteRepository.SaveAsync();
-
-            //var d1 = _fileReadRepository.GetAll(false);
-            //var d2 = _invoiceFileReadRepository.GetAll(false);
-            //var d3 = _productImageFileReadRepository.GetAll(false);
 
             return Ok();
         }

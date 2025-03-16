@@ -53,7 +53,7 @@ namespace WebAppAPI.Infrastructure.Services.Storage.Azure
 
                 BlobClient blobClient = _blobContainerClient.GetBlobClient(formattedFileName);
                 await blobClient.UploadAsync(file.OpenReadStream());
-                data.Add((formattedFileName, containerName));
+                data.Add((formattedFileName, $"{containerName}/{formattedFileName}"));
             }
             return data;
         }
