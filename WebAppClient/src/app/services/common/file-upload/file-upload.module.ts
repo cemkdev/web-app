@@ -6,6 +6,8 @@ import { FileUploadDialogComponent } from '../../../dialogs/file-upload-dialog/f
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     FileUploadComponent,
@@ -15,7 +17,8 @@ import { MatDialogModule, MatDialogActions, MatDialogClose, MatDialogContent, Ma
     CommonModule,
     NgxFileDropModule,
     MatButtonModule,
-    MatDialogModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, // MatDialog
+    MatDialogModule, //MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, // MatDialog
+    MatIconModule
   ],
   exports: [
     FileUploadComponent

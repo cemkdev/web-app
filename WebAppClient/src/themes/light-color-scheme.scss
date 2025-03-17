@@ -9,6 +9,15 @@
 @use "./layout/toastr/dark-toastr.scss";
 
 html {
+    // Shadows
+    --shadow-darker: rgba(0, 0, 0, 0.1);
+    --shadow: rgba(0, 0, 0, 0.2);
+    --shadow-hover: rgba(0, 0, 0, 0.6);
+    --shadow-full-specs: 0 8px 12px rgba(0, 0, 0, 0.2);
+    --shadow-full-specs-soft: 0 1px 2px var(--shadow);
+    --shadow-full-specs-softer: 0 2px 4px var(--shadow-darker);
+    --shadow-full-specs-toTop: 0 -2px 4px var(--shadow-darker);
+
     // Primary Color
     --primary-text: rgb(38, 67, 116);
     --primary-text-dark: rgb(18, 43, 95);
@@ -27,6 +36,13 @@ html {
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.7);
 
+    // Dynamic Text Color
+    --dynamic-text: var(--dark-text);
+    --dynamic-text-transparent: var(--dark-text-lighter);
+    // Dynamic Background Color
+    --dynamic-bg: var(--light-background);
+    --dynamic-bg-hover: var(--gray-background-transparent);
+
     // Light Text - Dark Background
     --light-text: rgb(230, 238, 255);
     --light-darker-text: rgb(215, 221, 233);
@@ -37,6 +53,7 @@ html {
     // Light Background Colors
     --light-background: rgb(249 249 255);
     --gray-background: rgb(224 226 236);
+    --gray-background-transparent: rgb(224, 226, 236, 0.4);
     --light-background-bs-navbar: rgb(230, 217, 233);
     --light-background-bs-navbar-collapsed: rgb(205, 189, 209);
 
@@ -110,6 +127,10 @@ html {
     --error-bg-hover: rgb(172, 35, 35, 0.8);
     --error-bg-lighter: rgb(172, 35, 35, 0.7);
     --error-bg-hover-lighter: rgb(172, 35, 35, 0.5);
+
+    // Error - Soft - different than dark-color-scheme
+    --error-soft-bg: rgb(146, 0, 0, 0.8);
+    --error-soft-bg-hover: rgb(146, 0, 0, 0.7);
 
     // Dismiss
     --dismiss-bg: rgb(136, 136, 136);

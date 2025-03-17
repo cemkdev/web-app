@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { List_Products } from '../../../../contracts/list_products';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
@@ -14,7 +14,8 @@ import { SelectProductImageDialogComponent } from '../../../../dialogs/select-pr
   selector: 'app-list',
   standalone: false,
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
@@ -64,8 +65,8 @@ export class ListComponent extends BaseComponent implements OnInit {
       componentType: SelectProductImageDialogComponent,
       data: id,
       options: {
-        width: 'auto',
-        height: '500px'
+        width: '1200px',
+        //height: '500px'
       }
     });
   }

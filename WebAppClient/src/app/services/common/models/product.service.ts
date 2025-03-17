@@ -4,6 +4,7 @@ import { Create_Product } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List_Products } from '../../../contracts/list_products';
 import { catchError, firstValueFrom, map, Observable } from 'rxjs';
+import { List_Product_Image } from '../../../contracts/list_product_image';
 
 @Injectable({
   providedIn: 'root'
@@ -85,12 +86,36 @@ export class ProductService {
     return data;
   }
 
-  //DELETE
+  // DELETE
   async delete(id: string) {
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "products"
     }, id);
 
     await firstValueFrom(deleteObservable);
+  }
+
+  // LIST / READ - IMAGES
+  async readImages(id: string, successCallBack?: () => void): Promise<List_Product_Image[]> {
+    const getObservable: Observable<List_Product_Image[]> = this.httpClientService.get<List_Product_Image[]>({
+      controller: "products",
+      action: "getproductimages"
+    }, id);
+
+    const images: List_Product_Image[] = await firstValueFrom(getObservable);
+    successCallBack();
+
+    return images;
+  }
+
+  // DELETE - IMAGE
+  async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
+    const deleteObservable = this.httpClientService.delete({
+      controller: "products",
+      action: "DeleteProductImage",
+      queryString: `imageId=${imageId}`
+    }, id);
+    await firstValueFrom(deleteObservable);
+    successCallBack();
   }
 }

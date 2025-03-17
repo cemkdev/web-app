@@ -1,10 +1,14 @@
 <div class="center">
-    <ngx-file-drop dropZoneLabel="Drop files here" [accept]="options.accept" (onFileDrop)="selectedFiles($event)">
-        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-            <div class="drag-drop">
-                Drop Files Here to Upload. <br> {{ options.accept ?? '' ? '(' + options.accept + ')' : '' }}
-            </div>
-            <button mat-raised-button type="button" (click)="openFileSelector()">Browse Files</button>
+    <ngx-file-drop class="custom-file-drop" dropZoneClassName="my-style" dropZoneLabel="Drop files here"
+        [accept]="options.accept" (onFileDrop)="selectedFiles($event)">
+        <ng-template class="template" ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            <button mat-fab extended class="drag-drop" (click)="openFileSelector()" tabindex="-1">
+                <mat-icon>cloud_upload</mat-icon>
+                Drop Files Or Click Here.
+                <br>
+                <span class="file-types">{{ options.accept ?? '' ? 'Allowed file types: ' + options.accept : ''
+                    }}</span>
+            </button>
         </ng-template>
     </ngx-file-drop>
     <div class="upload-table" *ngIf="files">

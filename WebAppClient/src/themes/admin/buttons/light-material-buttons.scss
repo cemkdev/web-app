@@ -40,6 +40,14 @@ html {
             background-color: var(--error-bg-hover);
         }
     }
+    .mat-mdc-button.mat-error-soft {
+        color: var(--error-soft-bg);
+        transition: color 0s !important;
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--error-soft-bg-hover);
+        }
+    }
     .mat-mdc-button.mat-dismiss {
         color: var(--dismiss-bg);
         transition: color 0s !important;
@@ -106,6 +114,13 @@ html {
             background-color: var(--error-bg-hover);
         }
     }
+    .mdc-button--raised.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
+        }
+    }
     .mdc-button--raised.mat-dismiss {
         color: var(--light-text);
         background-color: var(--dismiss-bg);
@@ -166,6 +181,13 @@ html {
             background-color: var(--error-bg-hover);
         }
     }
+    .mdc-button--outlined.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
+        }
+    }
     .mdc-button--outlined.mat-dismiss {
         color: var(--light-text);
         background-color: var(--dismiss-bg);
@@ -224,6 +246,13 @@ html {
         background-color: var(--error-bg);
         &:hover {
             background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
         }
     }
     .mdc-button--unelevated.mat-dismiss {
@@ -302,6 +331,16 @@ html {
         background-color: var(--error-bg);
         &:hover {
             background-color: var(--error-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
         }
     }
     .mat-mdc-fab.mat-dismiss {
@@ -388,6 +427,16 @@ html {
             background-color: var(--error-bg-hover);
         }
     }
+    .mdc-fab--mini.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
+        }
+    }
     .mdc-fab--mini.mat-dismiss {
         mat-icon {
             color: var(--light-text);
@@ -470,6 +519,16 @@ html {
         background-color: var(--error-bg);
         &:hover {
             background-color: var(--error-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg-hover);
         }
     }
     .mdc-fab--extended.mat-dismiss {

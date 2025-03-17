@@ -6,6 +6,15 @@
 @use "./layout/buttons/dark-bs-buttons.scss";
 
 html.dark {
+    // Shadows
+    --shadow-darker: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(255, 255, 255, 0.2);
+    --shadow-hover: rgba(255, 255, 255, 0.6);
+    --shadow-full-specs: 0 1px 4px var(--shadow);
+    --shadow-full-specs-soft: 0 1px 2px var(--shadow);
+    --shadow-full-specs-softer: 0 2px 4px var(--shadow-darker);
+    --shadow-full-specs-toTop: 0 -2px 4px var(--shadow-darker);
+
     // Primary Color
     --primary-text: rgb(170, 199, 255);
     --primary-text-dark: rgb(136, 159, 204);
@@ -23,6 +32,13 @@ html.dark {
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.6);
 
+    // Dynamic Text Color
+    --dynamic-text: var(--light-text);
+    --dynamic-text-transparent: var(--light-darker-text);
+    // Dynamic Background Color
+    --dynamic-bg: var(--dark-background-blueish-darker);
+    --dynamic-bg-hover: var(--dark-background);
+
     // Light Text - Dark Background
     --light-text: rgb(230, 238, 255);
     --light-darker-text: rgb(215, 221, 233);
@@ -33,6 +49,7 @@ html.dark {
     // Light Background Colors
     --light-background: rgb(249 249 255);
     --gray-background: rgb(224 226 236);
+    --gray-background-transparent: rgb(224, 226, 236, 0.4);
 
     // Dark Text - Light Background
     --dark-text: rgb(39, 41, 46);
@@ -108,6 +125,10 @@ html.dark {
     --error-bg-hover: rgb(160, 19, 19, 0.8);
     --error-bg-lighter: rgb(160, 19, 19, 0.7);
     --error-bg-hover-lighter: rgb(160, 19, 19, 0.5);
+
+    // Error - Soft - different than dark-color-scheme
+    --error-soft-bg: rgb(146, 0, 0, 0.8);
+    --error-soft-bg-hover: rgb(146, 0, 0);
 
     // Dismiss
     --dismiss-bg: rgb(136, 136, 136);

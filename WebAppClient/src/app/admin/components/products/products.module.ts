@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DeleteDirective } from '../../../directives/admin/delete.directive';
 import { DialogModule } from '../../../dialogs/dialog.module';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FileUploadModule } from '../../../services/common/file-upload/file-uplo
     MatSidenavModule, MatInputModule, MatFormFieldModule, MatButtonModule,
     MatTableModule, MatPaginatorModule, MatIconModule,
     FileUploadModule,
-    DialogModule
+    DialogModule,
+    MatDialogModule
   ]
 })
 export class ProductsModule { }

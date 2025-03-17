@@ -1,11 +1,52 @@
+ngx-file-drop {
+    margin-top: 35px;
+}
+
 .drag-drop {
-    margin-left: 25px;
-    width: auto;
-    //word-wrap: break-word;
+    color: var(--dynamic-text);
+    border-radius: 30px !important;
+    border: 3px dashed var(--dynamic-text);
+
+    height: 130%;
+    width: 150%;
+    padding: 0 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    mat-icon {
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100px;
+        height: 50px;
+        font-size: 50px;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .file-types {
+        font-size: 12px;
+        color: var(--dynamic-text-transparent);
+    }
 }
 
 button {
-    //width: auto;
     margin-left: 25px;
     margin-right: 25px;
+}
+
+.custom-file-drop {
+    display: block;
+    border-radius: 30px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    background-color: var(--dynamic-bg);
+}
+
+:host ::ng-deep .custom-file-drop:hover {
+    background-color: var(--dynamic-bg-hover) !important;
+    border-radius: 30px !important;
+}
+
+.upload-table {
+    display: none;
 }

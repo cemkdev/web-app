@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WebAppAPI.Application.Abstractions.Storage;
 using WebAppAPI.Application.Repositories;
@@ -22,6 +23,7 @@ namespace WebAppAPI.API.Controllers
         readonly IInvoiceFileReadRepository _invoiceFileReadRepository;
         readonly IInvoiceFileWriteRepository _invoiceFileWriteRepository;
         readonly IStorageService _storageService;
+        readonly IConfiguration _configuration;
 
         public ProductsController(
             IProductReadRepository productReadRepository,
@@ -32,7 +34,8 @@ namespace WebAppAPI.API.Controllers
             IProductImageFileWriteRepository productImageFileWriteRepository,
             IInvoiceFileReadRepository invoiceFileReadRepository,
             IInvoiceFileWriteRepository invoiceFileWriteRepository,
-            IStorageService storageService)
+            IStorageService storageService,
+            IConfiguration configuration)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
@@ -43,6 +46,7 @@ namespace WebAppAPI.API.Controllers
             _invoiceFileReadRepository = invoiceFileReadRepository;
             _invoiceFileWriteRepository = invoiceFileWriteRepository;
             _storageService = storageService;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -144,6 +148,36 @@ namespace WebAppAPI.API.Controllers
             }).ToList());
 
             await _productImageFileWriteRepository.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetProductImages(string id)
+        {
+            Product? product = await _productReadRepository.Table.Include(p => p.ProductImageFiles)
+                                                                 .FirstOrDefaultAsync(p => p.Id == Guid.Parse(id));
+
+            return Ok(product.ProductImageFiles.Where(i => i.Storage == "AzureStorage").Select(p => new
+            {
+                p.Id,
+                //Path = $"https://localhost:7198\\{p.Path}",
+                Path = $"{_configuration["BaseStorageUrl"]}/{p.Path}",
+                p.FileName
+            }));
+        }
+
+        [HttpDelete("[action]/{id}")]
+        public async Task<IActionResult> DeleteProductImage(string id, string imageId)
+        {
+            Product? product = await _productReadRepository.Table.Include(p => p.ProductImageFiles)
+                                                                 .FirstOrDefaultAsync(p => p.Id == Guid.Parse(id));
+
+            ProductImageFile productImageFile = product.ProductImageFiles.Where(i => i.Storage == "AzureStorage")
+                                                                         .FirstOrDefault(p => p.Id == Guid.Parse(imageId));
+
+            product.ProductImageFiles.Remove(productImageFile);
+            await _productWriteRepository.SaveAsync();
 
             return Ok();
         }
