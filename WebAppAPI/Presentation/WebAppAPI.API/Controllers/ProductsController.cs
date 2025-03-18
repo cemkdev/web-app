@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WebAppAPI.Application.Abstractions.Storage;
+using WebAppAPI.Application.Features.Commands.CreateProduct;
+using WebAppAPI.Application.Features.Queries.GetAllProducts;
 using WebAppAPI.Application.Repositories;
 using WebAppAPI.Application.RequestParameters;
 using WebAppAPI.Application.ViewModels.Products;
@@ -25,6 +28,8 @@ namespace WebAppAPI.API.Controllers
         readonly IStorageService _storageService;
         readonly IConfiguration _configuration;
 
+        readonly IMediator _mediator;
+
         public ProductsController(
             IProductReadRepository productReadRepository,
             IProductWriteRepository productWriteRepository,
@@ -35,7 +40,8 @@ namespace WebAppAPI.API.Controllers
             IInvoiceFileReadRepository invoiceFileReadRepository,
             IInvoiceFileWriteRepository invoiceFileWriteRepository,
             IStorageService storageService,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IMediator mediator)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
@@ -47,27 +53,14 @@ namespace WebAppAPI.API.Controllers
             _invoiceFileWriteRepository = invoiceFileWriteRepository;
             _storageService = storageService;
             _configuration = configuration;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
+        public async Task<IActionResult> Get([FromQuery] GetAllProductsQueryRequest getAllProductsQueryRequest)
         {
-            var totalCount = _productReadRepository.GetAll(false).Count();
-            var products = _productReadRepository.GetAll(false).Select(p => new
-            {
-                p.Id,
-                p.Name,
-                p.Stock,
-                p.Price,
-                p.DateCreated,
-                p.DateUpdated
-            }).OrderBy(o => o.DateCreated).Skip(pagination.Page * pagination.Size).Take(pagination.Size).ToList();
-
-            return Ok(new
-            {
-                totalCount,
-                products
-            });
+            GetAllProductsQueryResponse response = await _mediator.Send(getAllProductsQueryRequest);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -77,21 +70,9 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Product_Create model)
+        public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
         {
-            if (ModelState.IsValid)
-            {
-
-            }
-
-            await _productWriteRepository.AddAsync(new()
-            {
-                Name = model.Name,
-                Stock = model.Stock,
-                Price = model.Price
-            });
-            await _productWriteRepository.SaveAsync();
-
+            CreateProductCommandResponse response = await _mediator.Send(createProductCommandRequest);
             return StatusCode((int)HttpStatusCode.Created);
         }
 

@@ -1,11 +1,10 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
 using WebAppAPI.Infrastructure;
-using WebAppAPI.Infrastructure.Enums;
 using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
-using WebAppAPI.Infrastructure.Services.Storage.Local;
 using WebAppAPI.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
-//builder.Services.AddStorage(StorageType.Azure);
-//builder.Services.AddStorage<LocalStorage>();
 builder.Services.AddStorage<AzureStorage>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
