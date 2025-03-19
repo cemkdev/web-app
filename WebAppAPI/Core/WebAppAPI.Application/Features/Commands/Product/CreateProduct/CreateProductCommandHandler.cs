@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAppAPI.Application.Repositories;
 
-namespace WebAppAPI.Application.Features.Commands.CreateProduct
+namespace WebAppAPI.Application.Features.Commands.Product.CreateProduct
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, CreateProductCommandResponse>
     {

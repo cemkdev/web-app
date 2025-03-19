@@ -8,7 +8,7 @@ using WebAppAPI.Application.Repositories;
 using WebAppAPI.Application.RequestParameters;
 using WebAppAPI.Domain.Entities;
 
-namespace WebAppAPI.Application.Features.Queries.GetAllProducts
+namespace WebAppAPI.Application.Features.Queries.Product.GetAllProducts
 {
     public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQueryRequest, GetAllProductsQueryResponse>
     {

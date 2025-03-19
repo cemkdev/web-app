@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAppAPI.Application.RequestParameters;
 
-namespace WebAppAPI.Application.Features.Queries.GetAllProducts
+namespace WebAppAPI.Application.Features.Queries.Product.GetAllProducts
 {
     public class GetAllProductsQueryRequest : IRequest<GetAllProductsQueryResponse>
     {
