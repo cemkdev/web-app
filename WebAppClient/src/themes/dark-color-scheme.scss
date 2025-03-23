@@ -6,6 +6,10 @@
 @use "./layout/buttons/dark-bs-buttons.scss";
 
 html.dark {
+    ///////////// Dynamic Colors /////////////
+    // Background
+    --login-bg-dynamic: rgba(0, 0, 0, 0.7);
+
     // Shadows
     --shadow-darker: rgba(255, 255, 255, 0.1);
     --shadow: rgba(255, 255, 255, 0.2);

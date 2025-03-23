@@ -83,7 +83,7 @@
     }
 
     // Theme toggle button - button and hover state background color
-    #theme-toggle-button {
+    .theme-toggle-button {
         color: var(--light-text);
         &:hover {
             background-color: rgba(0, 0, 0, 0.4) !important;

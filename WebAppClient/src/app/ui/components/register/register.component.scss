@@ -1,0 +1,116 @@
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #176baf;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #347ce2, #2c5caa, #2a4fae, #305396);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #3070ca, #315baa, #264a8b, #1a3885);
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+}
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: 0.3rem;
+        border-bottom-right-radius: 0.3rem;
+    }
+}
+
+.back-home {
+    padding: 5px 20px;
+    margin-bottom: -20px;
+    border: none;
+    opacity: 0.6;
+    font-size: large;
+    .bi {
+        font-size: large;
+        margin-right: 10px;
+        opacity: 0.9;
+    }
+    @media (max-width: 1200px) {
+        margin-bottom: 20px;
+    }
+}
+
+.left-side {
+    border-radius: 5px;
+}
+
+.vertical-space {
+    @media (max-width: 992px) {
+        display: none;
+    }
+}
+
+.login-section {
+    background-image: url("../../../../../public/img102.jpg");
+    background-position: center;
+    background-size: cover;
+    //height: 100vh;
+    overflow: hidden;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    @media (max-width: 1200px) {
+        overflow: auto;
+    }
+}
+
+.container {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0 !important;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    background: var(--login-bg-dynamic);
+    @media (max-width: 1200px) {
+        margin-bottom: 20px;
+    }
+}
+
+.name-input {
+    @media (max-width: 768px) {
+        margin-bottom: 9px;
+    }
+}
+
+.invalid-feedback {
+    white-space: pre-line;
+}
+
+:host ::ng-deep {
+    html.dark & {
+        $form-floating-label-disabled-color: var(--gray-600);
+        .login-form {
+            label,
+            p {
+                color: var(--light-text);
+            }
+            .form-floating input:focus ~ label {
+                color: var(--light-text-more-transparent);
+            }
+        }
+
+        .gradient-custom-2 {
+            /* fallback for old browsers */
+            background: #176baf;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, #347ce2, #2c5caa, #2a4fae, #305396);
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, #2a60ac, #1e3d75, #122d5f, #09245f);
+        }
+    }
+}

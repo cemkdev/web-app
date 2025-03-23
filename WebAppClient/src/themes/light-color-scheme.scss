@@ -9,6 +9,10 @@
 @use "./layout/toastr/dark-toastr.scss";
 
 html {
+    ///////////// Dynamic Colors /////////////
+    // Background
+    --login-bg-dynamic: rgba(255, 255, 255, 0.7);
+
     // Shadows
     --shadow-darker: rgba(0, 0, 0, 0.1);
     --shadow: rgba(0, 0, 0, 0.2);

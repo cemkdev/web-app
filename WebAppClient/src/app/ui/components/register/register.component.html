@@ -1,0 +1,165 @@
+<section class="gradient-form login-section">
+    <button class="btn btn-light back-home" (click)="goBack()"><i class="bi bi-arrow-left-square-fill"></i>Go
+        Back</button>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black" style="border: none; opacity: 0.8;">
+                    <div class="row g-0">
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2 left-side">
+                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                <div class="row mb-4">
+                                    <div class="text-center">
+                                        <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp" style="width: 185px;" alt="logo"> -->
+                                        <a href="/"><img src="web-app-logo-white.png" alt="web-app-icon"
+                                                class="logo-icon-bs" style="width: 200px;"></a>
+                                        <!-- <a href="/"><img src="web-app-logo-light.png" alt="web-app-icon"
+                                                class="logo-icon-bs" *ngIf="themeService.currentTheme() == 'dark'"
+                                                style="width: 150px;"></a> -->
+                                        <!-- <h4 class="mt-1 mb-5 pb-1">WEB APP</h4> -->
+                                    </div>
+                                </div>
+
+                                <br class="vertical-space">
+                                <br class="vertical-space">
+                                <br class="vertical-space">
+
+                                <div class="row">
+                                    <h4 class="mb-4">We are more than just a company</h4>
+                                    <p class="small mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-5 mx-md-4">
+
+                                <!-- REACTIVE FORM -->
+                                <form class="form-floating login-form" [formGroup]="form"
+                                    (ngSubmit)="onSubmit(form.value)">
+                                    <p class="mt-4">Please enter your informations.</p>
+                                    <div class="row g-2 mb-3">
+                                        <!-- Name -->
+                                        <div class="input-group has-validation name-input col-md me-1">
+                                            <div class="form-floating is-invalid">
+                                                <input type="text" class="form-control" id="floatingInputName"
+                                                    placeholder="Name" formControlName="name"
+                                                    [ngClass]="{'is-invalid': component.name.errors && (submitted || component.name.touched)}">
+                                                <label for="floatingInputName">Name</label>
+                                            </div>
+                                            <div class="invalid-feedback"
+                                                *ngIf="component.name.errors && (submitted || component.name.touched)">
+                                                {{ getErrorMessage('name') }}
+                                            </div>
+                                        </div>
+                                        <!-- Surname -->
+                                        <div class="input-group has-validation col-md">
+                                            <div class="form-floating is-invalid">
+                                                <input type="text" class="form-control" id="floatingInputSurname"
+                                                    placeholder="Surname" formControlName="surname"
+                                                    [ngClass]="{'is-invalid': component.surname.errors && (submitted || component.surname.touched)}">
+                                                <label for="floatingInputSurname">Surname</label>
+                                            </div>
+                                            <div class="invalid-feedback"
+                                                *ngIf="component.surname.errors && (submitted || component.surname.touched)">
+                                                {{ getErrorMessage('surname') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Username -->
+                                    <div class="input-group has-validation mb-3">
+                                        <div class="form-floating is-invalid">
+                                            <input type="text" class="form-control" id="floatingInputUsername"
+                                                placeholder="Username" formControlName="username"
+                                                [ngClass]="{'is-invalid': component.username.errors && (submitted || component.username.touched)}">
+                                            <label for="floatingInputUsername">Username</label>
+                                        </div>
+                                        <div class="invalid-feedback"
+                                            *ngIf="component.username.errors && (submitted || component.username.touched)">
+                                            {{ getErrorMessage('username') }}
+                                        </div>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="input-group has-validation mb-3">
+                                        <div class="form-floating is-invalid">
+                                            <input type="email" class="form-control" id="floatingInputEmail"
+                                                placeholder="name@example.com" formControlName="email"
+                                                [ngClass]="{'is-invalid': component.email.errors && (submitted || component.email.touched)}">
+                                            <label for="floatingInputEmail">Email address</label>
+                                        </div>
+                                        <div class="invalid-feedback"
+                                            *ngIf="component.email.errors && (submitted || component.email.touched)">
+                                            {{ getErrorMessage('email') }}
+                                        </div>
+                                    </div>
+                                    <!-- Password -->
+                                    <div class="input-group has-validation mb-3">
+                                        <div class="form-floating is-invalid">
+                                            <input type="password" class="form-control" id="floatingPassword"
+                                                placeholder="Password" formControlName="password"
+                                                [ngClass]="{'is-invalid': component.password.errors && (submitted || component.password.touched)}"
+                                                [type]="passwordVisible ? 'text' : 'password'">
+                                            <label for="floatingPassword">Password</label>
+                                        </div>
+                                        <button class="input-group-text" type="button"
+                                            (click)="togglePasswordVisibility()">
+                                            <i class="bi"
+                                                [ngClass]="passwordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                                        </button>
+                                        <div class="invalid-feedback"
+                                            *ngIf="component.password.errors && (submitted || component.password.touched)">
+                                            {{ getErrorMessage('password') }}
+                                        </div>
+                                    </div>
+                                    <!-- Confirm Password -->
+                                    <div class="input-group has-validation">
+                                        <div class="form-floating is-invalid">
+                                            <input type="password" class="form-control" id="floatingConfirmPassword"
+                                                placeholder="Confirm Password" formControlName="confirmPassword"
+                                                [ngClass]="{'is-invalid': (component.confirmPassword.errors || form.hasError('notSame')) && (submitted || component.confirmPassword.touched)}"
+                                                [type]="confirmPasswordVisible ? 'text' : 'password'">
+                                            <label for="floatingConfirmPassword">Confirm Password</label>
+                                        </div>
+                                        <button class="input-group-text" type="button"
+                                            (click)="toggleConfirmPasswordVisibility()">
+                                            <i class="bi"
+                                                [ngClass]="confirmPasswordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                                        </button>
+                                        <div class="invalid-feedback"
+                                            *ngIf="(component.confirmPassword.errors || form.hasError('notSame')) && (submitted || component.confirmPassword.touched)">
+                                            {{ getErrorMessage('confirmPassword') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center pt-4 pb-1">
+                                        <button data-mdb-button-init data-mdb-ripple-init
+                                            class="btn custom-login px-3 mx-md-4" type="submit">
+                                            <i class="bi bi-person-plus-fill"></i>Sign Up
+                                        </button>
+                                        <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
+                                    </div>
+
+                                    <div class="text-center mb-4">
+                                        <button class="btn btn-outline-secondary theme-toggle-button">
+                                            <i class="bi bi-facebook"></i>
+                                        </button>
+                                        <button class="btn btn-outline-secondary theme-toggle-button">
+                                            <i class="bi bi-google"></i>
+                                        </button>
+                                    </div>
+                                    <!-- <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">Don't have an account?</p>
+                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                            class="btn custom-signup">Create new</button>
+                                    </div> -->
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
