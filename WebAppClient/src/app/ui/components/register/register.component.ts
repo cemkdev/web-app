@@ -3,6 +3,9 @@ import { Location } from '@angular/common';
 import { ThemeService } from '../../../services/theme.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { User } from '../../../entities/user';
+import { UserService } from '../../../services/common/models/user.service';
+import { Create_User } from '../../../contracts/users/create_user';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +22,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private toastrService: CustomToastrService
   ) { }
 
   form: FormGroup; // Represents form itself in html.
@@ -47,9 +52,9 @@ export class RegisterComponent implements OnInit {
       ]],
       password: ["", [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(30),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\sa-zA-Z0-9]).{8,30}$/)
+        //Validators.minLength(8),
+        //Validators.maxLength(30),
+        //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\sa-zA-Z0-9]).{8,30}$/)
       ]],
       confirmPassword: ["", [
         Validators.required
@@ -71,11 +76,24 @@ export class RegisterComponent implements OnInit {
 
   submitted: boolean = false;
 
-  onSubmit(data: User) {
+  async onSubmit(user: User) {
     this.submitted = true;
 
     if (this.form.invalid)
       return;
+
+    const result: Create_User = await this.userService.create(user);
+
+    if (result.succeeded)
+      this.toastrService.message(result.message, "User Registration Successful", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.TopRight
+      });
+    else
+      this.toastrService.message(result.message, "User Registration Failed", {
+        messageType: ToastrMessageType.Error,
+        position: ToastrPosition.TopRight
+      });
   }
 
   getErrorMessage(controlName: string): string {
@@ -102,7 +120,8 @@ export class RegisterComponent implements OnInit {
       • At least one lowercase letter.
       • No spaces allowed.
       • Minimum 8 characters, maximum 30 characters.`;
-      else if (controlName == 'email')
+
+      if (controlName == 'Email')
         return 'Please enter a valid email address.';
     }
     if (this.form.hasError('notSame')) {

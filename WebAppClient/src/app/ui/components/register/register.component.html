@@ -102,7 +102,7 @@
                                                 [type]="passwordVisible ? 'text' : 'password'">
                                             <label for="floatingPassword">Password</label>
                                         </div>
-                                        <button class="input-group-text" type="button"
+                                        <button class="input-group-text" type="button" tabindex="-1"
                                             (click)="togglePasswordVisibility()">
                                             <i class="bi"
                                                 [ngClass]="passwordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
@@ -121,7 +121,7 @@
                                                 [type]="confirmPasswordVisible ? 'text' : 'password'">
                                             <label for="floatingConfirmPassword">Confirm Password</label>
                                         </div>
-                                        <button class="input-group-text" type="button"
+                                        <button class="input-group-text" type="button" tabindex="-1"
                                             (click)="toggleConfirmPasswordVisibility()">
                                             <i class="bi"
                                                 [ngClass]="confirmPasswordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>

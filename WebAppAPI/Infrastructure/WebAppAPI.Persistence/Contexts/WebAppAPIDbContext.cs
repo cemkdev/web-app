@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAppAPI.Domain.Entities;
 using WebAppAPI.Domain.Entities.Common;
+using WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Contexts
 {
     // It will be placed in the IoC because we need to be able to access it from everywhere.
-    public class WebAppAPIDbContext : DbContext
+    public class WebAppAPIDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public WebAppAPIDbContext(DbContextOptions options) : base(options)
         {
