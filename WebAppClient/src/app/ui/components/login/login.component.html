@@ -1,0 +1,98 @@
+<section class="gradient-form login-section">
+    <button class="btn btn-light back-home" (click)="goBack()"><i class="bi bi-arrow-left-square-fill"></i>Go
+        Back</button>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-8 col-lg-10 col-md-11">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="col-lg-4 d-flex align-items-center gradient-custom-2 left-side">
+                            <div class="text-white px-3 py-4 p-md-4 mx-md-3">
+                                <div class="row top mb-4">
+                                    <div class="text-center">
+                                        <a href="/"><img src="login-register-logo/web-app-logo-white.png"
+                                                alt="web-app-icon" class="logo-icon-bs"></a>
+                                    </div>
+                                </div>
+
+                                <br class="vertical-space">
+                                <br class="vertical-space">
+                                <br class="vertical-space">
+
+                                <div class="row bottom justify-content-center align-items-center">
+                                    <div class="col-md-10 col-lg-12 col-sm-10 col-10">
+                                        <h4 class="mb-4">Sign In</h4>
+                                        <p class="small mb-0">
+                                            Enter your credentials to access WEB-APP and stay connected.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card-body p-md-1 mx-md-5">
+                                <div class="row justify-content-center align-items-center">
+                                    <!-- FORM -->
+                                    <div class="form-floating login-form col-10">
+                                        <p class="title mt-5">Please enter your informations.</p>
+                                        <div class="row g-2 mb-2">
+                                            <!-- Username -->
+                                            <div class="input-group has-validation mb-2">
+                                                <div class="form-floating is-invalid">
+                                                    <input type="text" #txtUsernameOrEmail class="form-control"
+                                                        id="floatingInputUsername" placeholder="Username or Email">
+                                                    <label for="floatingInputUsername">Username or Email</label>
+                                                </div>
+                                            </div>
+                                            <!-- Password -->
+                                            <div class="input-group has-validation">
+                                                <div class="form-floating is-invalid">
+                                                    <input type="password" #txtPassword class="form-control"
+                                                        id="floatingPassword" placeholder="Password"
+                                                        [type]="passwordVisible ? 'text' : 'password'">
+                                                    <label for="floatingPassword">Password</label>
+                                                </div>
+                                                <button class="input-group-text" type="button" tabindex="-1"
+                                                    (click)="togglePasswordVisibility()">
+                                                    <i class="bi"
+                                                        [ngClass]="passwordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="text-center pt-2 pb-3">
+                                                <button data-mdb-button-init data-mdb-ripple-init
+                                                    class="btn custom-login px-3 mx-md-4" type="submit"
+                                                    (click)="login(txtUsernameOrEmail.value, txtPassword.value)">
+                                                    <i class="bi bi-person-plus-fill"></i>Log in
+                                                </button>
+                                                <a class="text-muted" href="#!">Forgot password?</a>
+                                            </div>
+
+                                            <div class="text-center mb-4">
+                                                <button
+                                                    class="btn btn-outline-secondary social-media-btn facebook-icon">
+                                                    <i class="bi bi-facebook"></i>
+                                                </button>
+                                                <button class="btn btn-outline-secondary social-media-btn google-icon">
+                                                    <i class="bi bi-google"></i>
+                                                </button>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center pb-4">
+                                                <p class="mb-0 me-2">Don't have an account?</p>
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                                    class="btn custom-signup" [routerLink]="'/register'"
+                                                    routerLinkActive="active">
+                                                    <i class="bi bi-person-plus-fill"></i>Create new one!
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

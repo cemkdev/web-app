@@ -1,7 +1,7 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 // export interface MenuItem {
 //   icon: string;
@@ -18,13 +18,16 @@ import { NavigationStart, Router } from '@angular/router';
 })
 export class AppComponent {
   readonly themeService = inject(ThemeService);
+
+  isRegisterPage: boolean = false;
   isLoginPage: boolean = false;
 
   constructor(private toastrService: CustomToastrService, private router: Router) {
 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.isLoginPage = event.url.includes('register');
+      if (event instanceof NavigationEnd) {
+        this.isRegisterPage = event.url.includes('register');
+        this.isLoginPage = event.url.includes('login');
       }
     });
 

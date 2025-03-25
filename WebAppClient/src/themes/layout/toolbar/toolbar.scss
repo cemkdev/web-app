@@ -1,0 +1,10 @@
+.navbar {
+    height: 55px !important;
+}
+
+.navbar .btn {
+    font-size: 14px !important;
+    &.theme-toggle-button {
+        font-size: 18px !important;
+    }
+}

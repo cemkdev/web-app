@@ -1,0 +1,13 @@
+// Social media account buttons adjusments
+.social-media-btn {
+    font-size: 24px;
+    border: none !important;
+    padding-right: 12px;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 4px rgba(73, 73, 73, 0.4) !important;
+    &:hover {
+        border-radius: 10px !important;
+        transform: translateY(-2px) !important; /* 5px up on the Y-axis */
+        box-shadow: 0 2px 4px rgba(73, 73, 73, 0.1) !important;
+    }
+}

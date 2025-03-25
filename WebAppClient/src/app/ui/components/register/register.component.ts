@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ThemeService } from '../../../services/theme.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/common/models/user.service';
 import { Create_User } from '../../../contracts/users/create_user';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
+import { BaseComponent } from '../../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-register',
@@ -13,19 +14,21 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../..
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit {
-  //readonly themeService = inject(ThemeService);
-
-  goBack() {
-    this.location.back();
-  }
+export class RegisterComponent extends BaseComponent implements OnInit {
 
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private toastrService: CustomToastrService
-  ) { }
+    private toastrService: CustomToastrService,
+    spinner: NgxSpinnerService
+  ) {
+    super(spinner);
+  }
+
+  goBack() {
+    this.location.back();
+  }
 
   form: FormGroup; // Represents form itself in html.
 
