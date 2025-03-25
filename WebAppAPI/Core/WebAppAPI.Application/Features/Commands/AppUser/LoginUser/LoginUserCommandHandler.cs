@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppAPI.Application.Abstractions.Token;
+using WebAppAPI.Application.DTOs;
 using WebAppAPI.Application.Exceptions;
 using U = WebAppAPI.Domain.Entities.Identity;
 
@@ -14,11 +16,16 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.LoginUser
     {
         readonly UserManager<U.AppUser> _userManager;
         readonly SignInManager<U.AppUser> _signInManager;
+        readonly ITokenHandler _tokenHandler;
 
-        public LoginUserCommandHandler(UserManager<U.AppUser> userManager, SignInManager<U.AppUser> signInManager)
+        public LoginUserCommandHandler(
+            UserManager<U.AppUser> userManager,
+            SignInManager<U.AppUser> signInManager,
+            ITokenHandler tokenHandler)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenHandler = tokenHandler;
         }
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
@@ -33,9 +40,20 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.LoginUser
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (result.Succeeded) // Authentication succeeded!
             {
-                // ...Authorize!..
+                Token token = _tokenHandler.CreateAccessToken(5);
+
+                return new LoginUserSuccessCommandResponse()
+                {
+                    Token = token
+                };
             }
-            return new();
+
+            // Single Responsibility uyumlu olarak response'u parçalayıp, bu şekilde de bir çalışma yapabiliriz 'throw an exception' yerine.
+            //return new LoginUserErrorCommandResponse()
+            //{
+            //    Message = "Unauthorized access. Invalid or expired token."
+            //};
+            throw new AuthenticationFailedException();
         }
     }
 }
