@@ -53,17 +53,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 expanded-navbar-bs">
+                <!-- HOME -->
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="'home'" routerLinkActive="active"><span>Home</span></a>
                 </li>
+                <!-- PRODUCTS -->
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="'products'" routerLinkActive="active"><span>Products</span></a>
                 </li>
-
-                <div class="custom-border-vertical"></div>
-                <div class="custom-border-horizontal"></div>
-
-                <li class="nav-item">
+                <div class="custom-border-vertical" *ngIf="authService.isAuthenticated"></div>
+                <div class="custom-border-horizontal" *ngIf="authService.isAuthenticated"></div>
+                <!-- ADMIN PANEL -->
+                <li class="nav-item" *ngIf="authService.isAuthenticated">
                     <a class="nav-link" id="go-admin-panel" [routerLink]="'admin'" routerLinkActive="active">
                         <i class="bi bi-person-workspace"></i>
                         <span>Admin Panel</span>
@@ -72,20 +73,27 @@
             </ul>
             <div class="navbar-right">
                 <div class="custom-border-horizontal collapsed-bottom"></div>
+                <!-- BASKET -->
                 <a class="btn btn-light" id="add-to-cart" type="button" [routerLink]="'basket'"
                     routerLinkActive="active">
                     <i class="bi bi-cart-check"></i>
                 </a>
-
-                <a class="btn custom-login" type="button" [routerLink]="'login'" routerLinkActive="active">
+                <!-- LOG IN -->
+                <a class="btn custom-login" type="button" [routerLink]="'login'" routerLinkActive="active"
+                    *ngIf="!authService.isAuthenticated">
                     <i class="bi bi-box-arrow-in-right"></i>Log In
                 </a>
-                <!-- <button class="btn custom-logout" type="button">
+                <!-- LOG OUT -->
+                <button class="btn custom-logout" type="button" (click)="logOut()" *ngIf="authService.isAuthenticated">
                     Log Out<i class="bi bi-box-arrow-right"></i>
-                </button> -->
-                <a class="btn custom-signup" type="button" [routerLink]="'register'" routerLinkActive="active">
+                </button>
+                <!-- REGISTER -->
+                <a class="btn custom-signup" type="button" [routerLink]="'register'" routerLinkActive="active"
+                    *ngIf="!authService.isAuthenticated">
                     <i class="bi bi-person-plus-fill"></i>Sign Up
                 </a>
+
+                <!-- CHANGE THEME -->
                 <button class="btn btn-outline-secondary theme-toggle-button" (click)="themeService.toggleTheme()">
                     <i class="bi bi-brightness-high-fill" *ngIf="themeService.currentTheme() == 'light'"></i>
                     <i class="bi bi-moon-fill" *ngIf="themeService.currentTheme() == 'dark'"></i>

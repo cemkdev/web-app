@@ -33,22 +33,24 @@
                             <div class="card-body p-md-1 mx-md-5">
                                 <div class="row justify-content-center align-items-center">
                                     <!-- FORM -->
-                                    <div class="form-floating login-form col-10">
+                                    <form class="form-floating login-form col-10" [formGroup]="form"
+                                        (ngSubmit)="onSubmit(form.value)">
                                         <p class="title mt-5">Please enter your informations.</p>
                                         <div class="row g-2 mb-2">
                                             <!-- Username -->
                                             <div class="input-group has-validation mb-2">
                                                 <div class="form-floating is-invalid">
-                                                    <input type="text" #txtUsernameOrEmail class="form-control"
-                                                        id="floatingInputUsername" placeholder="Username or Email">
+                                                    <input type="text" formControlName="usernameOrEmail"
+                                                        class="form-control" id="floatingInputUsername"
+                                                        placeholder="Username or Email">
                                                     <label for="floatingInputUsername">Username or Email</label>
                                                 </div>
                                             </div>
                                             <!-- Password -->
                                             <div class="input-group has-validation">
                                                 <div class="form-floating is-invalid">
-                                                    <input type="password" #txtPassword class="form-control"
-                                                        id="floatingPassword" placeholder="Password"
+                                                    <input type="password" class="form-control" id="floatingPassword"
+                                                        formControlName="password" placeholder="Password"
                                                         [type]="passwordVisible ? 'text' : 'password'">
                                                     <label for="floatingPassword">Password</label>
                                                 </div>
@@ -61,8 +63,7 @@
 
                                             <div class="text-center pt-2 pb-3">
                                                 <button data-mdb-button-init data-mdb-ripple-init
-                                                    class="btn custom-login px-3 mx-md-4" type="submit"
-                                                    (click)="login(txtUsernameOrEmail.value, txtPassword.value)">
+                                                    class="btn custom-login px-3 mx-md-4" type="submit">
                                                     <i class="bi bi-person-plus-fill"></i>Log in
                                                 </button>
                                                 <a class="text-muted" href="#!">Forgot password?</a>
@@ -86,7 +87,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,10 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-
-// export interface MenuItem {
-//   icon: string;
-//   label: string;
-//   route: string;
-// }
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AuthService } from './services/common/auth.service';
+import { BaseComponent, SpinnerType } from './base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +13,21 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
   styleUrl: './app.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent extends BaseComponent {
   readonly themeService = inject(ThemeService);
 
   isRegisterPage: boolean = false;
   isLoginPage: boolean = false;
 
-  constructor(private toastrService: CustomToastrService, private router: Router) {
+  constructor(
+    private router: Router,
+    public authService: AuthService,
+    spinner: NgxSpinnerService,
+    private toastrService: CustomToastrService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    super(spinner);
+    authService.identityCheck();
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -30,32 +35,20 @@ export class AppComponent {
         this.isLoginPage = event.url.includes('login');
       }
     });
-
   }
 
+  logOut() {
+    this.showSpinner(SpinnerType.BallAtom);
 
+    localStorage.removeItem("accessToken");
+    this.authService.identityCheck();
+    this.router.navigate([""]);
 
+    this.hideSpinner(SpinnerType.BallAtom);
 
-  // menuItems = signal<MenuItem[]>([
-  //   {
-  //     icon: 'home',
-  //     label: 'Home',
-  //     route: 'home',
-  //   },
-  //   {
-  //     icon: 'category',
-  //     label: 'Products',
-  //     route: 'products',
-  //   },
-  //   {
-  //     icon: 'shopping_cart',
-  //     label: 'Basket',
-  //     route: 'basket',
-  //   },
-  //   {
-  //     icon: 'admin_panel_settings',
-  //     label: 'Admin',
-  //     route: 'admin',
-  //   },
-  // ]);
+    this.toastrService.message("Session closed.", "Logged Out", {
+      messageType: ToastrMessageType.Info,
+      position: ToastrPosition.TopRight
+    });
+  }
 }
