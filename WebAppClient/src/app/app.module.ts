@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,10 +19,19 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,13 +47,42 @@ import { JwtModule } from '@auth0/angular-jwt';
         tokenGetter: () => localStorage.getItem("accessToken"),
         allowedDomains: ["localhost:7198"]
       }
-    })
+    }),
+    SocialLoginModule,
+    ReactiveFormsModule,
+    GoogleSigninButtonModule
   ],
   providers: [
     provideAnimationsAsync(),
     { provide: "baseUrl", useValue: "https://localhost:7198/api", multi: true },
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        lang: 'en',
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1006815861518-blgomcen8prs5nanddehdqoo7vvmqm1o.apps.googleusercontent.com', {
+              scopes: 'openid profile email',
+            }
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('961617235956531')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

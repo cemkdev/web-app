@@ -6,6 +6,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 import { Token } from '../../../contracts/token/token';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { TokenResponse } from '../../../contracts/token/tokenResponse';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,44 @@ export class UserService {
       this.toastrService.message("You have successfully logged in.", "Welcome Back!", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
+      });
+    }
+    callBackFunction();
+  }
+
+  async googleLogin(user: SocialUser, callBackFunction?: () => void): Promise<any> {
+    const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
+      controller: "users",
+      action: "google-login"
+    }, user);
+
+    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if (tokenResponse) {
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+
+      this.toastrService.message("Google login has been successful.", "Successfully Logged In!", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.BottomRight
+      })
+    }
+    callBackFunction();
+  }
+
+  async facebookLogin(user: SocialUser, callBackFunction?: () => void): Promise<any> {
+    const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post({
+      controller: "users",
+      action: "facebook-login"
+    }, user);
+
+    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if (tokenResponse) {
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+
+      this.toastrService.message("Facebook login has been successful.", "Successfully Logged In!", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.BottomRight
       });
     }
     callBackFunction();
