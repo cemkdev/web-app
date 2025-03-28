@@ -12,13 +12,16 @@ namespace WebAppAPI.Application.DTOs.Facebook
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("email")]
-        public string Email { get; set; }
+        [JsonPropertyName("first_name")]
+        public string FirstName { get; set; }
 
         [JsonPropertyName("last_name")]
         public string LastName { get; set; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string FullName { get; set; }
+
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
     }
 }

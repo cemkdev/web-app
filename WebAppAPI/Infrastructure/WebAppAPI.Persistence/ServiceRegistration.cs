@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppAPI.Application.Abstractions.Services;
+using WebAppAPI.Application.Abstractions.Services.Authentications;
 using WebAppAPI.Application.Repositories;
 using WebAppAPI.Domain.Entities.Identity;
 using WebAppAPI.Persistence.Contexts;
 using WebAppAPI.Persistence.Repositories;
+using WebAppAPI.Persistence.Services;
 
 namespace WebAppAPI.Persistence
 {
@@ -24,10 +27,10 @@ namespace WebAppAPI.Persistence
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {
-                options.Password.RequiredLength = 4;
+                options.Password.RequiredLength = 3;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = true;
+                options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<WebAppAPIDbContext>();
 
@@ -50,6 +53,12 @@ namespace WebAppAPI.Persistence
 
             services.AddScoped<IInvoiceFileReadRepository, InvoiceFileReadRepository>();
             services.AddScoped<IInvoiceFileWriteRepository, InvoiceFileWriteRepository>();
+
+            // User Table(Identity) Entities Services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IInternalAuthentication, AuthService>();
+            services.AddScoped<IExternalAuthentication, AuthService>();
 
         }
     }

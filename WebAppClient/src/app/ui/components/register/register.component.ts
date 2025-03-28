@@ -5,7 +5,7 @@ import { User } from '../../../entities/user';
 import { UserService } from '../../../services/common/models/user.service';
 import { Create_User } from '../../../contracts/users/create_user';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../services/ui/custom-toastr.service';
-import { BaseComponent } from '../../../base/base.component';
+import { BaseComponent, SpinnerType } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -34,12 +34,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ["", [
+      firstName: ["", [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(25)
       ]],
-      surname: ["", [
+      lastName: ["", [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(25)
@@ -56,7 +56,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       password: ["", [
         Validators.required,
         //Validators.minLength(8),
-        //Validators.maxLength(30),
+        Validators.maxLength(30),
         //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\sa-zA-Z0-9]).{8,30}$/)
       ]],
       confirmPassword: ["", [
@@ -85,23 +85,32 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     if (this.form.invalid)
       return;
 
-    const result: Create_User = await this.userService.create(user);
+    const result: Create_User = await this.userService.create(user, () => this.showSpinner(SpinnerType.BallAtom));
 
-    if (result.succeeded)
+    if (result.succeeded) {
       this.toastrService.message(result.message, "User Registration Successful", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       });
-    else
+      this.hideSpinner(SpinnerType.BallAtom);
+    }
+    else {
       this.toastrService.message(result.message, "User Registration Failed", {
         messageType: ToastrMessageType.Error,
         position: ToastrPosition.TopRight
       });
+      this.hideSpinner(SpinnerType.BallAtom);
+    }
   }
 
   getErrorMessage(controlName: string): string {
     const control = this.form.get(controlName);
     controlName = controlName.charAt(0).toUpperCase() + controlName.slice(1);
+
+    if (controlName == 'FirstName')
+      controlName = 'First Name';
+    if (controlName == 'LastName')
+      controlName = 'Last Name';
 
     if (control?.hasError('required')) {
       if (controlName == 'ConfirmPassword')

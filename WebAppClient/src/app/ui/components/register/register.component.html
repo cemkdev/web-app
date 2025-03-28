@@ -34,30 +34,30 @@
                                     (ngSubmit)="onSubmit(form.value)">
                                     <p class="title mt-4">Please enter your informations.</p>
                                     <div class="row g-2 mb-3">
-                                        <!-- Name -->
+                                        <!-- First Name -->
                                         <div class="input-group has-validation name-input col-md me-1">
                                             <div class="form-floating is-invalid">
-                                                <input type="text" class="form-control" id="floatingInputName"
-                                                    placeholder="Name" formControlName="name"
-                                                    [ngClass]="{'is-invalid': component.name.errors && (submitted || component.name.touched)}">
-                                                <label for="floatingInputName">Name</label>
+                                                <input type="text" class="form-control" id="floatingInputFirstName"
+                                                    placeholder="First Name" formControlName="firstName"
+                                                    [ngClass]="{'is-invalid': component.firstName.errors && (submitted || component.firstName.touched)}">
+                                                <label for="floatingInputFirstName">First Name</label>
                                             </div>
                                             <div class="invalid-feedback"
-                                                *ngIf="component.name.errors && (submitted || component.name.touched)">
-                                                {{ getErrorMessage('name') }}
+                                                *ngIf="component.firstName.errors && (submitted || component.firstName.touched)">
+                                                {{ getErrorMessage('firstName') }}
                                             </div>
                                         </div>
-                                        <!-- Surname -->
+                                        <!-- Last Name -->
                                         <div class="input-group has-validation col-md">
                                             <div class="form-floating is-invalid">
-                                                <input type="text" class="form-control" id="floatingInputSurname"
-                                                    placeholder="Surname" formControlName="surname"
-                                                    [ngClass]="{'is-invalid': component.surname.errors && (submitted || component.surname.touched)}">
-                                                <label for="floatingInputSurname">Surname</label>
+                                                <input type="text" class="form-control" id="floatingInputLastName"
+                                                    placeholder="Last Name" formControlName="lastName"
+                                                    [ngClass]="{'is-invalid': component.lastName.errors && (submitted || component.lastName.touched)}">
+                                                <label for="floatingInputLastName">Last Name</label>
                                             </div>
                                             <div class="invalid-feedback"
-                                                *ngIf="component.surname.errors && (submitted || component.surname.touched)">
-                                                {{ getErrorMessage('surname') }}
+                                                *ngIf="component.lastName.errors && (submitted || component.lastName.touched)">
+                                                {{ getErrorMessage('lastName') }}
                                             </div>
                                         </div>
                                     </div>

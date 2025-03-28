@@ -9,7 +9,8 @@ namespace WebAppAPI.Domain.Entities.Identity
 {
     public class AppUser : IdentityUser<string>
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
     }
 }

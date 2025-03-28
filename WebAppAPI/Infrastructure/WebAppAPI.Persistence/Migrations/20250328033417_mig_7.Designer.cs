@@ -12,7 +12,7 @@ using WebAppAPI.Persistence.Contexts;
 namespace WebAppAPI.Persistence.Migrations
 {
     [DbContext(typeof(WebAppAPIDbContext))]
-    [Migration("20250323215431_mig_7")]
+    [Migration("20250328033417_mig_7")]
     partial class mig_7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,15 +258,23 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -286,10 +294,6 @@ namespace WebAppAPI.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")

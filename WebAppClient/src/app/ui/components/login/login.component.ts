@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/common/models/user.service';
 import { BaseComponent, SpinnerType } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../services/common/auth.service';
@@ -8,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserLogin } from '../../../entities/user-login';
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { UserAuthService } from '../../../services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   constructor(
     private location: Location,
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private userAuthService: UserAuthService,
     spinner: NgxSpinnerService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
@@ -46,7 +46,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.showSpinner(SpinnerType.BallAtom);
       switch (user.provider) {
         case "GOOGLE":
-          await this.userService.googleLogin(user, () => {
+          await this.userAuthService.googleLogin(user, () => {
             this.authService.identityCheck();
             this.activatedRoute.queryParams.subscribe(params => {
               const returnUrl: string = params["returnUrl"];
@@ -60,7 +60,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
           break;
         case "FACEBOOK":
           console.log(user);
-          await this.userService.facebookLogin(user, () => {
+          await this.userAuthService.facebookLogin(user, () => {
             this.authService.identityCheck();
             this.activatedRoute.queryParams.subscribe(params => {
               const returnUrl: string = params["returnUrl"];
@@ -85,7 +85,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   async onSubmit(user: UserLogin) {
     this.showSpinner(SpinnerType.BallAtom);
 
-    await this.userService.login(user.usernameOrEmail, user.password, () => {
+    await this.userAuthService.login(user.usernameOrEmail, user.password, () => {
       this.authService.identityCheck();
 
       this.activatedRoute.queryParams.subscribe(params => {
