@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './ui/components/login/login.component';
 
@@ -27,6 +27,7 @@ import {
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -75,11 +76,10 @@ import { ReactiveFormsModule } from '@angular/forms';
             provider: new FacebookLoginProvider('961617235956531')
           }
         ],
-        onError: (err) => {
-          console.error(err);
-        }
+        onError: (err) => console.error(err)
       } as SocialAuthServiceConfig,
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandlerInterceptorService, multi: true }
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA],
