@@ -43,7 +43,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+
+            // If you have 'token lifetime problem' try this.
+            LifetimeValidator = (notBefore, expires, SecurityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false
         };
     });
 

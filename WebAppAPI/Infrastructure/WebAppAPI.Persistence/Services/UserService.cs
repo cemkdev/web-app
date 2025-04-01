@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
-using WebAppAPI.Domain.Entities.Identity;
+using WebAppAPI.Application.Exceptions;
 using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -10,7 +10,7 @@ namespace WebAppAPI.Persistence.Services
     {
         readonly UserManager<U.AppUser> _userManager;
 
-        public UserService(UserManager<AppUser> userManager)
+        public UserService(UserManager<U.AppUser> userManager)
         {
             _userManager = userManager;
         }
@@ -36,6 +36,18 @@ namespace WebAppAPI.Persistence.Services
                     response.Message += $"• {error.Code}: {error.Description}";
 
             return response;
+        }
+
+        public async Task UpdateRefreshToken(string refreshToken, U.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension)
+        {
+            if (user != null)
+            {
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenEndDate = accessTokenLifetime.AddSeconds(refreshTokenDurationExtension);
+                await _userManager.UpdateAsync(user);
+            }
+            else
+                throw new NotFoundUserException();
         }
     }
 }

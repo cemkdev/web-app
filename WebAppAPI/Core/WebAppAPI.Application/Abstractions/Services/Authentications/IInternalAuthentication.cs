@@ -5,5 +5,6 @@ namespace WebAppAPI.Application.Abstractions.Services.Authentications
     public interface IInternalAuthentication
     {
         Task<T.Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime);
+        Task<T.Token> RefreshTokenLoginAsync(string refreshToken);
     }
 }

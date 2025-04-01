@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAppAPI.Application.Features.Commands.AppUser.FacebookLogin;
 using WebAppAPI.Application.Features.Commands.AppUser.GoogleLogin;
 using WebAppAPI.Application.Features.Commands.AppUser.LoginUser;
+using WebAppAPI.Application.Features.Commands.AppUser.RefreshTokenLogin;
 
 namespace WebAppAPI.API.Controllers
 {
@@ -21,6 +22,13 @@ namespace WebAppAPI.API.Controllers
         public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
         {
             LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RefreshTokenLogin([FromBody] RefreshTokenLoginCommandRequest refreshTokenLoginCommandRequest)
+        {
+            RefreshTokenLoginCommandResponse response = await _mediator.Send(refreshTokenLoginCommandRequest);
             return Ok(response);
         }
 

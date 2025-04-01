@@ -59,7 +59,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
           });
           break;
         case "FACEBOOK":
-          console.log(user);
           await this.userAuthService.facebookLogin(user, () => {
             this.authService.identityCheck();
             this.activatedRoute.queryParams.subscribe(params => {

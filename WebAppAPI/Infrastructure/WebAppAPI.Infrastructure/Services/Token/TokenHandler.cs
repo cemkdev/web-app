@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Abstractions.Token;
+using T = WebAppAPI.Application.DTOs;
 
 namespace WebAppAPI.Infrastructure.Services.Token
 {
@@ -19,9 +17,9 @@ namespace WebAppAPI.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public Application.DTOs.Token CreateAccessToken(int second)
+        public T.Token CreateAccessToken(int second)
         {
-            Application.DTOs.Token token = new();
+            T.Token token = new();
 
             // Security Key'in simetriğini alıyoruz.
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
@@ -44,7 +42,18 @@ namespace WebAppAPI.Infrastructure.Services.Token
             JwtSecurityTokenHandler tokenHandler = new();
             token.AccessToken = tokenHandler.WriteToken(SecurityToken);
 
+            token.RefreshToken = CreateRefreshToken();
+
             return token;
+        }
+
+        public string CreateRefreshToken()
+        {
+            byte[] number = new byte[32];
+            using RandomNumberGenerator random = RandomNumberGenerator.Create();
+            random.GetBytes(number);
+
+            return Convert.ToBase64String(number);
         }
     }
 }
