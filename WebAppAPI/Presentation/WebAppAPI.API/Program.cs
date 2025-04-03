@@ -10,6 +10,7 @@ using Serilog.Sinks.PostgreSQL;
 using System.Security.Claims;
 using System.Text;
 using WebAppAPI.API.Configurations.ColumnWriters;
+using WebAppAPI.API.Extensions;
 using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
 using WebAppAPI.Infrastructure;
@@ -19,6 +20,7 @@ using WebAppAPI.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Services
 // Here we call the extension method that adds services to the IoC Container.
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
 builder.Services.AddPersistenceServices();
@@ -89,14 +91,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             NameClaimType = ClaimTypes.Name // JWT üzerinde Name claim'ine karşılık gelen değeri, bu ayarla, User.Identity.Name property'sinden elde edebiliriz.
         };
     });
+#endregion
 
 var app = builder.Build();
 
+#region Middlewares
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
+
 
 app.UseStaticFiles();
 
@@ -119,5 +127,6 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllers();
+#endregion
 
 app.Run();

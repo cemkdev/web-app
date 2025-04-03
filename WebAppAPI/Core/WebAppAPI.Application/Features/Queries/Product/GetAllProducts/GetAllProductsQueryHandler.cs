@@ -25,6 +25,7 @@ namespace WebAppAPI.Application.Features.Queries.Product.GetAllProducts
         public async Task<GetAllProductsQueryResponse> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("You have all the products now.");
+            throw new Exception("Hata Alındı!");
 
             var totalCount = _productReadRepository.GetAll(false).Count();
             var products = _productReadRepository.GetAll(false).OrderBy(o => o.DateCreated).Skip(request.Page * request.Size).Take(request.Size).Select(p => new
