@@ -1,10 +1,11 @@
-﻿using T = WebAppAPI.Application.DTOs;
+﻿using U = WebAppAPI.Domain.Entities.Identity;
+using T = WebAppAPI.Application.DTOs;
 
 namespace WebAppAPI.Application.Abstractions.Token
 {
     public interface ITokenHandler
     {
-        T.Token CreateAccessToken(int second);
+        T.Token CreateAccessToken(int second, U.AppUser appUser);
         string CreateRefreshToken();
     }
 }

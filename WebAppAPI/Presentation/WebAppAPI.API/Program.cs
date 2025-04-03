@@ -1,8 +1,15 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Context;
+using Serilog.Core;
+using Serilog.Sinks.PostgreSQL;
+using System.Security.Claims;
 using System.Text;
+using WebAppAPI.API.Configurations.ColumnWriters;
 using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
 using WebAppAPI.Infrastructure;
@@ -23,6 +30,37 @@ builder.Services.AddStorage<AzureStorage>();
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod()
 ));
+
+Logger log = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt")
+    .WriteTo.PostgreSQL(builder.Configuration.GetConnectionString("PostgreSQL"), "logs",
+    needAutoCreateTable: true,
+    columnOptions: new Dictionary<string, ColumnWriterBase>
+    {
+        { "message", new RenderedMessageColumnWriter() },
+        { "message_template", new MessageTemplateColumnWriter() },
+        { "level", new LevelColumnWriter() },
+        { "time_stamp", new TimestampColumnWriter() },
+        { "exception", new ExceptionColumnWriter() },
+        { "log_event", new LogEventSerializedColumnWriter() },
+        { "user_name", new UsernameColumnWriter() }
+    })
+    .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
+    .Enrich.FromLogContext()
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Host.UseSerilog(log);
+
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
@@ -46,7 +84,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
 
             // If you have 'token lifetime problem' try this.
-            LifetimeValidator = (notBefore, expires, SecurityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false
+            LifetimeValidator = (notBefore, expires, SecurityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
+
+            NameClaimType = ClaimTypes.Name // JWT üzerinde Name claim'ine karşılık gelen değeri, bu ayarla, User.Identity.Name property'sinden elde edebiliriz.
         };
     });
 
@@ -59,11 +99,24 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
+app.UseSerilogRequestLogging();
+
+app.UseHttpLogging();
 app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Buradan sonra oluşturacağız loglama middleware'ini ki authenticated user'ı da alalım varsa.
+app.Use(async (context, next) =>
+{
+    // Burada demek istenen şu; != den öncesi null değilse, veya(||) IsAuthenticated true ise ... (gerisi normal ternary operation.)
+    var username = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identity.Name : null;
+    LogContext.PushProperty("user_name", username);
+    await next();
+});
 
 app.MapControllers();
 

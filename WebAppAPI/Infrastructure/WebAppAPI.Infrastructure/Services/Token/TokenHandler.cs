@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using WebAppAPI.Application.Abstractions.Token;
+using U = WebAppAPI.Domain.Entities.Identity;
 using T = WebAppAPI.Application.DTOs;
 
 namespace WebAppAPI.Infrastructure.Services.Token
@@ -17,7 +19,7 @@ namespace WebAppAPI.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public T.Token CreateAccessToken(int second)
+        public T.Token CreateAccessToken(int second, U.AppUser user)
         {
             T.Token token = new();
 
@@ -35,7 +37,8 @@ namespace WebAppAPI.Infrastructure.Services.Token
                 issuer: _configuration["Token:Issuer"],
                 expires: token.Expiration,
                 notBefore: DateTime.UtcNow, // Token, üretildiği andan ne kadar zaman sonra devreye girsin demek.
-                signingCredentials: signingCredentials
+                signingCredentials: signingCredentials,
+                claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
                 );
 
             // Token oluşturucu sınıfından bir örnek alalım.
