@@ -156,7 +156,7 @@ namespace WebAppAPI.Persistence.Services
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {
                 Token token = _tokenHandler.CreateAccessToken(15, user);
-                await _userService.UpdateRefreshToken(refreshToken, user, token.Expiration, 15);
+                await _userService.UpdateRefreshToken(refreshToken, user, token.Expiration, 5 * 60);
                 return token;
             }
             else

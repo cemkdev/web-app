@@ -17,6 +17,7 @@ using WebAppAPI.Infrastructure;
 using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
 using WebAppAPI.Persistence;
+using WebAppAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,11 +27,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddSignalRServices();
 
 builder.Services.AddStorage<AzureStorage>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-    policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod()
+    policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 ));
 
 Logger log = new LoggerConfiguration()
@@ -102,9 +104,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
-
 
 app.UseStaticFiles();
 
@@ -127,6 +127,7 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllers();
+app.MapHubs();
 #endregion
 
 app.Run();

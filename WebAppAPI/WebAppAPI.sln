@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{FF0758D6-B1FB-405A-BD9C-9C82DCD3E90F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.API", "Presentation\WebAppAPI.API\WebAppAPI.API.csproj", "{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI.SignalR", "Infrastructure\WebAppAPI.SignalR\WebAppAPI.SignalR.csproj", "{69D1788E-B561-4F18-A998-939CBB49F64E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69D1788E-B561-4F18-A998-939CBB49F64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D1788E-B561-4F18-A998-939CBB49F64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D1788E-B561-4F18-A998-939CBB49F64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D1788E-B561-4F18-A998-939CBB49F64E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{DA4650EE-11E4-4E9C-8EE2-B48DDA7DDF17} = {C183E935-AEA2-4887-9237-AD4F42E04F25}
 		{32ADBFCA-DF53-4018-A1EA-D0C8EE1BEA70} = {C183E935-AEA2-4887-9237-AD4F42E04F25}
 		{9CF6ADDC-5691-4859-8EA9-3B2E88C634AA} = {FF0758D6-B1FB-405A-BD9C-9C82DCD3E90F}
+		{69D1788E-B561-4F18-A998-939CBB49F64E} = {C183E935-AEA2-4887-9237-AD4F42E04F25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FFEE717-2D24-465C-9603-463DA533D3D6}
