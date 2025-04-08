@@ -222,4 +222,48 @@
             transform: translateY(-2px); /* 5px up on the Y-axis */
         }
     }
+
+    .add-to-cart {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &.active {
+            color: var(--dark-text);
+            background-color: var(--yellow-1);
+            transition: color 0ms ease !important;
+            transition: background-color 0ms ease !important;
+
+            &:hover {
+                color: var(--dark-text);
+                background-color: var(--yellow-1);
+                transition: color 0ms ease !important;
+                transition: background-color 0ms ease !important;
+            }
+        }
+        &:active {
+            color: var(--yellow-1);
+            transition: color 0ms ease !important;
+        }
+        &:hover {
+            background-color: var(--primary-bg-darker);
+            transition: background-color 0ms ease !important;
+        }
+    }
+
+    .page-item {
+        .page-link {
+            color: var(--dark-text);
+        }
+        &.active {
+            .page-link {
+                color: var(--light-text);
+                background-color: var(--primary-bg);
+            }
+        }
+    }
+
+    .rating-stars {
+        a {
+            color: var(--dark-text);
+        }
+    }
 }

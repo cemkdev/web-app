@@ -5,6 +5,7 @@ using System.Net;
 using WebAppAPI.Application.Features.Commands.Product.CreateProduct;
 using WebAppAPI.Application.Features.Commands.Product.RemoveProduct;
 using WebAppAPI.Application.Features.Commands.Product.UpdateProduct;
+using WebAppAPI.Application.Features.Commands.ProductImageFile.ChangeCoverImage;
 using WebAppAPI.Application.Features.Commands.ProductImageFile.RemoveProductImage;
 using WebAppAPI.Application.Features.Commands.ProductImageFile.UploadProductImage;
 using WebAppAPI.Application.Features.Queries.Product.GetAllProducts;
@@ -15,7 +16,6 @@ namespace WebAppAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
     public class ProductsController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -40,6 +40,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
         {
             CreateProductCommandResponse response = await _mediator.Send(createProductCommandRequest);
@@ -47,6 +48,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> Put([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
         {
             UpdateProductCommandResponse response = await _mediator.Send(updateProductCommandRequest);
@@ -54,6 +56,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpDelete("{Id}")]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] RemoveProductCommandRequest removeProductCommandRequest)
         {
             RemoveProductCommandResponse response = await _mediator.Send(removeProductCommandRequest);
@@ -61,6 +64,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> Upload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
         {
             uploadProductImageCommandRequest.Files = Request.Form.Files;
@@ -70,6 +74,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpGet("[action]/{id}")]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> GetProductImages([FromRoute] GetProductImagesQueryRequest getProductImagesQueryRequest)
         {
             List<GetProductImagesQueryResponse> response = await _mediator.Send(getProductImagesQueryRequest);
@@ -77,11 +82,20 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpDelete("[action]/{Id}")]
+        [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> DeleteProductImage([FromRoute] RemoveProductImageCommandRequest removeProductImageCommandRequest, [FromQuery] string imageId)
         {
             removeProductImageCommandRequest.ImageId = imageId;
             RemoveProductImageCommandResponse response = await _mediator.Send(removeProductImageCommandRequest);
             return Ok();
+        }
+
+        [HttpPut("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        public async Task<IActionResult> ChangeCoverImage([FromQuery] ChangeCoverImageCommandRequest changeCoverImageCommandRequest)
+        {
+            ChangeCoverImageCommandResponse response = await _mediator.Send(changeCoverImageCommandRequest);
+            return Ok(response);
         }
     }
 }

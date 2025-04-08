@@ -24,14 +24,16 @@ namespace WebAppAPI.Application.Features.Queries.ProductImageFile.GetProductImag
 
         public async Task<List<GetProductImagesQueryResponse>> Handle(GetProductImagesQueryRequest request, CancellationToken cancellationToken)
         {
-            P.Product? product = await _productReadRepository.Table.Include(p => p.ProductImageFiles)
-                                                                 .FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
+            P.Product? product = await _productReadRepository.Table
+                .Include(p => p.ProductImageFiles)
+                .FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
             return product?.ProductImageFiles.Where(i => i.Storage == "AzureStorage").Select(p => new GetProductImagesQueryResponse()
             {
                 Id = p.Id,
                 Path = $"{_configuration["BaseStorageUrl"]}/{p.Path}",
-                FileName = p.FileName
+                FileName = p.FileName,
+                CoverImage = p.CoverImage
             }).ToList();
         }
     }

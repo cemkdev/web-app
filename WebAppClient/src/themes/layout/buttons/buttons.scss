@@ -11,3 +11,26 @@
         box-shadow: 0 2px 4px rgba(73, 73, 73, 0.1) !important;
     }
 }
+
+// Add-to-cart button adjustments
+.add-to-cart {
+    .bi {
+        font-size: 20px;
+    }
+    border-radius: 10px !important;
+    padding: 2px 10px;
+    border: none;
+    box-shadow: 0 1px 2px rgba(73, 73, 73, 0.1);
+    &:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px); /* 5px up on the Y-axis */
+    }
+    &.active {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+.rating-stars {
+    //
+}

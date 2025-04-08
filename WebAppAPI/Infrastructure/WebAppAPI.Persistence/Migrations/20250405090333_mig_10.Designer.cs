@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAppAPI.Persistence.Contexts;
@@ -11,9 +12,10 @@ using WebAppAPI.Persistence.Contexts;
 namespace WebAppAPI.Persistence.Migrations
 {
     [DbContext(typeof(WebAppAPIDbContext))]
-    partial class WebAppAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405090333_mig_10")]
+    partial class mig_10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,9 +374,6 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<float?>("Rating")
-                        .HasColumnType("real");
-
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
@@ -385,34 +384,6 @@ namespace WebAppAPI.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("WebAppAPI.Domain.Entities.Rating", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<float>("Value")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.InvoiceFile", b =>
@@ -428,9 +399,6 @@ namespace WebAppAPI.Persistence.Migrations
             modelBuilder.Entity("WebAppAPI.Domain.Entities.ProductImageFile", b =>
                 {
                     b.HasBaseType("WebAppAPI.Domain.Entities.File");
-
-                    b.Property<bool>("CoverImage")
-                        .HasColumnType("boolean");
 
                     b.HasDiscriminator().HasValue("ProductImageFile");
                 });
@@ -527,25 +495,9 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("WebAppAPI.Domain.Entities.Rating", b =>
-                {
-                    b.HasOne("WebAppAPI.Domain.Entities.Product", "Product")
-                        .WithMany("Ratings")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("WebAppAPI.Domain.Entities.Product", b =>
-                {
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

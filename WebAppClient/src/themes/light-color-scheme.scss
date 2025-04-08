@@ -6,7 +6,7 @@
 @use "./layout/toolbar/light-toolbar.scss" as layout-light-toolbar;
 @use "./layout/buttons/light-bs-buttons.scss";
 @use "./layout/toastr/light-toastr.scss";
-@use "./layout/toastr/dark-toastr.scss";
+@use "./layout/pagination/pagination-light.scss";
 
 html {
     ///////////// Dynamic Colors /////////////
@@ -37,6 +37,7 @@ html {
     --primary-bg-lighter: rgb(43, 74, 126);
     --primary-bg: rgb(37, 63, 107);
     --primary-bg-dark: rgb(32, 54, 94);
+    --primary-bg-darker: rgb(25, 42, 75);
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.7);
 
@@ -56,6 +57,7 @@ html {
 
     // Light Background Colors
     --light-background: rgb(249 249 255);
+    --light-gray-mid-background: rgb(204, 206, 212);
     --gray-background: rgb(224 226 236);
     --gray-background-transparent: rgb(224, 226, 236, 0.4);
     --light-background-bs-navbar: rgb(230, 217, 233);
@@ -127,6 +129,8 @@ html {
 
     // Error - different than dark-color-scheme
     --error-bg: rgb(172, 35, 35);
+    --error-bg-white-lighter: rgb(160, 48, 48);
+    --error-bg-both-theme: rgb(172, 35, 35);
     --error-bg-darker: rgb(148, 30, 30);
     --error-bg-hover: rgb(172, 35, 35, 0.8);
     --error-bg-lighter: rgb(172, 35, 35, 0.7);

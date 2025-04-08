@@ -1,0 +1,74 @@
+[data-bs-theme="light"] {
+    // Pagination first-last buttons
+    .page-item.first,
+    .page-item.last {
+        .page-link {
+            color: var(--dark-text);
+            background-color: var(--gray-background);
+        }
+    }
+
+    // Pagination previous-next buttons
+    .page-item.previous,
+    .page-item.next {
+        .page-link {
+            color: var(--dark-text);
+            background-color: var(--gray-background-transparent);
+        }
+    }
+
+    // Pagination all buttons
+    .page-item,
+    .page-item {
+        .page-link {
+            &:hover {
+                box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+            }
+            position: relative;
+            .overlay {
+                display: none;
+            }
+            &.disabled {
+                .overlay {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    // previous-next & first-last page buttons on 'disabled' state
+    .page-item {
+        .page-link {
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 8%;
+                background: rgba(255, 255, 255, 0.5);
+                z-index: 1;
+                visibility: visible;
+                pointer-events: none;
+            }
+        }
+    }
+    // Pagination first button overlay left radius
+    .page-item.first {
+        .page-link {
+            .overlay {
+                border-top-left-radius: 9%;
+                border-bottom-left-radius: 9%;
+            }
+        }
+    }
+    // Pagination last button overlay right radius
+    .page-item.last {
+        .page-link {
+            .overlay {
+                border-top-right-radius: 9%;
+                border-bottom-right-radius: 9%;
+            }
+        }
+    }
+}

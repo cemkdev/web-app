@@ -12,8 +12,12 @@ namespace WebAppAPI.Domain.Entities
         public string Name { get; set; }
         public int Stock { get; set; }
         public float Price { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public float? Rating { get; set; }
 
         public ICollection<Order> Orders { get; set; }
         public ICollection<ProductImageFile> ProductImageFiles { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }

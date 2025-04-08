@@ -1,0 +1,114 @@
+<div class="container col-9 pt-5 pb-5">
+    <div class="row row-cols-1 row-cols-md-4 row-cols-sm-4 g-4">
+        <div class="col" *ngFor="let product of products;">
+            <div class="card h-100 shadow">
+                <h6 class="card-header line-limit-one">{{product.title}}</h6>
+                <div class="col text-center img-col">
+                    <img src="default-product-image.png" class="card-img-top" alt="..." *ngIf="!product.hasCover">
+                    <img src={{product.productImageFilePath}} class="card-img-top" alt="..." *ngIf="product.hasCover">
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text product-name pt-0 pb-0 mb-2">{{product.name}}</p>
+                    <p class="card-text line-limit-two">{{product.description}}</p>
+                    <div class="row">
+                        <div class="col-md-6 text-start">
+                            <div class="row">
+                                <div class="col-md-12 text-start rating-stars">
+                                    <!-- <a class="bi bi-star-fill"></a>
+                                    <a class="bi bi-star-fill"></a>
+                                    <a class="bi bi-star-fill"></a>
+                                    <a class="bi bi-star-half"></a>
+                                    <a class="bi bi-star"></a> -->
+                                    <span *ngFor="let star of getStars(product.rating)">
+                                        <i class="bi" [ngClass]="star"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row align-items-start mt-2">
+                                <div class="col-md-12 text-start price-badge">
+                                    <span class="badge text-bg-secondary">
+                                        <span class="currency-part">$ </span>
+                                        <span class="price-integer-part">{{product.priceIntegerPart}} </span>
+                                        <span class="price-fraction-part">{{product.priceFractionPart}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <div class="row h-100 align-items-end mt-1">
+                                <div class="col-md-12 text-end">
+                                    <a class="btn btn-light add-to-cart" type="button">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary" *ngIf="product.stock > 5">
+                        {{product.stock}} left in stock.
+                    </small>
+                    <small class="text-body-secondary" *ngIf="product.stock <= 5">
+                        <span style="color: var(--error-bg-both-theme); font-size: 12px;">Only <span
+                                style="font-weight: 500; font-size: 13px;">{{product.stock}}</span> left in
+                            stock - order soon.</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col">
+            <div class="card h-100 shadow">
+                <h6 class="card-header line-limit-one">Card Title</h6>
+                <img src="default-product-image.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text line-limit-three">This is a wider card with supporting text below as
+                        a natural lead-in to
+                        additional
+                        content. This content is a little bit longer
+                        content. This content is a little bit longer
+                        content. This content is a little bit longer.</p>
+                    <div class="text-end">
+                        <a class="btn btn-light add-to-cart active" type="button">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end mt-4">
+            <li class="page-item first">
+                <button class="page-link" [routerLink]="['/products', 1]"
+                    [ngClass]="{'disabled': currentPageNo <= 1}">First<div class="overlay"></div></button>
+            </li>
+            <li class="page-item previous">
+                <button class="page-link" [routerLink]="['/products', currentPageNo - 1 <= 0 ? 1 : currentPageNo - 1]"
+                    [ngClass]="{'disabled': currentPageNo <= 1}">Previous<div class="overlay"></div></button>
+            </li>
+            <li class="page-item" *ngFor="let pageNo of pageList;" [ngClass]="{'disabled': pageNo === currentPageNo}"
+                routerLinkActive="active">
+                <button class="page-link" [routerLink]="['/products', pageNo]">{{pageNo}}</button>
+            </li>
+            <li class="page-item next">
+                <button class="page-link"
+                    [routerLink]="['/products', currentPageNo + 1 >= totalPageCount ? totalPageCount : currentPageNo + 1]"
+                    [ngClass]="{'disabled': currentPageNo >= totalPageCount}">Next<div class="overlay"></div></button>
+            </li>
+            <li class="page-item last">
+                <button class="page-link" [routerLink]="['/products', totalPageCount]"
+                    [ngClass]="{'disabled': currentPageNo >= totalPageCount}">Last
+                    <div class="circle-container">
+                        <span class="circle-number">{{totalPageCount}}</span>
+                    </div>
+                    <div class="overlay"></div>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</div>

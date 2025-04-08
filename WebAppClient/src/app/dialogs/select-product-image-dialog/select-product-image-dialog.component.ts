@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit, Output, signal } from '@angular/core';
 import { BaseDialog } from '../base/base-dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FileUploadOptions } from '../../services/common/file-upload/file-upload.component';
@@ -39,9 +39,16 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     queryString: `id=${this.data}`
   };
 
+  checkedValues: boolean[] = [];
+
   async ngOnInit() {
+    await this.getImages();
+  }
+
+  async getImages() {
     this.spinner.show(SpinnerType.BallAtom);
     this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide(SpinnerType.BallAtom));
+    this.checkedValues = this.images.map(c => c.coverImage);
   }
 
   async deleteImage(imageId: string, event: any) {
@@ -66,6 +73,14 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
         });
       }
     })
+  }
+
+  async makeCoverImage(imageId: string) {
+    this.spinner.show(SpinnerType.BallAtom);
+    await this.productService.changeCoverImage(imageId, this.data as string, () => {
+      this.spinner.hide(SpinnerType.BallAtom);
+    })
+    await this.getImages();
   }
 }
 

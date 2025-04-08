@@ -25,7 +25,10 @@ namespace WebAppAPI.Application.Features.Queries.Product.GetByIdProduct
             {
                 Name = product.Name,
                 Price = product.Price,
-                Stock = product.Stock
+                Stock = product.Stock,
+                Title = product.Title,
+                Description = product.Description,
+                Rating = product.Rating
             };
         }
     }

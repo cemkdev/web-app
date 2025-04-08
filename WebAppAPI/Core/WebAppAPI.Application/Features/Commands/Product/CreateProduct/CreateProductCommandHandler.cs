@@ -26,7 +26,9 @@ namespace WebAppAPI.Application.Features.Commands.Product.CreateProduct
             {
                 Name = request.Name,
                 Stock = request.Stock,
-                Price = request.Price
+                Price = request.Price,
+                Title = request.Title,
+                Description = request.Description
             });
             await _productWriteRepository.SaveAsync();
 

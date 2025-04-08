@@ -1,10 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Repositories;
 using P = WebAppAPI.Domain.Entities;
 
@@ -29,9 +24,11 @@ namespace WebAppAPI.Application.Features.Commands.Product.UpdateProduct
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
             P.Product product = await _productReadRepository.GetByIdAsync(request.Id);
-            product.Name = request.Name;
-            product.Stock = request.Stock;
-            product.Price = request.Price;
+            product.Name = request.Name ?? product.Name;
+            product.Stock = request.Stock ?? product.Stock;
+            product.Price = request.Price ?? product.Price;
+            product.Title = request.Title ?? product.Title;
+            product.Description = request.Description ?? product.Description;
             await _productWriteRepository.SaveAsync();
 
             _logger.LogInformation("Product updated...");

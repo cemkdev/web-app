@@ -1,0 +1,101 @@
+.card-img-top {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.img-col {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep {
+    html.dark & {
+        .img-col {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+.card {
+    font-size: small;
+}
+
+.line-limit-one {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 35px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 1 satırda sonlandırma */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* '...' eklemek için */
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 1 satırda sonlandırma */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* '...' eklemek için */
+}
+
+.line-limit-two {
+    height: 40px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 3 satırda sonlandırma */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* '...' eklemek için */
+}
+
+.price-badge .badge {
+    color: var(--dark-text) !important;
+    background-color: var(--gray-background) !important;
+    font-weight: 400;
+    font-size: medium;
+}
+
+.currency-part {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.price-integer-part {
+    font-size: large;
+    font-weight: 400;
+}
+
+.price-fraction-part {
+    font-size: small;
+    opacity: 0.8;
+}
+
+.page-item.last .page-link {
+    padding-bottom: 4.5px;
+    min-width: 90px;
+}
+// Custom Last Page Number Circle
+.circle-container {
+    display: inline-block;
+    border: 1px solid var(--dark-text);
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-bottom: 2px;
+}
+
+.circle-number {
+    font-size: 12px;
+    color: var(--dark-text);
+}
+
+.card-footer {
+    small {
+        //font-size: 11px;
+        font-weight: 400;
+    }
+}

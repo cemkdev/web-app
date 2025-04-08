@@ -36,7 +36,7 @@ export class ProductService {
   }
 
   // LIST / READ
-  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number, products: List_Products[] }> {
+  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Products[] }> {
 
     //////////////////////////////////////////////////// deprecated
     // const promiseData: Promise<List_Products[]> = this.httpClientService.get<List_Products[]>({
@@ -67,7 +67,7 @@ export class ProductService {
     // }
 
     const data = await firstValueFrom(
-      this.httpClientService.get<{ totalCount: number, products: List_Products[] }>({
+      this.httpClientService.get<{ totalProductCount: number, products: List_Products[] }>({
         controller: "products",
         queryString: `page=${page}&size=${size}`
       }).pipe(
@@ -116,6 +116,17 @@ export class ProductService {
       queryString: `imageId=${imageId}`
     }, id);
     await firstValueFrom(deleteObservable);
+    successCallBack();
+  }
+
+  // CHANGE - COVER IMAGE
+  async changeCoverImage(imageId: string, productId: string, successCallBack?: () => void): Promise<void> {
+    const changeCoverImageObservable = this.httpClientService.put({
+      controller: "products",
+      action: "ChangeCoverImage",
+      queryString: `imageId=${imageId}&productId=${productId}`
+    }, {});
+    await firstValueFrom(changeCoverImageObservable);
     successCallBack();
   }
 }

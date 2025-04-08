@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,24 +25,28 @@ namespace WebAppAPI.Application.Features.Queries.Product.GetAllProducts
 
         public async Task<GetAllProductsQueryResponse> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
         {
-            //_logger.LogInformation("You have all the products now.");
-            //throw new Exception("Hata Alındı!");
-
-            var totalCount = _productReadRepository.GetAll(false).Count();
-            var products = _productReadRepository.GetAll(false).OrderBy(o => o.DateCreated).Skip(request.Page * request.Size).Take(request.Size).Select(p => new
-            {
-                p.Id,
-                p.Name,
-                p.Stock,
-                p.Price,
-                p.DateCreated,
-                p.DateUpdated
-            }).ToList();
+            var totalProductCount = _productReadRepository.GetAll(false).Count();
+            var products = _productReadRepository.GetAll(false).OrderBy(o => o.Stock)
+                .Skip(request.Page * request.Size).Take(request.Size)
+                .Include(i => i.ProductImageFiles)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Stock,
+                    p.Price,
+                    p.DateCreated,
+                    p.DateUpdated,
+                    p.Title,
+                    p.Description,
+                    p.Rating,
+                    p.ProductImageFiles
+                }).ToList();
 
             return new()
             {
                 Products = products,
-                TotalCount = totalCount
+                TotalProductCount = totalProductCount
             };
         }
     }

@@ -4,6 +4,8 @@
 
 @use "./layout/toolbar/dark-toolbar.scss" as layout-dark-toolbar;
 @use "./layout/buttons/dark-bs-buttons.scss";
+@use "./layout/toastr/dark-toastr.scss";
+@use "./layout/pagination/pagination-dark.scss";
 
 html.dark {
     ///////////// Dynamic Colors /////////////
@@ -33,6 +35,7 @@ html.dark {
     --primary-bg-lighter: rgb(43, 74, 126);
     --primary-bg: rgb(37, 63, 107);
     --primary-bg-dark: rgb(32, 54, 94);
+    --primary-bg-darker: rgb(25, 42, 75);
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.6);
 
@@ -52,7 +55,8 @@ html.dark {
 
     // Light Background Colors
     --light-background: rgb(249 249 255);
-    --gray-background: rgb(224 226 236);
+    --light-gray-mid-background: rgb(204, 206, 212);
+    --gray-background: rgb(173, 175, 183);
     --gray-background-transparent: rgb(224, 226, 236, 0.4);
 
     // Dark Text - Light Background
@@ -125,6 +129,7 @@ html.dark {
     // Error
     --error-bg: rgb(160, 19, 19);
     --error-bg-white-lighter: rgb(160, 48, 48);
+    --error-bg-both-theme: rgb(182, 54, 54);
     --error-bg-darker: rgb(141, 17, 17);
     --error-bg-hover: rgb(160, 19, 19, 0.8);
     --error-bg-lighter: rgb(160, 19, 19, 0.7);

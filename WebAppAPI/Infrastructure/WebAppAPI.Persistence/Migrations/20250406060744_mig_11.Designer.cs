@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAppAPI.Persistence.Contexts;
@@ -11,9 +12,10 @@ using WebAppAPI.Persistence.Contexts;
 namespace WebAppAPI.Persistence.Migrations
 {
     [DbContext(typeof(WebAppAPIDbContext))]
-    partial class WebAppAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250406060744_mig_11")]
+    partial class mig_11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,9 +430,6 @@ namespace WebAppAPI.Persistence.Migrations
             modelBuilder.Entity("WebAppAPI.Domain.Entities.ProductImageFile", b =>
                 {
                     b.HasBaseType("WebAppAPI.Domain.Entities.File");
-
-                    b.Property<bool>("CoverImage")
-                        .HasColumnType("boolean");
 
                     b.HasDiscriminator().HasValue("ProductImageFile");
                 });
