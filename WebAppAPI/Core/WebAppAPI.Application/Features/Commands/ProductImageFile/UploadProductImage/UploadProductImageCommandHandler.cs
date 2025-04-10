@@ -1,12 +1,7 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Abstractions.Storage;
 using WebAppAPI.Application.Repositories;
-using P = WebAppAPI.Domain.Entities;
+using E = WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Commands.ProductImageFile.UploadProductImage
 {
@@ -26,14 +21,14 @@ namespace WebAppAPI.Application.Features.Commands.ProductImageFile.UploadProduct
         public async Task<UploadProductImageCommandResponse> Handle(UploadProductImageCommandRequest request, CancellationToken cancellationToken)
         {
             List<(string fileName, string pathOrContainerName)> data = await _storageService.UploadAsync("images", request.Files);
-            P.Product product = await _productReadRepository.GetByIdAsync(request.Id);
+            E.Product product = await _productReadRepository.GetByIdAsync(request.Id);
 
-            await _productImageFileWriteRepository.AddRangeAsync(data.Select(d => new P.ProductImageFile
+            await _productImageFileWriteRepository.AddRangeAsync(data.Select(d => new E.ProductImageFile
             {
                 FileName = d.fileName,
                 Path = d.pathOrContainerName,
                 Storage = _storageService.StorageName,
-                Product = new List<P.Product>() { product }
+                Product = new List<E.Product>() { product }
             }).ToList());
 
             await _productImageFileWriteRepository.SaveAsync();

@@ -1,4 +1,5 @@
 ﻿using WebAppAPI.Domain.Entities.Common;
+using WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Domain.Entities
 {
@@ -6,9 +7,10 @@ namespace WebAppAPI.Domain.Entities
     {
         public Guid ProductId { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public float Value { get; set; }
         public Product Product { get; set; }
+        public AppUser User { get; set; }
     }
 }

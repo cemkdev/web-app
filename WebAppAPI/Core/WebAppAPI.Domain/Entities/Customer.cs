@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebAppAPI.Domain.Entities.Common;
+﻿using WebAppAPI.Domain.Entities.Common;
 
 namespace WebAppAPI.Domain.Entities
 {

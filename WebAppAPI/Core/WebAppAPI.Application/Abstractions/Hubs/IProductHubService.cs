@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebAppAPI.Application.Abstractions.Hubs
+﻿namespace WebAppAPI.Application.Abstractions.Hubs
 {
     public interface IProductHubService
     {

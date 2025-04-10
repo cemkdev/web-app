@@ -1,13 +1,7 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using WebAppAPI.Application.Repositories;
-using P = WebAppAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using WebAppAPI.Application.Repositories;
+using E = WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Commands.ProductImageFile.RemoveProductImage
 {
@@ -24,10 +18,10 @@ namespace WebAppAPI.Application.Features.Commands.ProductImageFile.RemoveProduct
 
         public async Task<RemoveProductImageCommandResponse> Handle(RemoveProductImageCommandRequest request, CancellationToken cancellationToken)
         {
-            P.Product? product = await _productReadRepository.Table.Include(p => p.ProductImageFiles)
+            E.Product? product = await _productReadRepository.Table.Include(p => p.ProductImageFiles)
                                                                  .FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
-            P.ProductImageFile? productImageFile = product?.ProductImageFiles.Where(i => i.Storage == "AzureStorage")
+            E.ProductImageFile? productImageFile = product?.ProductImageFiles.Where(i => i.Storage == "AzureStorage")
                                                                          .FirstOrDefault(p => p.Id == Guid.Parse(request.ImageId));
             if (productImageFile != null)
                 product?.ProductImageFiles.Remove(productImageFile);

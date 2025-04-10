@@ -1,13 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Repositories;
-using P = WebAppAPI.Domain.Entities;
+using E = WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Queries.ProductImageFile.GetProductImages
 {
@@ -24,7 +19,7 @@ namespace WebAppAPI.Application.Features.Queries.ProductImageFile.GetProductImag
 
         public async Task<List<GetProductImagesQueryResponse>> Handle(GetProductImagesQueryRequest request, CancellationToken cancellationToken)
         {
-            P.Product? product = await _productReadRepository.Table
+            E.Product? product = await _productReadRepository.Table
                 .Include(p => p.ProductImageFiles)
                 .FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 

@@ -22,6 +22,8 @@ using WebAppAPI.SignalR;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Services
+builder.Services.AddHttpContextAccessor(); // Client'tan gelen request neticesinde oluşturulan HttpContext nesnesine, katmanlardaki class'lar üzerinden(bussiness logic'ten) erişebilmemizi sağlayan bir servistir.
+
 // Here we call the extension method that adds services to the IoC Container.
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
 builder.Services.AddPersistenceServices();

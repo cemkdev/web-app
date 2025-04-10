@@ -1,9 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
-using WebAppAPI.Application.Exceptions;
-using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Application.Features.Commands.AppUser.CreateUser
 {

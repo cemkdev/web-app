@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebAppAPI.Domain.Entities.Common;
+﻿using WebAppAPI.Domain.Entities.Common;
 
 namespace WebAppAPI.Domain.Entities
 {
@@ -13,6 +8,7 @@ namespace WebAppAPI.Domain.Entities
         public string Description { get; set; }
         public string Address { get; set; }
 
+        public Basket Basket { get; set; }
         public ICollection<Product> Products { get; set; }
         public Customer Customer { get; set; }
     }

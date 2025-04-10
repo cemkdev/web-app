@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebAppAPI.Application.ViewModels.Products
+﻿namespace WebAppAPI.Application.ViewModels.Products
 {
     public class VM_Product_Update
     {

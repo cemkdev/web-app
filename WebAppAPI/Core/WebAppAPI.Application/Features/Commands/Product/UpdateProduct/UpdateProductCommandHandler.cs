@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using WebAppAPI.Application.Repositories;
-using P = WebAppAPI.Domain.Entities;
+using E = WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Commands.Product.UpdateProduct
 {
@@ -23,7 +23,7 @@ namespace WebAppAPI.Application.Features.Commands.Product.UpdateProduct
 
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            P.Product product = await _productReadRepository.GetByIdAsync(request.Id);
+            E.Product product = await _productReadRepository.GetByIdAsync(request.Id);
             product.Name = request.Name ?? product.Name;
             product.Stock = request.Stock ?? product.Stock;
             product.Price = request.Price ?? product.Price;

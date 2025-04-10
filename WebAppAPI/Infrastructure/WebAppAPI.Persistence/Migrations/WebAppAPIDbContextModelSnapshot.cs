@@ -158,6 +158,59 @@ namespace WebAppAPI.Persistence.Migrations
                     b.ToTable("ProductProductImageFile");
                 });
 
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Basket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.BasketItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BasketId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -322,7 +375,6 @@ namespace WebAppAPI.Persistence.Migrations
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Address")
@@ -402,8 +454,9 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<float>("Value")
                         .HasColumnType("real");
@@ -412,7 +465,9 @@ namespace WebAppAPI.Persistence.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Rating");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.InvoiceFile", b =>
@@ -516,6 +571,36 @@ namespace WebAppAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Basket", b =>
+                {
+                    b.HasOne("WebAppAPI.Domain.Entities.Identity.AppUser", "User")
+                        .WithMany("Baskets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.BasketItem", b =>
+                {
+                    b.HasOne("WebAppAPI.Domain.Entities.Basket", "Basket")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAppAPI.Domain.Entities.Product", "Product")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Order", b =>
                 {
                     b.HasOne("WebAppAPI.Domain.Entities.Customer", "Customer")
@@ -523,6 +608,14 @@ namespace WebAppAPI.Persistence.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WebAppAPI.Domain.Entities.Basket", "Basket")
+                        .WithOne("Order")
+                        .HasForeignKey("WebAppAPI.Domain.Entities.Order", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
 
                     b.Navigation("Customer");
                 });
@@ -535,7 +628,23 @@ namespace WebAppAPI.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebAppAPI.Domain.Entities.Identity.AppUser", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Basket", b =>
+                {
+                    b.Navigation("BasketItems");
+
+                    b.Navigation("Order")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
@@ -543,8 +652,17 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Identity.AppUser", b =>
+                {
+                    b.Navigation("Baskets");
+
+                    b.Navigation("Ratings");
+                });
+
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("BasketItems");
+
                     b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618

@@ -1,11 +1,6 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Repositories;
-using P = WebAppAPI.Domain.Entities;
+using E = WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Queries.Product.GetByIdProduct
 {
@@ -20,7 +15,7 @@ namespace WebAppAPI.Application.Features.Queries.Product.GetByIdProduct
 
         public async Task<GetByIdProductQueryResponse> Handle(GetByIdProductQueryRequest request, CancellationToken cancellationToken)
         {
-            P.Product product = await _productReadRepository.GetByIdAsync(request.Id, false);
+            E.Product product = await _productReadRepository.GetByIdAsync(request.Id, false);
             return new()
             {
                 Name = product.Name,

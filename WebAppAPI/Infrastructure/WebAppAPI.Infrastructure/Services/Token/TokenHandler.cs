@@ -5,8 +5,8 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using WebAppAPI.Application.Abstractions.Token;
-using U = WebAppAPI.Domain.Entities.Identity;
 using T = WebAppAPI.Application.DTOs;
+using I = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Infrastructure.Services.Token
 {
@@ -19,7 +19,7 @@ namespace WebAppAPI.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public T.Token CreateAccessToken(int second, U.AppUser user)
+        public T.Token CreateAccessToken(int second, I.AppUser user)
         {
             T.Token token = new();
 
