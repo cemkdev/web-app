@@ -4,8 +4,8 @@
             <div class="card h-100 shadow">
                 <h6 class="card-header line-limit-one">{{product.title}}</h6>
                 <div class="col text-center img-col">
-                    <img src="default-product-image.png" class="card-img-top" alt="..." *ngIf="!product.hasCover">
-                    <img src={{product.productImageFilePath}} class="card-img-top" alt="..." *ngIf="product.hasCover">
+                    <img src="default-product-image.png" class="card-img-top" *ngIf="!product.hasCover">
+                    <img src={{product.productImageFilePath}} class="card-img-top" *ngIf="product.hasCover">
                 </div>
 
                 <div class="card-body">
@@ -38,7 +38,7 @@
                         <div class="col-md-6 text-end">
                             <div class="row h-100 align-items-end mt-1">
                                 <div class="col-md-12 text-end">
-                                    <a class="btn btn-light add-to-cart" type="button">
+                                    <a class="btn btn-light add-to-cart" type="button" (click)="addToBasket(product)">
                                         <i class="bi bi-cart-plus"></i>
                                     </a>
                                 </div>

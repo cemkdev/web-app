@@ -4,6 +4,11 @@ import { List_Products, List_Products_UI } from '../../../../contracts/list_prod
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../../../services/common/models/file.service';
 import { BaseStorageUrl } from '../../../../contracts/base_storage_url';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from '../../../../base/base.component';
+import { BasketService } from '../../../../services/common/models/basket.service';
+import { Create_Basket_Item } from '../../../../contracts/basket/create_basket_item';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../../services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-list',
@@ -11,7 +16,7 @@ import { BaseStorageUrl } from '../../../../contracts/base_storage_url';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent implements OnInit {
 
   baseStorageUrl: BaseStorageUrl;
   products: List_Products_UI[] = [];
@@ -24,22 +29,27 @@ export class ListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private fileService: FileService
-  ) { }
+    private fileService: FileService,
+    spinner: NgxSpinnerService,
+    private basketService: BasketService,
+    private customToastrService: CustomToastrService
+  ) {
+    super(spinner);
+  }
 
   async ngOnInit() {
-
     this.activatedRoute.params.subscribe(async params => {
+      this.showSpinner(SpinnerType.BallAtom);
 
       this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
 
       this.currentPageNo = parseInt(params["pageNo"] ?? 1);
       const data: { totalProductCount: number, products: List_Products[] } = await this.productService.read(this.currentPageNo - 1, this.productCountPerPage,
         () => {
-
+          this.hideSpinner(SpinnerType.BallAtom);
         },
         errorMessage => {
-
+          this.hideSpinner(SpinnerType.BallAtom);
         })
       this.manipulateProductData(data.products, this.baseStorageUrl.url);
       this.totalProductCount = data.totalProductCount;
@@ -106,5 +116,19 @@ export class ListComponent implements OnInit {
       }
     }
     return stars;
+  }
+
+  async addToBasket(product: List_Products_UI) {
+    this.showSpinner(SpinnerType.BallAtom);
+    let _basketItem: Create_Basket_Item = new Create_Basket_Item();
+    _basketItem.productId = product.id;
+    _basketItem.quantity = 1;
+
+    await this.basketService.add(_basketItem);
+    this.hideSpinner(SpinnerType.BallAtom);
+    this.customToastrService.message(`${product.name} has been added to your cart.`, "Added to Cart", {
+      messageType: ToastrMessageType.Success,
+      position: ToastrPosition.TopRight
+    })
   }
 }

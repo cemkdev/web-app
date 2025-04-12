@@ -74,8 +74,12 @@
             <div class="navbar-right">
                 <div class="custom-border-horizontal collapsed-bottom"></div>
                 <!-- BASKET -->
-                <a class="btn btn-light" id="add-to-cart" type="button" [routerLink]="'basket'"
-                    routerLinkActive="active">
+                <!-- <a class="btn btn-light" id="add-to-cart" type="button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" [routerLink]="'basket'" routerLinkActive="active">
+                    <i class="bi bi-cart-check"></i>
+                </a> -->
+                <a class="btn btn-light" id="add-to-cart" type="button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
                     <i class="bi bi-cart-check"></i>
                 </a>
                 <!-- LOG IN -->
@@ -114,3 +118,4 @@
 <ngx-spinner size="medium" name="spinner-2" color="var(--primary-bg-electric)" type="line-scale"></ngx-spinner>
 <ngx-spinner size="medium" name="spinner-3" color="var(--primary-bg-electric)" type="pacman"></ngx-spinner>
 <ngx-spinner size="medium" name="spinner-4" color="var(--primary-bg-electric)" type="square-jelly-box"></ngx-spinner>
+<app-baskets></app-baskets>

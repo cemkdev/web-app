@@ -1,10 +1,12 @@
 @use "toolbar/toolbar.scss";
 @use "buttons/buttons.scss";
+@use "pagination/pagination-default.scss";
+@use "shopping-cart/shopping-cart-default.scss";
 
 .btn {
     margin: 5px;
 }
 
-* {
-    transition: all 100ms ease-in-out !important;
-}
+// * {
+//     transition: all 100ms ease-in-out !important;
+// }

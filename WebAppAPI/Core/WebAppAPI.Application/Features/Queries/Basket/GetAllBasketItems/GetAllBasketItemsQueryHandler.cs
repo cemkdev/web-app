@@ -23,9 +23,9 @@ namespace WebAppAPI.Application.Features.Queries.Basket.GetAllBasketItems
 
             return basketItems.Select(bi => new GetAllBasketItemsQueryResponse()
             {
-                BasketItemId = bi.BasketId.ToString(),
+                BasketItemId = bi.Id.ToString(),
+                ProductId = bi.ProductId.ToString(),
                 Name = bi.Product.Name,
-                Title = bi.Product.Title,
                 Description = bi.Product.Description,
                 Price = bi.Product.Price,
                 Stock = bi.Product.Stock,

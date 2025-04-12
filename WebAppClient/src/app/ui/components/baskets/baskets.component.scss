@@ -1,0 +1,43 @@
+.modal-body {
+    padding: 0;
+}
+
+thead > tr > th {
+    font-weight: 500 !important;
+}
+
+.order {
+    font-weight: 500 !important;
+    padding-left: 30px;
+}
+
+.table-row {
+    position: relative;
+}
+
+.table-row th {
+    width: 50px;
+}
+.table-row .name {
+    width: 150px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 3 satırda sonlandırma */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* '...' eklemek için */
+}
+.table-row .description {
+    width: 200px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 3 satırda sonlandırma */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* '...' eklemek için */
+}
+
+.card-img-top {
+    height: 80px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 0;
+}

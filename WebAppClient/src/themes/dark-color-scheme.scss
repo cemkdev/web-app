@@ -6,6 +6,7 @@
 @use "./layout/buttons/dark-bs-buttons.scss";
 @use "./layout/toastr/dark-toastr.scss";
 @use "./layout/pagination/pagination-dark.scss";
+@use "layout/shopping-cart/shopping-cart-dark.scss";
 
 html.dark {
     ///////////// Dynamic Colors /////////////
@@ -55,6 +56,7 @@ html.dark {
 
     // Light Background Colors
     --light-background: rgb(249 249 255);
+    --light-background-darker: rgb(230, 230, 230);
     --light-gray-mid-background: rgb(204, 206, 212);
     --gray-background: rgb(173, 175, 183);
     --gray-background-transparent: rgb(224, 226, 236, 0.4);

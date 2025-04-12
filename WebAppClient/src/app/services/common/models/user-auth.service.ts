@@ -32,24 +32,28 @@ export class UserAuthService {
     callBackFunction();
   }
 
-  async refreshTokenLogin(refreshToken: string, callBackFunction?: () => void): Promise<any> {
+  async refreshTokenLogin(refreshToken: string, callBackFunction?: (state) => void): Promise<any> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post({
       controller: "auth",
       action: "refreshTokenLogin"
     }, { refreshToken: refreshToken });
 
-    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+    try {
+      const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
 
-    if (tokenResponse) {
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+      if (tokenResponse) {
+        localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+        localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
 
-      this.toastrService.message("Your token has been refreshed.", "Refresh Token Alert!", {
-        messageType: ToastrMessageType.Info,
-        position: ToastrPosition.TopLeft
-      });
+        this.toastrService.message("Your token has been refreshed.", "Refresh Token Alert!", {
+          messageType: ToastrMessageType.Info,
+          position: ToastrPosition.TopLeft
+        });
+      }
+      callBackFunction(tokenResponse ? true : false);
+    } catch (error) {
+      callBackFunction(false);
     }
-    callBackFunction();
   }
 
   async googleLogin(user: SocialUser, callBackFunction?: () => void): Promise<any> {

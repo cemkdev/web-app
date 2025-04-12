@@ -1,0 +1,38 @@
+// Quantity Decrease-Increase Buttons Adjustments
+.quantity-area .decrease,
+.quantity-area .increase {
+    border-radius: 0 !important;
+    font-size: 18px;
+    font-weight: 400;
+    width: 30px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    box-shadow: none !important;
+}
+// Quantity Decrease Buttons Adjustments
+.quantity-area .decrease {
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+    &.trash {
+        font-size: 15px;
+    }
+}
+// Quantity Increase Buttons Adjustments
+.quantity-area .increase {
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+}
+// Quantity Badge Adjustments
+.quantity-area .badge {
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 500;
+    width: 40px;
+    height: 40px;
+    padding-top: 15px;
+    margin: 0 !important;
+    display: flex !important;
+    text-align: center !important;
+    justify-content: center !important;
+}

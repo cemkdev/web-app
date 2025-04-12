@@ -38,6 +38,9 @@ namespace WebAppAPI.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateQuantity(UpdateQuantityCommandRequest updateQuantityCommandRequest)
         {
+            if (updateQuantityCommandRequest.Quantity < 1)
+                throw new BadHttpRequestException("Invalid Request!");
+
             UpdateQuantityCommandResponse response = await _mediator.Send(updateQuantityCommandRequest);
             return Ok(response);
         }

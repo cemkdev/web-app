@@ -1,0 +1,10 @@
+[data-bs-theme="light"] {
+    // All Quantity Area Adjustments
+    .quantity-area {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    // Quantity Badge Adjustments
+    .quantity-area .badge {
+        background-color: var(--gray-background) !important;
+    }
+}
