@@ -79,7 +79,7 @@
                     <i class="bi bi-cart-check"></i>
                 </a> -->
                 <a class="btn btn-light" id="add-to-cart" type="button" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
+                    data-bs-target="#exampleModal" (click)="loadComponent()">
                     <i class="bi bi-cart-check"></i>
                 </a>
                 <!-- LOG IN -->
@@ -118,4 +118,11 @@
 <ngx-spinner size="medium" name="spinner-2" color="var(--primary-bg-electric)" type="line-scale"></ngx-spinner>
 <ngx-spinner size="medium" name="spinner-3" color="var(--primary-bg-electric)" type="pacman"></ngx-spinner>
 <ngx-spinner size="medium" name="spinner-4" color="var(--primary-bg-electric)" type="square-jelly-box"></ngx-spinner>
-<app-baskets></app-baskets>
+
+<!-- Basket Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <!-- <app-baskets></app-baskets> -->
+        <ng-template appDynamicLoadComponent></ng-template>
+    </div>
+</div>

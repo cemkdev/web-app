@@ -1,82 +1,79 @@
-<!-- Basket Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Shopping Cart</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-row {{basketItem.basketItemId}}"
-                                *ngFor="let basketItem of basketItems; let i = index">
-                                <td class="order" scope="row">{{i + 1}}</td>
-                                <td>
-                                    <img src={{basketItem.productImageFile.path}} class="card-img-top"
-                                        *ngIf="basketItem.productImageFile">
-                                    <img src="default-product-image.png" class="card-img-top"
-                                        *ngIf="!basketItem.productImageFile">
-                                </td>
-                                <td>
-                                    <p class="name mb-0">{{basketItem.name}}</p>
-                                    <p *ngIf="basketItem.stock > 5">
-                                        <span style="color: var(--success-bg); font-size: 10px;">In stock</span>
-                                    </p>
-                                    <p *ngIf="basketItem.stock <= 5">
-                                        <span style="color: var(--error-bg-both-theme); font-size: 10px;">Only <span
-                                                style="font-weight: 500; font-size: 12px;">{{basketItem.stock}}</span>
-                                            left in
-                                            stock - order soon.</span>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p class="description">{{basketItem.description}}</p>
-                                </td>
-                                <td>{{basketItem.price}}</td>
-                                <td>
-                                    <div class="btn-group quantity-area" role="group">
-                                        <button type="button" class="btn custom-message decrease"
-                                            (click)="updateQuantity(basketItem.basketItemId, basketItem.quantity - 1, basketItem.productId)"
-                                            *ngIf="basketItem.quantity != 1">&ndash;</button>
-                                        <button type="button" class="btn custom-message decrease trash"
-                                            (click)="removeBasketItem(basketItem.basketItemId)"
-                                            *ngIf="basketItem.quantity == 1">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                        <span
-                                            class="badge bg-light text-dark mx-2 text-center">{{basketItem.quantity}}</span>
-                                        <button type="button" class="btn custom-message increase"
-                                            (click)="updateQuantity(basketItem.basketItemId, basketItem.quantity + 1, basketItem.productId)">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a class="btn custom-delete" type="button"
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Shopping Cart</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row {{basketItem.basketItemId}}"
+                        *ngFor="let basketItem of basketItems; let i = index">
+                        <td class="order" scope="row">{{i + 1}}</td>
+                        <td>
+                            <img src={{basketItem.productImageFile.path}} class="card-img-top"
+                                *ngIf="basketItem.productImageFile">
+                            <img src="default-product-image.png" class="card-img-top"
+                                *ngIf="!basketItem.productImageFile">
+                        </td>
+                        <td>
+                            <p class="name mb-0">{{basketItem.name}}</p>
+                            <p *ngIf="basketItem.stock > 5">
+                                <span style="color: var(--success-bg); font-size: 10px;">In stock</span>
+                            </p>
+                            <p *ngIf="basketItem.stock <= 5">
+                                <span style="color: var(--error-bg-both-theme); font-size: 10px;">Only <span
+                                        style="font-weight: 500; font-size: 12px;">{{basketItem.stock}}</span>
+                                    left in
+                                    stock - order soon.</span>
+                            </p>
+                        </td>
+                        <td>
+                            <p class="description">{{basketItem.description}}</p>
+                        </td>
+                        <td>{{basketItem.price}}</td>
+                        <td>
+                            <div class="btn-group quantity-area" role="group">
+                                <ng-container *ngIf="basketItem.quantity != 1; else trashBtn">
+                                    <button type="button" class="btn custom-message decrease"
+                                        (click)="updateQuantity(basketItem.basketItemId, basketItem.quantity - 1, basketItem.productId)">&ndash;</button>
+                                </ng-container>
+                                <ng-template #trashBtn>
+                                    <button type="button" class="btn custom-message decrease trash"
                                         (click)="removeBasketItem(basketItem.basketItemId)">
                                         <i class="bi bi-trash3-fill"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn custom-message" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn custom-notify">Proceed to Checkout</button>
-            </div>
+                                    </button>
+                                </ng-template>
+
+                                <span class="badge bg-light text-dark mx-2 text-center">{{basketItem.quantity}}</span>
+                                <button type="button" class="btn custom-message increase"
+                                    (click)="updateQuantity(basketItem.basketItemId, basketItem.quantity + 1, basketItem.productId)">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="btn custom-delete" type="button"
+                                (click)="removeBasketItem(basketItem.basketItemId)">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn custom-message" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn custom-notify">Proceed to Checkout</button>
     </div>
 </div>

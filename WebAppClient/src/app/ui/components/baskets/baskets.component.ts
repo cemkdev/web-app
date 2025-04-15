@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BasketService } from '../../../services/common/models/basket.service';
 import { List_Basket_Item } from '../../../contracts/basket/list_basket_item';
 import { Update_Basket_Item } from '../../../contracts/basket/update_basket_item';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
 
 declare var $: any;
 
@@ -41,6 +42,7 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     basketItem.quantity = quantity;
     basketItem.productId = productId;
     await this.basketService.updateQuantity(basketItem);
+    await this.getBasketItems();
     this.hideSpinner(SpinnerType.BallAtom);
   }
 

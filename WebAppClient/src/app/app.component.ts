@@ -1,10 +1,12 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from './services/common/auth.service';
 import { BaseComponent, SpinnerType } from './base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ComponentName, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent extends BaseComponent {
+  @ViewChild(DynamicLoadComponentDirective, { static: true })
+  dynamicLoadComponentDirective: DynamicLoadComponentDirective;
+
   readonly themeService = inject(ThemeService);
 
   isRegisterPage: boolean = false;
@@ -24,7 +29,8 @@ export class AppComponent extends BaseComponent {
     public authService: AuthService,
     spinner: NgxSpinnerService,
     private toastrService: CustomToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dynamicLoadComponentService: DynamicLoadComponentService
   ) {
     super(spinner);
     authService.identityCheck();
@@ -50,5 +56,9 @@ export class AppComponent extends BaseComponent {
       messageType: ToastrMessageType.Info,
       position: ToastrPosition.TopRight
     });
+  }
+
+  loadComponent() {
+    this.dynamicLoadComponentService.loadComponent(ComponentName.BasketsComponent, this.dynamicLoadComponentDirective.viewContainerRef);
   }
 }
