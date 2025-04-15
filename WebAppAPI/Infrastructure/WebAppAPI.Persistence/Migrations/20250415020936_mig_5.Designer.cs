@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAppAPI.Persistence.Contexts;
@@ -11,9 +12,10 @@ using WebAppAPI.Persistence.Contexts;
 namespace WebAppAPI.Persistence.Migrations
 {
     [DbContext(typeof(WebAppAPIDbContext))]
-    partial class WebAppAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250415020936_mig_5")]
+    partial class mig_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -366,6 +368,12 @@ namespace WebAppAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("BasketId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -377,6 +385,8 @@ namespace WebAppAPI.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -568,6 +578,10 @@ namespace WebAppAPI.Persistence.Migrations
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Order", b =>
                 {
+                    b.HasOne("WebAppAPI.Domain.Entities.Customer", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("WebAppAPI.Domain.Entities.Basket", "Basket")
                         .WithOne("Order")
                         .HasForeignKey("WebAppAPI.Domain.Entities.Order", "Id")
@@ -602,6 +616,11 @@ namespace WebAppAPI.Persistence.Migrations
 
                     b.Navigation("Order")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Identity.AppUser", b =>

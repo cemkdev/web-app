@@ -60,8 +60,9 @@ namespace WebAppAPI.Persistence
             services.AddScoped<IInternalAuthentication, AuthService>();
             services.AddScoped<IExternalAuthentication, AuthService>();
 
-            // Basket Entities Service
+            // Basket - Order Entities Service
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IOrderService, OrderService>();
 
         }
     }

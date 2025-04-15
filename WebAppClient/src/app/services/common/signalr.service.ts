@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
+
+  constructor(@Inject("baseSignalRUrl") private baseSignalRUrl: string) { }
 
   //////// Bunlar Microsoft'un da sitesinde "ASP.NET Core SignalR JavaScript istemcisi" başlığında yer alıyor. Aslında direkt uygulanıyor sayılır oradaki bilgiler.
 
@@ -16,6 +18,7 @@ export class SignalRService {
 
   // Başlatılmış bir hub dönecek.
   start(hubUrl: string) {
+    hubUrl = this.baseSignalRUrl + hubUrl;
 
     // connection field'ımız yoksa ya da varsa bile, bunun state'i 'HubConnectionState.Disconnected' ise. Yani daha buna bağlanılmamışsa...
     // Bu şekilde ise önce burada bir işlem yapmamız gerekiyor.

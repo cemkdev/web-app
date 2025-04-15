@@ -70,6 +70,15 @@ namespace WebAppAPI.Persistence.Services
             return result.BasketItems.OrderBy(bi => bi.DateCreated).ToList();
         }
 
+        public Basket? GetUserActiveBasketAsync
+        {
+            get
+            {
+                Basket? basket = ContextUser().Result;
+                return basket;
+            }
+        }
+
         public async Task RemoveBasketItemAsync(string basketItemId)
         {
             BasketItem? basketItem = await _basketItemReadRepository.GetByIdAsync(basketItemId);
