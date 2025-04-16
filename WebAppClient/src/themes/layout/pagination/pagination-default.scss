@@ -3,3 +3,8 @@
     outline: none !important;
     box-shadow: none !important;
 }
+
+.page-item.last .page-link {
+    padding-bottom: 4.5px;
+    min-width: 90px;
+}

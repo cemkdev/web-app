@@ -1,10 +1,10 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Shopping Cart</h1>
+        <h1 class="modal-title fs-5">Shopping Cart</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="basketItems?.length > 0">
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>
@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr class="table-row {{basketItem.basketItemId}}"
-                        *ngFor="let basketItem of basketItems; let i = index">
+                        *ngFor="let basketItem of basketItemsVM; let i = index">
                         <td class="order" scope="row">{{i + 1}}</td>
                         <td>
                             <img src={{basketItem.productImageFile.path}} class="card-img-top"
@@ -42,7 +42,16 @@
                         <td>
                             <p class="description">{{basketItem.description}}</p>
                         </td>
-                        <td>{{basketItem.price}}</td>
+                        <td>
+                            <!-- {{basketItem.price}} -->
+                            <div class="col-md-12 text-start price-badge">
+                                <span class="badge text-bg-secondary">
+                                    <span class="currency-part">$ </span>
+                                    <span class="price-integer-part">{{basketItem.priceIntegerPart}} </span>
+                                    <span class="price-fraction-part">{{basketItem.priceFractionPart}}</span>
+                                </span>
+                            </div>
+                        </td>
                         <td>
                             <div class="btn-group quantity-area" role="group">
                                 <ng-container *ngIf="basketItem.quantity != 1; else trashBtn">
@@ -71,9 +80,34 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="card text-center" *ngIf="basketItems?.length == 0">
+            <div class="card-body">
+                <h5 class="card-title">Your cart is empty.</h5>
+                <p class="card-text">Browse products and add something to your cart.</p>
+            </div>
+            <div class="card-footer text-body-secondary">
+                <a href="/products" class="btn custom-primary">
+                    Go Products
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn custom-message" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn custom-notify" (click)="proceedToCheckout()">Proceed to Checkout</button>
+    <div class="modal-footer" *ngIf="basketItems?.length > 0">
+        <div class="row mt-2">
+            <div class="col-md-12 text-end price-badge cart">
+                <span class="total-price px-3" style="font-size: 18px; font-weight: 400;">Total :</span>
+                <span class="badge text-bg-secondary">
+                    <span class="currency-part">$ </span>
+                    <span class="price-integer-part">{{totalPriceIntegerPart}} </span>
+                    <span class="price-fraction-part">{{totalPriceFractionPart}}</span>
+                </span>
+            </div>
+            <div class="col-md-12 text-end px-1 pt-2">
+                <button type="button" class="btn custom-message" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn custom-notify" (click)="proceedToCheckout()">Proceed to
+                    Checkout</button>
+            </div>
+        </div>
     </div>
 </div>

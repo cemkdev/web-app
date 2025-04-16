@@ -14,3 +14,15 @@ export class BasketProductImageFile {
     fileName: string;
     path: string;
 }
+
+export class List_Basket_Item_VM {
+    basketItemId: string;
+    productId: string;
+    name: string;
+    description: string;
+    stock: number;
+    priceIntegerPart: string;
+    priceFractionPart: string;
+    quantity: number;
+    productImageFile: BasketProductImageFile;
+}

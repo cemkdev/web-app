@@ -1,0 +1,41 @@
+// Product-Item Price Badge Adjustments
+.price-badge .badge {
+    color: var(--dark-text) !important;
+    background-color: var(--gray-background) !important;
+    font-weight: 400;
+    font-size: medium;
+}
+
+// Cart Total Price Badge Adjustments
+.price-badge.cart .badge {
+    color: var(--dark-text) !important;
+    background-color: var(--gray-background) !important;
+    font-weight: 400;
+    font-size: large;
+
+    .price-integer-part {
+        font-size: x-large;
+        font-weight: 400;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .price-fraction-part {
+        font-size: medium;
+        opacity: 0.8;
+    }
+}
+
+.currency-part {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.price-integer-part {
+    font-size: large;
+    font-weight: 400;
+}
+
+.price-fraction-part {
+    font-size: small;
+    opacity: 0.8;
+}

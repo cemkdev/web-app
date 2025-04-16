@@ -50,32 +50,6 @@
     overflow: hidden;
     text-overflow: ellipsis; /* '...' eklemek için */
 }
-
-.price-badge .badge {
-    color: var(--dark-text) !important;
-    background-color: var(--gray-background) !important;
-    font-weight: 400;
-    font-size: medium;
-}
-
-.currency-part {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.price-integer-part {
-    font-size: large;
-    font-weight: 400;
-}
-
-.price-fraction-part {
-    font-size: small;
-    opacity: 0.8;
-}
-
-.page-item.last .page-link {
-    padding-bottom: 4.5px;
-    min-width: 90px;
-}
 // Custom Last Page Number Circle
 .circle-container {
     display: inline-block;

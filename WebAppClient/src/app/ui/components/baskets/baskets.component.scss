@@ -8,7 +8,7 @@ thead > tr > th {
 
 .order {
     font-weight: 500 !important;
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 .table-row {
@@ -27,9 +27,9 @@ thead > tr > th {
     text-overflow: ellipsis; /* '...' eklemek için */
 }
 .table-row .description {
-    width: 200px;
+    width: 180px;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* 3 satırda sonlandırma */
+    -webkit-line-clamp: 3; /* 3 satırda sonlandırma */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis; /* '...' eklemek için */

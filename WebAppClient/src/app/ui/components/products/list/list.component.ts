@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
-import { List_Products, List_Products_UI } from '../../../../contracts/list_products';
+import { List_Products, List_Products_VM } from '../../../../contracts/list_products';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../../../services/common/models/file.service';
 import { BaseStorageUrl } from '../../../../contracts/base_storage_url';
@@ -19,7 +19,7 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../..
 export class ListComponent extends BaseComponent implements OnInit {
 
   baseStorageUrl: BaseStorageUrl;
-  products: List_Products_UI[] = [];
+  products: List_Products_VM[] = [];
   totalProductCount: number;
   currentPageNo: number;
   totalPageCount: number;
@@ -118,7 +118,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     return stars;
   }
 
-  async addToBasket(product: List_Products_UI) {
+  async addToBasket(product: List_Products_VM) {
     this.showSpinner(SpinnerType.BallAtom);
     let _basketItem: Create_Basket_Item = new Create_Basket_Item();
     _basketItem.productId = product.id;

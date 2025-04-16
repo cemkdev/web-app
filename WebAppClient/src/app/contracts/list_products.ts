@@ -13,7 +13,7 @@ export class List_Products {
     productImageFiles: List_Product_Image[];
 }
 
-export class List_Products_UI {
+export class List_Products_VM {
     id: string;
     name: string;
     stock: number;
