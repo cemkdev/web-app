@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
-import { List_Products, List_Products_VM } from '../../../../contracts/list_products';
+import { List_Products, List_Products_VM } from '../../../../contracts/product/list_products';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../../../services/common/models/file.service';
 import { BaseStorageUrl } from '../../../../contracts/base_storage_url';
@@ -96,9 +96,10 @@ export class ListComponent extends BaseComponent implements OnInit {
         title: sourceData[i].title,
         description: sourceData[i].description,
         rating: sourceData[i].rating,
-        hasCover: !sourceData[i].productImageFiles.length ? false : Boolean(sourceData[i].productImageFiles.find(c => c.coverImage === true)),
-        productImageFilePath: !sourceData[i].productImageFiles.length ? null : `${baseStorageUrl}/${sourceData[i].productImageFiles.find(c => c.coverImage == true).path}`
+        hasCover: !sourceData[i].productImageFiles.length ? false : Boolean(sourceData[i].productImageFiles.find(c => c.coverImage == true)),
+        productImageFilePath: !sourceData[i].productImageFiles.length ? null : `${baseStorageUrl}/${sourceData[i].productImageFiles.find(c => c.coverImage == true)?.path}`
       };
+      debugger
       this.products.push(manipulatedData);
     }
   }

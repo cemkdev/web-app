@@ -60,6 +60,18 @@ export class HttpClientService {
 
     return this.httpClient.delete<T>(url, { headers: requestParameter.headers });
   }
+
+  // DELETE RANGE - POST
+  deleteRange<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> {
+    let url: string = "";
+
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+
+    return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
+  }
 }
 
 export class RequestParameters {

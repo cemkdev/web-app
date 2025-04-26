@@ -1,0 +1,19 @@
+html {
+    .mat-mdc-dialog-title {
+        color: var(--dark-text) !important;
+        border-bottom: 1px solid var(--light-darkerer-text) !important;
+        background-color: var(--gray-background) !important;
+    }
+
+    .mat-mdc-dialog-actions {
+        border-top: 1px solid var(--light-darkerer-text) !important;
+        background-color: var(--gray-background) !important;
+    }
+
+    .mat-mdc-dialog-surface,
+    .mat-mdc-dialog-panel,
+    .mat-mdc-dialog-container {
+        background-color: var(--light-background) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+}

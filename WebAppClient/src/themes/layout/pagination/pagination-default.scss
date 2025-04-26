@@ -1,3 +1,6 @@
+@use "pagination-light.scss";
+@use "pagination-dark.scss";
+
 .page-link:focus,
 .page-link:active {
     outline: none !important;

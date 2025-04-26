@@ -1,0 +1,230 @@
+@use "mat-table-light.scss";
+@use "mat-table-dark.scss";
+
+/////////////////////////////////////////////////
+/////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+/////////////////////////////////////////////////
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    // XSmall
+    @media (max-width: 599.98px) {
+        height: 81vh;
+    }
+    // Small
+    @media (min-width: 600px) and (max-width: 959.98px) {
+        height: 81vh;
+    }
+    // Medium
+    @media (min-width: 960px) and (max-width: 1279.98px) {
+        height: 81vh;
+    }
+    // Large
+    @media (min-width: 1280px) and (max-width: 1919.98px) {
+        height: 81vh;
+    }
+    // XLarge
+    @media (min-width: 1920px) {
+        height: 81.3vh;
+    }
+    padding: 16px;
+    margin-right: 10px;
+    border-radius: 0.375rem;
+    box-shadow: var(--shadow-table-dynamic);
+}
+
+/////////////////////////////////////////////////
+/////////// TABLE HEADER ADJUSTMENTS ////////////
+/////////////////////////////////////////////////
+.table-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 30px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    .delete-multiple-product {
+        padding-left: 2px;
+    }
+}
+
+/////////////////////////////////////////////////
+/////////// FILTER INPUT ADJUSTMENTS ////////////
+/////////////////////////////////////////////////
+.filter-field {
+    flex: 1 !important;
+    min-width: 250px !important;
+    mat-form-field {
+        width: 100%;
+    }
+    button {
+        margin-right: 5px;
+    }
+}
+
+/////////////////////////////////////////////////
+//////// FORM-INPUT ADJUSTMENTS (FILTER) ////////
+/////////////////////////////////////////////////
+.mat-mdc-form-field {
+    font-size: 14px;
+}
+
+/////////////////////////////////////////////////
+///////// SCROLLABLE TABLE ROW SECTION //////////
+/////////////////////////////////////////////////
+.table-scroll-wrapper {
+    overflow-y: auto;
+    flex: 1; /* En önemli kısım: kalan tüm alanı bu alsın */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    margin-bottom: 13px !important;
+
+    /* Scrollbar Styling (Webkit) */
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        //border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 4px;
+        transition: background-color 0.5s;
+    }
+
+    /* Firefox için (opsiyonel) */
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    /* Firefox için (opsiyonel) */
+    &:hover {
+        transition: scrollbar-color 0.5s;
+    }
+}
+
+/////////////////////////////////////////////////
+////////// TH, TD - COLUMN ADJUSTMENTS //////////
+/////////////////////////////////////////////////
+td,
+th {
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 120px;
+    height: 40px;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+th {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    .sort-icon {
+        padding-top: 5px;
+        padding-left: 5px;
+        font-size: 12px;
+    }
+}
+
+.full-text {
+    max-width: 120px;
+}
+
+.select {
+    max-width: 120px;
+    padding-right: 0px !important;
+}
+
+// DO NOT OVERFLOW TOO LONG VALUES ADJUSTMENTS
+.ellipsis {
+    span {
+        white-space: nowrap; /* One row */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Put 3 dots */
+        display: inline-block; /* or inline-block */
+        //min-width: 40px;
+        max-width: 120px;
+    }
+}
+
+.set-button {
+    width: 60px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+/////////////////////////////////////////////////
+////////////////// PAGINATOR ////////////////////
+/////////////////////////////////////////////////
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.375rem;
+
+    .paginator-text {
+        padding-left: 10px;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    mat-paginator {
+        border-radius: 0.375rem;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        .mat-mdc-paginator-page-size-label {
+            width: 100px;
+        }
+        .mat-mdc-paginator-page-size-select {
+            width: 90px !important;
+        }
+    }
+}
+
+/////////////////////////////////////////////////
+///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
+/////////////////////////////////////////////////
+
+.mat-mdc-row {
+    position: relative; /* Animasyonun düzgün çalışması için */
+}
+
+.mat-mdc-row span {
+    position: relative;
+}
+
+.mat-mdc-row td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-bottom: none;
+    position: relative;
+    z-index: 1;
+}
+
+.mat-mdc-row td::before {
+    content: "";
+    width: 100%;
+    height: calc(100% - 0.5rem);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.mat-mdc-row td:first-child::before {
+    content: "";
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+.mat-mdc-row td:last-child::before {
+    content: "";
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}

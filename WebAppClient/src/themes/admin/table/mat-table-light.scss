@@ -1,0 +1,79 @@
+@use "@angular/material" as mat;
+
+html {
+    /////////////////////////////////////////////////
+    /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+    /////////////////////////////////////////////////
+    .table-container {
+        background-color: var(--gray-background);
+    }
+
+    /////////////////////////////////////////////////
+    ///////// SCROLLABLE TABLE ROW SECTION //////////
+    /////////////////////////////////////////////////
+    .table-scroll-wrapper {
+        border: none;
+
+        &:hover::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: var(--gray-background-2);
+        }
+
+        /* Firefox için (opsiyonel) */
+        &:hover {
+            scrollbar-color: var(--gray-background-3) transparent;
+        }
+    }
+
+    /////////////////////////////////////////////////
+    ////////////////// PAGINATOR ////////////////////
+    /////////////////////////////////////////////////
+    @include mat.paginator-overrides(
+        (
+            enabled-icon-color: var(--dark-text-lighter-2),
+            disabled-icon-color: var(--dark-text-lighter-2-transparent)
+        )
+    );
+
+    .paginator {
+        border: 1px solid var(--dark-text-lighter-2-transparent);
+        mat-paginator {
+            background-color: var(--gray-background);
+            color: var(--dark-text-lighter-2); // "items per page" and "[number]-[page size] of [total count]" parts
+            // Border of page size
+            .mat-mdc-select {
+                color: var(--dark-text-lighter-2);
+            }
+        }
+    }
+
+    // Actived "items per page" color
+    .mat-mdc-option-active {
+        span {
+            color: var(--light-text) !important;
+        }
+        background-color: var(--primary-bg-lightBG) !important;
+    }
+
+    /////////////////////////////////////////////////
+    ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
+    /////////////////////////////////////////////////
+    table {
+        background: var(--gray-background) !important;
+    }
+
+    .mat-mdc-row td::before {
+        content: "";
+        background-color: var(--light-background-3-transparent);
+    }
+
+    .mat-mdc-row:hover td::before {
+        content: "";
+        background-color: var(--light-background-3);
+        transition: background-color 60ms ease-in-out;
+        border: none;
+    }
+}

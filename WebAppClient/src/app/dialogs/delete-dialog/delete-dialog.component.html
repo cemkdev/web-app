@@ -1,8 +1,13 @@
-<h2 mat-dialog-title>Warning!</h2>
-<mat-dialog-content>
+<h2 mat-dialog-title class="dialog-delete">
+    <button mat-mini-fab disabled color="error">
+        <mat-icon>delete</mat-icon>
+    </button>
+    Warning!
+</h2>
+<mat-dialog-content class="dialog-delete">
     <p>Would you like to delete?</p>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button (click)="close()">Cancel</button>
-    <button mat-button color="error" [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+<mat-dialog-actions class="dialog-delete">
+    <button mat-raised-button color="default" (click)="close()">Cancel</button>
+    <button mat-raised-button color="error" [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
 </mat-dialog-actions>

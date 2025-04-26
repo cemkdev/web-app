@@ -1,0 +1,75 @@
+<h1 mat-dialog-title class="dialog-form">
+    <button mat-mini-fab disabled color="warning">
+        <mat-icon>edit</mat-icon>
+    </button>
+    Edit Product Informations
+</h1>
+<mat-dialog-content class="dialog-form">
+    <ng-container *ngIf="productForm">
+        <form [formGroup]="productForm">
+            <div class="form-container">
+                <!-- NAME -->
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-icon matSuffix
+                        *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">error_outline</mat-icon>
+                    <mat-icon matSuffix>badge</mat-icon>
+                    <mat-error *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">Name is
+                        required.</mat-error>
+                </mat-form-field>
+
+                <!-- TITLE -->
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" />
+                    <mat-icon matSuffix
+                        *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched">error_outline</mat-icon>
+                    <mat-icon matSuffix>titlecase</mat-icon>
+                    <mat-error *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched">Title is
+                        required.</mat-error>
+                </mat-form-field>
+
+                <!-- DESCRIPTION -->
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="description" />
+                    <mat-icon matSuffix
+                        *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">error_outline</mat-icon>
+                    <mat-icon matSuffix>description</mat-icon>
+                    <mat-error
+                        *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">Description
+                        is required.</mat-error>
+                </mat-form-field>
+
+                <!-- STOCK -->
+                <mat-form-field>
+                    <mat-label>Stock</mat-label>
+                    <input matInput type="number" formControlName="stock" placeholder="0" (wheel)="onWheel($event)" />
+                    <mat-icon matSuffix
+                        *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">error_outline</mat-icon>
+                    <mat-icon matSuffix>inventory</mat-icon>
+                    <mat-error *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">Stock is
+                        required.</mat-error>
+                </mat-form-field>
+
+                <!-- PRICE -->
+                <mat-form-field>
+                    <mat-label>Price</mat-label>
+                    <input matInput type="number" formControlName="price" placeholder="0" (wheel)="onWheel($event)" />
+                    <mat-icon matSuffix
+                        *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">error_outline</mat-icon>
+                    <mat-icon matSuffix>sell</mat-icon>
+                    <mat-error *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">Price is
+                        required.</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-form" align="end">
+    <button mat-raised-button color="default" mat-dialog-close>Close</button>
+
+    <button mat-flat-button color="dismiss" disabled *ngIf="!productForm.valid">Create</button>
+    <button mat-raised-button color="success" (click)="updateProduct()" *ngIf="productForm.valid">Create</button>
+</mat-dialog-actions>

@@ -35,6 +35,10 @@ export class DeleteDirective {
 
     this.dialogService.openDialog({
       componentType: DeleteDialogComponent,
+      options: {
+        width: '400px',
+        height: '230px'
+      },
       data: DeleteState.Yes,
       afterClosed: async () => {
         this.spinner.show(SpinnerType.BallAtom);
@@ -45,7 +49,7 @@ export class DeleteDirective {
         }, btn.parentElement.id).subscribe(data => {
           $(btn.parentElement.parentElement).animate({
             left: '100%'
-          }, 300, () => {
+          }, 500, () => {
             $(btn.parentElement.parentElement).fadeOut(100, () => {
               this.callback.emit();
               this.alertifyService.message("Item has been successfully deleted.", {
@@ -67,20 +71,4 @@ export class DeleteDirective {
       }
     });
   }
-
-
-
-  // // Delete-Dialog
-  // openDialog(afterClosed: any): void {
-  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //     width: 'auto',
-  //     data: DeleteState.Yes
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result == DeleteState.Yes) {
-  //       afterClosed();
-  //     }
-  //   });
-  // }
 }

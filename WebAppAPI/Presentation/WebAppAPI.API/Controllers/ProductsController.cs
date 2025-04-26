@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebAppAPI.Application.Features.Commands.Product.CreateProduct;
 using WebAppAPI.Application.Features.Commands.Product.RemoveProduct;
+using WebAppAPI.Application.Features.Commands.Product.RemoveRangeProduct;
 using WebAppAPI.Application.Features.Commands.Product.UpdateProduct;
 using WebAppAPI.Application.Features.Commands.ProductImageFile.ChangeCoverImage;
 using WebAppAPI.Application.Features.Commands.ProductImageFile.RemoveProductImage;
@@ -60,6 +61,14 @@ namespace WebAppAPI.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] RemoveProductCommandRequest removeProductCommandRequest)
         {
             RemoveProductCommandResponse response = await _mediator.Send(removeProductCommandRequest);
+            return Ok();
+        }
+
+        [HttpPost("deleterange")]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        public async Task<IActionResult> DeleteRange([FromBody] RemoveRangeProductCommandRequest removeRangeProductCommandRequest)
+        {
+            RemoveRangeProductCommandResponse response = await _mediator.Send(removeRangeProductCommandRequest);
             return Ok();
         }
 

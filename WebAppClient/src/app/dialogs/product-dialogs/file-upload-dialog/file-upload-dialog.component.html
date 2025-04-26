@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Warning!</h2>
-<mat-dialog-content>
+<h2 mat-dialog-title class="dialog-delete">Warning!</h2>
+<mat-dialog-content class="dialog-delete">
     <p>Are you sure you want to upload the selected files?</p>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions class="dialog-delete">
     <button mat-button (click)="close()">Cancel</button>
     <button mat-button color="error" [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
 </mat-dialog-actions>

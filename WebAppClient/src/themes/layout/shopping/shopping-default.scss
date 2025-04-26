@@ -1,3 +1,6 @@
+@use "shopping-light.scss";
+@use "shopping-dark.scss";
+
 // Product-Item Price Badge Adjustments
 .price-badge .badge {
     color: var(--dark-text) !important;

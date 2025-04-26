@@ -1,14 +1,5 @@
-@use "./admin/buttons/light-material-buttons.scss";
-@use "./admin/toolbar/light-toolbar.scss" as admin-light-toolbar;
-@use "./admin/sidenav/light-sidenav.scss";
-@use "./admin/alertify/light-alerts.scss";
-
-@use "./layout/toolbar/light-toolbar.scss" as layout-light-toolbar;
-@use "./layout/buttons/light-bs-buttons.scss";
-@use "./layout/toastr/light-toastr.scss";
-@use "./layout/pagination/pagination-light.scss";
-@use "layout/shopping-cart/shopping-cart-light.scss";
-@use "layout/shopping/shopping-light.scss";
+@use "./admin/angular-material-general.scss";
+@use "./layout/bootstrap-general.scss";
 
 html {
     ///////////// Dynamic Colors /////////////
@@ -20,14 +11,18 @@ html {
     --shadow: rgba(0, 0, 0, 0.2);
     --shadow-hover: rgba(0, 0, 0, 0.6);
     --shadow-full-specs: 0 8px 12px rgba(0, 0, 0, 0.2);
+    --shadow-table-dynamic: 0 8px 12px 8px rgba(0, 0, 0, 0.2);
     --shadow-full-specs-soft: 0 1px 2px var(--shadow);
     --shadow-full-specs-softer: 0 2px 4px var(--shadow-darker);
     --shadow-full-specs-toTop: 0 -2px 4px var(--shadow-darker);
+    --shadow-mat-form-field-standard: inset 0 2px 3px rgba(0, 0, 0, 0.075), 0 0 6px 3px rgba(43, 114, 219, 0.7);
+    --shadow-mat-form-field-error: inset 0 2px 3px rgba(0, 0, 0, 0.075), 0 0 6px 3px rgba(235, 90, 90, 0.7);
 
     // Primary Color
     --primary-text: rgb(38, 67, 116);
     --primary-text-dark: rgb(18, 43, 95);
     --primary-text-lighter: rgb(38, 67, 116, 0.7);
+    --primary-text-shine: rgb(0, 59, 168);
 
     // Primary Background Color
     // Light-BG
@@ -37,9 +32,10 @@ html {
     --primary-bg-lighter-lighter: rgb(66, 110, 185);
     --primary-bg-lighter-transparent: rgb(43, 74, 126, 0.9);
     --primary-bg-lighter: rgb(43, 74, 126);
-    --primary-bg: rgb(37, 63, 107);
+    --primary-bg: rgb(38, 73, 138);
     --primary-bg-dark: rgb(32, 54, 94);
-    --primary-bg-darker: rgb(25, 42, 75);
+    --primary-bg-darker: rgb(34, 64, 119);
+    --primary-bg-darkest: rgb(30, 57, 107);
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.7);
 
@@ -53,31 +49,49 @@ html {
     // Light Text - Dark Background
     --light-text: rgb(230, 238, 255);
     --light-darker-text: rgb(215, 221, 233);
+    --light-darkerer-text: rgb(184, 189, 201);
     --light-text-transparent: rgb(230, 238, 255, 0.8);
     --light-text-more-transparent: rgb(230, 238, 255, 0.6);
     --white-text: rgb(255, 255, 255);
+    --light-text-graish: rgb(218, 218, 218);
 
     // Light Background Colors
     --light-background: rgb(249 249 255);
+    --light-background-darker: rgb(230, 230, 230);
     --light-gray-mid-background: rgb(204, 206, 212);
     --gray-background: rgb(224 226 236);
+    --gray-background-darker: rgb(193, 195, 206);
     --gray-background-transparent: rgb(224, 226, 236, 0.4);
+    --gray-background-2: rgb(117, 117, 117);
+    --gray-background-3: rgb(158, 158, 158);
+    --gray-background-3-transparent: rgba(255, 255, 255, 0.9);
     --light-background-bs-navbar: rgb(230, 217, 233);
     --light-background-bs-navbar-collapsed: rgb(205, 189, 209);
+    --light-background-2: rgb(231, 231, 231);
+    --light-background-transparent: rgba(241, 241, 241, 0.8);
+    --light-background-3: rgb(255, 255, 255);
+    --light-background-3-transparent: rgb(255, 255, 255, 0.5);
 
     // Dark Text - Light Background
     --dark-text: rgb(39, 41, 46);
     --dark-text-lighter: rgb(60, 63, 70);
+    --dark-text-lighter-2: rgb(88, 93, 102);
+    --dark-text-lighter-2-transparent: rgb(88, 93, 102, 0.5);
     --dark-text-transparent: rgb(39, 41, 46, 0.9);
     --black-text: rgb(0, 0, 0);
 
     // Dark Background Colors
     --dark-background: rgb(24, 28, 36);
+    --dark-background-lighter: rgb(37, 41, 51);
+    --dark-background-lighter-2: rgb(45, 50, 63);
     --dark-background-blueish-darker: rgb(22, 26, 34);
     --dark-background-darker: rgb(21, 24, 29);
     --dark-background-darkest: rgb(19, 21, 27);
+    --dark-background-bs-collapsed-toolbar: rgb(13, 15, 20);
 
     // Yellow Colour Scale
+    --yellow: rgb(221, 236, 0);
+    --yellow-dark: rgb(205, 219, 0);
     --yellow-1: rgba(252, 255, 66, 0.8);
     --yellow-1-darker: rgba(200, 202, 52, 0.8);
     --yellow-1-pale: rgba(253, 255, 134, 0.6);
@@ -92,7 +106,9 @@ html {
     --teal-pale: rgb(58, 134, 134);
 
     // Theme Main Tertiary(third) Color
-    --tertiary: rgb(87, 62, 92);
+    --tertiary: rgb(105, 72, 112);
+    --tertiary-darker: rgb(96, 65, 102);
+    --tertiary-darkest: rgb(81, 53, 87);
     --tertiary-transparent: rgba(87, 62, 92, 0.6);
     --tertiary-transparent-more: rgba(87, 62, 92, 0.5);
     --tertiary-light: rgb(208, 181, 218);
@@ -108,42 +124,47 @@ html {
     --message-bg-white-darker: rgb(210, 210, 216);
 
     // Notify
-    --notify-bg: rgb(68, 104, 184);
-    --notify-bg-darker: rgb(54, 84, 148);
+    --notify-bg: rgb(194, 206, 245);
+    --notify-bg-darker: rgb(186, 197, 235);
+    --notify-bg-darkest: rgb(176, 187, 223);
     --notify-bg-hover: rgb(170, 199, 255, 0.8);
     --notify-bg-lighter: rgb(173, 196, 240, 0.7);
     --notify-bg-hover-lighter: rgb(170, 199, 255, 0.5);
 
     // Success
-    --success-bg: rgb(54, 145, 84);
-    --success-bg-darker: rgb(46, 124, 72);
+    --success-bg: rgb(10, 126, 78);
+    --success-bg-darker: rgb(9, 116, 71);
+    --success-bg-darkest: rgb(9, 104, 64);
     --success-bg-hover: rgba(54, 145, 84, 0.8);
     --success-bg-lighter: rgb(54, 145, 84, 0.7);
     --success-bg-hover-lighter: rgba(54, 145, 84, 0.5);
 
     // Warning
     --warning-bg-vivid: rgb(230, 116, 11);
-    --warning-bg: rgb(196, 96, 53);
-    --warning-bg-darker: rgb(173, 85, 47);
+    --warning-bg: rgb(218, 179, 9);
+    --warning-bg-darker: rgb(212, 175, 11);
+    --warning-bg-darkest: rgb(204, 169, 14);
     --warning-bg-hover: rgb(196, 96, 53, 0.8);
     --warning-bg-lighter: rgb(196, 96, 53, 0.7);
     --warning-bg-hover-lighter: rgb(196, 96, 53, 0.5);
 
     // Error - different than dark-color-scheme
-    --error-bg: rgb(172, 35, 35);
-    --error-bg-white-lighter: rgb(160, 48, 48);
     --error-bg-both-theme: rgb(172, 35, 35);
-    --error-bg-darker: rgb(148, 30, 30);
+    --error-bg-white-lighter: rgb(160, 48, 48);
+    --error-bg: rgb(172, 27, 58);
+    --error-bg-darker: rgb(167, 26, 57);
+    --error-bg-darkest: rgb(143, 22, 48);
     --error-bg-hover: rgb(172, 35, 35, 0.8);
     --error-bg-lighter: rgb(172, 35, 35, 0.7);
     --error-bg-hover-lighter: rgb(172, 35, 35, 0.5);
 
     // Error - Soft - different than dark-color-scheme
-    --error-soft-bg: rgb(146, 0, 0, 0.8);
+    --error-soft-bg: rgb(146, 0, 0, 0.9);
+    --error-soft-bg-darker: rgb(133, 0, 0);
     --error-soft-bg-hover: rgb(146, 0, 0, 0.7);
 
     // Dismiss
-    --dismiss-bg: rgb(136, 136, 136);
+    --dismiss-bg: rgb(150, 150, 150);
     --dismiss-bg-darker: rgb(119, 119, 119);
     --dismiss-bg-hover: rgb(136, 136, 136, 0.8);
     --dismiss-bg-lighter: rgb(136, 136, 136, 0.7);

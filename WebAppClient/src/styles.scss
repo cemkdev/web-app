@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 
-@use "./themes/layout/bootstrap-general.scss";
-
 @use "./themes/light-color-scheme.scss";
 @use "./themes/dark-color-scheme.scss";
 
@@ -14,6 +12,9 @@ html {
       color: (
         primary: mat.$azure-palette,
         tertiary: mat.$blue-palette
+      ),
+      density: (
+        scale: -1
       )
     )
   );

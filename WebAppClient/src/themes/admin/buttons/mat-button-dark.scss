@@ -1,0 +1,970 @@
+// Basic: mat-button
+html.dark {
+    .mat-mdc-button.mat-light {
+        color: white;
+        &:hover {
+            color: black;
+            background-color: white;
+        }
+        &.active {
+            color: black;
+            background-color: white;
+        }
+    }
+    .mat-mdc-button.mat-dark {
+        color: black;
+        &:hover {
+            color: white;
+            background-color: black;
+        }
+        &.active {
+            color: white;
+            background-color: black;
+        }
+    }
+    .mat-mdc-button.mat-primary {
+        color: var(--primary-text);
+        &:hover {
+            color: var(--light-text);
+            background-color: var(--primary-bg);
+        }
+    }
+    .mat-mdc-button.mat-message {
+        color: var(--message-bg);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--message-bg);
+        }
+    }
+    .mat-mdc-button.mat-notify {
+        color: var(--notify-bg);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--notify-bg);
+        }
+    }
+    .mat-mdc-button.mat-success {
+        color: var(--success-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--success-bg);
+        }
+    }
+    .mat-mdc-button.mat-warning {
+        color: var(--warning-bg);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--warning-bg);
+        }
+    }
+    .mat-mdc-button.mat-error {
+        color: var(--error-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--error-bg);
+        }
+    }
+    .mat-mdc-button.mat-error-soft {
+        color: var(--error-soft-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--error-soft-bg);
+        }
+    }
+    .mat-mdc-button.mat-dismiss {
+        color: var(--dismiss-bg);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--dismiss-bg-hover-lighter);
+        }
+    }
+    .mat-mdc-button.mat-tertiary {
+        color: var(--tertiary);
+        &:hover {
+            color: var(--white-text);
+            background-color: var(--tertiary);
+        }
+        &.active {
+            color: var(--white-text);
+            background-color: var(--tertiary);
+        }
+    }
+    .mat-mdc-button.mat-yellow {
+        color: var(--yellow);
+        &:hover {
+            color: var(--dark-text);
+            background-color: var(--yellow);
+        }
+        &.active {
+            color: var(--dark-text);
+            background-color: var(--yellow);
+        }
+    }
+}
+
+// Raised: mat-raised-button
+html.dark {
+    .mdc-button--raised.mat-light {
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-dark {
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-message {
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mdc-button--raised.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-warning {
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darkest);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    .mdc-button--raised.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--raised.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mdc-button--raised.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--raised.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mdc-button--raised.mat-yellow {
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Stroked: mat-stroked-button
+html.dark {
+    .mdc-button--outlined.mat-light {
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-dark {
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgb(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-message {
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mdc-button--outlined.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-warning {
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darkest);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--outlined.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mdc-button--outlined.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--outlined.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mdc-button--outlined.mat-yellow {
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Flat: mat-flat-button
+html.dark {
+    .mdc-button--unelevated.mat-light {
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-dark {
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgb(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-primary {
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-message {
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mdc-button--unelevated.mat-notify {
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-success {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-warning {
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-error {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-button--unelevated.mat-error-soft {
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mdc-button--unelevated.mat-dismiss {
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-button--unelevated.mat-tertiary {
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mdc-button--unelevated.mat-yellow {
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Fab: mat-fab
+html.dark {
+    .mat-mdc-fab.mat-light {
+        mat-icon {
+            color: black;
+        }
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-dark {
+        mat-icon {
+            color: white;
+        }
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mat-mdc-fab.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-warning {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darkest);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    .mat-mdc-fab.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mat-mdc-fab.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mat-mdc-fab.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mat-mdc-fab.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mat-mdc-fab.mat-yellow {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Mini Fab: mat-mini-fab
+html.dark {
+    .mdc-fab--mini.mat-light {
+        mat-icon {
+            color: black;
+        }
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-dark {
+        mat-icon {
+            color: white;
+        }
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mdc-fab--mini.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-warning {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darkest);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    .mdc-fab--mini.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--mini.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mdc-fab--mini.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-fab--mini.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mdc-fab--mini.mat-yellow {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Extended Fab: mat-fab extended
+html.dark {
+    .mdc-fab--extended.mat-light {
+        mat-icon {
+            color: black;
+        }
+        color: black;
+        background-color: white;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-dark {
+        mat-icon {
+            color: white;
+        }
+        color: white;
+        background-color: black;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-primary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--primary-bg);
+        &:hover {
+            background-color: var(--primary-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-message {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--gray-background);
+        &:hover {
+            background-color: var(--gray-background-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+    .mdc-fab--extended.mat-notify {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-success {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-warning {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darkest);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    .mdc-fab--extended.mat-error {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    .mdc-fab--extended.mat-error-soft {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--error-soft-bg);
+        &:hover {
+            background-color: var(--error-soft-bg);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    .mdc-fab--extended.mat-dismiss {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--dismiss-bg);
+        &:hover {
+            background-color: var(--dismiss-bg-hover);
+        }
+    }
+    .mdc-fab--extended.mat-tertiary {
+        mat-icon {
+            color: var(--white-text);
+        }
+        color: var(--white-text);
+        background-color: var(--tertiary);
+        &:hover {
+            background-color: var(--tertiary-darker);
+        }
+        .mat-ripple-element {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+    .mdc-fab--extended.mat-yellow {
+        mat-icon {
+            color: var(--dark-text);
+        }
+        color: var(--dark-text);
+        background-color: var(--yellow);
+        &:hover {
+            background-color: var(--yellow-dark);
+        }
+        .mat-ripple-element {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+    }
+}
+
+// Toolbar Buttons: color:"transparent-tertiary"
+html.dark {
+    .mdc-fab--extended.mat-transparent-tertiary {
+        height: 40px;
+        width: auto;
+        margin: 0px 5px;
+        border-radius: 1.5rem;
+    }
+
+    .mdc-fab--extended.mat-transparent-tertiary {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: transparent;
+        &:hover {
+            mat-icon {
+                color: var(--light-text);
+            }
+            color: var(--light-text);
+            background-color: var(--tertiary-transparent);
+        }
+    }
+
+    .mdc-fab--extended.mat-transparent-tertiary.active {
+        mat-icon {
+            color: var(--light-text);
+        }
+        color: var(--light-text);
+        background-color: var(--tertiary-transparent);
+    }
+}

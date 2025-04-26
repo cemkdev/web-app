@@ -1,8 +1,9 @@
-@use "toolbar/toolbar.scss";
-@use "buttons/buttons.scss";
+@use "buttons/bs-button-default.scss";
 @use "pagination/pagination-default.scss";
-@use "shopping-cart/shopping-cart-default.scss";
 @use "shopping/shopping-default.scss";
+@use "shopping-cart/shopping-cart-default.scss";
+@use "toastr/toastr-default.scss";
+@use "toolbar/bs-toolbar-default.scss";
 
 .btn {
     margin: 5px;

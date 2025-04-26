@@ -1,0 +1,199 @@
+@use "image-content-light.scss";
+@use "image-content-dark.scss";
+
+.mat-mdc-dialog-title.dialog-image-content {
+    padding-left: 80px !important;
+    margin-bottom: 0 !important;
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+
+    .left {
+        padding-top: 20px;
+        float: left;
+    }
+    .right {
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-right: 6px !important;
+        margin-top: 14px !important;
+        margin-right: 50px !important;
+        float: right;
+        mat-icon {
+            font-size: 30px;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////// mat-dialog-content Area Adjustments /////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+mat-dialog-content.dialog-image-content .content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2%;
+    justify-items: center;
+    //overflow-y: auto;
+    padding: 60px !important;
+    padding-top: 0 !important;
+
+    //////////////////////////////////////////////////////////////////
+    ////////////////// File-Upload Area Adjustments //////////////////
+    //////////////////////////////////////////////////////////////////
+    .app-file-upload {
+        grid-column: 1 / -1;
+        margin-bottom: 30px;
+    }
+    ////////////////////
+    ////////////////////
+
+    //////////////////////////////////////////////////////////////////
+    ///////////////////// Card Area Adjustments //////////////////////
+    //////////////////////////////////////////////////////////////////
+    .product-image-card {
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 10px;
+        button {
+            height: 90%;
+            width: 20%;
+            mat-icon {
+                padding-top: 8%;
+                font-size: large;
+            }
+        }
+    }
+    ////////////////////
+    ////////////////////
+
+    //////////////////////////////////////////////////////////////////
+    ////////////////// Card-Header Area Adjustments //////////////////
+    //////////////////////////////////////////////////////////////////
+    .product-image-card mat-card-header {
+        padding: 0;
+        margin: 0;
+        .cover-span.checked {
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .cover-span.unchecked {
+            margin-top: 8px;
+            font-size: 10px;
+            font-weight: 400;
+        }
+    }
+
+    .product-image-card .cover-image-check {
+        padding: 0px;
+        margin: 5px;
+        height: 30px !important;
+        width: 20px;
+        mat-icon {
+            font-size: large;
+            padding: 0 !important;
+            margin: 0;
+        }
+    }
+    ////////////////////
+    ////////////////////
+
+    //////////////////////////////////////////////////////////////////
+    ///////////////////// Image Area Adjustments /////////////////////
+    //////////////////////////////////////////////////////////////////
+    .product-image-card .product-image {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+    ////////////////////
+    ////////////////////
+
+    //////////////////////////////////////////////////////////////////
+    ////////////////// Card-Actions Area Adjustments /////////////////
+    //////////////////////////////////////////////////////////////////
+    .image-name {
+        padding: 7px 15px;
+        font-weight: 400;
+        font-size: 11px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    ////////////////////
+    ////////////////////
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+////////////////// mat-dialog-content Area Small Screen Adjustments //////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+@media (max-width: 600px) {
+    mat-dialog-content.dialog-image-content {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        padding: 20px !important;
+
+        .product-image-card {
+            button {
+                height: 80% !important;
+                width: 30% !important;
+                mat-icon {
+                    padding-top: 10% !important;
+                    font-size: large !important;
+                }
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////// mat-dialog-content Scroll Bar Area Adjustments ///////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+mat-dialog-content.dialog-image-content {
+    overflow-y: scroll;
+    padding-right: 12px;
+    position: relative;
+    margin-bottom: 10px !important;
+
+    // Chrome/Opera/WebKit scroll gizleme (başta)
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 10px;
+        transition: background-color 0.5s;
+    }
+
+    // Firefox için
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+        scrollbar-color: rgba(150, 150, 150, 0.6) transparent;
+        transition: scrollbar-color 0.5s;
+    }
+
+    // Firefox için özel scroll bar ayarı
+    @-moz-document url-prefix() {
+        .content-wrapper {
+            scrollbar-width: auto !important; // thin yerine daha belirgin
+            scrollbar-color: rgba(150, 150, 150, 0.6) transparent;
+
+            &:hover {
+                scrollbar-color: rgba(100, 100, 100, 0.6) transparent;
+            }
+        }
+    }
+}

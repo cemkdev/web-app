@@ -5,7 +5,7 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AlertifyService, MessageType, Position } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FileUploadDialogComponent, FileUploadDialogState } from '../../../dialogs/file-upload-dialog/file-upload-dialog.component';
+import { FileUploadDialogComponent, FileUploadDialogState } from '../../../dialogs/product-dialogs/file-upload-dialog/file-upload-dialog.component';
 import { DialogService } from '../dialog.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../../../base/base.component';

@@ -1,6 +1,6 @@
 //import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
-import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { DialogPosition, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from 'ngx-toastr';
 
 @Injectable({
@@ -12,14 +12,17 @@ export class DialogService {
     private readonly dialog: MatDialog
   ) { }
 
-  openDialog(dialogParameters: Partial<DialogParameters>): void {
+  openDialog(dialogParameters: Partial<DialogParameters>): MatDialogRef<any> {
     const dialogRef = this.dialog.open(dialogParameters.componentType, {
       maxWidth: '1500px', //dialogParameters.options?.maxWidth
       maxHeight: '1000px', // dialogParameters.options?.maxHeight
       width: dialogParameters.options?.width,
       height: dialogParameters.options?.height,
       position: dialogParameters.options?.positions,
-      data: dialogParameters.data
+      data: dialogParameters.data,
+      autoFocus: false,
+      enterAnimationDuration: '300ms',
+      exitAnimationDuration: '100ms'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -27,13 +30,15 @@ export class DialogService {
         dialogParameters.afterClosed();
       }
     });
+
+    return dialogRef;
   }
 }
 
 export class DialogParameters {
   componentType: ComponentType<any>;
   data: any;
-  afterClosed: () => void;
+  afterClosed: () => void;;
   options?: Partial<DialogOptions> = new DialogOptions();
 }
 

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
-import { Create_Product } from '../../../contracts/create_product';
+import { Create_Product } from '../../../contracts/product/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
-import { List_Products } from '../../../contracts/list_products';
+import { List_Products } from '../../../contracts/product/list_products';
 import { catchError, firstValueFrom, map, Observable } from 'rxjs';
-import { List_Product_Image } from '../../../contracts/list_product_image';
+import { List_Product_Image } from '../../../contracts/product/list_product_image';
+import { Update_Product } from '../../../contracts/product/update_product';
+import { Product_By_Id } from '../../../contracts/product/product_by_id';
 
 @Injectable({
   providedIn: 'root'
@@ -13,30 +15,8 @@ export class ProductService {
 
   constructor(private httpClientService: HttpClientService) { }
 
-  // CREATE
-  create(product: Create_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
-    this.httpClientService.post({
-      controller: "products"
-    }, product)
-      .subscribe({
-        next: result => {
-          successCallBack();
-        },
-        error: (errorResponse: HttpErrorResponse) => {
-          const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
-          let message = "";
-          _error.forEach((v, index) => {
-            v.value.forEach((_v, _index) => {
-              message += `${_v}<br>`;
-            });
-          });
-          errorCallBack(message);
-        }
-      });
-  }
-
   // LIST / READ
-  async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Products[] }> {
+  async read(page: number = 0, size: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Products[] }> {
 
     //////////////////////////////////////////////////// deprecated
     // const promiseData: Promise<List_Products[]> = this.httpClientService.get<List_Products[]>({
@@ -86,11 +66,89 @@ export class ProductService {
     return data;
   }
 
+  // READ BY ID
+  async readById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Product_By_Id> {
+
+    const data = await firstValueFrom(
+      this.httpClientService.get<Product_By_Id>({
+        controller: "products",
+      }, id).pipe(
+        map(response => {
+          successCallBack && successCallBack();
+          return response;
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          if (errorCallBack) {
+            errorCallBack(errorResponse.message);
+          }
+          return [];
+        })
+      )
+    );
+    return data;
+  }
+
+  // CREATE
+  create(product: Create_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+    this.httpClientService.post({
+      controller: "products"
+    }, product)
+      .subscribe({
+        next: result => {
+          successCallBack();
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
+          let message = "";
+          _error.forEach((v, index) => {
+            v.value.forEach((_v, _index) => {
+              message += `${_v}<br>`;
+            });
+          });
+          errorCallBack(message);
+        }
+      });
+  }
+
+  // PUT / UPDATE
+  update(product: Update_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+    this.httpClientService.put({
+      controller: "products"
+    }, product)
+      .subscribe({
+        next: result => {
+          successCallBack();
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
+          let message = "";
+          _error.forEach((v, index) => {
+            v.value.forEach((_v, _index) => {
+              message += `${_v}<br>`;
+            });
+          });
+          errorCallBack(message);
+        }
+      });
+  }
+
   // DELETE
   async delete(id: string) {
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "products"
     }, id);
+
+    await firstValueFrom(deleteObservable);
+  }
+
+  // DELETE RANGE - POST
+  async deleteRange(productIds: string[]) {
+    const deleteObservable: Observable<any> = this.httpClientService.deleteRange<any>({
+      controller: "products",
+      action: "deleterange"
+    }, {
+      productIds
+    });
 
     await firstValueFrom(deleteObservable);
   }

@@ -1,0 +1,66 @@
+@use "alertify-light.scss";
+@use "alertify-dark.scss";
+
+@use "@angular/material" as mat;
+@include mat.core();
+
+html {
+    // Basic message-box style
+    .alertify-notifier .ajs-message {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border: none;
+        transition: all 0.3s ease-in-out !important;
+        &:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 50ms ease;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    // Basic message-box color style
+    .alertify-notifier .ajs-message.ajs-visible {
+        color: var(--dark-text);
+        background-color: var(--message-bg-white);
+        &:hover {
+            background-color: var(--message-bg-white-darker);
+        }
+    }
+
+    // with 'custom' parameter
+    .alertify-notifier .ajs-notify.ajs-visible {
+        background-color: var(--notify-bg);
+        &:hover {
+            background-color: var(--notify-bg-darker);
+        }
+    }
+
+    // success
+    .alertify-notifier .ajs-success.ajs-visible {
+        color: var(--light-text);
+        background-color: var(--success-bg);
+        &:hover {
+            background-color: var(--success-bg-darker);
+        }
+    }
+
+    // warning
+    .alertify-notifier .ajs-warning.ajs-visible {
+        color: var(--light-text);
+        background-color: var(--warning-bg);
+        &:hover {
+            background-color: var(--warning-bg-darker);
+        }
+    }
+
+    // error
+    .alertify-notifier .ajs-error.ajs-visible {
+        color: var(--light-text);
+        background-color: var(--error-bg);
+        &:hover {
+            background-color: var(--error-bg-darker);
+        }
+    }
+}

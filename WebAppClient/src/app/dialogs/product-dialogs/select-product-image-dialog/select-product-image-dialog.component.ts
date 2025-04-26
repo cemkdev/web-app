@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit, Output, signal } from '@angular/core';
-import { BaseDialog } from '../base/base-dialog';
+import { BaseDialog } from '../../base/base-dialog'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FileUploadOptions } from '../../services/common/file-upload/file-upload.component';
-import { ProductService } from '../../services/common/models/product.service';
-import { List_Product_Image } from '../../contracts/list_product_image';
+import { FileUploadOptions } from '../../../services/common/file-upload/file-upload.component';
+import { ProductService } from '../../../services/common/models/product.service';
+import { List_Product_Image } from '../../../contracts/product/list_product_image';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { SpinnerType } from '../../base/base.component';
-import { DialogService } from '../../services/common/dialog.service';
-import { DeleteDialogComponent, DeleteState } from '../delete-dialog/delete-dialog.component';
+import { SpinnerType } from '../../../base/base.component';
+import { DialogService } from '../../../services/common/dialog.service';
+import { DeleteDialogComponent, DeleteState } from '../../delete-dialog/delete-dialog.component';
 
 declare var $: any;
 
@@ -55,6 +55,10 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
 
     this.dialogService.openDialog({
       componentType: DeleteDialogComponent,
+      options: {
+        width: '400px',
+        height: '230px'
+      },
       data: DeleteState.Yes,
       afterClosed: async () => {
         this.spinner.show(SpinnerType.BallAtom);

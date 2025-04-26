@@ -1,0 +1,68 @@
+@use "dialog-general-light.scss";
+@use "dialog-general-dark.scss";
+
+@use "dialog-delete/delete-default.scss";
+@use "dialog-form/form-default.scss";
+@use "dialog-image-content/image-content-default.scss";
+
+// dialog-title - General Adjustments
+.mat-mdc-dialog-title {
+    padding-left: 65px !important;
+    padding-top: 0 !important;
+    padding-bottom: 15px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+    button {
+        margin-right: 6px;
+        padding-top: 1%;
+        height: 30px;
+        width: 30px;
+        mat-icon {
+            font-size: 19px;
+        }
+    }
+}
+
+// dialog-actions - General Adjustments
+.mat-mdc-dialog-actions {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+    padding-right: 65px !important;
+}
+
+// Dialog Container - Overlay Opacity
+.cdk-overlay-container .cdk-overlay-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+// Dialog Container - border-radius Adjustment
+.mat-mdc-dialog-surface,
+.mat-mdc-dialog-panel,
+.mat-mdc-dialog-container {
+    border-radius: 0.375rem !important;
+}
+
+mat-dialog-content {
+    height: 100% !important;
+}
+
+mat-dialog-content,
+mat-dialog-content.content-wrapper {
+    max-height: 100% !important;
+    overflow-y: auto !important;
+}
+
+// Input type=number -> Remove arrows & Disable mouse wheel changing
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield; /* Firefox */
+    -webkit-appearance: textfield;
+}

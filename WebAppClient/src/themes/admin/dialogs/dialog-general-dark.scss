@@ -1,0 +1,19 @@
+html.dark {
+    .mat-mdc-dialog-title {
+        color: var(--light-text) !important;
+        background-color: var(--dark-background-lighter) !important;
+        border-bottom: 1px solid var(--gray-background-transparent) !important;
+    }
+
+    .mat-mdc-dialog-actions {
+        background-color: var(--dark-background-lighter) !important;
+        border-top: 1px solid var(--gray-background-transparent) !important;
+    }
+
+    .mat-mdc-dialog-surface,
+    .mat-mdc-dialog-panel,
+    .mat-mdc-dialog-container {
+        background-color: var(--dark-background-blueish-darker) !important;
+        box-shadow: 0 0 10px rgba(39, 39, 39, 0.3) !important;
+    }
+}
