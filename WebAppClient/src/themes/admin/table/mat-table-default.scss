@@ -44,7 +44,7 @@
     padding-right: 30px;
     margin-bottom: 16px;
     flex-wrap: wrap;
-    .delete-multiple-product {
+    .delete-multiple-item {
         padding-left: 2px;
     }
 }
@@ -57,6 +57,33 @@
     min-width: 250px !important;
     mat-form-field {
         width: 100%;
+        .mdc-text-field--outlined {
+            opacity: 0.9;
+            border-radius: 0.375rem;
+        }
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused {
+            .mdc-floating-label--float-above {
+                font-size: 14px !important;
+                opacity: 0.8 !important;
+                padding-top: 15px;
+            }
+            input {
+                padding-top: 8px;
+            }
+        }
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) {
+            .mdc-floating-label--float-above {
+                font-size: 14px;
+                opacity: 0.5;
+                padding-top: 18px;
+            }
+            input {
+                padding-top: 8px;
+            }
+        }
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch {
+            border-top-style: solid;
+        }
     }
     button {
         margin-right: 5px;

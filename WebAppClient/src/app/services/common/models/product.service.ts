@@ -18,34 +18,6 @@ export class ProductService {
   // LIST / READ
   async read(page: number = 0, size: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Products[] }> {
 
-    //////////////////////////////////////////////////// deprecated
-    // const promiseData: Promise<List_Products[]> = this.httpClientService.get<List_Products[]>({
-    //   controller: "products"
-    // }).toPromise();
-
-    // promiseData.then(d => successCallBack())
-    //   .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message));
-    // return await promiseData;
-    ////////////////////////////////////////////////////
-
-    // try {
-    //   const data: { totalCount: number, products: List_Products[] } = await firstValueFrom(
-    //     this.httpClientService.get<{ totalCount: number, products: List_Products[] }>({
-    //       controller: "products",
-    //       queryString: `page=${page}&size=${size}`
-    //     })
-    //   );
-    //   successCallBack();
-
-    //   return data;
-    // }
-    // catch (errorResponse) {
-    //   if (errorCallBack) {
-    //     errorCallBack(errorResponse.message);
-    //   }
-    //   throw errorResponse;
-    // }
-
     const data = await firstValueFrom(
       this.httpClientService.get<{ totalProductCount: number, products: List_Products[] }>({
         controller: "products",

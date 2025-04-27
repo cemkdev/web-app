@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 
-import { DeleteDirective } from '../../../directives/admin/delete.directive';
+import { DeleteDirectiveModule } from '../../../directives/admin/delete.directive.module';
 import { DialogModule } from '../../../dialogs/dialog.module';
 import { FileUploadModule } from '../../../services/common/file-upload/file-upload.module';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -25,8 +25,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ProductsComponent,
-    ListComponent,
-    DeleteDirective
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     DialogModule, MatDialogModule,
     MatTableModule, MatPaginatorModule, MatIconModule, MatCardModule, MatCheckboxModule, MatSortModule,
     FileUploadModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DeleteDirectiveModule
   ]
 })
 export class ProductsModule { }

@@ -1,19 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { List_Products } from '../../../../contracts/product/list_products';
-import { ProductService } from '../../../../services/common/models/product.service';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service';
-
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { DialogService } from '../../../../services/common/dialog.service';
-import { SelectProductImageDialogComponent } from '../../../../dialogs/product-dialogs/select-product-image-dialog/select-product-image-dialog.component';
-import { CreateProductDialogComponent } from '../../../../dialogs/product-dialogs/create-product-dialog/create-product-dialog.component';
-import { UpdateProductDialogComponent } from '../../../../dialogs/product-dialogs/update-product-dialog/update-product-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material/sort';
+import { List_Order } from '../../../../contracts/order/list_order';
 import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-dialog/delete-dialog.component';
+import { OrderService } from '../../../../services/common/models/order.service';
 
 declare var $: any;
 
@@ -26,9 +22,9 @@ declare var $: any;
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'index', 'name', 'title', 'description', 'stock', 'price', 'rating', 'dateCreated', 'dateUpdated', 'images', 'edit', 'delete'];
-  dataSource: MatTableDataSource<List_Products> = null;
-  selection = new SelectionModel<List_Products>(true, []);
+  displayedColumns: string[] = ['select', 'index', 'orderCode', 'userName', 'totalPrice', 'dateCreated', 'delete'];
+  dataSource: MatTableDataSource<List_Order> = null;
+  selection = new SelectionModel<List_Order>(true, []);
   totalItemCount: number = 0;
   value = '';
 
@@ -37,7 +33,7 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   constructor(
     spinner: NgxSpinnerService,
-    private productService: ProductService,
+    private orderService: OrderService,
     private alertifyService: AlertifyService,
     private dialogService: DialogService
   ) {
@@ -58,7 +54,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: List_Products): string {
+  checkboxLabel(row?: List_Order): string {
     if (!row) {
       const allSelected = this.selection.hasValue() && this.dataSource?.data.length === this.selection.selected.length;
       return `${allSelected ? 'deselect' : 'select'} all`;
@@ -83,18 +79,18 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.getProducts();
+    await this.getOrders();
   }
 
   async pageChanged() {
-    await this.getProducts();
+    await this.getOrders();
     this.selection.clear();
   }
 
-  async getProducts() {
+  async getOrders() {
     this.showSpinner(SpinnerType.BallAtom);
 
-    const allProducts: { totalProductCount: number, products: List_Products[] } = await this.productService.read(
+    const allOrders: { totalOrderCount: number, orders: List_Order[] } = await this.orderService.getAllOrders(
       this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 10,
       () => this.hideSpinner(SpinnerType.BallAtom),
       (errorMessage) => {
@@ -106,69 +102,13 @@ export class ListComponent extends BaseComponent implements OnInit {
         });
       }
     );
-    this.dataSource = new MatTableDataSource<List_Products>(allProducts.products);
-    this.paginator.length = allProducts.totalProductCount;
+    this.dataSource = new MatTableDataSource<List_Order>(allOrders.orders);
+    this.paginator.length = allOrders.totalOrderCount;
     this.totalItemCount = this.paginator.length;
     this.dataSource.sort = this.sort;
   }
 
-  editProductImages(id: string) {
-    this.dialogService.openDialog({
-      componentType: SelectProductImageDialogComponent,
-      data: id,
-      options: {
-        width: '1200px',
-        height: '650px'
-      }
-    });
-  }
-
-  createProduct() {
-    const dialogRef = this.dialogService.openDialog({
-      componentType: CreateProductDialogComponent,
-      options: {
-        width: '500px'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(async result => {
-      if (result == 'created') {
-        await this.getProducts();
-      }
-      else if (result != null && result != 'created') {
-        this.alertifyService.message(result, {
-          dismissOthers: true,
-          messageType: MessageType.Error,
-          position: Position.TopRight
-        });
-      }
-    });
-  }
-
-  updateProduct(id: string) {
-    const dialogRef = this.dialogService.openDialog({
-      componentType: UpdateProductDialogComponent,
-      data: id,
-      options: {
-        width: '500px'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(async result => {
-      if (result == 'updated') {
-        await this.getProducts();
-      }
-      else if (result != null && result != 'updated') {
-        this.alertifyService.message(result, {
-          dismissOthers: true,
-          messageType: MessageType.Error,
-          position: Position.TopRight
-        });
-      }
-    });
-  }
-
-  async deleteSelectedProducts() {
+  async deleteSelectedOrders() {
     const selectedIds = this.selection.selected.map(product => product.id);
 
     if (selectedIds.length === 0) {
@@ -190,7 +130,7 @@ export class ListComponent extends BaseComponent implements OnInit {
         this.showSpinner(SpinnerType.BallAtom);
 
         try {
-          await this.productService.deleteRange(selectedIds);
+          await this.orderService.deleteRange(selectedIds);
           for (let id of selectedIds) {
             const btn: HTMLElement = document.querySelector(`tr[data-id="${id}"]`) as HTMLElement;
             if (btn) {
@@ -202,7 +142,7 @@ export class ListComponent extends BaseComponent implements OnInit {
             }
           }
           this.selection.clear();
-          await this.getProducts();
+          await this.getOrders();
           this.alertifyService.message("Items successfully deleted.", {
             messageType: MessageType.Success,
             position: Position.TopRight

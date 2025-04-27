@@ -11,7 +11,7 @@
     <div class="content-wrapper">
         <app-file-upload class="app-file-upload" [options]="options"></app-file-upload>
 
-        <mat-card class="product-image-card" appearance="outlined" *ngFor="let image of images; let i = index">
+        <mat-card class="image-card" appearance="outlined" *ngFor="let image of images; let i = index">
             <mat-card-header>
                 <button mat-raised-button class="cover-image-check" color="default" *ngIf="!checkedValues[i]"
                     (click)="makeCoverImage(image.id)"><mat-icon>check_box_outline_blank</mat-icon></button>
@@ -21,7 +21,7 @@
                     (click)="makeCoverImage(image.id)"><mat-icon>check_box</mat-icon></button>
                 <span class="cover-span checked" *ngIf="checkedValues[i]">| Cover</span>
             </mat-card-header>
-            <img class="product-image" mat-card-image [src]="image.path">
+            <img class="image" mat-card-image [src]="image.path">
             <mat-card-actions>
                 <button mat-mini-fab color="error-soft" (click)="deleteImage(image.id, $event)">
                     <mat-icon>delete</mat-icon>
