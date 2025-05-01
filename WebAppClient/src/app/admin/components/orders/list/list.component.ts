@@ -7,9 +7,11 @@ import { AlertifyService, MessageType, Position } from '../../../../services/adm
 import { DialogService } from '../../../../services/common/dialog.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { List_Order } from '../../../../contracts/order/list_order';
+import { List_Order, List_Order_VM } from '../../../../contracts/order/list_order';
 import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-dialog/delete-dialog.component';
 import { OrderService } from '../../../../services/common/models/order.service';
+import { OrderDetailDialogComponent } from '../../../../dialogs/order-detail-dialog/order-detail-dialog.component';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -17,14 +19,18 @@ declare var $: any;
   selector: 'app-list',
   standalone: false,
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'index', 'orderCode', 'userName', 'totalPrice', 'dateCreated', 'delete'];
-  dataSource: MatTableDataSource<List_Order> = null;
-  selection = new SelectionModel<List_Order>(true, []);
+  displayedColumns: string[] = ['select', 'index', 'orderCode', 'customerName', 'totalPrice', 'dateCreated', 'view', 'delete'];
+  dataSource: MatTableDataSource<List_Order_VM> = null;
+  selection = new SelectionModel<List_Order_VM>(true, []);
+
+  orders: List_Order[];
+  ordersVM: List_Order_VM[] = [];
+  allOrders: { totalOrderCount: number, orders: List_Order[] };
+
   totalItemCount: number = 0;
   value = '';
 
@@ -35,7 +41,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     spinner: NgxSpinnerService,
     private orderService: OrderService,
     private alertifyService: AlertifyService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) {
     super(spinner);
   }
@@ -54,7 +61,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: List_Order): string {
+  checkboxLabel(row?: List_Order_VM): string {
     if (!row) {
       const allSelected = this.selection.hasValue() && this.dataSource?.data.length === this.selection.selected.length;
       return `${allSelected ? 'deselect' : 'select'} all`;
@@ -80,17 +87,19 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async ngOnInit() {
     await this.getOrders();
+    this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
   }
 
   async pageChanged() {
     await this.getOrders();
+    this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
     this.selection.clear();
   }
 
   async getOrders() {
     this.showSpinner(SpinnerType.BallAtom);
 
-    const allOrders: { totalOrderCount: number, orders: List_Order[] } = await this.orderService.getAllOrders(
+    this.allOrders = await this.orderService.getAllOrders(
       this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 10,
       () => this.hideSpinner(SpinnerType.BallAtom),
       (errorMessage) => {
@@ -102,10 +111,61 @@ export class ListComponent extends BaseComponent implements OnInit {
         });
       }
     );
-    this.dataSource = new MatTableDataSource<List_Order>(allOrders.orders);
-    this.paginator.length = allOrders.totalOrderCount;
-    this.totalItemCount = this.paginator.length;
-    this.dataSource.sort = this.sort;
+  }
+
+  manipulateOrderData(sourceData: List_Order[], totalOrderCount: number): void {
+    this.ordersVM = [];
+
+    for (let i = 0; i < sourceData.length; i++) {
+
+      // Each Item Integer/Fraction Divisions
+      let [totalPriceIntegerPart, totalPriceFractionPart] = sourceData[i].totalPrice.toFixed(2).split('.');
+      if (totalPriceFractionPart == undefined)
+        totalPriceFractionPart = "00";
+
+      let manipulatedData = {
+        id: sourceData[i].id,
+        orderCode: sourceData[i].orderCode,
+        customerName: sourceData[i].customerName,
+        totalPrice: `${totalPriceIntegerPart}.${totalPriceFractionPart}`,
+        dateCreated: this.formatDateParts(sourceData[i].dateCreated)
+      };
+      this.ordersVM.push(manipulatedData);
+      this.dataSource = new MatTableDataSource<List_Order_VM>(this.ordersVM);
+      this.paginator.length = totalOrderCount;
+      this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'totalPrice':
+            return parseFloat(item.totalPrice);
+          case 'dateCreated':
+            return item.dateCreated.rawDate;
+          default:
+            return item[property];
+        }
+      };
+    }
+  }
+
+  formatDateParts(dateInput: Date | string): Partial<any> {
+    const date = new Date(dateInput);
+
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = date.toLocaleString('en-US', { month: 'short' }); // Apr
+    const year = date.getFullYear();
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 => 12
+
+    const rawDate = dateInput;
+    const formattedDate = `${day} ${month},${year}`;
+    const formattedTime = `${hours}:${minutes} ${ampm}`;
+
+    return { rawDate, formattedDate, formattedTime };
   }
 
   async deleteSelectedOrders() {
@@ -143,6 +203,7 @@ export class ListComponent extends BaseComponent implements OnInit {
           }
           this.selection.clear();
           await this.getOrders();
+          this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
           this.alertifyService.message("Items successfully deleted.", {
             messageType: MessageType.Success,
             position: Position.TopRight
@@ -157,5 +218,30 @@ export class ListComponent extends BaseComponent implements OnInit {
         }
       }
     });
+  }
+
+  viewOrderDetail(id: string) {
+    this.router.navigate(['/admin/orders/order-detail/', id]);
+    // const dialogRef = this.dialogService.openDialog({
+    //   componentType: OrderDetailDialogComponent,
+    //   data: id,
+    //   options: {
+    //     width: '1000px',
+    //     height: '650px'
+    //   }
+    // });
+
+    // dialogRef.afterClosed().subscribe(async result => {
+    //   if (result == 'updated') {
+    //     await this.getOrders();
+    //   }
+    //   else if (result != null && result != 'updated') {
+    //     this.alertifyService.message(result, {
+    //       dismissOthers: true,
+    //       messageType: MessageType.Error,
+    //       position: Position.TopRight
+    //     });
+    //   }
+    // });
   }
 }

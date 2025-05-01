@@ -12,8 +12,7 @@ import { Product_By_Id } from '../../../contracts/product/product_by_id';
 @Component({
   selector: 'app-update-product-dialog',
   standalone: false,
-  templateUrl: './update-product-dialog.component.html',
-  styleUrl: './update-product-dialog.component.scss'
+  templateUrl: './update-product-dialog.component.html'
 })
 export class UpdateProductDialogComponent extends BaseDialog<UpdateProductDialogComponent> implements OnInit {
 

@@ -14,8 +14,7 @@ declare var $: any;
 @Component({
   selector: 'app-select-product-image-dialog',
   standalone: false,
-  templateUrl: './select-product-image-dialog.component.html',
-  styleUrl: './select-product-image-dialog.component.scss'
+  templateUrl: './select-product-image-dialog.component.html'
 })
 export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> implements OnInit {
 

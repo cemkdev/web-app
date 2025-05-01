@@ -1,0 +1,35 @@
+@use "order-customer-light.scss";
+@use "order-customer-dark.scss";
+
+.widget.order-customer {
+    ///////////////////////////////////
+    // Widget Content
+    .widget-content {
+        .inline-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-bottom: 10px;
+            img {
+                height: 70px;
+                width: 70px;
+                object-fit: cover;
+                border-radius: 0.375rem;
+            }
+            ul {
+                padding-left: 15px;
+            }
+        }
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+            padding-top: 10px;
+            mat-icon {
+                padding-top: 2px;
+                font-size: 22px;
+            }
+        }
+    }
+}

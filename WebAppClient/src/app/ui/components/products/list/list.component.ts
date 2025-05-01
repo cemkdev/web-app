@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
-import { List_Products, List_Products_VM } from '../../../../contracts/product/list_products';
+import { List_Product, List_Product_VM } from '../../../../contracts/product/list_products';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../../../../services/common/models/file.service';
 import { BaseStorageUrl } from '../../../../contracts/base_storage_url';
@@ -19,7 +19,7 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../..
 export class ListComponent extends BaseComponent implements OnInit {
 
   baseStorageUrl: BaseStorageUrl;
-  products: List_Products_VM[] = [];
+  products: List_Product_VM[] = [];
   totalProductCount: number;
   currentPageNo: number;
   totalPageCount: number;
@@ -44,7 +44,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       this.baseStorageUrl = await this.fileService.getBaseStorageUrl();
 
       this.currentPageNo = parseInt(params["pageNo"] ?? 1);
-      const data: { totalProductCount: number, products: List_Products[] } = await this.productService.read(this.currentPageNo - 1, this.productCountPerPage,
+      const data: { totalProductCount: number, products: List_Product[] } = await this.productService.read(this.currentPageNo - 1, this.productCountPerPage,
         () => {
           this.hideSpinner(SpinnerType.BallAtom);
         },
@@ -75,7 +75,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     })
   }
 
-  manipulateProductData(sourceData: List_Products[], baseStorageUrl: string): void {
+  manipulateProductData(sourceData: List_Product[], baseStorageUrl: string): void {
     this.products = [];
 
     for (let i = 0; i < sourceData.length; i++) {
@@ -99,7 +99,6 @@ export class ListComponent extends BaseComponent implements OnInit {
         hasCover: !sourceData[i].productImageFiles.length ? false : Boolean(sourceData[i].productImageFiles.find(c => c.coverImage == true)),
         productImageFilePath: !sourceData[i].productImageFiles.length ? null : `${baseStorageUrl}/${sourceData[i].productImageFiles.find(c => c.coverImage == true)?.path}`
       };
-      debugger
       this.products.push(manipulatedData);
     }
   }
@@ -119,7 +118,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     return stars;
   }
 
-  async addToBasket(product: List_Products_VM) {
+  async addToBasket(product: List_Product_VM) {
     this.showSpinner(SpinnerType.BallAtom);
     let _basketItem: Create_Basket_Item = new Create_Basket_Item();
     _basketItem.productId = product.id;

@@ -11,8 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-create-product-dialog',
   standalone: false,
-  templateUrl: './create-product-dialog.component.html',
-  styleUrl: './create-product-dialog.component.scss'
+  templateUrl: './create-product-dialog.component.html'
 })
 export class CreateProductDialogComponent extends BaseDialog<CreateProductDialogComponent> implements OnInit {
 

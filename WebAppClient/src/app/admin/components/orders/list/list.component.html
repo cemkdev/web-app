@@ -1,4 +1,4 @@
-<section class="table-container mat-elevation-z8" tabindex="0">
+<section class="table-container order-table mat-elevation-z8" tabindex="0">
     <!-- Table Header -->
     <div class="table-header">
         <!-- Filter Input -->
@@ -43,59 +43,69 @@
 
             <!-- Index Column -->
             <ng-container matColumnDef="index">
-                <th mat-header-cell *matHeaderCellDef class="full-text">
-                    <!-- <span *ngIf="selection.selected.length != 0">({{selection.selected.length}})</span> -->
-                </th>
-                <td mat-cell *matCellDef="let element; let i = index" class="full-text">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element; let i = index" class="start-column">
                     <span>{{ paginator.pageIndex * paginator.pageSize + i + 1 }}</span>
                 </td>
             </ng-container>
 
             <!-- Order Code Column -->
             <ng-container matColumnDef="orderCode">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="full-text">Order Code
-                    <mat-icon class="sort-icon">filter_alt</mat-icon>
-                </th>
-                <td mat-cell *matCellDef="let element" class="full-text">
+                <th mat-header-cell *matHeaderCellDef>Order No</th>
+                <td mat-cell *matCellDef="let element" class="order-code">
                     <span>{{element.orderCode}}</span>
                 </td>
             </ng-container>
 
-            <!-- User Name Column -->
-            <ng-container matColumnDef="userName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="full-text">User Name
+            <!-- Customer Name Column -->
+            <ng-container matColumnDef="customerName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name
                     <mat-icon class="sort-icon">filter_alt</mat-icon>
                 </th>
-                <td mat-cell *matCellDef="let element" class="full-text">
-                    <span>{{element.userName}}</span>
+                <td mat-cell *matCellDef="let element" class="customer-name">
+                    <span>{{element.customerName}}</span>
                 </td>
             </ng-container>
 
             <!-- Total Price Column -->
             <ng-container matColumnDef="totalPrice">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="full-text">Total Price
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount
                     <mat-icon class="sort-icon">filter_alt</mat-icon>
                 </th>
-                <td mat-cell *matCellDef="let element" class="full-text">
-                    <span>{{element.totalPrice}}</span>
+                <td mat-cell *matCellDef="let element" class="total-amount">
+                    <span>$ {{element.totalPrice}}</span>
                 </td>
             </ng-container>
 
             <!-- Date-Created Column -->
             <ng-container matColumnDef="dateCreated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="full-text">Date Created
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Date
                     <mat-icon class="sort-icon">filter_alt</mat-icon>
                 </th>
-                <td mat-cell *matCellDef="let element" class="full-text">
-                    <span>{{element.dateCreated | date: 'dd.MM.yyyy - HH:mm' }}</span>
+                <td mat-cell *matCellDef="let element" class="date">
+                    <div class="date-wrapper">
+                        <span class="date-part">{{ element.dateCreated.formattedDate }}</span>
+                        <span class="time-part">{{ element.dateCreated.formattedTime }}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- View Button Column -->
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" [id]="element.id" class="set-button">
+                    <button mat-mini-fab class="no-elevation small" color="notify"
+                        (click)="viewOrderDetail(element.id)">
+                        <mat-icon>read_more</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 
             <!-- Delete Button Column -->
             <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef class="set-button"></th>
-                <td mat-cell *matCellDef="let element" [id]="element.id" class="set-button">
-                    <button mat-mini-fab class="no-elevation" color="error" appDelete controller="orders"
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" [id]="element.id" class="set-button end-column">
+                    <button mat-mini-fab class="no-elevation small" color="error" appDelete controller="orders"
                         (callback)="getOrders()">
                         <mat-icon>delete</mat-icon>
                     </button>

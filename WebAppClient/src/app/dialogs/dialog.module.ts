@@ -16,13 +16,17 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateProductDialogComponent } from './product-dialogs/update-product-dialog/update-product-dialog.component';
+import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     DeleteDialogComponent,
     SelectProductImageDialogComponent,
     CreateProductDialogComponent,
-    UpdateProductDialogComponent
+    UpdateProductDialogComponent,
+    OrderDetailDialogComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,8 @@ import { UpdateProductDialogComponent } from './product-dialogs/update-product-d
     MatCardModule, MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule, MatSortModule
   ],
   providers: [
     {

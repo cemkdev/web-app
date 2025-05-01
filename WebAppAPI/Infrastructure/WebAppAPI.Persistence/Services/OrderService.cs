@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
 using WebAppAPI.Application.Abstractions.Services;
+using WebAppAPI.Application.DTOs;
 using WebAppAPI.Application.DTOs.Order;
 using WebAppAPI.Application.Repositories;
 
@@ -10,11 +13,13 @@ namespace WebAppAPI.Persistence.Services
     {
         readonly IOrderWriteRepository _orderWriteRepository;
         readonly IOrderReadRepository _orderReadRepository;
+        readonly IConfiguration _configuration;
 
-        public OrderService(IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository)
+        public OrderService(IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository, IConfiguration configuration)
         {
             _orderWriteRepository = orderWriteRepository;
             _orderReadRepository = orderReadRepository;
+            _configuration = configuration;
         }
 
         public async Task CreateOrderAsync(CreateOrder createOrder)
@@ -29,20 +34,62 @@ namespace WebAppAPI.Persistence.Services
             await _orderWriteRepository.SaveAsync();
         }
 
-        public async Task<List<ListOrder>> GetAllOrdersAsync()
-             => await _orderReadRepository.Table
+        public async Task<ListOrder> GetAllOrdersAsync(int page, int size)
+        {
+            var query = _orderReadRepository.Table
                             .Include(o => o.Basket)
                                 .ThenInclude(b => b.BasketItems)
-                            .Include(o => o.Basket.User)
-                            .Select(o => new ListOrder
-                            {
-                                Id = o.Id.ToString(),
-                                OrderCode = o.OrderCode,
-                                UserName = o.Basket.User.UserName,
-                                TotalPrice = o.Basket.BasketItems.Sum(item => item.Product.Price * item.Quantity),
-                                DateCreated = o.DateCreated
-                            })
-                            .ToListAsync();
+                            .Include(o => o.Basket.User);
+            var dataPerPage = query.Skip(page * size).Take(size);
+
+            return new()
+            {
+                TotalOrderCount = await query.CountAsync(),
+                Orders = await dataPerPage.Select(o => new
+                {
+                    Id = o.Id.ToString(),
+                    OrderCode = o.OrderCode,
+                    CustomerName = $"{o.Basket.User.FirstName} {o.Basket.User.LastName}",
+                    TotalPrice = o.Basket.BasketItems.Sum(item => item.Product.Price * item.Quantity),
+                    DateCreated = o.DateCreated
+                }).ToListAsync()
+            };
+        }
+
+        public async Task<OrderDetail> GetOrderByIdAsync(string id)
+        {
+            var order = await _orderReadRepository.Table
+                                .Include(o => o.Basket)
+                                    .ThenInclude(b => b.BasketItems)
+                                        .ThenInclude(bi => bi.Product)
+                                            .ThenInclude(p => p.ProductImageFiles)
+                                .FirstOrDefaultAsync(o => o.Id == Guid.Parse(id));
+
+            var orderDetail = new OrderDetail()
+            {
+                Id = order.Id.ToString(),
+                OrderCode = order.OrderCode,
+                Description = order.Description,
+                Address = order.Address,
+                DateCreated = order.DateCreated,
+                OrderBasketItems = order.Basket.BasketItems.Select(bi => new OrderItems()
+                {
+                    Name = bi.Product.Name,
+                    Description = bi.Product.Description,
+                    Price = bi.Product.Price,
+                    Quantity = bi.Quantity,
+                    Rating = bi.Product.Rating,
+                    OrderProductImageFile = bi.Product.ProductImageFiles.Where(pif => pif.CoverImage == true).Select(pif => new BasketProductImageFile
+                    {
+                        ProductImageFileId = pif.Id.ToString(),
+                        FileName = pif.FileName,
+                        Path = $"{_configuration["BaseStorageUrl"]}/{pif.Path}"
+                    }).FirstOrDefault()
+                }).ToList()
+            };
+
+            return orderDetail;
+        }
 
         #region Helpers
         private string GenerateOrderCode()

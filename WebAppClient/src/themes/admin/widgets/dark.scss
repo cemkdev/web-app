@@ -1,0 +1,16 @@
+html.dark {
+    // My Custom Widgets Default Background Color
+    .j-widget {
+        background-color: var(--dark-background-darker-lighter);
+    }
+
+    // My Custom Widgets Header - Default Background Color
+    .widget {
+        .widget-header {
+            background-color: var(--dark-background-lighter-2);
+            mat-icon {
+                color: var(--gray-background);
+            }
+        }
+    }
+}

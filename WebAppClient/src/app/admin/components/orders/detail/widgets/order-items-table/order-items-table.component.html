@@ -1,0 +1,137 @@
+<div class="table-container order-detail" tabindex="0">
+    <!-- Table Header -->
+    <div class="table-header">
+        <span class="order-title">Order No: <span class="order-code"> {{order.orderCode}}</span></span>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Index Column -->
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i = index" class="start-column">
+                <span>{{ i + 1 }}</span>
+            </td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="imagePath">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element" class="image">
+                <img [src]="element.imagePath" *ngIf="element.imagePath != ''">
+                <img src="default-product-image.png" *ngIf="element.imagePath == ''">
+            </td>
+        </ng-container>
+
+        <!-- Product Name Column -->
+        <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef>Product Name
+            </th>
+            <td mat-cell *matCellDef="let element" class="product-name">
+                <span>{{element.productName}}</span>
+            </td>
+        </ng-container>
+
+        <!-- Product Description Column -->
+        <ng-container matColumnDef="productDescription">
+            <th mat-header-cell *matHeaderCellDef>Product Description</th>
+            <td mat-cell *matCellDef="let element" class="product-description ellipsis">
+                <span matTooltip="{{element.productDescription}}"
+                    matTooltipPosition="left">{{element.productDescription}}</span>
+            </td>
+        </ng-container>
+
+        <!-- Item Price Column -->
+        <ng-container matColumnDef="itemPrice">
+            <th mat-header-cell *matHeaderCellDef>Item Price</th>
+            <td mat-cell *matCellDef="let element" class="item-price">
+                <span>
+                    <span class="currency-part">$ </span>
+                    {{element.itemPrice}}
+                </span>
+            </td>
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Stock</th>
+            <td mat-cell *matCellDef="let element" class="stock">
+                <span>{{element.quantity}}</span>
+            </td>
+        </ng-container>
+
+        <!-- Rating Column -->
+        <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef>Rating</th>
+            <td mat-cell matTooltip="{{element.rating.rating}}" matTooltipPosition="left" *matCellDef="let element"
+                class="rating">
+                <span *ngFor="let star of element.rating.stars">
+                    <mat-icon>{{star}}</mat-icon>
+                </span>
+            </td>
+        </ng-container>
+
+        <!-- Total Price Column -->
+        <ng-container matColumnDef="totalItemAmount">
+            <th mat-header-cell *matHeaderCellDef class="end-column">Total Item Amount</th>
+            <td mat-cell *matCellDef="let element" class="end-column">
+                <span><span class="currency-part">$ </span>
+                    {{element.totalItemAmount}}</span>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [attr.data-id]="row.id"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter</td>
+        </tr>
+    </table>
+
+    <!-- Widget Footer -->
+    <div class="widget-footer">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="left-side">
+                        <div class="flex">
+                            <span>Sub Total</span>
+                            <span>:</span>
+                        </div>
+                    </td>
+                    <td class="right-side">$ {{totalOrderAmount}}</td>
+                </tr>
+                <tr>
+                    <td class="left-side">
+                        <div class="flex">
+                            <span>Discount</span>
+                            <span>:</span>
+                        </div>
+                    </td>
+                    <td class="right-side">- $ {{sampleDiscount}}</td>
+                </tr>
+                <tr>
+                    <td class="left-side">
+                        <div class="flex">
+                            <span>Estimated Tax</span>
+                            <span>:</span>
+                        </div>
+                    </td>
+                    <td class="right-side">$ {{sampleEstimatedTax}}</td>
+                </tr>
+                <tr class="end-row">
+                    <td class="left-side">
+                        <div class="flex">
+                            <span>Total (USD)</span>
+                            <span>:</span>
+                        </div>
+                    </td>
+                    <td class="right-side">$ {{totalOrderAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button mat-raised-button color="primary" class="approve-order">
+            <mat-icon class="material-icons-outlined">inventory</mat-icon>Approve Order</button>
+    </div>
+</div>

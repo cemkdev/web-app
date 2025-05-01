@@ -5,8 +5,7 @@ import { BaseDialog } from '../base/base-dialog';
 @Component({
   selector: 'app-delete-dialog',
   standalone: false,
-  templateUrl: './delete-dialog.component.html',
-  styleUrl: './delete-dialog.component.scss',
+  templateUrl: './delete-dialog.component.html'
 })
 export class DeleteDialogComponent extends BaseDialog<DeleteDialogComponent> {
 

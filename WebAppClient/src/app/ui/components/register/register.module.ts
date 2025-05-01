@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild([
       { path: "", component: RegisterComponent }
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective
   ]
 })
 export class RegisterModule { }

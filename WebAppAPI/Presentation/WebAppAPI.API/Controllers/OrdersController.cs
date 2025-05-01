@@ -5,6 +5,7 @@ using WebAppAPI.Application.Features.Commands.Order.CreateOrder;
 using WebAppAPI.Application.Features.Commands.Order.RemoveOrder;
 using WebAppAPI.Application.Features.Commands.Order.RemoveRangeOrder;
 using WebAppAPI.Application.Features.Queries.Order.GetAllOrders;
+using WebAppAPI.Application.Features.Queries.Order.GetOrderById;
 
 namespace WebAppAPI.API.Controllers
 {
@@ -27,6 +28,13 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetOrderById([FromRoute] GetOrderByIdQueryRequest getOrderByIdQueryRequest)
+        {
+            GetOrderByIdQueryResponse response = await _mediator.Send(getOrderByIdQueryRequest);
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateOrder(CreateOrderCommandRequest createOrderCommandRequest)
         {
@@ -34,6 +42,7 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
+        // UYGULANMADI !!!
         [HttpDelete("{Id}")]
         [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] RemoveOrderCommandRequest removeOrderCommandRequest)
@@ -42,6 +51,7 @@ namespace WebAppAPI.API.Controllers
             return Ok();
         }
 
+        // UYGULANMADI !!!
         [HttpPost("deleterange")]
         [Authorize(AuthenticationSchemes = "Admin")]
         public async Task<IActionResult> DeleteRange([FromBody] RemoveRangeOrderCommandRequest removeRangeOrderCommandRequest)

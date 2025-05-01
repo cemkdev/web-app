@@ -1,0 +1,56 @@
+.table-container.product-table {
+    /////////////////////////////////////////////////
+    ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+    /////////////////////////////////////////////////
+    .select {
+        width: 40px;
+    }
+
+    .start-column {
+        width: 40px;
+    }
+
+    .name {
+        width: 280px;
+    }
+
+    .title {
+        width: 90px;
+    }
+
+    .description {
+        width: 140px;
+        padding-right: 20px !important;
+    }
+
+    .stock {
+        width: 40px;
+    }
+
+    .price {
+        width: 90px;
+    }
+
+    .rating {
+        width: 100px;
+        span {
+            vertical-align: middle !important;
+            mat-icon {
+                vertical-align: middle !important;
+                padding-top: 5px;
+                font-size: 15px;
+                width: auto;
+                color: orange;
+            }
+        }
+    }
+
+    .date {
+        width: 175px !important;
+        padding-right: 0px !important;
+    }
+
+    .set-button {
+        padding-right: 0px !important;
+    }
+}

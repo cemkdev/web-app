@@ -1,0 +1,207 @@
+@use "mat-table-order-detail-light.scss";
+@use "mat-table-order-detail-dark.scss";
+
+/////////////////////////////////////////////////
+/////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+/////////////////////////////////////////////////
+.table-container.order-detail {
+    height: auto;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    td {
+        height: auto;
+    }
+
+    /////////////////////////////////////////////////
+    /////////// TABLE HEADER ADJUSTMENTS ////////////
+    /////////////////////////////////////////////////
+    .table-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 0;
+        padding-bottom: 20px;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+        .order-title {
+            font-size: 17px;
+            font-weight: 400;
+            .order-code {
+                font-size: 17px;
+                font-weight: 400;
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////
+    ////////// TH, TD - COLUMN ADJUSTMENTS //////////
+    /////////////////////////////////////////////////
+    th,
+    td {
+        font-size: 14px !important;
+        font-weight: 400;
+        height: 30px;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+    th {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+    }
+
+    /////////////////////////////////////////////////
+    ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
+    /////////////////////////////////////////////////
+    .mat-mdc-row td {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-bottom: none;
+        position: relative;
+        z-index: 1;
+    }
+
+    .mat-mdc-row td::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .mat-mdc-row td:first-child::before {
+        content: "";
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .mat-mdc-row td:last-child::before {
+        content: "";
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    /////////////////////////////////////////////////
+    ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+    /////////////////////////////////////////////////
+    .start-column {
+        width: 40px;
+    }
+    .start-column span {
+        padding-left: 20px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .image {
+        width: 80px;
+    }
+    .image img {
+        position: relative;
+        z-index: 9999 !important;
+        height: 65px;
+        width: 65px;
+        object-fit: cover;
+    }
+    .product-name {
+        width: 210px;
+    }
+    .product-description {
+        width: 180px !important;
+    }
+    .item-price {
+        width: 140px;
+    }
+    .stock {
+        width: 100px;
+    }
+    .rating {
+        width: 120px;
+        span {
+            vertical-align: middle !important;
+            mat-icon {
+                vertical-align: middle !important;
+                padding-top: 5px;
+                font-size: 15px;
+                width: auto;
+                color: orange;
+            }
+        }
+    }
+    .end-column {
+        width: 180px;
+        text-align: right !important;
+        padding-right: 20px !important;
+        .sort-icon {
+            padding-left: 0 !important;
+        }
+    }
+    th.end-column {
+        //width: 160px;
+        padding-left: 10px !important;
+        //padding-right: 0px !important;
+        .sort-icon {
+            margin-left: -5px !important;
+        }
+        .mat-sort-header-sorted {
+            padding-left: 0px;
+        }
+    }
+
+    /////////////////////////////////////////////////
+    ///////////////// WIDGET FOOTER /////////////////
+    /////////////////////////////////////////////////
+    .widget-footer {
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+        table {
+            margin-left: auto;
+            margin-right: 0;
+            tr {
+                height: 40px;
+            }
+            td.left-side {
+                text-align: left;
+                width: 200px;
+                padding-right: 0px;
+                font-size: 15px !important;
+                font-weight: 500;
+                .flex {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+            td.right-side {
+                text-align: right;
+                width: 100px;
+                font-size: 15px !important;
+                font-weight: 500;
+            }
+            .end-row {
+                td.left-side {
+                    font-size: 20px !important;
+                    font-weight: 500;
+                }
+                td.right-side {
+                    font-size: 20px !important;
+                    font-weight: 600;
+                }
+            }
+        }
+        .approve-order {
+            margin-top: 10px;
+        }
+    }
+}

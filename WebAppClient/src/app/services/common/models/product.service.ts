@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { Create_Product } from '../../../contracts/product/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
-import { List_Products } from '../../../contracts/product/list_products';
+import { List_Product } from '../../../contracts/product/list_products';
 import { catchError, firstValueFrom, map, Observable } from 'rxjs';
 import { List_Product_Image } from '../../../contracts/product/list_product_image';
 import { Update_Product } from '../../../contracts/product/update_product';
@@ -16,10 +16,10 @@ export class ProductService {
   constructor(private httpClientService: HttpClientService) { }
 
   // LIST / READ
-  async read(page: number = 0, size: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Products[] }> {
+  async read(page: number = 0, size: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalProductCount: number, products: List_Product[] }> {
 
     const data = await firstValueFrom(
-      this.httpClientService.get<{ totalProductCount: number, products: List_Products[] }>({
+      this.httpClientService.get<{ totalProductCount: number, products: List_Product[] }>({
         controller: "products",
         queryString: `page=${page}&size=${size}`
       }).pipe(

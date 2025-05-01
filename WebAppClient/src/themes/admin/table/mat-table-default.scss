@@ -1,6 +1,11 @@
 @use "mat-table-light.scss";
 @use "mat-table-dark.scss";
 
+@use "product-table/product-mat-table-default.scss";
+@use "order-table/order-mat-table-default.scss";
+
+@use "@angular/material" as mat;
+
 /////////////////////////////////////////////////
 /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
 /////////////////////////////////////////////////
@@ -29,7 +34,6 @@
         height: 81.3vh;
     }
     padding: 16px;
-    margin-right: 10px;
     border-radius: 0.375rem;
     box-shadow: var(--shadow-table-dynamic);
 }
@@ -137,11 +141,12 @@
 /////////////////////////////////////////////////
 ////////// TH, TD - COLUMN ADJUSTMENTS //////////
 /////////////////////////////////////////////////
-td,
-th {
+th,
+td {
     font-size: 14px;
     font-weight: 400;
-    max-width: 120px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    //max-width: 300px;
     height: 40px;
     padding-right: 5px !important;
     padding-left: 5px !important;
@@ -155,10 +160,37 @@ th {
         padding-left: 5px;
         font-size: 12px;
     }
-}
 
-.full-text {
-    max-width: 120px;
+    // While the upward arrow is selected.
+    .mat-sort-header-ascending .mat-sort-header-arrow svg {
+        width: 21px;
+        margin-left: -18px !important;
+        transition: margin-left 0ms !important;
+    }
+    // While the downward arrow is selected.
+    .mat-sort-header-descending .mat-sort-header-arrow svg {
+        width: 21px;
+        margin-left: -4px !important;
+        transition: margin-left 0ms !important;
+    }
+    // Mouse hover & unhover
+    &:hover .mat-sort-header-container .mat-sort-header-arrow svg,
+    &:not(:hover) .mat-sort-header-container .mat-sort-header-arrow svg {
+        width: 21px;
+        transition: width 0ms !important;
+        margin-left: -20px;
+    }
+    // Downward arrow moves out of view...
+    &:hover .mat-sort-header-recently-cleared-descending .mat-sort-header-arrow svg {
+        transition: width 0ms !important;
+        margin-left: -4px;
+    }
+}
+th .mat-sort-header-sorted {
+    border-radius: 0.375rem;
+    padding-top: 3px;
+    padding-left: 5px;
+    padding-bottom: 3px;
 }
 
 .select {
@@ -166,22 +198,52 @@ th {
     padding-right: 0px !important;
 }
 
+.set-button {
+    width: 40px !important;
+    padding-right: 10px !important;
+    padding-left: 0 !important;
+}
+
+.date {
+    .date-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        align-items: center;
+        width: 106%;
+        padding-right: 20px !important;
+    }
+    width: 300px !important;
+    .date-part {
+        padding-right: -5px !important;
+    }
+    .time-part {
+        font-size: 12px !important;
+    }
+}
+
 // DO NOT OVERFLOW TOO LONG VALUES ADJUSTMENTS
 .ellipsis {
     span {
+        vertical-align: middle !important;
         white-space: nowrap; /* One row */
         overflow: hidden;
         text-overflow: ellipsis; /* Put 3 dots */
         display: inline-block; /* or inline-block */
         //min-width: 40px;
-        max-width: 120px;
+        max-width: 160px;
     }
 }
 
-.set-button {
-    width: 60px !important;
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+/////////////////////////////////////////////////
+////////////// TOOLTIP ADJUSTMENTS //////////////
+/////////////////////////////////////////////////
+:root {
+    @include mat.tooltip-overrides(
+        (
+            supporting-text-size: 12px
+        )
+    );
 }
 
 /////////////////////////////////////////////////
@@ -215,7 +277,6 @@ th {
 /////////////////////////////////////////////////
 ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
 /////////////////////////////////////////////////
-
 .mat-mdc-row {
     position: relative; /* Animasyonun düzgün çalışması için */
 }

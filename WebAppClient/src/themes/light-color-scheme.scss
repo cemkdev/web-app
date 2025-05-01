@@ -62,6 +62,7 @@ html {
     --gray-background: rgb(224 226 236);
     --gray-background-darker: rgb(193, 195, 206);
     --gray-background-transparent: rgb(224, 226, 236, 0.4);
+    --gray-background-transparent-2: rgb(224, 226, 236, 0.8);
     --gray-background-2: rgb(117, 117, 117);
     --gray-background-3: rgb(158, 158, 158);
     --gray-background-3-transparent: rgba(255, 255, 255, 0.9);
@@ -71,9 +72,12 @@ html {
     --light-background-transparent: rgba(241, 241, 241, 0.8);
     --light-background-3: rgb(255, 255, 255);
     --light-background-3-transparent: rgb(255, 255, 255, 0.5);
+    --light-background-4: rgb(248, 250, 252);
+    --light-background-4-transparent: rgb(255, 255, 255, 0.3);
 
     // Dark Text - Light Background
     --dark-text: rgb(39, 41, 46);
+    --gray-text: rgb(124, 124, 124, 0.4);
     --dark-text-lighter: rgb(60, 63, 70);
     --dark-text-lighter-2: rgb(88, 93, 102);
     --dark-text-lighter-2-transparent: rgb(88, 93, 102, 0.5);

@@ -26,6 +26,20 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
+  phoneNumberTyped = false;
+  phoneNumber = "";
+  onPhoneNumberFocus() {
+    this.phoneNumberTyped = true;
+  }
+  onPhoneNumberBlur(event: any) {
+    const value = this.form.get('phoneNumber')?.value;
+    this.phoneNumberTyped = false;
+    if (!value) {
+      this.phoneNumberTyped = false;
+      this.form.get('phoneNumber')?.setValue('');
+    }
+  }
+
   goBack() {
     this.location.back();
   }
@@ -52,6 +66,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       email: ["", [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ]],
+      phoneNumber: ["", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(10),
+        Validators.pattern(/^\d{10}$/)
       ]],
       password: ["", [
         Validators.required,
@@ -111,6 +131,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       controlName = 'First Name';
     if (controlName == 'LastName')
       controlName = 'Last Name';
+    if (controlName == 'PhoneNumber')
+      controlName = 'Phone number';
 
     if (control?.hasError('required')) {
       if (controlName == 'ConfirmPassword')
@@ -135,6 +157,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
       if (controlName == 'Email')
         return 'Please enter a valid email address.';
+
+      if (controlName == 'Phone number')
+        return 'Please enter a valid phone number address.';
     }
     if (this.form.hasError('notSame')) {
       return 'Passwords do not match.';

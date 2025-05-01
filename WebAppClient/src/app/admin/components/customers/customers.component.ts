@@ -5,8 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-customers',
   standalone: false,
-  templateUrl: './customers.component.html',
-  styleUrl: './customers.component.scss'
+  templateUrl: './customers.component.html'
 })
 export class CustomersComponent extends BaseComponent implements OnInit {
 

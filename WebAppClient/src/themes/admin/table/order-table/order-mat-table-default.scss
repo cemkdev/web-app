@@ -1,0 +1,28 @@
+@use "order-mat-table-light.scss";
+@use "order-mat-table-dark.scss";
+
+.table-container.order-table {
+    .select,
+    .start-column {
+        width: 30px;
+    }
+
+    .order-code {
+        width: 300px;
+        padding-right: 20px !important;
+    }
+
+    .customer-name,
+    .total-amount {
+        width: 200px;
+    }
+
+    .date {
+        width: 165px !important;
+        padding-right: 50px !important;
+    }
+
+    .set-button {
+        padding-right: 0px !important;
+    }
+}

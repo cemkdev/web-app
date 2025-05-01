@@ -1,0 +1,62 @@
+html {
+    /////////////////////////////////////////////////
+    /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+    /////////////////////////////////////////////////
+    .table-container.order-detail {
+        background-color: var(--light-background-4);
+
+        /////////////////////////////////////////////////
+        /////////// TABLE HEADER ADJUSTMENTS ////////////
+        /////////////////////////////////////////////////
+        .table-header {
+            .order-title {
+                color: var(--dark-text-lighter);
+                .order-code {
+                    color: var(--dark-text-lighter-2);
+                }
+            }
+        }
+
+        /////////////////////////////////////////////////
+        ////////// TH, TD - COLUMN ADJUSTMENTS //////////
+        /////////////////////////////////////////////////
+        th {
+            color: var(--dark-text-lighter-2);
+            background-color: var(--gray-background-transparent-2);
+        }
+        .start-column span {
+            color: var(--dark-text-lighter-2);
+        }
+
+        /////////////////////////////////////////////////
+        ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
+        /////////////////////////////////////////////////
+        table {
+            background-color: var(--light-background-4) !important;
+        }
+
+        .mat-mdc-row td::before {
+            content: "";
+            background-color: var(--light-background-4);
+        }
+
+        .mat-mdc-row:hover td::before {
+            content: "";
+            background-color: var(--gray-background-transparent);
+            transition: background-color 60ms ease-in-out;
+            border: none;
+        }
+
+        /////////////////////////////////////////////////
+        ///////////////// WIDGET FOOTER /////////////////
+        /////////////////////////////////////////////////
+        .widget-footer {
+            border-top: 1px solid var(--gray-text);
+            table {
+                .end-row {
+                    border-top: 1px solid var(--gray-text);
+                }
+            }
+        }
+    }
+}

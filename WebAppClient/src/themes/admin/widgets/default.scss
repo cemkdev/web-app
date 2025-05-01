@@ -1,0 +1,31 @@
+@use "light.scss";
+@use "dark.scss";
+
+@use "order-customer-widget/order-customer-default.scss";
+
+.widget {
+    ul {
+        list-style-type: none;
+    }
+    ///////////////////////////////////
+    // Widget Header
+    .widget-header {
+        padding: 15px !important;
+        .widget-title {
+            font-size: 17px;
+            font-weight: 500;
+        }
+        mat-icon {
+            vertical-align: middle;
+        }
+    }
+
+    ///////////////////////////////////
+    // Widget Content
+    .widget-content {
+        padding-top: 15px;
+        ul {
+            padding-left: 20px;
+        }
+    }
+}

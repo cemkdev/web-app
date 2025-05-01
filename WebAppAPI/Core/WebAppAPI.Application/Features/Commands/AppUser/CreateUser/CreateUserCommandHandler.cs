@@ -22,6 +22,7 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.CreateUser
                 FullName = $"{request.FirstName} {request.LastName}",
                 Username = request.Username,
                 Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
                 Password = request.Password,
                 ConfirmPassword = request.ConfirmPassword,
             });

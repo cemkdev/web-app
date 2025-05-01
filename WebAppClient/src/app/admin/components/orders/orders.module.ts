@@ -17,22 +17,37 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteDirectiveModule } from '../../../directives/admin/delete.directive.module';
+import { DetailComponent } from './detail/detail.component';
+import { WidgetModule } from '../../../widgets/admin/components/widget/widget.module';
+import { OrderItemsTableComponent } from './detail/widgets/order-items-table/order-items-table.component';
+import { OrderCustomerComponent } from './detail/widgets/order-customer/order-customer.component';
+import { OrderDetailService } from '../../../widgets/admin/services/order-detail.service';
+import { OrderBillingAddressComponent } from './detail/widgets/order-billing-address/order-billing-address.component';
+import { OrderShippingAddressComponent } from './detail/widgets/order-shipping-address/order-shipping-address.component';
 
 @NgModule({
   declarations: [
     OrdersComponent,
-    ListComponent
+    ListComponent,
+    DetailComponent,
+    OrderItemsTableComponent,
+    OrderCustomerComponent,
+    OrderBillingAddressComponent,
+    OrderShippingAddressComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: "", component: OrdersComponent }
+      { path: "", component: ListComponent },
+      { path: 'order-detail/:id', component: DetailComponent }
     ]),
     FormsModule, MatInputModule, MatFormFieldModule, MatButtonModule,
     DialogModule, MatDialogModule,
     MatTableModule, MatPaginatorModule, MatIconModule, MatCardModule, MatCheckboxModule, MatSortModule,
     MatTooltipModule,
-    DeleteDirectiveModule
-  ]
+    DeleteDirectiveModule,
+    WidgetModule
+  ],
+  providers: [OrderDetailService]
 })
 export class OrdersModule { }

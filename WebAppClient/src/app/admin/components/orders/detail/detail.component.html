@@ -1,0 +1,7 @@
+<h4>Order Detail</h4>
+
+<div class="order-detail-widgets">
+    @for (w of store.widgets(); track w.id) {
+    <app-widget [data]="w" />
+    }
+</div>

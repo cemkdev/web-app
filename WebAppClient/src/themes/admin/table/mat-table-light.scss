@@ -38,6 +38,36 @@ html {
     }
 
     /////////////////////////////////////////////////
+    ////////// TH, TD - COLUMN ADJUSTMENTS //////////
+    /////////////////////////////////////////////////
+    th {
+        color: var(--dark-text-lighter-2);
+    }
+    th .mat-sort-header-sorted {
+        color: black;
+        background-color: var(--light-background-3-transparent);
+    }
+
+    .date {
+        .date-part {
+            color: var(--dark-text-lighter);
+        }
+        .time-part {
+            color: var(--dark-text-lighter-2);
+        }
+    }
+
+    /////////////////////////////////////////////////
+    ////////////// TOOLTIP ADJUSTMENTS //////////////
+    /////////////////////////////////////////////////
+    @include mat.tooltip-overrides(
+        (
+            container-color: var(--gray-background-darker),
+            supporting-text-color: var(--dark-text)
+        )
+    );
+
+    /////////////////////////////////////////////////
     ////////////////// PAGINATOR ////////////////////
     /////////////////////////////////////////////////
     @include mat.paginator-overrides(

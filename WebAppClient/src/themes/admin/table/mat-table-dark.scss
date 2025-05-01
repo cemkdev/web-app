@@ -5,7 +5,7 @@ html.dark {
     /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
     /////////////////////////////////////////////////
     .table-container {
-        background-color: var(--dark-background-lighter);
+        background-color: var(--dark-background-darker-lighter);
     }
 
     /////////////////////////////////////////////////
@@ -40,10 +40,35 @@ html.dark {
     /////////////////////////////////////////////////
     ////////// TH, TD - COLUMN ADJUSTMENTS //////////
     /////////////////////////////////////////////////
-    td,
     th {
+        color: var(--light-text-transparent);
+    }
+    th .mat-sort-header-sorted {
+        color: var(--light-text-transparent);
+        background-color: var(--gray-background-transparent-2);
+    }
+    td {
         color: var(--light-text-graish);
     }
+
+    .date {
+        .date-part {
+            color: var(--light-darkerer-text);
+        }
+        .time-part {
+            color: var(--light-text-more-transparent);
+        }
+    }
+
+    /////////////////////////////////////////////////
+    ////////////// TOOLTIP ADJUSTMENTS //////////////
+    /////////////////////////////////////////////////
+    @include mat.tooltip-overrides(
+        (
+            container-color: var(--gray-background),
+            supporting-text-color: var(--dark-text)
+        )
+    );
 
     /////////////////////////////////////////////////
     ////////////////// PAGINATOR ////////////////////
@@ -57,7 +82,7 @@ html.dark {
 
     .paginator {
         mat-paginator {
-            background-color: var(--dark-background-lighter);
+            background-color: var(--dark-background-darker-lighter);
             color: var(--light-text-graish); // "items per page" and "[number]-[page size] of [total count]" parts
             // Border of page size
             .mat-mdc-select {
@@ -78,12 +103,12 @@ html.dark {
     ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
     /////////////////////////////////////////////////
     table {
-        background: var(--dark-background-lighter) !important;
+        background: var(--dark-background-darker-lighter) !important;
     }
 
     .mat-mdc-row td::before {
         content: "";
-        background-color: var(--dark-background-lighter-2);
+        background-color: var(--dark-background-lighter);
     }
 
     .mat-mdc-row:hover td::before {

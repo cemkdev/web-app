@@ -9,9 +9,9 @@
     </div>
     <a mat-list-item class="sidenav-items" [ngClass]="collapsedClass" *ngFor="let item of menuItems()"
         [routerLink]="item.route" routerLinkActive #rla="routerLinkActive" [activated]="rla.isActive"
-        [routerLinkActiveOptions]="{exact: true}" [matTooltip]="collapsed() ? item.label : ''"
+        [routerLinkActiveOptions]="{exact: item.exact}" [matTooltip]="collapsed() ? item.label : ''"
         matTooltipPosition="right">
-        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <mat-icon matListItemIcon class={{item.iconClass}}>{{item.icon}}</mat-icon>
         <span matListItemTitle class="sidenav-item-labels">{{item.label}}</span>
     </a>
 </mat-nav-list>

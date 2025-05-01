@@ -218,6 +218,10 @@ html {
 
 // Mini Fab: mat-mini-fab
 html {
+    .mdc-fab--mini.small {
+        height: 35px;
+        width: 35px;
+    }
     .mdc-fab--mini.no-elevation {
         box-shadow: none !important;
     }

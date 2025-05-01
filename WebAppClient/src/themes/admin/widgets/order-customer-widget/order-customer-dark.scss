@@ -1,0 +1,18 @@
+html.dark {
+    .widget.order-customer {
+        ///////////////////////////////////
+        // Widget Content
+        .widget-content {
+            .inline-box {
+                img {
+                    border: 1px solid var(--dark-background-lighter-2);
+                }
+            }
+            .icon-text {
+                mat-icon {
+                    color: var(--gray-background);
+                }
+            }
+        }
+    }
+}

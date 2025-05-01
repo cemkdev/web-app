@@ -4,6 +4,7 @@ import { Create_Order } from '../../../contracts/order/create_order';
 import { catchError, firstValueFrom, map, Observable } from 'rxjs';
 import { List_Order } from '../../../contracts/order/list_order';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Order_Detail } from '../../../contracts/order/order_detail';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,27 @@ export class OrderService {
         controller: "orders",
         queryString: `page=${page}&size=${size}`
       }).pipe(
+        map(response => {
+          successCallBack && successCallBack();
+          return response;
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          if (errorCallBack) {
+            errorCallBack(errorResponse.message);
+          }
+          return [];
+        })
+      )
+    );
+    return data;
+  }
+
+  // GET BY ID
+  async getOrderById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Order_Detail> {
+    const data = await firstValueFrom(
+      this.httpClientService.get<Order_Detail>({
+        controller: "orders"
+      }, id).pipe(
         map(response => {
           successCallBack && successCallBack();
           return response;

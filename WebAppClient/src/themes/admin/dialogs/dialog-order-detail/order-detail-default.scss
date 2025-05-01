@@ -1,0 +1,107 @@
+@use "order-detail-light.scss";
+@use "order-detail-dark.scss";
+
+.mat-mdc-dialog-title.dialog-order-content {
+    padding-left: 80px !important;
+    margin-bottom: 0 !important;
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+
+    .left {
+        padding-top: 20px;
+        float: left;
+    }
+    .right {
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-right: 6px !important;
+        margin-top: 14px !important;
+        margin-right: 50px !important;
+        float: right;
+        mat-icon {
+            font-size: 30px;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////// mat-dialog-content Area Adjustments /////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+mat-dialog-content.dialog-order-content .content-wrapper {
+    justify-items: center;
+    padding: 0px !important;
+    padding-top: 0 !important;
+
+    .table-container {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        border-radius: 0 !important;
+        box-shadow: none;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+////////////////// mat-dialog-content Area Small Screen Adjustments //////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+@media (max-width: 600px) {
+    mat-dialog-content.dialog-order-content {
+        //grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        //padding: 20px !important;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////// mat-dialog-content Scroll Bar Area Adjustments ///////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+mat-dialog-content.dialog-order-content {
+    overflow-y: scroll;
+    padding-right: 12px;
+    position: relative;
+    margin-bottom: 10px !important;
+
+    // Chrome/Opera/WebKit scroll gizleme (başta)
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 10px;
+        transition: background-color 0.5s;
+    }
+
+    // Firefox için
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+        scrollbar-color: rgba(150, 150, 150, 0.6) transparent;
+        transition: scrollbar-color 0.5s;
+    }
+
+    // Firefox için özel scroll bar ayarı
+    @-moz-document url-prefix() {
+        .content-wrapper {
+            scrollbar-width: auto !important; // thin yerine daha belirgin
+            scrollbar-color: rgba(150, 150, 150, 0.6) transparent;
+
+            &:hover {
+                scrollbar-color: rgba(100, 100, 100, 0.6) transparent;
+            }
+        }
+    }
+}
+
+mat-dialog-actions.dialog-order-content {
+    padding-right: 30px !important;
+}

@@ -1,0 +1,65 @@
+html.dark {
+    /////////////////////////////////////////////////
+    /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+    /////////////////////////////////////////////////
+    .table-container.order-detail {
+        background-color: var(--dark-background-darker-lighter);
+
+        /////////////////////////////////////////////////
+        /////////// TABLE HEADER ADJUSTMENTS ////////////
+        /////////////////////////////////////////////////
+        .table-header {
+            .order-title {
+                color: var(--light-text-graish);
+                .order-code {
+                    color: var(--light-text-transparent);
+                }
+            }
+        }
+
+        /////////////////////////////////////////////////
+        ////////// TH, TD - COLUMN ADJUSTMENTS //////////
+        /////////////////////////////////////////////////
+        th {
+            color: var(--light-text-transparent);
+            background-color: var(--dark-background-lighter-2);
+        }
+        td {
+            color: var(--light-text-graish);
+        }
+        .start-column span {
+            color: var(--dark-text-lighter-2);
+        }
+
+        /////////////////////////////////////////////////
+        ///////// ADDITIONAL TD-ROW ADJUSTMENTS /////////
+        /////////////////////////////////////////////////
+        table {
+            background: var(--dark-background-darker-lighter) !important;
+        }
+
+        .mat-mdc-row td::before {
+            content: "";
+            background-color: var(--dark-background-darker-lighter);
+        }
+
+        .mat-mdc-row:hover td::before {
+            content: "";
+            background-color: var(--dark-background-lighter);
+            transition: background-color 60ms ease-in-out;
+            border: none;
+        }
+
+        /////////////////////////////////////////////////
+        ///////////////// WIDGET FOOTER /////////////////
+        /////////////////////////////////////////////////
+        .widget-footer {
+            border-top: 1px solid var(--gray-text);
+            table {
+                .end-row {
+                    border-top: 1px solid var(--gray-text);
+                }
+            }
+        }
+    }
+}

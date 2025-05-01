@@ -24,6 +24,7 @@ namespace WebAppAPI.Persistence.Services
                 LastName = model.LastName,
                 FullName = model.FullName,
                 UserName = model.Username,
+                PhoneNumber = model.PhoneNumber,
                 Email = model.Email
             }, model.Password);
 

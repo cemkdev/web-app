@@ -87,6 +87,23 @@
                                             {{ getErrorMessage('email') }}
                                         </div>
                                     </div>
+                                    <!-- Phone Number -->
+                                    <div class="input-group has-validation mb-3">
+                                        <div class="form-floating is-invalid">
+                                            <input type="text" class="form-control" id="floatingInputPhoneNumber"
+                                                [mask]="'(000) 000-00-00'" [dropSpecialCharacters]="true"
+                                                [prefix]="'+90 '" [showMaskTyped]="phoneNumberTyped"
+                                                [instantPrefix]="false" placeholder="Phone Number"
+                                                formControlName="phoneNumber"
+                                                [ngClass]="{'is-invalid': component.phoneNumber.errors && (submitted || component.phoneNumber.touched)}"
+                                                (focus)="onPhoneNumberFocus()" (blur)="onPhoneNumberBlur($event)">
+                                            <label for="floatingInputPhoneNumber">Phone Number</label>
+                                        </div>
+                                        <div class="invalid-feedback"
+                                            *ngIf="component.phoneNumber.errors && (submitted || component.phoneNumber.touched)">
+                                            {{ getErrorMessage('phoneNumber') }}
+                                        </div>
+                                    </div>
                                     <!-- Password -->
                                     <div class="input-group has-validation mb-3">
                                         <div class="form-floating is-invalid">

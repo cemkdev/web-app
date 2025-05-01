@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using WebAppAPI.Application.Abstractions.Services;
-using WebAppAPI.Application.Repositories;
-using WebAppAPI.Domain.Entities;
 
 namespace WebAppAPI.Application.Features.Queries.Order.GetAllOrders
 {
@@ -16,24 +14,12 @@ namespace WebAppAPI.Application.Features.Queries.Order.GetAllOrders
 
         public async Task<GetAllOrdersQueryResponse> Handle(GetAllOrdersQueryRequest request, CancellationToken cancellationToken)
         {
-            var order_list = await _orderService.GetAllOrdersAsync();
-
-            var totalOrderCount = order_list.Count;
-            var orders = order_list
-                            .Skip(request.Page * request.Size).Take(request.Size)
-                            .Select(o => new
-                            {
-                                o.Id,
-                                o.OrderCode,
-                                o.UserName,
-                                o.TotalPrice,
-                                o.DateCreated
-                            }).ToList();
+            var order_data = await _orderService.GetAllOrdersAsync(request.Page, request.Size);
 
             return new()
             {
-                Orders = orders,
-                TotalOrderCount = totalOrderCount
+                TotalOrderCount = order_data.TotalOrderCount,
+                Orders = order_data.Orders
             };
         }
     }
