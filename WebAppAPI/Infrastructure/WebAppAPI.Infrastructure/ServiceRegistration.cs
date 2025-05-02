@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Abstractions.Storage;
 using WebAppAPI.Application.Abstractions.Token;
 using WebAppAPI.Infrastructure.Enums;
+using WebAppAPI.Infrastructure.Services;
 using WebAppAPI.Infrastructure.Services.Storage;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
 using WebAppAPI.Infrastructure.Services.Storage.Local;
@@ -15,6 +17,7 @@ namespace WebAppAPI.Infrastructure
         {
             serviceCollection.AddScoped<IStorageService, StorageService>();
             serviceCollection.AddScoped<ITokenHandler, TokenHandler>();
+            serviceCollection.AddScoped<IMailService, MailService>();
         }
 
         public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
