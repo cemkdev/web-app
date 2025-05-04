@@ -6,6 +6,7 @@ namespace WebAppAPI.Application.Abstractions.Services
     public interface IUserService
     {
         Task<CreateUserResponse> CreateAsync(CreateUser model);
-        Task UpdateRefreshToken(string refreshToken, I.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension);
+        Task UpdateRefreshTokenAsync(string refreshToken, I.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension);
+        Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
     }
 }

@@ -12,6 +12,7 @@ export class UserAuthService {
 
   constructor(private httpClientService: HttpClientService, private toastrService: CustomToastrService) { }
 
+  // Internal Login
   async login(usernameOrEmail: string, password: string, callBackFunction?: () => void): Promise<any> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
       controller: "auth",
@@ -32,6 +33,7 @@ export class UserAuthService {
     callBackFunction();
   }
 
+  // Refresh Token
   async refreshTokenLogin(refreshToken: string, callBackFunction?: (state) => void): Promise<any> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post({
       controller: "auth",
@@ -56,6 +58,7 @@ export class UserAuthService {
     }
   }
 
+  // External Login - Google
   async googleLogin(user: SocialUser, callBackFunction?: () => void): Promise<any> {
     const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
       controller: "auth",
@@ -76,6 +79,7 @@ export class UserAuthService {
     callBackFunction();
   }
 
+  // External Login - Facebook
   async facebookLogin(user: SocialUser, callBackFunction?: () => void): Promise<any> {
     const observable: Observable<SocialUser | TokenResponse> = this.httpClientService.post({
       controller: "auth",
@@ -94,5 +98,31 @@ export class UserAuthService {
       });
     }
     callBackFunction();
+  }
+
+  // Password Reset Request
+  async passwordReset(email: string, callBackFunction?: () => void) {
+
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "auth",
+      action: "password-reset"
+    }, email);
+
+    await firstValueFrom(observable);
+    callBackFunction();
+  }
+
+  async verifyResetToken(resetToken: string, userId: string, callBackFunction?: () => void): Promise<boolean> {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "auth",
+      action: "verify-reset-token"
+    }, {
+      resetToken: resetToken,
+      userId: userId
+    });
+
+    const state = await firstValueFrom(observable);
+    callBackFunction();
+    return state?.state === true;
   }
 }

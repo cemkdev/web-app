@@ -23,6 +23,8 @@ export class AppComponent extends BaseComponent {
 
   isRegisterPage: boolean = false;
   isLoginPage: boolean = false;
+  isPassResetPage: boolean = false;
+  isPassUpdatePage: boolean = false;
 
   constructor(
     private router: Router,
@@ -39,7 +41,9 @@ export class AppComponent extends BaseComponent {
       if (event instanceof NavigationEnd) {
         this.isRegisterPage = event.url.includes('register');
         this.isLoginPage = event.url.includes('login');
-      }
+        this.isPassResetPage = event.url.includes('/password-reset');
+        this.isPassUpdatePage = event.url.includes('/password-update');
+      } // Don't forget to add these 'is[Page]' variables to navbar tag as *ngIf parameter!
     });
   }
 

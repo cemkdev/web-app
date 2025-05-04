@@ -4,6 +4,9 @@ import { ProductsModule } from './products/products.module';
 import { HomeModule } from './home/home.module';
 import { BasketsModule } from './baskets/baskets.module';
 import { RegisterModule } from './register/register.module';
+import { PasswordResetModule } from './password-reset/password-reset.module';
+import { PasswordUpdateModule } from './password-update/password-update.module';
+import { InvalidLinkModule } from './invalid-link/invalid-link.module';
 
 @NgModule({
   declarations: [],
@@ -12,7 +15,10 @@ import { RegisterModule } from './register/register.module';
     HomeModule,
     ProductsModule,
     BasketsModule,
-    RegisterModule
+    RegisterModule,
+    PasswordResetModule,
+    PasswordUpdateModule,
+    InvalidLinkModule
   ],
   exports: [
     BasketsModule

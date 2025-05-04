@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Abstractions.Services.Authentications;
@@ -27,7 +28,8 @@ namespace WebAppAPI.Persistence
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<WebAppAPIDbContext>();
+            }).AddEntityFrameworkStores<WebAppAPIDbContext>()
+            .AddDefaultTokenProviders(); // AddDefaultTokenProviders() is for using GeneratePasswordResetTokenAsync() in our AuthService.
 
             // Actual Table Entities Repositories
             services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();

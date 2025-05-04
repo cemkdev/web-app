@@ -2,6 +2,7 @@
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
 using WebAppAPI.Application.Exceptions;
+using WebAppAPI.Application.Helpers;
 using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -39,7 +40,7 @@ namespace WebAppAPI.Persistence.Services
             return response;
         }
 
-        public async Task UpdateRefreshToken(string refreshToken, U.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension)
+        public async Task UpdateRefreshTokenAsync(string refreshToken, U.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension)
         {
             if (user != null)
             {
@@ -49,6 +50,22 @@ namespace WebAppAPI.Persistence.Services
             }
             else
                 throw new NotFoundUserException();
+        }
+
+        public async Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
+        {
+            U.AppUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                resetToken = resetToken.UrlDecode();
+
+                IdentityResult result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (result.Succeeded)
+                    await _userManager.UpdateSecurityStampAsync(user);
+                else
+                    throw new PasswordChangeFailedException();
+            }
         }
     }
 }

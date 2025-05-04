@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Features.Commands.AppUser.CreateUser;
+using WebAppAPI.Application.Features.Commands.AppUser.UpdatePassword;
 
 namespace WebAppAPI.API.Controllers
 {
@@ -10,12 +11,10 @@ namespace WebAppAPI.API.Controllers
     public class UsersController : ControllerBase
     {
         readonly IMediator _mediator;
-        readonly IMailService _mailService;
 
-        public UsersController(IMediator mediator, IMailService mailService)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
-            _mailService = mailService;
         }
 
         [HttpPost]
@@ -25,21 +24,11 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SendMail()
+        [HttpPost("password-update")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
         {
-            try
-            {
-                await _mailService.SendMessageAsync("jamsofthub@outlook.com", "Test Mail Subject", "<strong>This is a test mail and this the content.</strong>");
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-
-            return Ok();
+            UpdatePasswordCommandResponse response = await _mediator.Send(updatePasswordCommandRequest);
+            return Ok(response);
         }
     }
 }

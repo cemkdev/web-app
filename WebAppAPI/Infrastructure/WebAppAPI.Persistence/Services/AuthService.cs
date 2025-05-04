@@ -1,13 +1,16 @@
 ﻿using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Text;
 using System.Text.Json;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Abstractions.Token;
 using WebAppAPI.Application.DTOs;
 using WebAppAPI.Application.DTOs.Facebook;
 using WebAppAPI.Application.Exceptions;
+using WebAppAPI.Application.Helpers;
 using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -20,6 +23,7 @@ namespace WebAppAPI.Persistence.Services
         readonly ITokenHandler _tokenHandler;
         readonly SignInManager<U.AppUser> _signInManager;
         readonly IUserService _userService;
+        readonly IMailService _mailService;
 
         public AuthService(
             IHttpClientFactory httpClientFactory,
@@ -27,7 +31,8 @@ namespace WebAppAPI.Persistence.Services
             UserManager<U.AppUser> userManager,
             ITokenHandler tokenHandler,
             SignInManager<U.AppUser> signInManager,
-            IUserService userService)
+            IUserService userService,
+            IMailService mailService)
         {
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
@@ -35,6 +40,7 @@ namespace WebAppAPI.Persistence.Services
             _tokenHandler = tokenHandler;
             _signInManager = signInManager;
             _userService = userService;
+            _mailService = mailService;
         }
 
         #region Internal Login
@@ -51,7 +57,7 @@ namespace WebAppAPI.Persistence.Services
             if (result.Succeeded) // Authentication succeeded!
             {
                 Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
-                await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 5);
+                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 5);
 
                 return token;
             }
@@ -115,6 +121,40 @@ namespace WebAppAPI.Persistence.Services
         }
         #endregion
 
+        #region PasswordReset
+        public async Task PasswordResetAsync(string email)
+        {
+            U.AppUser user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                resetToken = resetToken.UrlEncode();
+                await _mailService.SendPasswordResetMailAsync(email, user.Id, user.FirstName, resetToken);
+            }
+        }
+
+        public async Task<bool> VerifyResetTokenAsync(string resetToken, string userId)
+        {
+            U.AppUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                try
+                {
+                    resetToken = resetToken.UrlDecode();
+                    return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", resetToken);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        #endregion
+
         #region Helpers
         async Task<Token> CreateUserExternalAsync(U.AppUser user, ExternalLoginInfo externalLoginInfo, UserLoginInfo info, int accessTokenLifeTime)
         {
@@ -143,7 +183,7 @@ namespace WebAppAPI.Persistence.Services
                 await _userManager.AddLoginAsync(user, info); //AspNetUserLogins                    
 
                 Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
-                await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 5);
+                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 5);
 
                 return token;
             }
@@ -156,7 +196,7 @@ namespace WebAppAPI.Persistence.Services
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {
                 Token token = _tokenHandler.CreateAccessToken(15, user);
-                await _userService.UpdateRefreshToken(refreshToken, user, token.Expiration, 5 * 60);
+                await _userService.UpdateRefreshTokenAsync(refreshToken, user, token.Expiration, 5 * 60);
                 return token;
             }
             else
