@@ -11,6 +11,9 @@ html.dark {
         .table-header {
             .order-title {
                 color: var(--light-text-graish);
+                mat-icon {
+                    color: var(--gray-background);
+                }
                 .order-code {
                     color: var(--light-text-transparent);
                 }

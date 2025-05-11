@@ -7,11 +7,11 @@ import { AlertifyService, MessageType, Position } from '../../../../services/adm
 import { DialogService } from '../../../../services/common/dialog.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { List_Order, List_Order_VM } from '../../../../contracts/order/list_order';
+import { List_Order, List_Order_VM, OrderStatusInfo } from '../../../../contracts/order/list_order';
 import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-dialog/delete-dialog.component';
 import { OrderService } from '../../../../services/common/models/order.service';
-import { OrderDetailDialogComponent } from '../../../../dialogs/order-detail-dialog/order-detail-dialog.component';
 import { Router } from '@angular/router';
+import { OrderStatusEnum } from '../../../../enums/order_status_enum';
 
 declare var $: any;
 
@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'index', 'orderCode', 'customerName', 'totalPrice', 'dateCreated', 'view', 'delete'];
+  displayedColumns: string[] = ['select', 'index', 'orderCode', 'customerName', 'totalPrice', 'dateCreated', 'status', 'view', 'delete'];
   dataSource: MatTableDataSource<List_Order_VM> = null;
   selection = new SelectionModel<List_Order_VM>(true, []);
 
@@ -33,6 +33,7 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   totalItemCount: number = 0;
   value = '';
+  orderStatusEnum = OrderStatusEnum;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -128,7 +129,8 @@ export class ListComponent extends BaseComponent implements OnInit {
         orderCode: sourceData[i].orderCode,
         customerName: sourceData[i].customerName,
         totalPrice: `${totalPriceIntegerPart}.${totalPriceFractionPart}`,
-        dateCreated: this.formatDateParts(sourceData[i].dateCreated)
+        dateCreated: this.formatDateParts(sourceData[i].dateCreated),
+        status: this.getOrderStatusInfo(sourceData[i].statusId)
       };
       this.ordersVM.push(manipulatedData);
       this.dataSource = new MatTableDataSource<List_Order_VM>(this.ordersVM);
@@ -222,26 +224,20 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   viewOrderDetail(id: string) {
     this.router.navigate(['/admin/orders/order-detail/', id]);
-    // const dialogRef = this.dialogService.openDialog({
-    //   componentType: OrderDetailDialogComponent,
-    //   data: id,
-    //   options: {
-    //     width: '1000px',
-    //     height: '650px'
-    //   }
-    // });
+  }
 
-    // dialogRef.afterClosed().subscribe(async result => {
-    //   if (result == 'updated') {
-    //     await this.getOrders();
-    //   }
-    //   else if (result != null && result != 'updated') {
-    //     this.alertifyService.message(result, {
-    //       dismissOthers: true,
-    //       messageType: MessageType.Error,
-    //       position: Position.TopRight
-    //     });
-    //   }
-    // });
+  getOrderStatusInfo(statusId: number): OrderStatusInfo {
+    let badgeClass = 'badge-unknown';
+    let statusText = 'Unknown';
+
+    const statusEnumKeys = Object.keys(this.orderStatusEnum).filter(key => !isNaN(Number(key)));
+    statusEnumKeys.forEach(key => {
+      const currentStatusId = Number(key);
+      if (currentStatusId === statusId) {
+        badgeClass = `badge-${OrderStatusEnum[currentStatusId].toLowerCase()}`;  // 'badge-cancelled', 'badge-pending' gibi
+        statusText = OrderStatusEnum[currentStatusId] ?? 'Unknown';
+      }
+    });
+    return { badgeClass, statusText };
   }
 }

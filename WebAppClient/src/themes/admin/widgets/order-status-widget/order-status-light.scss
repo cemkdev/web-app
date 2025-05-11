@@ -1,0 +1,65 @@
+html {
+    .widget.order-status {
+        ///////////////////////////////////
+        // Widget Header
+        .widget-header {
+            .cancel-order {
+                color: var(--light-text);
+                mat-icon {
+                    color: var(--light-text);
+                }
+            }
+        }
+
+        ///////////////////////////////////
+        // Widget Content
+        .widget-content {
+            .mat-accordion {
+                mat-expansion-panel {
+                    &[disabled] {
+                        mat-panel-title {
+                            color: rgba(0, 0, 0, 0.8);
+                        }
+                        mat-panel-title .timeline-icon {
+                            background-color: var(--gray-background);
+                            mat-icon {
+                                color: var(--teal-lighter);
+                            }
+                        }
+                    }
+                    &[disabled].cancelled {
+                        mat-panel-title {
+                            color: rgba(0, 0, 0, 0.7);
+                        }
+                        mat-panel-title .timeline-icon {
+                            background-color: var(--error-bg);
+                            mat-icon {
+                                color: var(--light-text);
+                            }
+                        }
+                    }
+                    background-color: var(--light-background-4);
+                    mat-panel-title .timeline-icon {
+                        background-color: var(--teal-lighter);
+                        mat-icon {
+                            color: var(--light-text);
+                        }
+                    }
+                    mat-panel-title {
+                        .title-date {
+                            color: rgb(0, 0, 0, 0.6);
+                        }
+                    }
+                }
+                .expansion-panel-description {
+                    .header-description-date {
+                        color: rgb(0, 0, 0, 0.5);
+                    }
+                }
+                .vertical-line {
+                    border-left: 1px dashed rgb(0, 0, 0, 0.4);
+                }
+            }
+        }
+    }
+}

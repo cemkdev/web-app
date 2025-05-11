@@ -380,12 +380,89 @@ namespace WebAppAPI.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("StatusId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderCode")
                         .IsUnique();
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cancelled"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pending"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Approved"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Shipping"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Delivered"
+                        });
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.OrderStatusHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ChangedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("NewStatusId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("PreviousStatusId")
+                        .IsRequired()
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewStatusId");
+
+                    b.HasIndex("PreviousStatusId");
+
+                    b.ToTable("OrderStatusHistories");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Product", b =>
@@ -581,7 +658,34 @@ namespace WebAppAPI.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebAppAPI.Domain.Entities.OrderStatus", "Status")
+                        .WithMany("Orders")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Basket");
+
+                    b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.OrderStatusHistory", b =>
+                {
+                    b.HasOne("WebAppAPI.Domain.Entities.OrderStatus", "NewStatus")
+                        .WithMany()
+                        .HasForeignKey("NewStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WebAppAPI.Domain.Entities.OrderStatus", "PreviousStatus")
+                        .WithMany()
+                        .HasForeignKey("PreviousStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("NewStatus");
+
+                    b.Navigation("PreviousStatus");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Rating", b =>
@@ -616,6 +720,11 @@ namespace WebAppAPI.Persistence.Migrations
                     b.Navigation("Baskets");
 
                     b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("WebAppAPI.Domain.Entities.OrderStatus", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("WebAppAPI.Domain.Entities.Product", b =>

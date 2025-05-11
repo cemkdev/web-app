@@ -696,7 +696,7 @@ html {
             color: var(--light-text);
         }
         color: var(--light-text);
-        background-color: var(--error-bg);
+        background-color: var(--error-bg-transparent);
         &:hover {
             background-color: var(--error-bg-darker);
         }

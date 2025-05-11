@@ -1,7 +1,10 @@
 <div class="table-container order-detail" tabindex="0">
     <!-- Table Header -->
     <div class="table-header">
-        <span class="order-title">Order No: <span class="order-code"> {{order.orderCode}}</span></span>
+        <span class="order-title"><mat-icon>format_list_bulleted</mat-icon> Order No :<span class="order-code">
+                {{order.orderCode}}</span></span>
+
+        <span class="order-status custom-badge {{orderStatus_VM.badgeClass}}">{{orderStatus_VM.statusText}}</span>
     </div>
 
     <table mat-table [dataSource]="dataSource" matSort>
@@ -131,7 +134,9 @@
                 </tr>
             </tbody>
         </table>
-        <button mat-raised-button color="primary" class="approve-order">
-            <mat-icon class="material-icons-outlined">inventory</mat-icon>Approve Order</button>
+        <button mat-raised-button color="primary" class="approve-order"
+            *ngIf="order.statusId == orderStatusEnum.Pending" (click)="updateOrderStatus()">
+            <mat-icon class="material-icons-outlined">inventory</mat-icon>Approve Order
+        </button>
     </div>
 </div>

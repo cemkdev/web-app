@@ -24,6 +24,8 @@ import { OrderCustomerComponent } from './detail/widgets/order-customer/order-cu
 import { OrderDetailService } from '../../../widgets/admin/services/order-detail.service';
 import { OrderBillingAddressComponent } from './detail/widgets/order-billing-address/order-billing-address.component';
 import { OrderShippingAddressComponent } from './detail/widgets/order-shipping-address/order-shipping-address.component';
+import { OrderStatusComponent } from './detail/widgets/order-status/order-status.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { OrderShippingAddressComponent } from './detail/widgets/order-shipping-a
     OrderItemsTableComponent,
     OrderCustomerComponent,
     OrderBillingAddressComponent,
-    OrderShippingAddressComponent
+    OrderShippingAddressComponent,
+    OrderStatusComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,8 @@ import { OrderShippingAddressComponent } from './detail/widgets/order-shipping-a
     MatTableModule, MatPaginatorModule, MatIconModule, MatCardModule, MatCheckboxModule, MatSortModule,
     MatTooltipModule,
     DeleteDirectiveModule,
-    WidgetModule
+    WidgetModule,
+    MatExpansionModule
   ],
   providers: [OrderDetailService]
 })

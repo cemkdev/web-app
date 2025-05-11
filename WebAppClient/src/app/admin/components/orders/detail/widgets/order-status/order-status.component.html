@@ -1,0 +1,172 @@
+<div class="widget order-status">
+    <div class="widget-header">
+        <span class="widget-title"><mat-icon>place</mat-icon> Order Status</span>
+        <button mat-raised-button color="error" class="cancel-order"
+            *ngIf="orderStatusHistory.currentStatusId == orderStatusEnum.Pending" (click)="updateOrderStatusToCancel()">
+            <mat-icon>close</mat-icon>
+            Cancel Order
+        </button>
+    </div>
+
+    <div class="widget-content">
+        <mat-accordion multi class="mat-accordion">
+            <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header first"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">shopping_bag</mat-icon>
+                        </div>
+                        Order Placed<span class="title-date">- {{currentOrderStatusDates.pending.weekDay}},
+                            {{currentOrderStatusDates.pending.fullDate}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="vertical-line description first"></div>
+                <div class="expansion-panel-description">
+                    <p class="header-description">An order has been placed.</p>
+                    <p class="header-description-date">{{currentOrderStatusDates.pending.weekDay}},
+                        {{currentOrderStatusDates.pending.fullDate}} - {{currentOrderStatusDates.pending.time}}</p>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- --------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------- -->
+
+            <!-- Disabled Cancelled -->
+            <mat-expansion-panel *ngIf="isStatusAvailable(orderStatusEnum.Cancelled)" disabled
+                [ngClass]="{ 'cancelled': isStatusAvailable(orderStatusEnum.Cancelled) }">
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">close</mat-icon>
+                        </div>
+                        Order Cancelled<span class="title-date">- {{currentOrderStatusDates.cancelled.weekDay}},
+                            {{currentOrderStatusDates.cancelled.fullDate}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <!-- --------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------- -->
+
+            <!-- Approved -->
+            <mat-expansion-panel
+                *ngIf="isStatusAvailable(orderStatusEnum.Approved) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                expanded>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">inventory</mat-icon>
+                        </div>
+                        Order Approved<span class="title-date">- {{currentOrderStatusDates.approved.weekDay}},
+                            {{currentOrderStatusDates.approved.fullDate}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="vertical-line description"></div>
+                <div class="expansion-panel-description">
+                    <p class="header-description">Your order has been approved and is being prepared. We're making sure
+                        everything is in perfect condition.</p>
+                    <p class="header-description-date">{{currentOrderStatusDates.approved.weekDay}},
+                        {{currentOrderStatusDates.approved.fullDate}} - {{currentOrderStatusDates.approved.time}}</p>
+                </div>
+            </mat-expansion-panel>
+            <!-- Disabled Approved -->
+            <mat-expansion-panel
+                *ngIf="!isStatusAvailable(orderStatusEnum.Approved) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                disabled>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">inventory</mat-icon>
+                        </div>
+                        Order Approved
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <!-- --------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------- -->
+
+            <!-- Shipping -->
+            <mat-expansion-panel
+                *ngIf="isStatusAvailable(orderStatusEnum.Shipping) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                expanded>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
+                        </div>
+                        Shipping in Progress<span class="title-date">- {{currentOrderStatusDates.shipping.weekDay}},
+                            {{currentOrderStatusDates.shipping.fullDate}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="vertical-line description"></div>
+                <div class="expansion-panel-description">
+                    <p class="header-description">Your package is on its way. You’ll receive tracking information
+                        shortly.</p>
+                    <p class="header-description-date">{{currentOrderStatusDates.shipping.weekDay}},
+                        {{currentOrderStatusDates.shipping.fullDate}} - {{currentOrderStatusDates.shipping.time}}</p>
+                </div>
+            </mat-expansion-panel>
+            <!-- Disabled Shipping -->
+            <mat-expansion-panel
+                *ngIf="!isStatusAvailable(orderStatusEnum.Shipping) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                disabled>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">local_shipping</mat-icon>
+                        </div>
+                        Shipping in Progress
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <!-- --------------------------------------------------------------------------------------------------- -->
+            <!-- --------------------------------------------------------------------------------------------------- -->
+
+            <!-- Delivered -->
+            <mat-expansion-panel
+                *ngIf="isStatusAvailable(orderStatusEnum.Delivered) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                expanded>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header last"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">warehouse</mat-icon>
+                        </div>
+                        Delivered<span class="title-date">- {{currentOrderStatusDates.delivered.weekDay}},
+                            {{currentOrderStatusDates.delivered.fullDate}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="vertical-line description last"></div>
+                <div class="expansion-panel-description">
+                    <p class="header-description">Your order has been delivered. We hope you enjoy your purchase. Need
+                        help? [Contact support]</p>
+                    <p class="header-description-date">{{currentOrderStatusDates.delivered.weekDay}},
+                        {{currentOrderStatusDates.delivered.fullDate}} - {{currentOrderStatusDates.delivered.time}}</p>
+                </div>
+            </mat-expansion-panel>
+            <!-- Disabled Delivered -->
+            <mat-expansion-panel
+                *ngIf="!isStatusAvailable(orderStatusEnum.Delivered) && !isStatusAvailable(orderStatusEnum.Cancelled)"
+                disabled>
+                <mat-expansion-panel-header>
+                    <div class="vertical-line header last"></div>
+                    <mat-panel-title>
+                        <div class="timeline-icon">
+                            <mat-icon class="material-icons-outlined">warehouse</mat-icon>
+                        </div>
+                        Delivered
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<h2 mat-dialog-title class="dialog-delete">
+    <button mat-mini-fab disabled color="error">
+        <mat-icon class="material-icons-outlined">close</mat-icon>
+    </button>
+    Cancel Order
+</h2>
+<mat-dialog-content class="dialog-delete">
+    <p>Would you like to CANCEL order?</p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-delete">
+    <button mat-raised-button color="default" (click)="close()">No</button>
+    <button mat-raised-button color="error" [mat-dialog-close]="data" cdkFocusInitial (click)="cancel()">Yes</button>
+</mat-dialog-actions>

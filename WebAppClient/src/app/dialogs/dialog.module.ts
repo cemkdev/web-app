@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { SelectProductImageDialogComponent } from './product-dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { FileUploadModule } from '../services/common/file-upload/file-upload.module';
 
@@ -16,9 +16,10 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateProductDialogComponent } from './product-dialogs/update-product-dialog/update-product-dialog.component';
-import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { CompleteOrderDialogComponent } from './order-detail-dialog/complete-order-dialog/complete-order-dialog.component';
+import { CancelOrderDialogComponent } from './order-detail-dialog/cancel-order-dialog/cancel-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatSortModule } from '@angular/material/sort';
     SelectProductImageDialogComponent,
     CreateProductDialogComponent,
     UpdateProductDialogComponent,
-    OrderDetailDialogComponent
+    CompleteOrderDialogComponent,
+    CancelOrderDialogComponent
   ],
   imports: [
     CommonModule,

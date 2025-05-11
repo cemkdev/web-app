@@ -4,6 +4,7 @@ export class Order_Detail {
     address: string;
     description: string;
     dateCreated: Date;
+    statusId: number;
     orderBasketItems: OrderBasketItem[];
 }
 
@@ -16,7 +17,6 @@ export class OrderBasketItem_VM {
     rating: Partial<any>;
     totalItemAmount: string;
 }
-
 export class OrderBasketItem {
     name: string;
     description: string;
@@ -25,7 +25,6 @@ export class OrderBasketItem {
     rating: number;
     orderProductImageFile: OrderProductImageFile;
 }
-
 export class OrderProductImageFile {
     productImageFileId: string;
     fileName: string;

@@ -1,0 +1,31 @@
+html {
+    .badge-pending {
+        color: var(--pending-text);
+        background-color: var(--pending-bg);
+    }
+
+    .badge-approved {
+        color: var(--approved-text);
+        background-color: var(--approved-bg);
+    }
+
+    .badge-shipping {
+        color: var(--shipping-text);
+        background-color: var(--shipping-bg);
+    }
+
+    .badge-delivered {
+        color: var(--delivered-text);
+        background-color: var(--delivered-bg);
+    }
+
+    .badge-cancelled {
+        color: var(--cancelled-text);
+        background-color: var(--cancelled-bg);
+    }
+
+    .badge-unknown {
+        color: var(--unknown-text);
+        background-color: var(--unknown-bg);
+    }
+}

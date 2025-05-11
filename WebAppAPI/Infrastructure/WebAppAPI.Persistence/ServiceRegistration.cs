@@ -46,6 +46,9 @@ namespace WebAppAPI.Persistence
             services.AddScoped<IBasketItemReadRepository, BasketItemReadRepository>();
             services.AddScoped<IBasketItemWriteRepository, BasketItemWriteRepository>();
 
+            services.AddScoped<IOrderStatusHistoryReadRepository, OrderStatusHistoryReadRepository>();
+            services.AddScoped<IOrderStatusHistoryWriteRepository, OrderStatusHistoryWriteRepository>();
+
             // File Table Entities Repositories
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IFileWriteRepository, FileWriteRepository>();

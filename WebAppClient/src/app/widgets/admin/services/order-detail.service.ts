@@ -4,6 +4,7 @@ import { OrderItemsTableComponent } from '../../../admin/components/orders/detai
 import { OrderCustomerComponent } from '../../../admin/components/orders/detail/widgets/order-customer/order-customer.component';
 import { OrderBillingAddressComponent } from '../../../admin/components/orders/detail/widgets/order-billing-address/order-billing-address.component';
 import { OrderShippingAddressComponent } from '../../../admin/components/orders/detail/widgets/order-shipping-address/order-shipping-address.component';
+import { OrderStatusComponent } from '../../../admin/components/orders/detail/widgets/order-status/order-status.component';
 
 @Injectable()
 export class OrderDetailService {
@@ -18,27 +19,38 @@ export class OrderDetailService {
         label: '',
         content: OrderItemsTableComponent,
         inputs: { orderId },
-        rows: 3,
+        rows: 2,
         columns: 4
       },
       {
         id: 2,
         label: '',
-        content: OrderCustomerComponent,
-        rows: 1,
-        columns: 1
+        content: OrderStatusComponent,
+        inputs: { orderId },
+        rows: 3,
+        columns: 4
       },
       {
         id: 3,
         label: '',
-        content: OrderBillingAddressComponent,
+        content: OrderCustomerComponent,
+        inputs: { orderId },
         rows: 1,
         columns: 1
       },
       {
         id: 4,
         label: '',
+        content: OrderBillingAddressComponent,
+        inputs: { orderId },
+        rows: 1,
+        columns: 1
+      },
+      {
+        id: 5,
+        label: '',
         content: OrderShippingAddressComponent,
+        inputs: { orderId },
         rows: 1,
         columns: 1
       }

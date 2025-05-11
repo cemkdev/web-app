@@ -3,7 +3,7 @@
     public class BaseEntity
     {
         public Guid Id { get; set; }
-        public DateTime DateCreated { get; set; }
+        virtual public DateTime DateCreated { get; set; }
         virtual public DateTime DateUpdated { get; set; }
     }
 }

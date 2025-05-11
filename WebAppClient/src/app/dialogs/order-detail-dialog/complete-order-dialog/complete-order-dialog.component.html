@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="dialog-delete">
+    <button mat-mini-fab disabled color="primary">
+        <mat-icon class="material-icons-outlined">inventory</mat-icon>
+    </button>
+    Approve Order
+</h2>
+<mat-dialog-content class="dialog-delete">
+    <p>Would you like to APPROVE order?</p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-delete">
+    <button mat-raised-button color="default" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial
+        (click)="complete()">Yes</button>
+</mat-dialog-actions>

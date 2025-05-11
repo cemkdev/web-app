@@ -1,0 +1,130 @@
+@use "order-status-light.scss";
+@use "order-status-dark.scss";
+
+.widget.order-status {
+    ///////////////////////////////////
+    // Widget Header
+    .widget-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .cancel-order {
+            height: 30px;
+            padding: 0 5px;
+            padding-right: 10px;
+            margin: 0;
+            font-size: 13px;
+            mat-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                margin-left: 0;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    ///////////////////////////////////
+    // Widget Content
+    .widget-content {
+        padding: 10px;
+        .mat-accordion {
+            mat-expansion-panel.mat-expanded {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            mat-expansion-panel {
+                &[disabled] {
+                    .title-date,
+                    .expansion-panel-description {
+                        display: none;
+                    }
+                }
+                &[disabled].cancelled {
+                    .title-date {
+                        display: block;
+                    }
+                }
+                border-radius: 0;
+                box-shadow: none;
+                mat-expansion-panel-header {
+                    height: 50px;
+                }
+                mat-panel-title {
+                    font-size: 15px;
+                    font-weight: 500;
+                    .title-date {
+                        padding-left: 5px;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                }
+                mat-panel-title .timeline-icon {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid transparent;
+                    border-radius: 50%;
+                    width: 34px;
+                    height: 34px;
+                    margin-right: 10px;
+                    z-index: 9999999;
+                    mat-icon {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 21px;
+                    }
+                }
+                .vertical-line {
+                    height: 100%;
+                    position: absolute;
+                    margin-left: 17px;
+                    margin-top: -10px;
+                }
+                .vertical-line.header {
+                    height: 110%;
+                }
+                .vertical-line.header.first {
+                    margin-top: 0px;
+                }
+                .vertical-line.header.last {
+                    height: 80%;
+                }
+                mat-expansion-panel.mat-expanded {
+                    .vertical-line.header {
+                        display: block;
+                    }
+                    .vertical-line.description {
+                        height: 100%;
+                        margin-top: 4px;
+                    }
+                    .vertical-line.description.first {
+                        height: 55px;
+                        margin-top: 15px !important;
+                    }
+                    .vertical-line.description.last {
+                        height: 50%;
+                        margin-top: -15px !important;
+                    }
+                }
+
+                .expansion-panel-description {
+                    margin-left: 45px;
+                    .header-description {
+                        margin: 0;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+                    .header-description-date {
+                        margin: 0;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+}

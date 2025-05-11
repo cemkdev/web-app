@@ -1,7 +1,10 @@
 @use "light.scss";
 @use "dark.scss";
 
+@use "order-billing-address-widget/order-billing-address-default.scss";
 @use "order-customer-widget/order-customer-default.scss";
+@use "order-shipping-address-widget/order-shipping-address-default.scss";
+@use "order-status-widget/order-status-default.scss";
 
 .widget {
     ul {

@@ -23,6 +23,7 @@ namespace WebAppAPI.Application.Features.Queries.Order.GetOrderById
                 Description = order.Description,
                 Address = order.Address,
                 DateCreated = order.DateCreated,
+                StatusId = order.StatusId,
                 OrderBasketItems = order.OrderBasketItems
             };
         }

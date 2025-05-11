@@ -5,6 +5,7 @@ import { catchError, firstValueFrom, map, Observable } from 'rxjs';
 import { List_Order } from '../../../contracts/order/list_order';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Order_Detail } from '../../../contracts/order/order_detail';
+import { OrderStatusHistory } from '../../../contracts/order/order_status_history';
 
 @Injectable({
   providedIn: 'root'
@@ -84,5 +85,51 @@ export class OrderService {
     });
 
     await firstValueFrom(deleteObservable);
+  }
+
+  // UPDATE ORDER STATUS - PUT
+  async updateOrderStatus(orderId: string, newStatus: number, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
+    const observable: Observable<any> = this.httpClientService.put({
+      controller: "orders",
+      action: "update-status"
+    }, {
+      orderId,
+      newStatus
+    });
+
+    await firstValueFrom(observable.pipe(
+      map(response => {
+        successCallBack && successCallBack();
+        return response;
+      }),
+      catchError((errorResponse: HttpErrorResponse) => {
+        if (errorCallBack) {
+          errorCallBack(errorResponse.message);
+        }
+        return [];
+      })
+    ));
+  }
+
+  // GET ORDER STATUS HISTORY BY ID
+  async getOrderStatusHistoryById(orderId: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<OrderStatusHistory> {
+    const data = await firstValueFrom(
+      this.httpClientService.get<OrderStatusHistory>({
+        controller: "orders",
+        action: "get-status"
+      }, orderId).pipe(
+        map(response => {
+          successCallBack && successCallBack();
+          return response;
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          if (errorCallBack) {
+            errorCallBack(errorResponse.message);
+          }
+          return [];
+        })
+      )
+    );
+    return data;
   }
 }

@@ -11,6 +11,9 @@ html {
         .table-header {
             .order-title {
                 color: var(--dark-text-lighter);
+                mat-icon {
+                    color: var(--dark-text-lighter);
+                }
                 .order-code {
                     color: var(--dark-text-lighter-2);
                 }

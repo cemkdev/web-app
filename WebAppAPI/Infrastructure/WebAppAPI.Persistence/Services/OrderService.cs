@@ -1,11 +1,13 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs;
 using WebAppAPI.Application.DTOs.Order;
 using WebAppAPI.Application.Repositories;
+using WebAppAPI.Domain.Entities;
+using WebAppAPI.Domain.Enums;
 
 namespace WebAppAPI.Persistence.Services
 {
@@ -13,25 +15,41 @@ namespace WebAppAPI.Persistence.Services
     {
         readonly IOrderWriteRepository _orderWriteRepository;
         readonly IOrderReadRepository _orderReadRepository;
+        readonly IOrderStatusHistoryReadRepository _orderStatusHistoryReadRepository;
+        readonly IOrderStatusHistoryWriteRepository _orderStatusHistoryWriteRepository;
         readonly IConfiguration _configuration;
+        readonly IMailService _mailService;
 
-        public OrderService(IOrderWriteRepository orderWriteRepository, IOrderReadRepository orderReadRepository, IConfiguration configuration)
+        public OrderService(
+            IOrderWriteRepository orderWriteRepository,
+            IOrderReadRepository orderReadRepository,
+            IConfiguration configuration,
+            IOrderStatusHistoryReadRepository orderStatusHistoryReadRepository,
+            IOrderStatusHistoryWriteRepository orderStatusHistoryWriteRepository,
+            IMailService mailService)
         {
             _orderWriteRepository = orderWriteRepository;
             _orderReadRepository = orderReadRepository;
             _configuration = configuration;
+            _orderStatusHistoryReadRepository = orderStatusHistoryReadRepository;
+            _orderStatusHistoryWriteRepository = orderStatusHistoryWriteRepository;
+            _mailService = mailService;
         }
 
-        public async Task CreateOrderAsync(CreateOrder createOrder)
+        public async Task<string> CreateOrderAsync(CreateOrder createOrder)
         {
-            await _orderWriteRepository.AddAsync(new()
+            var order = new Order
             {
                 Id = Guid.Parse(createOrder.BasketId),
                 Address = createOrder.Address,
                 Description = createOrder.Description,
-                OrderCode = GenerateOrderCode()
-            });
+                OrderCode = GenerateOrderCode(),
+                StatusId = (int)OrderStatusEnum.Pending
+            };
+            await _orderWriteRepository.AddAsync(order);
             await _orderWriteRepository.SaveAsync();
+
+            return order.Id.ToString();
         }
 
         public async Task<ListOrder> GetAllOrdersAsync(int page, int size)
@@ -40,7 +58,8 @@ namespace WebAppAPI.Persistence.Services
                             .Include(o => o.Basket)
                                 .ThenInclude(b => b.BasketItems)
                             .Include(o => o.Basket.User);
-            var dataPerPage = query.Skip(page * size).Take(size);
+
+            var dataPerPage = query.OrderBy(o => o.DateCreated).Skip(page * size).Take(size);
 
             return new()
             {
@@ -51,7 +70,8 @@ namespace WebAppAPI.Persistence.Services
                     OrderCode = o.OrderCode,
                     CustomerName = $"{o.Basket.User.FirstName} {o.Basket.User.LastName}",
                     TotalPrice = o.Basket.BasketItems.Sum(item => item.Product.Price * item.Quantity),
-                    DateCreated = o.DateCreated
+                    DateCreated = o.DateCreated,
+                    StatusId = o.StatusId
                 }).ToListAsync()
             };
         }
@@ -72,6 +92,7 @@ namespace WebAppAPI.Persistence.Services
                 Description = order.Description,
                 Address = order.Address,
                 DateCreated = order.DateCreated,
+                StatusId = order.StatusId,
                 OrderBasketItems = order.Basket.BasketItems.Select(bi => new OrderItems()
                 {
                     Name = bi.Product.Name,
@@ -91,7 +112,88 @@ namespace WebAppAPI.Persistence.Services
             return orderDetail;
         }
 
-        #region Helpers
+        public async Task UpdateOrderStatusAsync(string orderId, OrderStatusEnum newStatus)
+        {
+            Order order = await _orderReadRepository.GetByIdAsync(orderId);
+            if (order == null)
+                throw new Exception("An Order with the specified ID could not be found.");
+
+            try
+            {
+                var currentStatus = (OrderStatusEnum)order.StatusId;
+
+                //// Valid Transitions
+                //var validTransitions = new Dictionary<OrderStatusEnum, List<OrderStatusEnum>>
+                //{
+                //    { OrderStatusEnum.Pending, new() { OrderStatusEnum.Pending, OrderStatusEnum.Approved, OrderStatusEnum.Cancelled } },
+                //    { OrderStatusEnum.Approved, new() { OrderStatusEnum.Shipping } },
+                //    { OrderStatusEnum.Shipping, new() { OrderStatusEnum.Delivered } },
+                //    { OrderStatusEnum.Delivered, new() },
+                //    { OrderStatusEnum.Cancelled, new() }
+                //};
+                //if (!validTransitions[currentStatus].Contains(newStatus))
+                //    throw new InvalidOperationException($"Order status can't transition from {currentStatus} to {newStatus}");
+
+                if (!IsValidStatusTransition(currentStatus, newStatus))
+                    throw new InvalidOperationException($"Order status can't transition from {currentStatus} to {newStatus}");
+
+                // Create OrderStatusHistory record
+                var orderStatusHistory = new OrderStatusHistory
+                {
+                    Id = Guid.NewGuid(),
+                    OrderId = order.Id,
+                    PreviousStatusId = (int)currentStatus,
+                    NewStatusId = (int)newStatus,
+                    ChangedDate = DateTime.UtcNow
+                };
+                await _orderStatusHistoryWriteRepository.AddAsync(orderStatusHistory);
+                var historySaveResult = await _orderStatusHistoryWriteRepository.SaveAsync();
+
+                if (historySaveResult > 0) // If 'OrderStatusHistory' saving process is success.
+                {
+                    //// Update Order->StatusId
+                    if (newStatus != currentStatus)
+                    {
+                        order.StatusId = (int)newStatus;
+                        _orderWriteRepository.Update(order);
+                        await _orderWriteRepository.SaveAsync();
+                    }
+
+                    UpdateOrderStatusMailDto mailData = await CreateOrderStatusMailObject(order.Id, newStatus, orderStatusHistory.ChangedDate);
+                    await _mailService.SendOrderStatusUpdateMailAsync(mailData.Recipient, mailData.OrderCode, mailData.NewStatus, mailData.StatusChangedDate, mailData.FirstName);
+                }
+                else
+                {
+                    throw new Exception("Order status history could not be saved.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<OrderStatusHistoryDto> GetOrderStatusHistoryByIdAsync(string orderId)
+        {
+            OrderStatusHistoryDto orderStatusHistory = null;
+            Order order = await _orderReadRepository.GetByIdAsync(orderId);
+            if (order != null)
+            {
+                var statusHistoryList = await _orderStatusHistoryReadRepository.GetWhere(os => os.OrderId == Guid.Parse(orderId)).ToListAsync();
+                orderStatusHistory = new OrderStatusHistoryDto
+                {
+                    CurrentStatusId = order.StatusId,
+                    History = statusHistoryList.Select(sh => new StatusChangeEntry
+                    {
+                        NewStatusId = sh.NewStatusId,
+                        ChangedDate = sh.ChangedDate
+                    }).ToList()
+                };
+            }
+            return orderStatusHistory;
+        }
+
+        #region Helpers - Methods
         private string GenerateOrderCode()
         {
             Span<byte> buffer = stackalloc byte[8];
@@ -125,6 +227,40 @@ namespace WebAppAPI.Persistence.Services
                     ts.AsSpan().CopyTo(span.Slice(15));
                 }
             );
+        }
+
+        private bool IsValidStatusTransition(OrderStatusEnum current, OrderStatusEnum next)
+        {
+            var validTransitions = new Dictionary<OrderStatusEnum, List<OrderStatusEnum>>
+            {
+                { OrderStatusEnum.Pending, new() { OrderStatusEnum.Pending, OrderStatusEnum.Approved, OrderStatusEnum.Cancelled } },
+                { OrderStatusEnum.Approved, new() { OrderStatusEnum.Shipping } },
+                { OrderStatusEnum.Shipping, new() { OrderStatusEnum.Delivered } },
+                { OrderStatusEnum.Delivered, new() },
+                { OrderStatusEnum.Cancelled, new() }
+            };
+            return validTransitions.TryGetValue(current, out var nextStates) && nextStates.Contains(next);
+        }
+
+        private async Task<UpdateOrderStatusMailDto> CreateOrderStatusMailObject(Guid orderId, OrderStatusEnum newStatus, DateTime changedDate)
+        {
+            var orderData = await _orderReadRepository.Table
+                                        .Include(o => o.Basket)
+                                            .ThenInclude(b => b.User)
+                                        .FirstOrDefaultAsync(o => o.Id == orderId);
+
+            if (orderData?.Basket?.User == null)
+                throw new Exception("Order's Basket or User data could not be loaded.");
+
+            UpdateOrderStatusMailDto mailData = new()
+            {
+                Recipient = orderData.Basket.User.Email,
+                FirstName = orderData.Basket.User.FirstName,
+                OrderCode = orderData.OrderCode,
+                NewStatus = newStatus,
+                StatusChangedDate = changedDate
+            };
+            return mailData;
         }
         #endregion
     }

@@ -150,6 +150,7 @@ html.dark {
     --error-bg-both-theme: rgb(182, 54, 54);
     --error-bg-white-lighter: rgb(160, 48, 48);
     --error-bg: rgb(172, 27, 58);
+    --error-bg-transparent: rgb(172, 27, 58, 0.9);
     --error-bg-darker: rgb(167, 26, 57);
     --error-bg-hover: rgb(160, 19, 19, 0.8);
     --error-bg-lighter: rgb(160, 19, 19, 0.7);
@@ -165,4 +166,32 @@ html.dark {
     --dismiss-bg-hover: rgb(136, 136, 136, 0.8);
     --dismiss-bg-lighter: rgb(136, 136, 136, 0.7);
     --dismiss-bg-hover-lighter: rgb(136, 136, 136, 0.5);
+
+    // Badge Background Colors
+    // Unknown
+    --unknown-bg: rgb(150, 150, 150, 0.5);
+    // Pending
+    --pending-bg: rgba(223, 214, 92, 0.2);
+    // Approved
+    --approved-bg: rgba(83, 114, 214, 0.2);
+    // Shipping
+    --shipping-bg: rgba(113, 228, 228, 0.2);
+    // Delivered
+    --delivered-bg: rgba(113, 228, 132, 0.2);
+    // Cancelled
+    --cancelled-bg: rgba(240, 69, 69, 0.2);
+
+    // Badge Text Colors
+    // Unknown
+    --unknown-text: rgb(185, 185, 185);
+    // Pending
+    --pending-text: rgb(211, 198, 142);
+    // Approved
+    --approved-text: rgb(137, 172, 231);
+    // Shipping
+    --shipping-text: rgb(125, 197, 197);
+    // Delivered
+    --delivered-text: rgb(120, 212, 124);
+    // Cancelled
+    --cancelled-text: rgb(228, 155, 155);
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAppAPI.Domain.Entities;
 using WebAppAPI.Domain.Entities.Common;
 using WebAppAPI.Domain.Entities.Identity;
+using WebAppAPI.Domain.Enums;
 
 namespace WebAppAPI.Persistence.Contexts
 {
@@ -23,6 +24,8 @@ namespace WebAppAPI.Persistence.Contexts
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<OrderStatusHistory> OrderStatusHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,6 +40,28 @@ namespace WebAppAPI.Persistence.Contexts
                 .HasOne(b => b.Order)
                 .WithOne(o => o.Basket)
                 .HasForeignKey<Order>(b => b.Id);
+
+            builder.Entity<OrderStatus>()
+                .HasData(Enum.GetValues(typeof(OrderStatusEnum))
+                .Cast<OrderStatusEnum>()
+                .Select(e => new OrderStatus
+                {
+                    Id = (int)e,
+                    Name = e.ToString()
+                })
+            );
+
+            builder.Entity<OrderStatusHistory>()
+                .HasOne(h => h.PreviousStatus)
+                .WithMany()
+                .HasForeignKey(h => h.PreviousStatusId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<OrderStatusHistory>()
+                .HasOne(h => h.NewStatus)
+                .WithMany()
+                .HasForeignKey(h => h.NewStatusId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

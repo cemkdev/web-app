@@ -19,21 +19,32 @@
     /////////////////////////////////////////////////
     .table-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         gap: 16px;
-        padding-top: 20px;
-        padding-left: 20px;
+        padding-top: 15px;
+        padding-left: 15px;
         padding-right: 0;
         padding-bottom: 20px;
         margin-bottom: 0;
         flex-wrap: wrap;
         .order-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 17px;
             font-weight: 400;
+            mat-icon {
+                margin-right: 10px;
+            }
             .order-code {
                 font-size: 17px;
                 font-weight: 400;
+                padding-left: 10px;
             }
+        }
+        .order-status {
+            margin-right: 20px;
         }
     }
 

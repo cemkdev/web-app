@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 import { provideNgxMask } from 'ngx-mask';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { provideNgxMask } from 'ngx-mask';
       } as SocialAuthServiceConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorHandlerInterceptorService, multi: true },
-    provideNgxMask()
+    provideNgxMask(),
+    DatePipe
   ],
   bootstrap: [AppComponent],
   schemas: [
