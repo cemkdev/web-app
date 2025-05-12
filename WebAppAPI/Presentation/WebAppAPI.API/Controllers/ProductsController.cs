@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebAppAPI.Application.Consts;
+using WebAppAPI.Application.CustomAttributes;
+using WebAppAPI.Application.Enums;
 using WebAppAPI.Application.Features.Commands.Product.CreateProduct;
 using WebAppAPI.Application.Features.Commands.Product.RemoveProduct;
 using WebAppAPI.Application.Features.Commands.Product.RemoveRangeProduct;
@@ -42,6 +45,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Write, Definition = "Create Product")]
         public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
         {
             CreateProductCommandResponse response = await _mediator.Send(createProductCommandRequest);
@@ -50,6 +54,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Update, Definition = "Update Product")]
         public async Task<IActionResult> Put([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
         {
             UpdateProductCommandResponse response = await _mediator.Send(updateProductCommandRequest);
@@ -58,6 +63,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpDelete("{Id}")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Product")]
         public async Task<IActionResult> Delete([FromRoute] RemoveProductCommandRequest removeProductCommandRequest)
         {
             RemoveProductCommandResponse response = await _mediator.Send(removeProductCommandRequest);
@@ -66,6 +72,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpPost("deleterange")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Range of Product")]
         public async Task<IActionResult> DeleteRange([FromBody] RemoveRangeProductCommandRequest removeRangeProductCommandRequest)
         {
             RemoveRangeProductCommandResponse response = await _mediator.Send(removeRangeProductCommandRequest);
@@ -74,6 +81,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpPost("[action]")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Write, Definition = "Upload Product Image")]
         public async Task<IActionResult> Upload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
         {
             uploadProductImageCommandRequest.Files = Request.Form.Files;
@@ -84,6 +92,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpGet("[action]/{id}")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Read, Definition = "Get Product Images")]
         public async Task<IActionResult> GetProductImages([FromRoute] GetProductImagesQueryRequest getProductImagesQueryRequest)
         {
             List<GetProductImagesQueryResponse> response = await _mediator.Send(getProductImagesQueryRequest);
@@ -92,6 +101,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpDelete("[action]/{Id}")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Product Image")]
         public async Task<IActionResult> DeleteProductImage([FromRoute] RemoveProductImageCommandRequest removeProductImageCommandRequest, [FromQuery] string imageId)
         {
             removeProductImageCommandRequest.ImageId = imageId;
@@ -101,6 +111,7 @@ namespace WebAppAPI.API.Controllers
 
         [HttpPut("[action]")]
         [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Update, Definition = "Change Cover Image")]
         public async Task<IActionResult> ChangeCoverImage([FromQuery] ChangeCoverImageCommandRequest changeCoverImageCommandRequest)
         {
             ChangeCoverImageCommandResponse response = await _mediator.Send(changeCoverImageCommandRequest);
