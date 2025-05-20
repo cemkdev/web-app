@@ -1,0 +1,25 @@
+.table-container.user-table {
+    /////////////////////////////////////////////////
+    ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+    /////////////////////////////////////////////////
+    .select {
+        width: 40px;
+    }
+
+    .start-column {
+        width: 40px;
+    }
+
+    .firstName {
+        width: 280px;
+    }
+
+    .date {
+        width: 175px !important;
+        padding-right: 0px !important;
+    }
+
+    .set-button {
+        padding-right: 0px !important;
+    }
+}

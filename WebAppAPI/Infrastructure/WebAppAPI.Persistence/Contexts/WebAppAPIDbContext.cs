@@ -81,6 +81,19 @@ namespace WebAppAPI.Persistence.Contexts
                 };
             }
 
+            var identityEntries = ChangeTracker
+                .Entries<IAuditableIdentityEntity>();
+
+            foreach (var entry in identityEntries)
+            {
+                var _ = entry.State switch
+                {
+                    EntityState.Added => entry.Entity.DateCreated = DateTime.UtcNow,
+                    EntityState.Modified => entry.Entity.DateUpdated = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
+                };
+            }
+
             return await base.SaveChangesAsync(cancellationToken);
         }
     }

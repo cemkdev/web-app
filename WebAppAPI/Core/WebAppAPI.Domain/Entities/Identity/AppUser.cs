@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WebAppAPI.Domain.Entities.Common;
 
 namespace WebAppAPI.Domain.Entities.Identity
 {
-    public class AppUser : IdentityUser<string>
+    public class AppUser : IdentityUser<string>, IAuditableIdentityEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -11,5 +12,7 @@ namespace WebAppAPI.Domain.Entities.Identity
         public DateTime? RefreshTokenEndDate { get; set; }
         public ICollection<Rating> Ratings { get; set; }
         public ICollection<Basket> Baskets { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

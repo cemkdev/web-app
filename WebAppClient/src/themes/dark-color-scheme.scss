@@ -27,13 +27,18 @@ html.dark {
     --primary-bg-lighter: rgb(162, 183, 219);
     // Dark-BG
     --primary-bg-electric: rgb(69, 141, 209);
+    --primary-bg-electric-alternative: rgb(160, 209, 255);
     --primary-bg-electric-2: rgb(41, 140, 231);
     --primary-bg-lighter-lighter: rgb(66, 110, 185);
+    --primary-bg-lighter-lighter-2: rgb(71, 118, 199);
     --primary-bg-lighter-transparent: rgb(49, 78, 128);
     --primary-bg-lighter: rgb(43, 74, 126);
-    --primary-bg: rgb(37, 63, 107);
-    --primary-bg-dark: rgb(32, 54, 94);
-    --primary-bg-darker: rgb(25, 42, 75);
+    // --primary-bg: rgb(37, 63, 107);
+    --primary-bg: rgb(33, 78, 155);
+    --primary-bg-dark: rgb(29, 69, 138);
+    // --primary-bg-dark: rgb(32, 54, 94);
+    --primary-bg-darker: rgb(22, 62, 131);
+    // --primary-bg-darker: rgb(25, 42, 75);
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.6);
 
@@ -62,7 +67,7 @@ html.dark {
     --gray-background-transparent-2: rgba(240, 242, 250, 0.082);
     --gray-background-2: rgb(117, 117, 117);
     --gray-background-3: rgb(158, 158, 158);
-    --gray-background-3-transparent: rgba(255, 255, 255, 0.9);
+    --gray-background-3-transparent: rgba(255, 255, 255, 0.8);
     --light-background-bs-navbar: rgb(230, 217, 233);
     --light-background-bs-navbar-collapsed: rgb(205, 189, 209);
     --light-background-2: rgb(231, 231, 231);

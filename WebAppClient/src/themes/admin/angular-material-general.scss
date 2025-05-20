@@ -2,11 +2,15 @@
 @use "badge/badge-default.scss";
 @use "buttons/material-buttons-default.scss";
 @use "dialogs/dialog-general-default.scss";
+@use "form/form-default.scss";
 @use "order-detail-widget/mat-table-order-detail-default.scss";
 @use "sidenav/mat-sidenav-default.scss";
 @use "table/mat-table-default.scss";
 @use "toolbar/mat-toolbar-default.scss";
 @use "widgets/default.scss";
+
+@use "pages/role-access/role-access-default.scss";
+@use "pages/role-management/role-management-default.scss";
 
 // Angular Material Elevations
 .mat-elevation-z0 {

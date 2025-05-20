@@ -30,11 +30,15 @@ html {
     // Dark-BG
     --primary-bg-electric: rgb(69, 141, 209);
     --primary-bg-lighter-lighter: rgb(66, 110, 185);
+    --primary-bg-lighter-lighter-2: rgb(42, 87, 165);
     --primary-bg-lighter-transparent: rgb(43, 74, 126, 0.9);
     --primary-bg-lighter: rgb(43, 74, 126);
-    --primary-bg: rgb(38, 73, 138);
-    --primary-bg-dark: rgb(32, 54, 94);
-    --primary-bg-darker: rgb(34, 64, 119);
+    // --primary-bg: rgb(38, 73, 138);
+    --primary-bg: rgb(42, 87, 165);
+    --primary-bg-dark: rgb(38, 79, 150);
+    // --primary-bg-dark: rgb(32, 54, 94);
+    --primary-bg-darker: rgb(35, 73, 139);
+    // --primary-bg-darker: rgb(34, 64, 119);
     --primary-bg-darkest: rgb(30, 57, 107);
     --primary-bg-transparent: rgb(37, 63, 107, 0.8);
     --primary-bg-more-transparent: rgb(37, 63, 107, 0.7);
@@ -57,6 +61,7 @@ html {
 
     // Light Background Colors
     --light-background: rgb(249 249 255);
+    --light-background-dark: rgb(239, 243, 247);
     --light-background-darker: rgb(230, 230, 230);
     --light-gray-mid-background: rgb(204, 206, 212);
     --gray-background: rgb(224 226 236);
@@ -77,8 +82,10 @@ html {
 
     // Dark Text - Light Background
     --dark-text: rgb(39, 41, 46);
+    --dark-text-2: rgb(72, 73, 77);
     --gray-text: rgb(124, 124, 124, 0.4);
     --dark-text-lighter: rgb(60, 63, 70);
+    --dark-text-lighter-transparent: rgb(60, 63, 70, 0.7);
     --dark-text-lighter-2: rgb(88, 93, 102);
     --dark-text-lighter-2-transparent: rgb(88, 93, 102, 0.5);
     --dark-text-transparent: rgb(39, 41, 46, 0.9);

@@ -1,3 +1,7 @@
+.sub-item {
+    transition: 500ms ease-in-out !important;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ////////// || /////////////////////////////////////////////////////////////////////// || //////////
 ////////// || ////////// Sidenav Head Adjusments (Collapse Button & Title) ////////// || //////////
@@ -16,17 +20,19 @@
 // Sidenav 'collapse button' style
 .menu-icon {
     display: inline-flex;
-    width: auto;
-    height: auto;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    width: 50px;
+    height: 40px;
+    padding-top: 5px;
+    padding-left: 12px;
+    // margin-bottom: 0;
+    // padding-bottom: 0;
 }
 
 // Sidenav title style
 .admin-title {
     display: flex;
     text-align: center;
-    padding-left: 5px;
+    padding-left: 0px;
     padding-top: 5px;
     line-height: 1;
     transform: translateY(-5px);
@@ -41,15 +47,64 @@
 // Sidenav items background radius (Selected or hover states)
 .mat-mdc-nav-list .mat-mdc-list-item {
     border-radius: 5px;
+    mat-icon {
+        padding-left: 2px;
+    }
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Menu Items with SubItems Adjusments
+///////////////////////////////////////////////////
+.sub-item {
+    overflow: hidden;
+    position: relative;
+}
+.sub-item.indented {
+    padding-left: 20px;
+}
+.has-sub {
+    .expand-icon {
+        display: inline-block;
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
 // Remove sidenav item labels(texts) and sidenav title when collapsed
+///////////////////////////////////////////////////
 .collapsed {
     // Remove sidenav item labels(texts)
     &.sidenav-items {
         padding: 0%;
+        .list-item-icon {
+            margin-right: 2px;
+        }
+        &.sub-items {
+            left: 10px;
+            width: 80%;
+            opacity: 0.9;
+            mat-icon {
+                //right: 5px !important;
+                margin-left: 10px;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+            }
+        }
+        &.has-sub {
+            .expand-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
         .mdc-list-item__primary-text {
             display: none;
+        }
+        .mat-mdc-list-item-meta {
+            //display: none;
+            padding: 0;
+            margin: -5px;
         }
     }
 
@@ -61,6 +116,9 @@
     }
 }
 
-// .expanded {
-//
-// }
+.mat-mdc-list-item.cdk-focused,
+.mat-mdc-list-item.cdk-mouse-focused {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}

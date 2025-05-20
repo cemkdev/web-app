@@ -1,0 +1,33 @@
+html.dark {
+    .role-management {
+        background-color: var(--dark-background-darkest);
+
+        .role-insertion-side {
+            .form-container {
+                background-color: var(--dark-background-darker-lighter);
+                mat-form-field {
+                    .mdc-text-field--outlined {
+                        background-color: var(--gray-background-transparent-2);
+                    }
+                }
+            }
+        }
+
+        /* Sağ taraf (tablolar, listeler vs.) */
+        .role-list-side {
+            /////////////////////////////////////////////////
+            /////////// TABLE HEADER ADJUSTMENTS ////////////
+            /////////////////////////////////////////////////
+            .table-header {
+                .role-table-title {
+                    mat-icon {
+                        color: var(--light-text);
+                    }
+                    .title-span {
+                        color: var(--light-text);
+                    }
+                }
+            }
+        }
+    }
+}

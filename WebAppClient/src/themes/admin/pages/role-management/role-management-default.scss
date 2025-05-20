@@ -1,0 +1,91 @@
+@use "role-management-light.scss";
+@use "role-management-dark.scss";
+
+.role-management {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    border-radius: 0.375rem;
+
+    .role-insertion-side {
+        flex: 0 0 40%;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow-y: auto;
+
+        ////////////////////////////////// FORM-CONTAINER ADJUSTMENTS ///
+        .form-container {
+            padding: 20px;
+            border-radius: 0.375rem;
+            // FORM-TITLE ADJUSTMENTS
+            .form-title {
+            }
+            // FORM-CONTENT ADJUSTMENTS
+            .form-content {
+                mat-form-field {
+                    width: 100%;
+                }
+            }
+            // FORM-SUBMIT ADJUSTMENTS
+            .form-submit {
+                align-items: start;
+            }
+        }
+    }
+
+    /* Sağ taraf (tablolar, listeler vs.) */
+    .role-list-side {
+        flex: 0 0 60%;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow-y: auto;
+
+        /////////////////////////////////////////////////
+        /////////// TABLE HEADER ADJUSTMENTS ////////////
+        /////////////////////////////////////////////////
+        .table-header {
+            justify-content: end;
+            gap: 15px;
+            padding-right: 0;
+            margin-bottom: 15px;
+            justify-content: space-between;
+            .role-table-title {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                gap: 13px;
+                align-items: center;
+                mat-icon {
+                    font-size: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .title-span {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .table-container.role-table {
+            /////////////////////////////////////////////////
+            ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+            /////////////////////////////////////////////////
+            .select {
+                width: 40px;
+            }
+
+            .start-column {
+                width: 40px;
+            }
+
+            .name {
+                width: 280px;
+            }
+
+            .set-button {
+                padding-right: 0px !important;
+            }
+        }
+    }
+}

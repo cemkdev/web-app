@@ -1,0 +1,74 @@
+html.dark {
+    .role-access-container {
+        background-color: var(--dark-background-darkest);
+        /////////////////////////////////////////////////
+        /////////// FILTER INPUT ADJUSTMENTS ////////////
+        /////////////////////////////////////////////////
+        .top-part {
+            .role-select {
+                mat-form-field {
+                    background-color: rgba(0, 0, 0, 0.3);
+                }
+            }
+            .alert {
+                color: var(--dark-background);
+                background: var(--gray-background);
+            }
+        }
+        /////////////////////////////////////////////////
+        /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+        /////////////////////////////////////////////////
+        .role-access-table {
+            //background-color: var(--dark-background-darker-lighter); // I think it doesn't seem.
+            border: 1px solid var(--gray-background-transparent-2);
+
+            ///////////////////////// th, td Adjustments - START /////////////////////
+            th,
+            td {
+                background-color: var(--dark-background);
+                border-bottom: 1px solid var(--gray-background-transparent-2);
+            }
+
+            th {
+                background-color: var(--dark-background);
+                color: var(--light-background-3-transparent);
+            }
+            th.th-roles {
+                button {
+                    color: var(--gray-background-3-transparent);
+                }
+            }
+            ///////////////////////// th, td Adjustments - END /////////////////////
+
+            ///////////////////////// td > Enpoints Adjustments - START /////////////////////
+            .module-name {
+                .module-name-wrapper {
+                    background-color: var(--dark-background-darker);
+                    color: var(--light-darkerer-text);
+                }
+                mat-icon {
+                    color: var(--primary-bg-lighter-lighter-2);
+                }
+            }
+
+            .http-type {
+                background: var(--light-background-darker);
+                color: var(--dark-text);
+            }
+            ///////////////////////// td > Enpoints Adjustments - END /////////////////////
+        }
+
+        .bottom-update-btn {
+            background-color: var(--dark-background-darker);
+        }
+
+        .bottom-part {
+            background-color: var(--dark-background-darker-lighter);
+            color: var(--gray-background);
+
+            .bottom-icon {
+                color: var(--gray-background);
+            }
+        }
+    }
+}

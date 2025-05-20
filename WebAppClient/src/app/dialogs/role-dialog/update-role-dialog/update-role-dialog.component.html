@@ -1,0 +1,50 @@
+<h1 mat-dialog-title class="dialog-form">
+  <button mat-mini-fab disabled color="warning">
+    <mat-icon>edit</mat-icon>
+  </button>
+  Edit Role
+</h1>
+<mat-dialog-content class="dialog-form">
+  <ng-container *ngIf="roleForm">
+    <form [formGroup]="roleForm">
+      <div class="form-container">
+        <div class="form-content">
+          <!-- NAME -->
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-icon
+              matSuffix
+              *ngIf="
+                roleForm.get('name')?.invalid && roleForm.get('name')?.touched
+              "
+              >error_outline</mat-icon
+            >
+            <mat-icon matSuffix>badge</mat-icon>
+            <mat-error
+              *ngIf="
+                roleForm.get('name')?.invalid && roleForm.get('name')?.touched
+              "
+              >Name is required.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-form" align="end">
+  <button mat-raised-button color="default" mat-dialog-close>Close</button>
+
+  <button mat-flat-button color="dismiss" disabled *ngIf="!roleForm.valid">
+    Update
+  </button>
+  <button
+    mat-raised-button
+    color="success"
+    (click)="updateRole()"
+    *ngIf="roleForm.valid"
+  >
+    Update
+  </button>
+</mat-dialog-actions>

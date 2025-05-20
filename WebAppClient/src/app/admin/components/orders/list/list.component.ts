@@ -135,6 +135,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       this.ordersVM.push(manipulatedData);
       this.dataSource = new MatTableDataSource<List_Order_VM>(this.ordersVM);
       this.paginator.length = totalOrderCount;
+      this.totalItemCount = totalOrderCount;
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (item, property) => {
         switch (property) {

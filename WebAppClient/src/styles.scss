@@ -78,7 +78,8 @@ body {
 html {
   --bs-light-navbar-all-link: rgb(38, 67, 116);
   --light-mode-black: rgb(25 28 32);
-  --mat-sys-primary: rgb(38, 67, 116);
+  // --mat-sys-primary: rgb(38, 67, 116);
+  --mat-sys-primary: var(--primary-bg);
   --mat-sys-surface-tint: rgb(65 95 145);
   --mat-sys-on-primary: rgb(255 255 255);
   --mat-sys-primary-container: rgb(214 227 255);
@@ -152,7 +153,8 @@ html {
   --log-out-hover: rgba(179, 52, 52, 0.7);
   --dark-mode-title-text-color: rgb(230, 238, 255);
   --dark-mode-white: rgb(230, 238, 255);
-  --mat-sys-primary: rgb(170, 199, 255);
+  // --mat-sys-primary: rgb(170, 199, 255);
+  --mat-sys-primary: var(--primary-bg-electric);
   --mat-sys-surface-tint: rgb(170 199 255);
   --mat-sys-on-primary: rgb(10 48 95);
   --mat-sys-primary-container: rgb(40 71 119);

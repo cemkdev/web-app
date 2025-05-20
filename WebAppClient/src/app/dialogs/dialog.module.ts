@@ -20,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { CompleteOrderDialogComponent } from './order-detail-dialog/complete-order-dialog/complete-order-dialog.component';
 import { CancelOrderDialogComponent } from './order-detail-dialog/cancel-order-dialog/cancel-order-dialog.component';
+import { UpdateRoleDialogComponent } from './role-dialog/update-role-dialog/update-role-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CancelOrderDialogComponent } from './order-detail-dialog/cancel-order-d
     CreateProductDialogComponent,
     UpdateProductDialogComponent,
     CompleteOrderDialogComponent,
-    CancelOrderDialogComponent
+    CancelOrderDialogComponent,
+    UpdateRoleDialogComponent
   ],
   imports: [
     CommonModule,

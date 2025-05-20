@@ -1,8 +1,9 @@
 @use "mat-table-light.scss";
 @use "mat-table-dark.scss";
 
-@use "product-table/product-mat-table-default.scss";
 @use "order-table/order-mat-table-default.scss";
+@use "product-table/product-mat-table-default.scss";
+@use "user-table/user-mat-table-default.scss";
 
 @use "@angular/material" as mat;
 
@@ -35,7 +36,7 @@
     }
     padding: 16px;
     border-radius: 0.375rem;
-    box-shadow: var(--shadow-table-dynamic);
+    //box-shadow: var(--shadow-table-dynamic);
 }
 
 /////////////////////////////////////////////////
@@ -200,7 +201,7 @@ th .mat-sort-header-sorted {
 
 .set-button {
     width: 40px !important;
-    padding-right: 10px !important;
+    padding-right: 0 !important;
     padding-left: 0 !important;
 }
 

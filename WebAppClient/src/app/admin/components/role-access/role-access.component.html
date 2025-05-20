@@ -1,0 +1,88 @@
+<div class="role-access-container mat-elevation-z4">
+  <!-- Table Header -->
+  <div class="top-part">
+    <!-- Add Role to Table Select -->
+    <div class="role-select">
+      <mat-form-field
+        *ngIf="
+          availableRoles.length > 0 &&
+          availableRoles.length != selectedRoles.length
+        "
+      >
+        <mat-label>Add Role to Table</mat-label>
+        <mat-select
+          #roleSelect
+          (selectionChange)="addRole($event.value)"
+          [disabled]="selectedRoles.length > 3"
+        >
+          <mat-option *ngFor="let role of availableRoles" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      *ngIf="selectedRoles.length > 3"
+      class="alert alert-warning mat-elevation-z2"
+    >
+      You can only add up to 4 roles.
+    </div>
+    <div class="update-permissions">
+      <button mat-raised-button color="primary">
+        <mat-icon>manage_accounts</mat-icon>
+        Update Permissions
+      </button>
+    </div>
+  </div>
+  <div class="bottom-part">
+    <mat-icon class="bottom-icon">admin_panel_settings</mat-icon>
+    <span>Role Manager</span>
+  </div>
+
+  <table class="role-access-table">
+    <thead>
+      <tr>
+        <th class="th-endpoints">Actions</th>
+        <th class="th-roles" *ngFor="let role of selectedRoles">
+          <button mat-flat-button color="default" (click)="removeRole(role)">
+            {{ role }}
+            <mat-icon iconPositionEnd>close</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let module of data">
+        <tr>
+          <td [attr.colspan]="selectedRoles.length + 1" class="module-name">
+            <div class="module-name-wrapper">
+              <mat-icon class="material-icons-outlined">shopping_cart</mat-icon>
+              <span>{{ module.name }} Management</span>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let action of module.actions">
+          <td class="td-endpoints">
+            {{ action.definition }}
+            <span class="http-type">{{ action.httpType }}</span>
+          </td>
+          <td class="td-checkbox" *ngFor="let role of selectedRoles">
+            <mat-checkbox
+              [(ngModel)]="permissions[action.code][role]"
+            ></mat-checkbox>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="bottom-update-btn">
+    <button mat-raised-button color="primary">
+      <mat-icon>manage_accounts</mat-icon>
+      Update Permissions
+    </button>
+  </div>
+  <div class="bottom-part">
+    <mat-icon class="bottom-icon">admin_panel_settings</mat-icon>
+    <span>Role Manager</span>
+  </div>
+</div>

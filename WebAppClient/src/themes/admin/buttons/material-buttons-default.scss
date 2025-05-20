@@ -221,6 +221,13 @@ html {
     .mdc-fab--mini.small {
         height: 35px;
         width: 35px;
+        mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            width: auto;
+        }
     }
     .mdc-fab--mini.no-elevation {
         box-shadow: none !important;
