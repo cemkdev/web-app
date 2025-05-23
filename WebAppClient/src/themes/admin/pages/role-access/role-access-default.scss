@@ -21,6 +21,7 @@
         //gap: 12px;
         //margin-bottom: 16px;
         .role-select {
+            height: 52px;
             margin: 10px;
             min-width: 250px !important;
             mat-form-field {
@@ -68,6 +69,12 @@
         .update-permissions {
             margin-left: auto;
             margin-right: 15px;
+            .cancel-update {
+                margin-right: 5px;
+            }
+            .mat-mdc-button-disabled {
+                opacity: 0.7;
+            }
         }
     }
 
@@ -142,10 +149,12 @@
                 display: flex;
                 align-items: center;
                 gap: 6px;
-                padding: 5px 12px;
+                padding: 0px 12px;
+                margin: 0 !important;
                 font-weight: bold;
                 font-size: 14px;
                 width: 100%;
+                height: 100%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;

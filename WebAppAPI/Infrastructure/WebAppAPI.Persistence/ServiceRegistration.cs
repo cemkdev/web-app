@@ -49,6 +49,12 @@ namespace WebAppAPI.Persistence
             services.AddScoped<IOrderStatusHistoryReadRepository, OrderStatusHistoryReadRepository>();
             services.AddScoped<IOrderStatusHistoryWriteRepository, OrderStatusHistoryWriteRepository>();
 
+            services.AddScoped<IEndpointReadRepository, EndpointReadRepository>();
+            services.AddScoped<IEndpointWriteRepository, EndpointWriteRepository>();
+
+            services.AddScoped<IMenuReadRepository, MenuReadRepository>();
+            services.AddScoped<IMenuWriteRepository, MenuWriteRepository>();
+
             // File Table Entities Repositories
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IFileWriteRepository, FileWriteRepository>();
@@ -65,6 +71,9 @@ namespace WebAppAPI.Persistence
             services.AddScoped<IInternalAuthentication, AuthService>();
             services.AddScoped<IExternalAuthentication, AuthService>();
             services.AddScoped<IRoleService, RoleService>();
+
+            // Endpoint - Menu Entities Services
+            services.AddScoped<IEndpointService, EndpointService>();
 
             // Basket - Order Entities Service
             services.AddScoped<IBasketService, BasketService>();

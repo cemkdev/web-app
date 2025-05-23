@@ -26,6 +26,8 @@ namespace WebAppAPI.Persistence.Contexts
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<OrderStatusHistory> OrderStatusHistories { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Endpoint> Endpoints { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

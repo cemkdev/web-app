@@ -43,8 +43,9 @@ html {
 
             ///////////////////////// td > Enpoints Adjustments - START /////////////////////
             .module-name {
+                background-color: var(--gray-background-transparent-3);
                 .module-name-wrapper {
-                    background-color: var(--light-background-dark);
+                    background-color: var(--gray-background-transparent-3);
                     color: var(--dark-text);
                 }
                 mat-icon {

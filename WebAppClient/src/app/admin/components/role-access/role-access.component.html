@@ -3,32 +3,51 @@
   <div class="top-part">
     <!-- Add Role to Table Select -->
     <div class="role-select">
-      <mat-form-field
-        *ngIf="
-          availableRoles.length > 0 &&
-          availableRoles.length != selectedRoles.length
-        "
-      >
+      <mat-form-field *ngIf="roles.length > 0">
         <mat-label>Add Role to Table</mat-label>
         <mat-select
           #roleSelect
           (selectionChange)="addRole($event.value)"
-          [disabled]="selectedRoles.length > 3"
+          [disabled]="selectedRoles.length >= 3"
         >
           <mat-option *ngFor="let role of availableRoles" [value]="role">
-            {{ role }}
+            {{ role.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div
-      *ngIf="selectedRoles.length > 3"
+      *ngIf="selectedRoles.length >= 3"
       class="alert alert-warning mat-elevation-z2"
     >
-      You can only add up to 4 roles.
+      You can only add up to 3 roles.
     </div>
     <div class="update-permissions">
-      <button mat-raised-button color="primary">
+      <button
+        *ngIf="isEditing === false"
+        mat-raised-button
+        color="primary"
+        (click)="toggleEdit()"
+      >
+        <mat-icon>manage_accounts</mat-icon>
+        Edit Permissions
+      </button>
+      <button
+        *ngIf="isEditing === true"
+        mat-raised-button
+        color="warning"
+        class="cancel-update"
+        (click)="toggleEdit()"
+      >
+        Cancel
+      </button>
+      <button
+        *ngIf="isEditing === true"
+        [disabled]="!hasChanges()"
+        mat-raised-button
+        color="success"
+        (click)="assignRoleToEndpoints()"
+      >
         <mat-icon>manage_accounts</mat-icon>
         Update Permissions
       </button>
@@ -36,7 +55,7 @@
   </div>
   <div class="bottom-part">
     <mat-icon class="bottom-icon">admin_panel_settings</mat-icon>
-    <span>Role Manager</span>
+    <span>Role Access Manager</span>
   </div>
 
   <table class="role-access-table">
@@ -45,7 +64,7 @@
         <th class="th-endpoints">Actions</th>
         <th class="th-roles" *ngFor="let role of selectedRoles">
           <button mat-flat-button color="default" (click)="removeRole(role)">
-            {{ role }}
+            {{ role.name }}
             <mat-icon iconPositionEnd>close</mat-icon>
           </button>
         </th>
@@ -68,7 +87,8 @@
           </td>
           <td class="td-checkbox" *ngFor="let role of selectedRoles">
             <mat-checkbox
-              [(ngModel)]="permissions[action.code][role]"
+              [(ngModel)]="permissions[action.code][role.id]"
+              [disabled]="isEditing === false"
             ></mat-checkbox>
           </td>
         </tr>
@@ -76,13 +96,36 @@
     </tbody>
   </table>
   <div class="bottom-update-btn">
-    <button mat-raised-button color="primary">
+    <button
+      *ngIf="isEditing === false"
+      mat-raised-button
+      color="primary"
+      (click)="toggleEdit()"
+    >
+      <mat-icon>manage_accounts</mat-icon>
+      Edit Permissions
+    </button>
+    <button
+      *ngIf="isEditing === true"
+      mat-raised-button
+      color="warning"
+      class="cancel-update"
+      (click)="toggleEdit()"
+    >
+      Cancel
+    </button>
+    <button
+      *ngIf="isEditing === true"
+      mat-raised-button
+      color="success"
+      (click)="assignRoleToEndpoints()"
+    >
       <mat-icon>manage_accounts</mat-icon>
       Update Permissions
     </button>
   </div>
   <div class="bottom-part">
     <mat-icon class="bottom-icon">admin_panel_settings</mat-icon>
-    <span>Role Manager</span>
+    <span>Role Access Manager</span>
   </div>
 </div>
