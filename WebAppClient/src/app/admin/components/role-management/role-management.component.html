@@ -134,7 +134,11 @@
                 color="warning"
                 (click)="updateRole(element.id)"
               >
-                <mat-icon>edit</mat-icon>
+                <mat-icon
+                  matTooltip="Change Role Name"
+                  matTooltipPosition="above"
+                  >edit</mat-icon
+                >
               </button>
             </td>
           </ng-container>
@@ -156,7 +160,9 @@
                 controller="roles"
                 (callback)="getRoles()"
               >
-                <mat-icon>delete</mat-icon>
+                <mat-icon matTooltip="Delete Role" matTooltipPosition="above"
+                  >delete</mat-icon
+                >
               </button>
             </td>
           </ng-container>

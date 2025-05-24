@@ -1,33 +1,63 @@
 <h2 mat-dialog-title class="dialog-image-content">
-    <span class="left">
-        <button mat-mini-fab disabled color="tertiary" style="padding-top: 5px;">
-            <mat-icon>photo_library</mat-icon>
-        </button>
-        Product Images
-    </span>
-    <button mat-icon-button class="right" mat-dialog-close><mat-icon>close</mat-icon></button>
+  <span class="left">
+    <button mat-mini-fab disabled color="tertiary" style="padding-top: 5px">
+      <mat-icon>photo_library</mat-icon>
+    </button>
+    Product Images
+  </span>
+  <button mat-icon-button class="right" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
 </h2>
 <mat-dialog-content class="mat-typography dialog-image-content">
-    <div class="content-wrapper">
-        <app-file-upload class="app-file-upload" [options]="options"></app-file-upload>
+  <div class="content-wrapper">
+    <app-file-upload
+      class="app-file-upload"
+      [options]="options"
+      (uploadFinished)="onUploadFinished($event)"
+    ></app-file-upload>
 
-        <mat-card class="image-card" appearance="outlined" *ngFor="let image of images; let i = index">
-            <mat-card-header>
-                <button mat-raised-button class="cover-image-check" color="default" *ngIf="!checkedValues[i]"
-                    (click)="makeCoverImage(image.id)"><mat-icon>check_box_outline_blank</mat-icon></button>
-                <span class="cover-span unchecked" *ngIf="!checkedValues[i]">| Make Cover</span>
+    <mat-card
+      class="image-card"
+      appearance="outlined"
+      *ngFor="let image of images; let i = index"
+    >
+      <mat-card-header>
+        <button
+          mat-raised-button
+          class="cover-image-check"
+          color="default"
+          *ngIf="!checkedValues[i]"
+          (click)="makeCoverImage(image.id)"
+        >
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </button>
+        <span class="cover-span unchecked" *ngIf="!checkedValues[i]"
+          >| Make Cover</span
+        >
 
-                <button mat-raised-button class="cover-image-check" color="primary" *ngIf="checkedValues[i]"
-                    (click)="makeCoverImage(image.id)"><mat-icon>check_box</mat-icon></button>
-                <span class="cover-span checked" *ngIf="checkedValues[i]">| Cover</span>
-            </mat-card-header>
-            <img class="image" mat-card-image [src]="image.path">
-            <mat-card-actions>
-                <button mat-mini-fab color="error-soft" (click)="deleteImage(image.id, $event)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <mat-card-title class="image-name">{{image.fileName}}</mat-card-title>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+        <button
+          mat-raised-button
+          class="cover-image-check"
+          color="primary"
+          *ngIf="checkedValues[i]"
+          (click)="makeCoverImage(image.id)"
+        >
+          <mat-icon>check_box</mat-icon>
+        </button>
+        <span class="cover-span checked" *ngIf="checkedValues[i]">| Cover</span>
+      </mat-card-header>
+      <img class="image" mat-card-image [src]="image.path" />
+      <mat-card-actions>
+        <button
+          mat-mini-fab
+          color="error-soft"
+          (click)="deleteImage(image.id, $event)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <mat-card-title class="image-name">{{ image.fileName }}</mat-card-title>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </mat-dialog-content>

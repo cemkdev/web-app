@@ -193,6 +193,12 @@
         padding: 15px;
         display: flex;
         justify-content: flex-end;
+        .cancel-update {
+            margin-right: 5px;
+        }
+        .mat-mdc-button-disabled {
+            opacity: 0.7;
+        }
     }
 
     .bottom-part {

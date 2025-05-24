@@ -112,6 +112,7 @@ export class UserAuthService {
     callBackFunction();
   }
 
+  // Verify Reset Token
   async verifyResetToken(resetToken: string, userId: string, callBackFunction?: () => void): Promise<boolean> {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "auth",

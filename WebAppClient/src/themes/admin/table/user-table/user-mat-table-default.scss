@@ -10,16 +10,47 @@
         width: 40px;
     }
 
-    .firstName {
-        width: 280px;
+    .user {
+        width: 220px;
     }
 
-    .date {
-        width: 175px !important;
-        padding-right: 0px !important;
+    // .firstName {
+    //     width: 280px;
+    // }
+
+    // .lastName {
+    //     width: 280px;
+    // }
+
+    // .userName {
+    //     width: 200px;
+    // }
+
+    .email {
+        width: 200px;
+    }
+
+    .phoneNumber {
+        width: 250px;
+    }
+
+    .twoFactorEnabled {
+        width: 350px !important;
+        span {
+            padding-left: 50px;
+            mat-icon.enabled {
+                color: var(--success-bg);
+                text-align: center;
+                vertical-align: middle;
+            }
+            mat-icon.disabled {
+                color: var(--error-bg);
+                vertical-align: middle;
+            }
+        }
     }
 
     .set-button {
-        padding-right: 0px !important;
+        padding-right: 5px !important;
     }
 }

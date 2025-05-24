@@ -41,7 +41,15 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   checkedValues: boolean[] = [];
 
   async ngOnInit() {
+    await this.initializeComponent();
+  }
+
+  async initializeComponent() {
     await this.getImages();
+  }
+
+  async onUploadFinished(result: 'success' | 'error') {
+    await this.initializeComponent();
   }
 
   async getImages() {
@@ -62,7 +70,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
       afterClosed: async () => {
         this.spinner.show(SpinnerType.BallAtom);
 
-        await this.productService.deleteImage(this.data as string, imageId, () => {
+        await this.productService.deleteImage(this.data as string, imageId, async () => {
           this.spinner.hide(SpinnerType.BallAtom)
 
           const deleteBtn = event.srcElement as HTMLElement;
@@ -73,6 +81,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
           }, 1000, 'swing', () => {
             cardElement.remove();
           });
+          await this.initializeComponent();
         });
       }
     })
@@ -83,7 +92,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     await this.productService.changeCoverImage(imageId, this.data as string, () => {
       this.spinner.hide(SpinnerType.BallAtom);
     })
-    await this.getImages();
+    await this.initializeComponent();
   }
 }
 

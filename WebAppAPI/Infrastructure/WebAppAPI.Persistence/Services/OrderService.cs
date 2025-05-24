@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs;
 using WebAppAPI.Application.DTOs.Order;
@@ -121,18 +120,6 @@ namespace WebAppAPI.Persistence.Services
             try
             {
                 var currentStatus = (OrderStatusEnum)order.StatusId;
-
-                //// Valid Transitions
-                //var validTransitions = new Dictionary<OrderStatusEnum, List<OrderStatusEnum>>
-                //{
-                //    { OrderStatusEnum.Pending, new() { OrderStatusEnum.Pending, OrderStatusEnum.Approved, OrderStatusEnum.Cancelled } },
-                //    { OrderStatusEnum.Approved, new() { OrderStatusEnum.Shipping } },
-                //    { OrderStatusEnum.Shipping, new() { OrderStatusEnum.Delivered } },
-                //    { OrderStatusEnum.Delivered, new() },
-                //    { OrderStatusEnum.Cancelled, new() }
-                //};
-                //if (!validTransitions[currentStatus].Contains(newStatus))
-                //    throw new InvalidOperationException($"Order status can't transition from {currentStatus} to {newStatus}");
 
                 if (!IsValidStatusTransition(currentStatus, newStatus))
                     throw new InvalidOperationException($"Order status can't transition from {currentStatus} to {newStatus}");

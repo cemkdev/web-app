@@ -8,6 +8,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyService, MessageType, Position } from '../../../services/admin/alertify.service';
 import { DialogService } from '../../../services/common/dialog.service';
 import { DeleteDialogComponent, DeleteState } from '../../../dialogs/delete-dialog/delete-dialog.component';
+import { List_User, List_User_VM } from '../../../contracts/users/list_user';
+import { UserService } from '../../../services/common/models/user.service';
+import { AssignRoleDialogComponent } from '../../../dialogs/user-dialogs/assign-role-dialog/assign-role-dialog.component';
 
 declare var $: any;
 
@@ -18,47 +21,14 @@ declare var $: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserManagementComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'index', 'firstName', 'lastName', 'userName', 'email', 'phoneNumber', 'twoFactorEnabled', 'dateCreated', 'dateUpdated', 'show-edit', 'delete'];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource([
-    {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      userName: 'jdoe',
-      email: 'jdoe@example.com',
-      phoneNumber: '+1-555-1234',
-      twoFactorEnabled: true,
-      dateCreated: '2024-01-10',
-      dateUpdated: '2024-03-15'
-    },
-    {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      userName: 'jsmith',
-      email: 'jsmith@example.com',
-      phoneNumber: '+1-555-5678',
-      twoFactorEnabled: false,
-      dateCreated: '2024-01-10',
-      dateUpdated: '2024-03-15'
-    },
-    {
-      id: 3,
-      firstName: 'Alice',
-      lastName: 'Johnson',
-      userName: 'alicej',
-      email: 'alice@example.com',
-      phoneNumber: '+1-555-9012',
-      twoFactorEnabled: true,
-      dateCreated: '2024-01-10',
-      dateUpdated: '2024-03-15'
-    }
-  ]);
-  selection = new SelectionModel<any>(true, []);
+  displayedColumns: string[] = ['select', 'index', 'user', 'email', 'phoneNumber', 'twoFactorEnabled', 'dateCreated', 'dateUpdated', 'assignRole', 'show-edit', 'delete'];
+  // 'firstName', 'lastName', 'userName' => 'user': first + last dite birleştir. UserName'e gerek yok. Bunlar detay ekranında gözükecek.
+  dataSource: MatTableDataSource<List_User_VM> = null;
+  selection = new SelectionModel<List_User_VM>(true, []);
 
-  users: any[];
-  usersVM: any[] = [];
-  allUsers: { totalUserCount: number, users: any[] };
+  users: List_User[];
+  usersVM: List_User_VM[] = [];
+  allUsers: { totalUserCount: number, users: List_User[] };
 
   totalItemCount: number = 0;
   value = '';
@@ -69,7 +39,8 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
   constructor(
     spinner: NgxSpinnerService,
     private alertifyService: AlertifyService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private userService: UserService
   ) {
     super(spinner);
   }
@@ -88,7 +59,7 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: any): string {
+  checkboxLabel(row?: List_User_VM): string {
     if (!row) {
       const allSelected = this.selection.hasValue() && this.dataSource?.data.length === this.selection.selected.length;
       return `${allSelected ? 'deselect' : 'select'} all`;
@@ -99,7 +70,7 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    debugger
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -122,35 +93,55 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
   }
 
   async initializePage() {
-    // await this.getUsers();
-    // this.manipulateUserData(this.allUsers.products, this.allUsers.totalProductCount);
+    await this.getUsers();
+    this.manipulateUserData(this.allUsers.users, this.allUsers.totalUserCount);
   }
 
   async getUsers() {
     this.showSpinner(SpinnerType.BallAtom);
 
+    this.allUsers = await this.userService.getAllUsers(
+      this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 10,
+      () => this.hideSpinner(SpinnerType.BallAtom),
+      (errorMessage) => {
+        this.hideSpinner(SpinnerType.BallAtom);
+        this.alertifyService.message(errorMessage, {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
+      }
+    );
   }
 
-  manipulateUserData(sourceData: any[], totalUserCount: number): void {
+  manipulateUserData(sourceData: List_User[], totalUserCount: number): void {
     this.usersVM = [];
 
     for (let i = 0; i < sourceData.length; i++) {
 
       let manipulatedData = {
         id: sourceData[i].id,
-        name: sourceData[i].name,
-        stock: sourceData[i].stock,
+        user: `${sourceData[i].firstName} ${sourceData[i].lastName}`,
+        // firstName: sourceData[i].firstName,
+        // lastName: sourceData[i].lastName,
+        // userName: sourceData[i].userName,
+        email: sourceData[i].email,
+        phoneNumber: this.formatPhoneNumber(sourceData[i].phoneNumber),
+        twoFactorEnabled: sourceData[i].twoFactorEnabled,
         dateCreated: this.formatDateParts(sourceData[i].dateCreated),
-        dateUpdated: this.formatDateParts(sourceData[i].dateUpdated),
-        title: sourceData[i].title,
-        description: sourceData[i].description,
+        dateUpdated: this.formatDateParts(sourceData[i].dateUpdated)
       };
       this.usersVM.push(manipulatedData);
-      this.dataSource = new MatTableDataSource<any>(this.usersVM);
+      this.dataSource = new MatTableDataSource<List_User_VM>(this.usersVM);
       this.paginator.length = totalUserCount;
+      this.totalItemCount = totalUserCount;
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (item, property) => {
         switch (property) {
+          case 'user':
+            return item.user;
+          case 'phoneNumber':
+            return item.phoneNumber;
           case 'dateCreated':
             return item.dateCreated.rawDate;
           case 'dateUpdated':
@@ -160,6 +151,20 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
         }
       };
     }
+  }
+
+  formatPhoneNumber(rawNumber: string): string {
+    if (!rawNumber) return '';
+
+    const cleaned = rawNumber.replace(/\D/g, '');
+
+    if (cleaned.length !== 10) return rawNumber;
+
+    const part1 = cleaned.slice(0, 3);
+    const part2 = cleaned.slice(3, 6);
+    const part3 = cleaned.slice(6);
+
+    return `${part1}-${part2}-${part3}`;
   }
 
   formatDateParts(dateInput: Date | string): Partial<any> {
@@ -181,6 +186,30 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
     const formattedTime = `${hours}:${minutes} ${ampm}`;
 
     return { rawDate, formattedDate, formattedTime };
+  }
+
+  assignRole(id: string) {
+    const dialogRef = this.dialogService.openDialog({
+      componentType: AssignRoleDialogComponent,
+      data: id,
+      options: {
+        width: '500px',
+        maxHeight: '650px'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result == 'updated') {
+        await this.initializePage();
+      }
+      else if (result != null && result != 'updated') {
+        this.alertifyService.message(result, {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
+      }
+    });
   }
 
   updateUser(id: string) {

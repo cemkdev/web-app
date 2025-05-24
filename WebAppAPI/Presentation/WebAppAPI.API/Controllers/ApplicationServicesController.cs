@@ -21,7 +21,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.ApplicationServices, ActionType = ActionType.Read, Definition = "Get Authorize Definition Endpoints")]
+        [AuthorizeDefinition(ActionType = ActionType.Read, Definition = "Get Authorize Definition Endpoints", Menu = AuthorizeDefinitionConstants.ApplicationServices)]
         public IActionResult GetAuthorizeDefinitionEndpoints()
         {
             var data = _applicationService.GetAuthorizeDefinitionEndpoints(typeof(Program));

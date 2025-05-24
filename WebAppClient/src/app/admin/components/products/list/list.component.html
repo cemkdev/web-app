@@ -218,7 +218,11 @@
             color="message"
             (click)="editProductImages(element.id)"
           >
-            <mat-icon>photo_library</mat-icon>
+            <mat-icon
+              matTooltip="Show Product Images"
+              matTooltipPosition="above"
+              >photo_library</mat-icon
+            >
           </button>
         </td>
       </ng-container>
@@ -233,7 +237,9 @@
             color="warning"
             (click)="updateProduct(element.id)"
           >
-            <mat-icon>edit</mat-icon>
+            <mat-icon matTooltip="Edit Product" matTooltipPosition="above"
+              >edit</mat-icon
+            >
           </button>
         </td>
       </ng-container>
@@ -255,7 +261,9 @@
             controller="products"
             (callback)="getProducts()"
           >
-            <mat-icon>delete</mat-icon>
+            <mat-icon matTooltip="Delete Product" matTooltipPosition="above"
+              >delete</mat-icon
+            >
           </button>
         </td>
       </ng-container>

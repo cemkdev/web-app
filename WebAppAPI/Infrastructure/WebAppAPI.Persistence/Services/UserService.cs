@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
 using WebAppAPI.Application.Exceptions;
@@ -14,6 +15,30 @@ namespace WebAppAPI.Persistence.Services
         public UserService(UserManager<U.AppUser> userManager)
         {
             _userManager = userManager;
+        }
+
+        public async Task<ListUserDto> GetAllUsersAsync(int page, int size)
+        {
+            List<U.AppUser> query = await _userManager.Users.ToListAsync();
+
+            var dataPerPage = query.OrderBy(o => o.DateCreated).Skip(page * size).Take(size);
+
+            return new()
+            {
+                TotalUserCount = query.Count(),
+                Users = dataPerPage.Select(user => new
+                {
+                    Id = user.Id.ToString(),
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    DateCreated = user.DateCreated,
+                    DateUpdated = user.DateUpdated
+                }).ToList()
+            };
         }
 
         public async Task<CreateUserResponse> CreateAsync(CreateUser model)
@@ -69,6 +94,30 @@ namespace WebAppAPI.Persistence.Services
                     await _userManager.UpdateSecurityStampAsync(user);
                 else
                     throw new PasswordChangeFailedException();
+            }
+        }
+
+        public async Task<List<string>> GetRolesByUserIdAsync(string userId)
+        {
+            U.AppUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                throw new NotFoundUserException();
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            return userRoles.ToList();
+        }
+
+        public async Task AssignRoleToUserAsync(string userId, string[] roles)
+        {
+            U.AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+                await _userManager.AddToRolesAsync(user, roles);
             }
         }
     }

@@ -73,7 +73,7 @@ export class UpdateProductDialogComponent extends BaseDialog<UpdateProductDialog
   updateProduct(): void {
     if (this.productForm.valid) {
       this.spinner.show(SpinnerType.BallAtom);
-      debugger
+
       const formValue = this.productForm.value;
       const update_product = new Update_Product();
       Object.assign(update_product, {

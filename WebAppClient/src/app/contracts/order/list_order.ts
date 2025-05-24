@@ -7,7 +7,7 @@ export class List_Order {
     statusId: number;
 }
 
-
+////////////////////////////// View Model
 export class List_Order_VM {
     id: string;
     orderCode: string;

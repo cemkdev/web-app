@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { HttpClientService } from '../http-client.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -29,6 +29,7 @@ export class FileUploadComponent {
 
   public files: NgxFileDropEntry[];
   @Input() options: Partial<FileUploadOptions>;
+  @Output() uploadFinished: EventEmitter<'success' | 'error'> = new EventEmitter(); // throw event to update parent component(select-product-image-dialog.component).
 
   public selectedFiles(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -66,6 +67,7 @@ export class FileUploadComponent {
               position: ToastrPosition.TopRight
             });
           }
+          this.uploadFinished.emit('success'); // throw event to update parent component(select-product-image-dialog.component).
           this.spinner.hide(SpinnerType.BallAtom);
         }, (errorResponse: HttpErrorResponse) => {
           const errorMessage: string = "An error occurred and files could not be uploaded.";
@@ -83,6 +85,7 @@ export class FileUploadComponent {
               position: ToastrPosition.TopRight
             });
           }
+          this.uploadFinished.emit('error'); // throw event to update parent component(select-product-image-dialog.component).
         });
       }
     })

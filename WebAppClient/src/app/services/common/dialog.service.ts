@@ -15,7 +15,9 @@ export class DialogService {
   openDialog(dialogParameters: Partial<DialogParameters>): MatDialogRef<any> {
     const dialogRef = this.dialog.open(dialogParameters.componentType, {
       maxWidth: '1500px', //dialogParameters.options?.maxWidth
-      maxHeight: '1000px', // dialogParameters.options?.maxHeight
+      // maxHeight: '800px', // dialogParameters.options?.maxHeight
+      //maxWidth: dialogParameters.options?.maxWidth,
+      maxHeight: dialogParameters.options?.maxHeight,
       width: dialogParameters.options?.width,
       height: dialogParameters.options?.height,
       position: dialogParameters.options?.positions,

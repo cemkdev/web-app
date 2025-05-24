@@ -116,6 +116,7 @@
     </button>
     <button
       *ngIf="isEditing === true"
+      [disabled]="!hasChanges()"
       mat-raised-button
       color="success"
       (click)="assignRoleToEndpoints()"

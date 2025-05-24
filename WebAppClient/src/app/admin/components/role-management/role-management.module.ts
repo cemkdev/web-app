@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DeleteDirectiveModule } from '../../../directives/admin/delete.directive.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { DeleteDirectiveModule } from '../../../directives/admin/delete.directiv
     ]),
     MatButtonModule, MatIconModule,
     MatFormFieldModule, MatInputModule,
-    MatTableModule, MatCheckboxModule,
+    MatTableModule, MatCheckboxModule, MatTooltipModule,
     DeleteDirectiveModule,
     ReactiveFormsModule
   ]
