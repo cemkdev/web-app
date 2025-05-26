@@ -87,6 +87,10 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.initializeComponent();
+  }
+
+  async initializeComponent() {
     await this.getProducts();
     this.manipulateProductData(this.allProducts.products, this.allProducts.totalProductCount);
   }
@@ -217,8 +221,7 @@ export class ListComponent extends BaseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async result => {
       if (result == 'created') {
-        await this.getProducts();
-        this.manipulateProductData(this.allProducts.products, this.allProducts.totalProductCount);
+        await this.initializeComponent();
       }
       else if (result != null && result != 'created') {
         this.alertifyService.message(result, {
@@ -289,8 +292,7 @@ export class ListComponent extends BaseComponent implements OnInit {
           }
           this.selection.clear();
 
-          await this.getProducts();
-          this.manipulateProductData(this.allProducts.products, this.allProducts.totalProductCount);
+          await this.initializeComponent();
 
           this.alertifyService.message("Items successfully deleted.", {
             messageType: MessageType.Success,

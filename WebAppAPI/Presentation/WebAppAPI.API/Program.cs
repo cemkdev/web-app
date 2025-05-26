@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using WebAppAPI.API.Configurations.ColumnWriters;
 using WebAppAPI.API.Extensions;
+using WebAppAPI.API.Filters;
 using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
 using WebAppAPI.Infrastructure;
@@ -68,8 +69,11 @@ builder.Services.AddHttpLogging(logging =>
     logging.ResponseBodyLogLimit = 4096;
 });
 
-builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
-    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<RolePermissionFilter>();
+}).ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductCreateValidator>();
 
 builder.Services.AddEndpointsApiExplorer();

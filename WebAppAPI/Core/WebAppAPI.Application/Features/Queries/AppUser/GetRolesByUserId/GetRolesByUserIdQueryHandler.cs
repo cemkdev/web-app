@@ -16,7 +16,7 @@ namespace WebAppAPI.Application.Features.Queries.AppUser.GetRolesByUserId
 
         public async Task<List<GetRolesByUserIdQueryResponse>> Handle(GetRolesByUserIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var userRoles = await _userService.GetRolesByUserIdAsync(request.UserId);
+            var userRoles = await _userService.GetRolesByUserIdentifierAsync(request.UserId);
             var allRoles = _roleService.GetRoles();
 
             var result = allRoles.Select(roles => new GetRolesByUserIdQueryResponse

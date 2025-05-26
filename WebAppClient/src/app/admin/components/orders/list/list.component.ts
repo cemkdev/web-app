@@ -87,13 +87,16 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.initializeComponent();
+  }
+
+  async initializeComponent() {
     await this.getOrders();
     this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
   }
 
   async pageChanged() {
-    await this.getOrders();
-    this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
+    await this.initializeComponent();
     this.selection.clear();
   }
 
@@ -205,8 +208,9 @@ export class ListComponent extends BaseComponent implements OnInit {
             }
           }
           this.selection.clear();
-          await this.getOrders();
-          this.manipulateOrderData(this.allOrders.orders, this.allOrders.totalOrderCount);
+
+          await this.initializeComponent();
+
           this.alertifyService.message("Items successfully deleted.", {
             messageType: MessageType.Success,
             position: Position.TopRight

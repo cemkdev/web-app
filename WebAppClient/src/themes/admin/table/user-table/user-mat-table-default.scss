@@ -2,6 +2,11 @@
     /////////////////////////////////////////////////
     ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
     /////////////////////////////////////////////////
+
+    th,
+    td {
+        font-size: 13px;
+    }
     .select {
         width: 40px;
     }
@@ -11,7 +16,7 @@
     }
 
     .user {
-        width: 220px;
+        width: 180px;
     }
 
     // .firstName {
@@ -22,22 +27,25 @@
     //     width: 280px;
     // }
 
-    // .userName {
-    //     width: 200px;
-    // }
+    .userName {
+        width: 180px;
+    }
 
     .email {
         width: 200px;
     }
 
     .phoneNumber {
-        width: 250px;
+        width: 270px;
     }
 
     .twoFactorEnabled {
-        width: 350px !important;
+        width: 180px !important;
+        //text-align: center;
+        padding-left: 30px !important;
         span {
-            padding-left: 50px;
+            text-align: center;
+            vertical-align: middle;
             mat-icon.enabled {
                 color: var(--success-bg);
                 text-align: center;

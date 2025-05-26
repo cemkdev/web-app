@@ -21,7 +21,7 @@ declare var $: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserManagementComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'index', 'user', 'email', 'phoneNumber', 'twoFactorEnabled', 'dateCreated', 'dateUpdated', 'assignRole', 'show-edit', 'delete'];
+  displayedColumns: string[] = ['select', 'index', 'user', 'userName', 'email', 'phoneNumber', 'twoFactorEnabled', 'dateCreated', 'dateUpdated', 'assignRole', 'show-edit', 'delete'];
   // 'firstName', 'lastName', 'userName' => 'user': first + last dite birleştir. UserName'e gerek yok. Bunlar detay ekranında gözükecek.
   dataSource: MatTableDataSource<List_User_VM> = null;
   selection = new SelectionModel<List_User_VM>(true, []);
@@ -124,7 +124,7 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
         user: `${sourceData[i].firstName} ${sourceData[i].lastName}`,
         // firstName: sourceData[i].firstName,
         // lastName: sourceData[i].lastName,
-        // userName: sourceData[i].userName,
+        userName: sourceData[i].userName,
         email: sourceData[i].email,
         phoneNumber: this.formatPhoneNumber(sourceData[i].phoneNumber),
         twoFactorEnabled: sourceData[i].twoFactorEnabled,

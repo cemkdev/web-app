@@ -10,7 +10,14 @@ namespace WebAppAPI.Application.Abstractions.Services
         Task UpdateRefreshTokenAsync(string refreshToken, I.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension);
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
 
-        Task<List<string>> GetRolesByUserIdAsync(string userId);
+        /// <summary>
+        /// Retrieves the roles of a user by ID or username.
+        /// </summary>
+        /// <param name="userIdentifier">The user's ID or username.</param>
+        /// <returns>List of role names assigned to the user.</returns>
+        Task<List<string>> GetRolesByUserIdentifierAsync(string userIdentifier);
         Task AssignRoleToUserAsync(string userId, string[] roles);
+
+        Task<bool> HasRolePermissionAsync(string username, string code);
     }
 }

@@ -5,7 +5,7 @@ namespace WebAppAPI.Application.Abstractions.Token
 {
     public interface ITokenHandler
     {
-        T.Token CreateAccessToken(int second, I.AppUser appUser);
+        T.Token CreateAccessToken(int minutes, I.AppUser appUser);
         string CreateRefreshToken();
     }
 }

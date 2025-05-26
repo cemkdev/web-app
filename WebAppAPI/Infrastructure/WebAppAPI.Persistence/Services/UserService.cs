@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
 using WebAppAPI.Application.Exceptions;
 using WebAppAPI.Application.Helpers;
+using WebAppAPI.Application.Repositories;
+using WebAppAPI.Domain.Entities;
 using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -11,10 +14,12 @@ namespace WebAppAPI.Persistence.Services
     public class UserService : IUserService
     {
         readonly UserManager<U.AppUser> _userManager;
+        readonly IEndpointReadRepository _endpointReadRepository;
 
-        public UserService(UserManager<U.AppUser> userManager)
+        public UserService(UserManager<U.AppUser> userManager, IEndpointReadRepository endpointReadRepository)
         {
             _userManager = userManager;
+            _endpointReadRepository = endpointReadRepository;
         }
 
         public async Task<ListUserDto> GetAllUsersAsync(int page, int size)
@@ -97,15 +102,20 @@ namespace WebAppAPI.Persistence.Services
             }
         }
 
-        public async Task<List<string>> GetRolesByUserIdAsync(string userId)
+        public async Task<List<string>> GetRolesByUserIdentifierAsync(string userIdentifier)
         {
-            U.AppUser user = await _userManager.FindByIdAsync(userId);
+            if (string.IsNullOrWhiteSpace(userIdentifier))
+                throw new ArgumentException("User identifier must be provided.", nameof(userIdentifier));
+
+            U.AppUser user = await _userManager.FindByIdAsync(userIdentifier);
+
+            if (user == null)
+                user = await _userManager.FindByNameAsync(userIdentifier);
 
             if (user == null)
                 throw new NotFoundUserException();
 
             var userRoles = await _userManager.GetRolesAsync(user);
-
             return userRoles.ToList();
         }
 
@@ -119,6 +129,36 @@ namespace WebAppAPI.Persistence.Services
 
                 await _userManager.AddToRolesAsync(user, roles);
             }
+        }
+
+        public async Task<bool> HasRolePermissionAsync(string username, string code)
+        {
+            var userRoles = await GetRolesByUserIdentifierAsync(username);
+
+            if (!userRoles.Any())
+                return false;
+
+            Endpoint? endpoint = await _endpointReadRepository.Table
+                                        .Include(end => end.Roles)
+                                        .FirstOrDefaultAsync(role => role.Code == code);
+
+            if (endpoint == null)
+                return false;
+
+            //var endpointRoles = endpoint.Roles.Select(r => r.Name);
+            //foreach (var userRole in userRoles)
+            //    foreach (var endpointRole in endpointRoles)
+            //        if (userRole == endpointRole)
+            //            return true;
+
+            var endpointRoleSet = endpoint.Roles.Select(r => r.Name).ToHashSet();
+            foreach (var userRole in userRoles)
+            {
+                if (endpointRoleSet.Contains(userRole))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
