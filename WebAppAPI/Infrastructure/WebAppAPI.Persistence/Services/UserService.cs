@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs.User;
 using WebAppAPI.Application.Exceptions;
@@ -74,13 +73,23 @@ namespace WebAppAPI.Persistence.Services
             return response;
         }
 
-        public async Task UpdateRefreshTokenAsync(string refreshToken, U.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension)
+        public async Task UpdateRefreshTokenAsync(U.AppUser user, string refreshToken, int refreshTokenExpiration, bool isFromRefreshToken = false, bool isLogout = false)
         {
             if (user != null)
             {
-                user.RefreshToken = refreshToken;
-                user.RefreshTokenEndDate = accessTokenLifetime.AddSeconds(refreshTokenDurationExtension);
-                await _userManager.UpdateAsync(user);
+                if (isLogout) // comes from AuthService->Logout()
+                {
+                    user.RefreshToken = null;
+                    user.RefreshTokenEndDate = refreshTokenExpiration == 0 ? null : DateTime.UtcNow.AddSeconds(refreshTokenExpiration);
+                    await _userManager.UpdateAsync(user);
+                }
+                else
+                {
+                    user.RefreshToken = refreshToken;
+                    if (!isFromRefreshToken) // comes from AuthService->RefreshTokenLoginAsync()
+                        user.RefreshTokenEndDate = DateTime.UtcNow.AddSeconds(refreshTokenExpiration);
+                    await _userManager.UpdateAsync(user);
+                }
             }
             else
                 throw new NotFoundUserException();
@@ -144,12 +153,6 @@ namespace WebAppAPI.Persistence.Services
 
             if (endpoint == null)
                 return false;
-
-            //var endpointRoles = endpoint.Roles.Select(r => r.Name);
-            //foreach (var userRole in userRoles)
-            //    foreach (var endpointRole in endpointRoles)
-            //        if (userRole == endpointRole)
-            //            return true;
 
             var endpointRoleSet = endpoint.Roles.Select(r => r.Name).ToHashSet();
             foreach (var userRole in userRoles)

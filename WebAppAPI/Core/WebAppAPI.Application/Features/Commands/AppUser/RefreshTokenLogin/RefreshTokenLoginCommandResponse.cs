@@ -4,6 +4,6 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.RefreshTokenLogin
 {
     public class RefreshTokenLoginCommandResponse
     {
-        public Token Token { get; set; }
+        //public Token Token { get; set; }
     }
 }

@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Middlewares\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Middlewares\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Middlewares\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.36" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.36">
       <PrivateAssets>all</PrivateAssets>
@@ -28,8 +39,6 @@
 
   <ItemGroup>
     <Folder Include="logs\" />
-    <Folder Include="Middlewares\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

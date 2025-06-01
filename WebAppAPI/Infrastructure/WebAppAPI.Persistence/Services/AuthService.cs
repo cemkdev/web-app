@@ -1,9 +1,9 @@
 ﻿using Google.Apis.Auth;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Text;
+using System.Security.Claims;
 using System.Text.Json;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Abstractions.Token;
@@ -24,6 +24,9 @@ namespace WebAppAPI.Persistence.Services
         readonly SignInManager<U.AppUser> _signInManager;
         readonly IUserService _userService;
         readonly IMailService _mailService;
+        IHttpContextAccessor _httpContextAccessor;
+
+        private readonly int refreshTokenExpirationTime;
 
         public AuthService(
             IHttpClientFactory httpClientFactory,
@@ -32,7 +35,8 @@ namespace WebAppAPI.Persistence.Services
             ITokenHandler tokenHandler,
             SignInManager<U.AppUser> signInManager,
             IUserService userService,
-            IMailService mailService)
+            IMailService mailService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
@@ -41,10 +45,13 @@ namespace WebAppAPI.Persistence.Services
             _signInManager = signInManager;
             _userService = userService;
             _mailService = mailService;
+            _httpContextAccessor = httpContextAccessor;
+
+            refreshTokenExpirationTime = Convert.ToInt32(_configuration["TokenExpirations:RefreshToken"]);
         }
 
         #region Internal Login
-        public async Task<Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime)
+        public async Task<Token> LoginAsync(string usernameOrEmail, string password)
         {
             U.AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
             if (user == null)
@@ -53,15 +60,32 @@ namespace WebAppAPI.Persistence.Services
             if (user == null)
                 throw new NotFoundUserException();
 
+            if (await _userManager.IsLockedOutAsync(user))
+                throw new UserLockedOutException();
+
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded) // Authentication succeeded!
             {
-                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
-                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 5 * 60);
+                await _userManager.ResetAccessFailedCountAsync(user);
+
+                Token token = _tokenHandler.CreateAccessToken(user);
+                string refreshToken = _tokenHandler.CreateRefreshToken();
+                await _userService.UpdateRefreshTokenAsync(user, refreshToken, refreshTokenExpirationTime);
+
+                // Access token'ı HttpOnly cookie olarak gönderiyoruz
+                SetHttpOnlyAccessTokenCookie(token);
 
                 return token;
             }
-            throw new AuthenticationFailedException();
+            else if (result.IsLockedOut)
+            {
+                throw new UserLockedOutException();
+            }
+            else
+            {
+                await _userManager.AccessFailedAsync(user);
+                throw new AuthenticationFailedException();
+            }
         }
         #endregion
 
@@ -121,6 +145,50 @@ namespace WebAppAPI.Persistence.Services
         }
         #endregion
 
+        #region IdentityCheck
+        public Task<IdentityCheckDto> IdentityCheckAsync()
+        {
+            var user = _httpContextAccessor.HttpContext?.User;
+
+            if (user == null)
+                throw new NotFoundUserException();
+
+            if (user.Identity == null)
+                throw new NotFoundUserException();
+
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Task.FromResult(new IdentityCheckDto
+                {
+                    IsAuthenticated = false,
+                    Username = null,
+                    Expiration = DateTime.MinValue,
+                    RefreshBeforeTime = null
+                });
+            }
+            var username = user.Identity.Name;
+
+            var expirationClaim = user.Claims.FirstOrDefault(c => c.Type == "exp")?.Value;
+            DateTime expirationDate = DateTime.MinValue;
+
+            if (expirationClaim != null && long.TryParse(expirationClaim, out var expUnix))
+            {
+                // Unix timestamp'tan DateTime'a çevir
+                expirationDate = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
+            }
+
+            string refreshBeforeTime = _configuration["TokenExpirations:RefreshBeforeTime"];
+
+            return Task.FromResult(new IdentityCheckDto
+            {
+                IsAuthenticated = true,
+                Username = username,
+                Expiration = expirationDate,
+                RefreshBeforeTime = refreshBeforeTime
+            });
+        }
+        #endregion
+
         #region PasswordReset
         public async Task PasswordResetAsync(string email)
         {
@@ -155,6 +223,31 @@ namespace WebAppAPI.Persistence.Services
         }
         #endregion
 
+        public async Task LogoutAsync()
+        {
+            var accessToken = _httpContextAccessor.HttpContext?.Request.Cookies["accessToken"];
+            if (string.IsNullOrEmpty(accessToken))
+                throw new AuthenticationFailedException();
+
+            // Token süresi dolmuş olsa bile kullanıcı adını çıkaralım
+            var username = _tokenHandler.GetUsernameFromExpiredToken(accessToken);
+            if (string.IsNullOrEmpty(username))
+                throw new AuthenticationFailedException("User info could not be extracted from token.");
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            if (user == null)
+                throw new NotFoundUserException("User not found during logout.");
+
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("accessToken", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Path = "/"
+            });
+            await _userService.UpdateRefreshTokenAsync(user, null, 0, false, true);
+        }
+
         #region Helpers
         async Task<Token> CreateUserExternalAsync(U.AppUser user, ExternalLoginInfo externalLoginInfo, UserLoginInfo info, int accessTokenLifeTime)
         {
@@ -180,27 +273,57 @@ namespace WebAppAPI.Persistence.Services
 
             if (result)
             {
+                if (await _userManager.IsLockedOutAsync(user))
+                    throw new UserLockedOutException();
+
                 await _userManager.AddLoginAsync(user, info); //AspNetUserLogins                    
 
-                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
-                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 5 * 60);
+                Token token = _tokenHandler.CreateAccessToken(user);
+                string refreshToken = _tokenHandler.CreateRefreshToken();
+                await _userService.UpdateRefreshTokenAsync(user, refreshToken, refreshTokenExpirationTime);
+
+                // Access token'ı HttpOnly cookie olarak gönderiyoruz
+                SetHttpOnlyAccessTokenCookie(token);
 
                 return token;
             }
             throw new Exception("Invalid external authentication.");
         }
 
-        public async Task<Token> RefreshTokenLoginAsync(string refreshToken)
+        public async Task<Token> RefreshTokenLoginAsync()
         {
-            U.AppUser? user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+            var accessToken = _httpContextAccessor.HttpContext?.Request.Cookies["accessToken"];
+            if (string.IsNullOrEmpty(accessToken))
+                throw new AuthenticationFailedException();
+
+            var claimsPrincipal = await _tokenHandler.ValidateAccessTokenAsync(accessToken);
+            string username = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value;
+
+            U.AppUser? user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == username);
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {
-                Token token = _tokenHandler.CreateAccessToken(15 * 60, user);
-                await _userService.UpdateRefreshTokenAsync(refreshToken, user, token.Expiration, 5 * 60);
+                Token token = _tokenHandler.CreateAccessToken(user, true);
+                string newRefreshToken = _tokenHandler.CreateRefreshToken();
+                await _userService.UpdateRefreshTokenAsync(user, newRefreshToken, refreshTokenExpirationTime, true);
+                SetHttpOnlyAccessTokenCookie(token);
+
                 return token;
             }
             else
-                throw new NotFoundUserException();
+                throw new AuthenticationFailedException();
+        }
+
+        // Token'ı HttpOnly cookie olarak gönderme işlemi
+        private void SetHttpOnlyAccessTokenCookie(Token token)
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("accessToken", token.AccessToken, new CookieOptions
+            {
+                HttpOnly = true, // JavaScript erişimini engeller.
+                Secure = true, // Sadece HTTPS üzerinden gönderilir.
+                Expires = token.Expiration, // Token'ın geçerlilik süresi.
+                SameSite = SameSiteMode.Strict, // CSRF'yi engellemek için.
+                Path = "/" // Sadece ilgili path için geçerli olur.
+            });
         }
 
         class ExternalLoginInfo

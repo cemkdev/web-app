@@ -22,7 +22,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
 
-    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+    return this.httpClient.get<T>(url, {
+      headers: requestParameter.headers,
+      withCredentials: requestParameter.withCredentials ?? true
+    });
   }
 
   // POST
@@ -34,7 +37,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
 
-    return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
+    return this.httpClient.post<T>(url, body, {
+      headers: requestParameter.headers,
+      withCredentials: requestParameter.withCredentials ?? true
+    });
   }
 
   // PUT
@@ -46,7 +52,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
 
-    return this.httpClient.put<T>(url, body, { headers: requestParameter.headers });
+    return this.httpClient.put<T>(url, body, {
+      headers: requestParameter.headers,
+      withCredentials: requestParameter.withCredentials ?? true
+    });
   }
 
   // DELETE
@@ -58,7 +67,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}/${id}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`; // ID will definitely come, no need for any checks.
 
-    return this.httpClient.delete<T>(url, { headers: requestParameter.headers });
+    return this.httpClient.delete<T>(url, {
+      headers: requestParameter.headers,
+      withCredentials: requestParameter.withCredentials ?? true
+    });
   }
 
   // DELETE RANGE - POST
@@ -70,7 +82,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
 
-    return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
+    return this.httpClient.post<T>(url, body, {
+      headers: requestParameter.headers,
+      withCredentials: requestParameter.withCredentials ?? true
+    });
   }
 }
 
@@ -81,4 +96,5 @@ export class RequestParameters {
   headers?: HttpHeaders;
   baseUrl?: string;
   fullEndPoint?: string;
+  withCredentials?: boolean;
 }

@@ -22,6 +22,27 @@ using WebAppAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region variables
+var tokenValidationParameters = new TokenValidationParameters
+{
+    ValidateAudience = true, // Oluşturulacak token değerini kimlerin/hangi originlerin/sitelerin kullanacağını belirlediğimiz değerdir. -> www.xyz.com
+    ValidateIssuer = true, // Oluşturulacak token değerini kimin dağıttını ifade edeceğimiz alandır. -> www.myapi.com
+    ValidateLifetime = true, // Oluşturulan token değerinin süresini kontrol edecek olan doğrulamadır.
+    ValidateIssuerSigningKey = true, // Üretilecek token değerinin, uygulamamıza ait bir değer olduğunu ifade eden security key verisinin doğrulanmasıdır.
+
+    ValidAudience = builder.Configuration["Token:Audience"],
+    ValidIssuer = builder.Configuration["Token:Issuer"],
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+
+    // If you have 'token lifetime problem' try this.
+    //LifetimeValidator = (notBefore, expires, SecurityToken, validationParameters)
+    //        => expires != null ? expires > DateTime.UtcNow : false,
+    ClockSkew = TimeSpan.Zero,
+
+    NameClaimType = ClaimTypes.Name // JWT üzerinde Name claim'ine karşılık gelen değeri, bu ayarla, User.Identity.Name property'sinden elde edebiliriz.
+};
+#endregion
+
 #region Services
 builder.Services.AddHttpContextAccessor(); // Client'tan gelen request neticesinde oluşturulan HttpContext nesnesine, katmanlardaki class'lar üzerinden(bussiness logic'ten) erişebilmemizi sağlayan bir servistir.
 
@@ -69,10 +90,12 @@ builder.Services.AddHttpLogging(logging =>
     logging.ResponseBodyLogLimit = 4096;
 });
 
+builder.Services.AddSingleton(tokenValidationParameters);
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
-    options.Filters.Add<RolePermissionFilter>();
+    //options.Filters.Add<RolePermissionFilter>();
 }).ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductCreateValidator>();
 
@@ -82,21 +105,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Admin", options =>
     {
-        options.TokenValidationParameters = new()
+        options.TokenValidationParameters = tokenValidationParameters;
+
+        options.Events = new JwtBearerEvents
         {
-            ValidateAudience = true, // Oluşturulacak token değerini kimlerin/hangi originlerin/sitelerin kullanacağını belirlediğimiz değerdir. -> www.xyz.com
-            ValidateIssuer = true, // Oluşturulacak token değerini kimin dağıttını ifade edeceğimiz alandır. -> www.myapi.com
-            ValidateLifetime = true, // Oluşturulan token değerinin süresini kontrol edecek olan doğrulamadır.
-            ValidateIssuerSigningKey = true, // Üretilecek token değerinin, uygulamamıza ait bir değer olduğunu ifade eden security key verisinin doğrulanmasıdır.
-
-            ValidAudience = builder.Configuration["Token:Audience"],
-            ValidIssuer = builder.Configuration["Token:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
-
-            // If you have 'token lifetime problem' try this.
-            LifetimeValidator = (notBefore, expires, SecurityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
-
-            NameClaimType = ClaimTypes.Name // JWT üzerinde Name claim'ine karşılık gelen değeri, bu ayarla, User.Identity.Name property'sinden elde edebiliriz.
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Cookies["accessToken"];
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
         };
     });
 #endregion

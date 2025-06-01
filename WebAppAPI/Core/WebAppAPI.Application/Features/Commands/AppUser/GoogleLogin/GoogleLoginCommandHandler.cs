@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using WebAppAPI.Application.Abstractions.Services.Authentications;
+using WebAppAPI.Application.Exceptions;
 
 namespace WebAppAPI.Application.Features.Commands.AppUser.GoogleLogin
 {
@@ -16,10 +17,9 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.GoogleLogin
         {
             var token = await _authService.GoogleLoginAsync(request.IdToken, 15 * 60);
 
-            return new()
-            {
-                Token = token
-            };
+            if (token == null)
+                throw new NotFoundUserException();
+            return new();
         }
     }
 }

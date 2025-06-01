@@ -4,7 +4,6 @@
     {
         public NotFoundUserException() : base("Incorrect username or password.")
         {
-
         }
 
         public NotFoundUserException(string? message) : base(message)

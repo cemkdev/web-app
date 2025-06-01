@@ -7,7 +7,7 @@ namespace WebAppAPI.Application.Abstractions.Services
     {
         Task<ListUserDto> GetAllUsersAsync(int page, int size);
         Task<CreateUserResponse> CreateAsync(CreateUser model);
-        Task UpdateRefreshTokenAsync(string refreshToken, I.AppUser user, DateTime accessTokenLifetime, int refreshTokenDurationExtension);
+        Task UpdateRefreshTokenAsync(I.AppUser user, string refreshToken, int refreshTokenExpiration, bool isFromRefreshToken = false, bool isLogout = false);
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
 
         /// <summary>

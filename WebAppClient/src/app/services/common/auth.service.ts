@@ -6,19 +6,25 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  constructor(private jwtHelper: JwtHelperService) { }
-
   identityCheck() {
-    const token: string = localStorage.getItem("accessToken");
-    let expired: boolean;
+    const expirationString = localStorage.getItem("accessTokenExpiration");
 
-    try {
-      expired = this.jwtHelper.isTokenExpired(token);
-    } catch (error) {
-      expired = true;
+    if (!expirationString) {
+      _isAuthenticated = false;
+      return;
     }
 
-    _isAuthenticated = token != null && !expired;
+    const expiration = new Date(expirationString);
+    const now = new Date();
+
+    // Token süresi geçmiş mi?
+    if (now >= expiration) {
+      _isAuthenticated = false;
+      return;
+    }
+
+    // Token client-side expired değil, isAuthenticated true yap
+    _isAuthenticated = true;
   }
 
   get isAuthenticated(): boolean {

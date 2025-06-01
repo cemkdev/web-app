@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using WebAppAPI.Application.Abstractions.Services.Authentications;
+using WebAppAPI.Application.Exceptions;
 
 namespace WebAppAPI.Application.Features.Commands.AppUser.LoginUser
 {
@@ -14,12 +15,11 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.LoginUser
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
-            var token = await _authService.LoginAsync(request.UsernameOrEmail, request.Password, 15 * 60);
+            var token = await _authService.LoginAsync(request.UsernameOrEmail, request.Password);
 
-            return new LoginUserSuccessCommandResponse
-            {
-                Token = token
-            };
+            if (token == null)
+                throw new NotFoundUserException();
+            return new();
         }
     }
 }

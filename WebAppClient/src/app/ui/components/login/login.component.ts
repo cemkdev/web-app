@@ -89,7 +89,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       this.activatedRoute.queryParams.subscribe(params => {
         const returnUrl: string = params["returnUrl"];
-        debugger
+
         if (returnUrl != null)
           this.router.navigate([returnUrl]);
         else

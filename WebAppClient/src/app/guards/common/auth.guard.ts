@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../../base/base.component';
 import { _isAuthenticated, AuthService } from '../../services/common/auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = async (route, state) => {
 
   const router: Router = inject(Router);
   const toastrService: CustomToastrService = inject(CustomToastrService);
@@ -16,9 +16,18 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   authService.identityCheck();
 
-  // => "!{variable}"" (JS) => "{variable} == null" (C#/Java)
   if (!_isAuthenticated) {
-    router.navigate(["login"], { queryParams: { returnUrl: state.url } });
+
+    const url = router.url;
+    const forbiddenPaths = ['/admin'];
+    const isForbidden = forbiddenPaths.some(path => url.startsWith(path));
+    if (isForbidden) {
+      router.navigate(['/login'], {
+        queryParams: { returnUrl: url }
+      });
+    }
+    else
+      router.navigate([url]);
 
     toastrService.message("Please log in to continue.", "Unauthorized Access!", {
       messageType: ToastrMessageType.Warning,

@@ -1,12 +1,14 @@
 import { Component, inject, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from './services/common/auth.service';
 import { BaseComponent, SpinnerType } from './base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ComponentName, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
 import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
+import { UserAuthService } from './services/common/models/user-auth.service';
+import { SilentRefreshService } from './services/common/silent-refresh.service';
 
 @Component({
   selector: 'app-root',
@@ -29,13 +31,15 @@ export class AppComponent extends BaseComponent {
   constructor(
     private router: Router,
     public authService: AuthService,
+    private userAuthService: UserAuthService,
     spinner: NgxSpinnerService,
     private toastrService: CustomToastrService,
-    private activatedRoute: ActivatedRoute,
-    private dynamicLoadComponentService: DynamicLoadComponentService
+    private dynamicLoadComponentService: DynamicLoadComponentService,
+    private silentRefreshService: SilentRefreshService
   ) {
     super(spinner);
     authService.identityCheck();
+    silentRefreshService.start();
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -50,15 +54,29 @@ export class AppComponent extends BaseComponent {
   logOut() {
     this.showSpinner(SpinnerType.BallAtom);
 
-    localStorage.removeItem("accessToken");
-    this.authService.identityCheck();
-    this.router.navigate([""]);
+    this.userAuthService.logout((res) => {
 
-    this.hideSpinner(SpinnerType.BallAtom);
+      const url = this.router.url;
+      const forbiddenPaths = ['/admin'];
+      const isForbidden = forbiddenPaths.some(path => url.startsWith(path));
+      if (isForbidden) {
+        this.router.navigate(['/login'], {
+          queryParams: { returnUrl: url }
+        });
+      }
+      else
+        this.router.navigate([url]);
 
-    this.toastrService.message("Session closed.", "Logged Out", {
-      messageType: ToastrMessageType.Info,
-      position: ToastrPosition.TopRight
+      this.hideSpinner(SpinnerType.BallAtom);
+
+      this.toastrService.message(
+        "Session closed.",
+        res?.message || "Logged Out",
+        {
+          messageType: ToastrMessageType.Info,
+          position: ToastrPosition.TopRight
+        }
+      );
     });
   }
 

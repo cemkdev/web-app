@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.DTOs;
+using WebAppAPI.Application.Exceptions;
 
 namespace WebAppAPI.Application.Features.Commands.AppUser.RefreshTokenLogin
 {
@@ -15,12 +16,11 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.RefreshTokenLogin
 
         public async Task<RefreshTokenLoginCommandResponse> Handle(RefreshTokenLoginCommandRequest request, CancellationToken cancellationToken)
         {
-            Token token = await _authService.RefreshTokenLoginAsync(request.RefreshToken);
+            Token token = await _authService.RefreshTokenLoginAsync();
 
-            return new()
-            {
-                Token = token
-            };
+            if (token == null)
+                throw new NotFoundUserException();
+            return new();
         }
     }
 }
