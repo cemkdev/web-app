@@ -126,29 +126,18 @@
                           </button>
                         </div>
                         <div
+                          id="google-button"
                           class="col-6 google"
                           style="padding: 0 !important; margin: 0 !important"
                         >
                           <!-- Google Button -->
                           <asl-google-signin-button
-                            id="google-signin-btn"
                             type="icon"
                             shape="rectangular"
                             size="large"
                           >
                           </asl-google-signin-button>
                         </div>
-
-                        <!-- Hidden Google Button -->
-                        <button
-                          id="google-signin-custom-btn"
-                          type="button"
-                          class="btn btn-outline-secondary social-media-btn google-icon"
-                          (click)="handleGoogleLogin()"
-                          style="display: none"
-                        >
-                          <i class="bi bi-google"></i>
-                        </button>
                       </div>
                       <div
                         class="d-flex align-items-center justify-content-center pb-4"

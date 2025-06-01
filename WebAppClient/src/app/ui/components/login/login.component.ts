@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent, SpinnerType } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../services/common/auth.service';
@@ -15,7 +15,7 @@ import { UserAuthService } from '../../../services/common/models/user-auth.servi
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class LoginComponent extends BaseComponent implements OnInit {
 
   user: Promise<SocialUser>;
 
@@ -43,39 +43,8 @@ export class LoginComponent extends BaseComponent implements OnInit, AfterViewIn
       usernameOrEmail: [""],
       password: [""]
     });
-  }
-  ngAfterViewInit(): void {
-    // Keep the Google button ready...
-    const googleSigninCustomButton = document.getElementById('google-signin-custom-btn') as HTMLElement;
-    googleSigninCustomButton.click();
-  }
 
-  passwordVisible = false;
-
-  togglePasswordVisibility(): void {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  async onSubmit(user: UserLogin) {
-    this.showSpinner(SpinnerType.BallAtom);
-
-    await this.userAuthService.login(user.usernameOrEmail, user.password, () => {
-      this.authService.identityCheck();
-
-      this.activatedRoute.queryParams.subscribe(params => {
-        const returnUrl: string = params["returnUrl"];
-
-        if (returnUrl != null)
-          this.router.navigate([returnUrl]);
-        else
-          this.router.navigate(["home"]);
-      });
-      this.hideSpinner(SpinnerType.BallAtom);
-    });
-  }
-
-  // Google Login
-  handleGoogleLogin() {
+    // Google Login
     this.user = this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(async (user) => {
       if (user) {
@@ -93,6 +62,31 @@ export class LoginComponent extends BaseComponent implements OnInit, AfterViewIn
           this.hideSpinner(SpinnerType.BallAtom);
         });
       }
+    });
+  }
+
+  passwordVisible = false;
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  // Internal Login
+  async onSubmit(user: UserLogin) {
+    this.showSpinner(SpinnerType.BallAtom);
+
+    await this.userAuthService.login(user.usernameOrEmail, user.password, () => {
+      this.authService.identityCheck();
+
+      this.activatedRoute.queryParams.subscribe(params => {
+        const returnUrl: string = params["returnUrl"];
+
+        if (returnUrl != null)
+          this.router.navigate([returnUrl]);
+        else
+          this.router.navigate(["home"]);
+      });
+      this.hideSpinner(SpinnerType.BallAtom);
     });
   }
 

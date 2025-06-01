@@ -3,7 +3,7 @@ import { HttpClientService } from '../http-client.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { firstValueFrom, Observable } from 'rxjs';
 import { TokenResponse } from '../../../contracts/token/tokenResponse';
-import { SocialUser } from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { IdentityCheck } from '../../../contracts/auth/identity_check';
 import { SilentRefreshService } from '../silent-refresh.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,8 @@ export class UserAuthService {
     private toastrService: CustomToastrService,
     private silentRefreshService: SilentRefreshService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private socialAuthService: SocialAuthService
   ) {
     this.silentRefreshService.refreshNeeded$.subscribe(() => {
       this.refreshTokenLogin();
@@ -260,14 +261,32 @@ export class UserAuthService {
     }, {});
 
     return firstValueFrom(observable)
-      .then(response => {
+      .then(async response => {
         this.silentRefreshService.stop();
         localStorage.removeItem("accessTokenExpiration");
+
+        try {
+          await this.socialAuthService.signOut();
+        } catch (error) {
+          if (error !== "Not logged in" && !(error && error.message === "Not logged in")) {
+            throw error;
+          }
+        }
+
         this.authService.identityCheck();
         callback?.(response);
       })
-      .catch(error => {
+      .catch(async error => {
         console.error("Logout failed:", error);
+
+        try {
+          await this.socialAuthService.signOut();
+        } catch (error) {
+          if (error !== "Not logged in" && !(error && error.message === "Not logged in")) {
+            throw error;
+          }
+        }
+
         callback?.();
       });
   }
