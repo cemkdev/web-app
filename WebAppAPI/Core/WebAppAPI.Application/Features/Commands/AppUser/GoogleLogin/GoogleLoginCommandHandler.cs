@@ -15,7 +15,7 @@ namespace WebAppAPI.Application.Features.Commands.AppUser.GoogleLogin
 
         public async Task<GoogleLoginCommandResponse> Handle(GoogleLoginCommandRequest request, CancellationToken cancellationToken)
         {
-            var token = await _authService.GoogleLoginAsync(request.IdToken, 15 * 60);
+            var token = await _authService.GoogleLoginAsync(request.IdToken);
 
             if (token == null)
                 throw new NotFoundUserException();

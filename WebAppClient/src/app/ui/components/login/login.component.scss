@@ -133,6 +133,15 @@
     white-space: pre-line;
 }
 
+.social-media-button-section {
+    .facebook {
+        text-align: right;
+    }
+    .google {
+        text-align: left;
+    }
+}
+
 :host ::ng-deep {
     html.dark & {
         $form-floating-label-disabled-color: var(--gray-600);

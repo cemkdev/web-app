@@ -17,13 +17,11 @@ export class AuthService {
     const expiration = new Date(expirationString);
     const now = new Date();
 
-    // Token süresi geçmiş mi?
     if (now >= expiration) {
       _isAuthenticated = false;
       return;
     }
 
-    // Token client-side expired değil, isAuthenticated true yap
     _isAuthenticated = true;
   }
 

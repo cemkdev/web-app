@@ -35,9 +35,8 @@ export class UserAuthService {
       action: "login"
     }, { usernameOrEmail, password });
 
-    await firstValueFrom(observable); // Response body zaten boş, önemli değil
+    await firstValueFrom(observable);
 
-    // Ardından kimlik doğrulama kontrolü yapılır
     await this.identityCheck(state => {
       if (state.isAuthenticated) {
         this.toastrService.message("You have successfully logged in.", "Welcome Back!", {
@@ -45,7 +44,6 @@ export class UserAuthService {
           position: ToastrPosition.TopRight
         });
 
-        // Expiration'ı localStorage'a yaz
         if (state.expiration)
           localStorage.setItem("accessTokenExpiration", state.expiration.toString());
         if (state.refreshBeforeTime)
@@ -70,9 +68,6 @@ export class UserAuthService {
               this.router.navigate([url]);
           }, remainingTime);
         }
-
-        console.log("============>> New Access Token Time: " + new Date(localStorage.getItem("accessTokenExpiration")));
-
       } else {
         this.toastrService.message("Login failed due to invalid token.", "Login Failed!", {
           messageType: ToastrMessageType.Error,
@@ -119,10 +114,8 @@ export class UserAuthService {
 
       await firstValueFrom(observable);
 
-      // Ardından identity kontrolü yapalım
       await this.identityCheck(state => {
         if (state.isAuthenticated) {
-          // Yeni expiration bilgisi varsa sakla
           if (state.expiration)
             localStorage.setItem("accessTokenExpiration", state.expiration.toString());
 
@@ -130,13 +123,10 @@ export class UserAuthService {
           const refreshBeforeMs = parseInt(state.refreshBeforeTime) * 1000;
 
           if (remainingTime > refreshBeforeMs) {
-            // Normal akış, silent refresh yapılabilir
             this.silentRefreshService.start();
           } else {
-            // Token süresi kısa, silent refresh yapılmaz
             console.warn("Silent refresh skipped, last token in use.");
 
-            // Süre sonunda logout yapılacak
             setTimeout(() => {
               this.logout(() => {
                 const url = this.router.url;
@@ -150,10 +140,8 @@ export class UserAuthService {
                 else
                   this.router.navigate([url]);
               });
-            }, remainingTime); // Token'ın süresi kadar bekle
+            }, remainingTime);
           }
-
-          console.log("============>> New Access Token Time: " + new Date(localStorage.getItem("accessTokenExpiration")));
 
           callBackFunction?.(true);
         } else {

@@ -2,8 +2,10 @@
     // Custom Icon Buttons
     .social-media-btn {
         color: var(--light-text);
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        margin-right: 5px !important;
         &:hover {
-            background-color: rgba(255, 255, 255, 0.2) !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
             transition: none !important;
         }
 

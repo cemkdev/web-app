@@ -1,171 +1,315 @@
 <section class="gradient-form login-section">
-    <button class="btn btn-light back-home" (click)="goBack()"><i class="bi bi-arrow-left-square-fill"></i>Go
-        Back</button>
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-                <div class="card rounded-3 text-black">
-                    <div class="row g-0">
-                        <div class="col-lg-4 d-flex align-items-center gradient-custom-2 left-side">
-                            <div class="text-white px-3 py-4 p-md-4 mx-md-3">
-                                <div class="row top mb-4">
-                                    <div class="text-center">
-                                        <a href="/"><img src="login-register-logo/web-app-logo-white.png"
-                                                alt="web-app-icon" class="logo-icon-bs"></a>
-                                    </div>
-                                </div>
-
-                                <br class="vertical-space">
-                                <br class="vertical-space">
-                                <br class="vertical-space">
-
-                                <div class="row bottom">
-                                    <h4 class="mb-4">Create Account</h4>
-                                    <p class="small mb-0">
-                                        Sign up to join WEB-APP and manage your personal settings and content.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card-body p-md-4 mx-md-5">
-                                <!-- REACTIVE FORM -->
-                                <form class="form-floating login-form" [formGroup]="form"
-                                    (ngSubmit)="onSubmit(form.value)">
-                                    <p class="title mt-4">Please enter your informations.</p>
-                                    <div class="row g-2 mb-3">
-                                        <!-- First Name -->
-                                        <div class="input-group has-validation name-input col-md me-1">
-                                            <div class="form-floating is-invalid">
-                                                <input type="text" class="form-control" id="floatingInputFirstName"
-                                                    placeholder="First Name" formControlName="firstName"
-                                                    [ngClass]="{'is-invalid': component.firstName.errors && (submitted || component.firstName.touched)}">
-                                                <label for="floatingInputFirstName">First Name</label>
-                                            </div>
-                                            <div class="invalid-feedback"
-                                                *ngIf="component.firstName.errors && (submitted || component.firstName.touched)">
-                                                {{ getErrorMessage('firstName') }}
-                                            </div>
-                                        </div>
-                                        <!-- Last Name -->
-                                        <div class="input-group has-validation col-md">
-                                            <div class="form-floating is-invalid">
-                                                <input type="text" class="form-control" id="floatingInputLastName"
-                                                    placeholder="Last Name" formControlName="lastName"
-                                                    [ngClass]="{'is-invalid': component.lastName.errors && (submitted || component.lastName.touched)}">
-                                                <label for="floatingInputLastName">Last Name</label>
-                                            </div>
-                                            <div class="invalid-feedback"
-                                                *ngIf="component.lastName.errors && (submitted || component.lastName.touched)">
-                                                {{ getErrorMessage('lastName') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Username -->
-                                    <div class="input-group has-validation mb-3">
-                                        <div class="form-floating is-invalid">
-                                            <input type="text" class="form-control" id="floatingInputUsername"
-                                                placeholder="Username" formControlName="username"
-                                                [ngClass]="{'is-invalid': component.username.errors && (submitted || component.username.touched)}">
-                                            <label for="floatingInputUsername">Username</label>
-                                        </div>
-                                        <div class="invalid-feedback"
-                                            *ngIf="component.username.errors && (submitted || component.username.touched)">
-                                            {{ getErrorMessage('username') }}
-                                        </div>
-                                    </div>
-                                    <!-- Email -->
-                                    <div class="input-group has-validation mb-3">
-                                        <div class="form-floating is-invalid">
-                                            <input type="email" class="form-control" id="floatingInputEmail"
-                                                placeholder="name@example.com" formControlName="email"
-                                                [ngClass]="{'is-invalid': component.email.errors && (submitted || component.email.touched)}">
-                                            <label for="floatingInputEmail">Email address</label>
-                                        </div>
-                                        <div class="invalid-feedback"
-                                            *ngIf="component.email.errors && (submitted || component.email.touched)">
-                                            {{ getErrorMessage('email') }}
-                                        </div>
-                                    </div>
-                                    <!-- Phone Number -->
-                                    <div class="input-group has-validation mb-3">
-                                        <div class="form-floating is-invalid">
-                                            <input type="text" class="form-control" id="floatingInputPhoneNumber"
-                                                [mask]="'(000) 000-00-00'" [dropSpecialCharacters]="true"
-                                                [prefix]="'+90 '" [showMaskTyped]="phoneNumberTyped"
-                                                [instantPrefix]="false" placeholder="Phone Number"
-                                                formControlName="phoneNumber"
-                                                [ngClass]="{'is-invalid': component.phoneNumber.errors && (submitted || component.phoneNumber.touched)}"
-                                                (focus)="onPhoneNumberFocus()" (blur)="onPhoneNumberBlur($event)">
-                                            <label for="floatingInputPhoneNumber">Phone Number</label>
-                                        </div>
-                                        <div class="invalid-feedback"
-                                            *ngIf="component.phoneNumber.errors && (submitted || component.phoneNumber.touched)">
-                                            {{ getErrorMessage('phoneNumber') }}
-                                        </div>
-                                    </div>
-                                    <!-- Password -->
-                                    <div class="input-group has-validation mb-3">
-                                        <div class="form-floating is-invalid">
-                                            <input type="password" class="form-control" id="floatingPassword"
-                                                placeholder="Password" formControlName="password"
-                                                [ngClass]="{'is-invalid': component.password.errors && (submitted || component.password.touched)}"
-                                                [type]="passwordVisible ? 'text' : 'password'">
-                                            <label for="floatingPassword">Password</label>
-                                        </div>
-                                        <button class="input-group-text" type="button" tabindex="-1"
-                                            (click)="togglePasswordVisibility()">
-                                            <i class="bi"
-                                                [ngClass]="passwordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
-                                        </button>
-                                        <div class="invalid-feedback"
-                                            *ngIf="component.password.errors && (submitted || component.password.touched)">
-                                            {{ getErrorMessage('password') }}
-                                        </div>
-                                    </div>
-                                    <!-- Confirm Password -->
-                                    <div class="input-group has-validation">
-                                        <div class="form-floating is-invalid">
-                                            <input type="password" class="form-control" id="floatingConfirmPassword"
-                                                placeholder="Confirm Password" formControlName="confirmPassword"
-                                                [ngClass]="{'is-invalid': (component.confirmPassword.errors || form.hasError('notSame')) && (submitted || component.confirmPassword.touched)}"
-                                                [type]="confirmPasswordVisible ? 'text' : 'password'">
-                                            <label for="floatingConfirmPassword">Confirm Password</label>
-                                        </div>
-                                        <button class="input-group-text" type="button" tabindex="-1"
-                                            (click)="toggleConfirmPasswordVisibility()">
-                                            <i class="bi"
-                                                [ngClass]="confirmPasswordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
-                                        </button>
-                                        <div class="invalid-feedback"
-                                            *ngIf="(component.confirmPassword.errors || form.hasError('notSame')) && (submitted || component.confirmPassword.touched)">
-                                            {{ getErrorMessage('confirmPassword') }}
-                                        </div>
-                                    </div>
-
-                                    <!-- Submit -->
-                                    <div class="text-center pt-3 pb-4">
-                                        <button data-mdb-button-init data-mdb-ripple-init
-                                            class="btn custom-login px-3 mx-md-4" type="submit">
-                                            <i class="bi bi-person-plus-fill"></i>Sign Up
-                                        </button>
-                                    </div>
-
-                                    <!-- Social Media Registrations -->
-                                    <div class="text-center">
-                                        <button class="btn btn-outline-secondary social-media-btn facebook-icon">
-                                            <i class="bi bi-facebook"></i>
-                                        </button>
-                                        <button class="btn btn-outline-secondary social-media-btn google-icon">
-                                            <i class="bi bi-google"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+  <button class="btn btn-light back-home" (click)="goBack()">
+    <i class="bi bi-arrow-left-square-fill"></i>Go Back
+  </button>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div
+              class="col-lg-4 d-flex align-items-center gradient-custom-2 left-side"
+            >
+              <div class="text-white px-3 py-4 p-md-4 mx-md-3">
+                <div class="row top mb-4">
+                  <div class="text-center">
+                    <a href="/"
+                      ><img
+                        src="login-register-logo/web-app-logo-white.png"
+                        alt="web-app-icon"
+                        class="logo-icon-bs"
+                    /></a>
+                  </div>
                 </div>
+
+                <br class="vertical-space" />
+                <br class="vertical-space" />
+                <br class="vertical-space" />
+
+                <div class="row bottom">
+                  <h4 class="mb-4">Create Account</h4>
+                  <p class="small mb-0">
+                    Sign up to join WEB-APP and manage your personal settings
+                    and content.
+                  </p>
+                </div>
+              </div>
             </div>
+            <div class="col-lg-8">
+              <div class="card-body p-md-4 mx-md-5">
+                <!-- REACTIVE FORM -->
+                <form
+                  class="form-floating login-form"
+                  [formGroup]="form"
+                  (ngSubmit)="onSubmit(form.value)"
+                >
+                  <p class="title mt-4">Please enter your informations.</p>
+                  <div class="row g-2 mb-3">
+                    <!-- First Name -->
+                    <div
+                      class="input-group has-validation name-input col-md me-1"
+                    >
+                      <div class="form-floating is-invalid">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="floatingInputFirstName"
+                          placeholder="First Name"
+                          formControlName="firstName"
+                          [ngClass]="{
+                            'is-invalid':
+                              component.firstName.errors &&
+                              (submitted || component.firstName.touched)
+                          }"
+                        />
+                        <label for="floatingInputFirstName">First Name</label>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="
+                          component.firstName.errors &&
+                          (submitted || component.firstName.touched)
+                        "
+                      >
+                        {{ getErrorMessage("firstName") }}
+                      </div>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="input-group has-validation col-md">
+                      <div class="form-floating is-invalid">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="floatingInputLastName"
+                          placeholder="Last Name"
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid':
+                              component.lastName.errors &&
+                              (submitted || component.lastName.touched)
+                          }"
+                        />
+                        <label for="floatingInputLastName">Last Name</label>
+                      </div>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="
+                          component.lastName.errors &&
+                          (submitted || component.lastName.touched)
+                        "
+                      >
+                        {{ getErrorMessage("lastName") }}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Username -->
+                  <div class="input-group has-validation mb-3">
+                    <div class="form-floating is-invalid">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInputUsername"
+                        placeholder="Username"
+                        formControlName="username"
+                        [ngClass]="{
+                          'is-invalid':
+                            component.username.errors &&
+                            (submitted || component.username.touched)
+                        }"
+                      />
+                      <label for="floatingInputUsername">Username</label>
+                    </div>
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        component.username.errors &&
+                        (submitted || component.username.touched)
+                      "
+                    >
+                      {{ getErrorMessage("username") }}
+                    </div>
+                  </div>
+                  <!-- Email -->
+                  <div class="input-group has-validation mb-3">
+                    <div class="form-floating is-invalid">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="floatingInputEmail"
+                        placeholder="name@example.com"
+                        formControlName="email"
+                        [ngClass]="{
+                          'is-invalid':
+                            component.email.errors &&
+                            (submitted || component.email.touched)
+                        }"
+                      />
+                      <label for="floatingInputEmail">Email address</label>
+                    </div>
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        component.email.errors &&
+                        (submitted || component.email.touched)
+                      "
+                    >
+                      {{ getErrorMessage("email") }}
+                    </div>
+                  </div>
+                  <!-- Phone Number -->
+                  <div class="input-group has-validation mb-3">
+                    <div class="form-floating is-invalid">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInputPhoneNumber"
+                        [mask]="'(000) 000-00-00'"
+                        [dropSpecialCharacters]="true"
+                        [prefix]="'+90 '"
+                        [showMaskTyped]="phoneNumberTyped"
+                        [instantPrefix]="false"
+                        placeholder="Phone Number"
+                        formControlName="phoneNumber"
+                        [ngClass]="{
+                          'is-invalid':
+                            component.phoneNumber.errors &&
+                            (submitted || component.phoneNumber.touched)
+                        }"
+                        (focus)="onPhoneNumberFocus()"
+                        (blur)="onPhoneNumberBlur($event)"
+                      />
+                      <label for="floatingInputPhoneNumber">Phone Number</label>
+                    </div>
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        component.phoneNumber.errors &&
+                        (submitted || component.phoneNumber.touched)
+                      "
+                    >
+                      {{ getErrorMessage("phoneNumber") }}
+                    </div>
+                  </div>
+                  <!-- Password -->
+                  <div class="input-group has-validation mb-3">
+                    <div class="form-floating is-invalid">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="floatingPassword"
+                        placeholder="Password"
+                        formControlName="password"
+                        [ngClass]="{
+                          'is-invalid':
+                            component.password.errors &&
+                            (submitted || component.password.touched)
+                        }"
+                        [type]="passwordVisible ? 'text' : 'password'"
+                      />
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                    <button
+                      class="input-group-text"
+                      type="button"
+                      tabindex="-1"
+                      (click)="togglePasswordVisibility()"
+                    >
+                      <i
+                        class="bi"
+                        [ngClass]="
+                          passwordVisible ? 'bi-eye-slash-fill' : 'bi-eye-fill'
+                        "
+                      ></i>
+                    </button>
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        component.password.errors &&
+                        (submitted || component.password.touched)
+                      "
+                    >
+                      {{ getErrorMessage("password") }}
+                    </div>
+                  </div>
+                  <!-- Confirm Password -->
+                  <div class="input-group has-validation">
+                    <div class="form-floating is-invalid">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="floatingConfirmPassword"
+                        placeholder="Confirm Password"
+                        formControlName="confirmPassword"
+                        [ngClass]="{
+                          'is-invalid':
+                            (component.confirmPassword.errors ||
+                              form.hasError('notSame')) &&
+                            (submitted || component.confirmPassword.touched)
+                        }"
+                        [type]="confirmPasswordVisible ? 'text' : 'password'"
+                      />
+                      <label for="floatingConfirmPassword"
+                        >Confirm Password</label
+                      >
+                    </div>
+                    <button
+                      class="input-group-text"
+                      type="button"
+                      tabindex="-1"
+                      (click)="toggleConfirmPasswordVisibility()"
+                    >
+                      <i
+                        class="bi"
+                        [ngClass]="
+                          confirmPasswordVisible
+                            ? 'bi-eye-slash-fill'
+                            : 'bi-eye-fill'
+                        "
+                      ></i>
+                    </button>
+                    <div
+                      class="invalid-feedback"
+                      *ngIf="
+                        (component.confirmPassword.errors ||
+                          form.hasError('notSame')) &&
+                        (submitted || component.confirmPassword.touched)
+                      "
+                    >
+                      {{ getErrorMessage("confirmPassword") }}
+                    </div>
+                  </div>
+
+                  <!-- Submit -->
+                  <div class="text-center pt-3 pb-4">
+                    <button
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn custom-login px-3 mx-md-4"
+                      type="submit"
+                    >
+                      <i class="bi bi-person-plus-fill"></i>Sign Up
+                    </button>
+                  </div>
+
+                  <!-- Social Media Registrations -->
+                  <div class="text-center">
+                    <button
+                      type="button"
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn custom-signup"
+                      [routerLink]="'/login'"
+                      routerLinkActive="active"
+                    >
+                      Continue with your social media account +
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

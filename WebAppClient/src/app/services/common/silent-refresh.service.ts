@@ -11,7 +11,6 @@ export class SilentRefreshService {
   private timerSubscription: Subscription | null = null;
   private authService: AuthService = inject(AuthService);
 
-  // Diğer servislerde subscribe olunacak Observable
   get refreshNeeded$() {
     return this.refreshNeeded.asObservable();
   }
@@ -19,7 +18,7 @@ export class SilentRefreshService {
   start() {
     this.authService.identityCheck();
     if (!_isAuthenticated) return;
-    this.stop(); // varsa eski timerı iptal et
+    this.stop();
 
     const refreshBeforeTime = parseInt(localStorage.getItem("refreshBeforeTime")) * 1000;
 

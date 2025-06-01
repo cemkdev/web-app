@@ -90,7 +90,7 @@ namespace WebAppAPI.Persistence.Services
         #endregion
 
         #region External Login
-        public async Task<Token> FacebookLoginAsync(string authToken, int accessTokenLifeTime)
+        public async Task<Token> FacebookLoginAsync(string authToken)
         {
             string accessTokenResponse = await _httpClient.GetStringAsync($"https://graph.facebook.com/oauth/access_token?client_id={_configuration["ExternalLoginSettings:Facebook:Client_ID"]}&client_secret={_configuration["ExternalLoginSettings:Facebook:Client_Secret"]}&grant_type=client_credentials");
 
@@ -116,12 +116,12 @@ namespace WebAppAPI.Persistence.Services
                 var info = new UserLoginInfo("FACEBOOK", validation.Data.UserId, "FACEBOOK");
                 U.AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
-                return await CreateUserExternalAsync(user, externalLoginInfo, info, accessTokenLifeTime);
+                return await CreateUserExternalAsync(user, externalLoginInfo, info);
             }
             throw new Exception("Invalid external authentication.");
         }
 
-        public async Task<Token> GoogleLoginAsync(string idToken, int accessTokenLifeTime)
+        public async Task<Token> GoogleLoginAsync(string idToken)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
@@ -141,7 +141,7 @@ namespace WebAppAPI.Persistence.Services
             var info = new UserLoginInfo("GOOGLE", payload.Subject, "GOOGLE");
             U.AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
-            return await CreateUserExternalAsync(user, externalLoginInfo, info, accessTokenLifeTime);
+            return await CreateUserExternalAsync(user, externalLoginInfo, info);
         }
         #endregion
 
@@ -249,7 +249,7 @@ namespace WebAppAPI.Persistence.Services
         }
 
         #region Helpers
-        async Task<Token> CreateUserExternalAsync(U.AppUser user, ExternalLoginInfo externalLoginInfo, UserLoginInfo info, int accessTokenLifeTime)
+        async Task<Token> CreateUserExternalAsync(U.AppUser user, ExternalLoginInfo externalLoginInfo, UserLoginInfo info)
         {
             bool result = user != null;
             if (user == null)
