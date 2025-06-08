@@ -19,7 +19,7 @@ declare var $: any;
   templateUrl: './role-management.component.html'
 })
 export class RoleManagementComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'index', 'name', 'edit', 'delete'];
+  displayedColumns: string[] = ['select', 'index', 'name', 'isAdmin', 'edit', 'delete'];
   dataSource: MatTableDataSource<List_Roles> = null;
   selection = new SelectionModel<List_Roles>(true, []);
   roleForm!: FormGroup;
@@ -49,6 +49,7 @@ export class RoleManagementComponent extends BaseComponent implements OnInit {
   initializeForm() {
     this.roleForm = this.fb.group({
       name: ['', Validators.required],
+      isAdmin: [false]
     });
   }
 

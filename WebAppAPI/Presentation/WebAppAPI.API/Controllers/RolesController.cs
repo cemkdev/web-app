@@ -10,12 +10,13 @@ using WebAppAPI.Application.Features.Commands.Role.DeleteRole;
 using WebAppAPI.Application.Features.Commands.Role.UpdateRole;
 using WebAppAPI.Application.Features.Queries.Role.GetRoleById;
 using WebAppAPI.Application.Features.Queries.Role.GetRoles;
+using WebAppAPI.Domain.Constants;
 
 namespace WebAppAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
     public class RolesController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -26,7 +27,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpGet("get-roles")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Get Roles", ActionType = ActionType.Read)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Get Roles", ActionType = ActionType.Read, AdminOnly = true)]
         public async Task<IActionResult> GetRoles([FromQuery] GetRolesQueryRequest getRolesQueryRequest)
         {
             List<GetRolesQueryResponse> response = await _mediator.Send(getRolesQueryRequest);
@@ -34,7 +35,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpGet("get-role-by-id/{id}")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Get Role By Id", ActionType = ActionType.Read)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Get Role By Id", ActionType = ActionType.Read, AdminOnly = true)]
         public async Task<IActionResult> GetRoleById([FromRoute] GetRoleByIdQueryRequest getRoleByIdQueryRequest)
         {
             GetRoleByIdQueryResponse response = await _mediator.Send(getRoleByIdQueryRequest);
@@ -42,7 +43,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost("create-role")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Create Role", ActionType = ActionType.Write)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Create Role", ActionType = ActionType.Write, AdminOnly = true)]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleCommandRequest createRoleCommandRequest)
         {
             CreateRoleCommandResponse response = await _mediator.Send(createRoleCommandRequest);
@@ -50,7 +51,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPut("update-role")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Update Role", ActionType = ActionType.Update)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Update Role", ActionType = ActionType.Update, AdminOnly = true)]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleCommandRequest updateRoleCommandRequest)
         {
             UpdateRoleCommandResponse response = await _mediator.Send(updateRoleCommandRequest);
@@ -58,7 +59,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Delete Role", ActionType = ActionType.Delete)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Delete Role", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> DeleteRole([FromRoute] DeleteRoleCommandRequest deleteRoleCommandRequest)
         {
             DeleteRoleCommandResponse response = await _mediator.Send(deleteRoleCommandRequest);
@@ -66,8 +67,7 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpPost("delete-range-role")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Delete Range of Role", ActionType = ActionType.Delete)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Roles, Definition = "Delete Range of Role", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> DeleteRange([FromBody] DeleteRangeCommandRequest deleteRangeCommandRequest)
         {
             DeleteRangeCommandResponse response = await _mediator.Send(deleteRangeCommandRequest);

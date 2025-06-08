@@ -14,6 +14,9 @@ import { UpdateProductDialogComponent } from '../../../../dialogs/product-dialog
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-dialog/delete-dialog.component';
+import { AuthorizeDefinitionConstants } from '../../../../constants/authorize-definition.constants';
+import { EndpointCodeConstants } from '../../../../constants/endpoint-code-constants';
+import { ElementAccessControlService } from '../../../../services/common/element-access-control.service';
 
 declare var $: any;
 
@@ -43,7 +46,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     spinner: NgxSpinnerService,
     private productService: ProductService,
     private alertifyService: AlertifyService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private elementAccessControlService: ElementAccessControlService
   ) {
     super(spinner);
   }
@@ -308,5 +312,12 @@ export class ListComponent extends BaseComponent implements OnInit {
         }
       }
     });
+  }
+
+  authorizeDefinitionConstants = AuthorizeDefinitionConstants;
+  endpointCodeConstants = EndpointCodeConstants;
+  // Html Item Has Permission Check
+  hasPermission(menuName: string, endpointCode: string): boolean {
+    return this.elementAccessControlService.hasPermission(menuName, endpointCode);
   }
 }

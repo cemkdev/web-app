@@ -31,7 +31,7 @@ export class AppComponent extends BaseComponent {
   constructor(
     private router: Router,
     public authService: AuthService,
-    private userAuthService: UserAuthService,
+    public userAuthService: UserAuthService,
     spinner: NgxSpinnerService,
     private toastrService: CustomToastrService,
     private dynamicLoadComponentService: DynamicLoadComponentService,

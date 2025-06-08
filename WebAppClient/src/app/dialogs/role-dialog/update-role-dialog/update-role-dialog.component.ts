@@ -45,7 +45,8 @@ export class UpdateRoleDialogComponent extends BaseDialog<UpdateRoleDialogCompon
 
   fillForm() {
     this.roleForm = this.fb.group({
-      name: [this.role.name, Validators.required]
+      name: [this.role.name, Validators.required],
+      isAdmin: [this.role.isAdmin]
     });
   }
 
@@ -68,7 +69,7 @@ export class UpdateRoleDialogComponent extends BaseDialog<UpdateRoleDialogCompon
   updateRole(): void {
     if (this.roleForm.valid) {
       this.spinner.show(SpinnerType.BallAtom);
-      debugger
+
       const formValue = this.roleForm.value;
       const update_role = new Update_Role();
       Object.assign(update_role, {

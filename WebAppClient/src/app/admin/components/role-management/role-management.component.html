@@ -26,6 +26,14 @@
               >Name is required.</mat-error
             >
           </mat-form-field>
+
+          <!-- Is Admin -->
+          <mat-checkbox formControlName="isAdmin" color="primary">
+            Is Admin Role?
+          </mat-checkbox>
+          <small class="text-muted">
+            If checked, this role will have access to admin panel endpoints.
+          </small>
         </div>
         <div class="form-submit">
           <button
@@ -118,9 +126,22 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <th mat-header-cell *matHeaderCellDef class="name">Name</th>
             <td mat-cell *matCellDef="let element" class="name">
               <span>{{ element.name }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Is Admin Column -->
+          <ng-container matColumnDef="isAdmin">
+            <th mat-header-cell *matHeaderCellDef>User Type</th>
+            <td mat-cell *matCellDef="let element" class="is-admin">
+              <span *ngIf="element.isAdmin" class="admin">
+                <mat-icon>admin_panel_settings</mat-icon> Admin
+              </span>
+              <span *ngIf="!element.isAdmin">
+                <mat-icon>person</mat-icon> User
+              </span>
             </td>
           </ng-container>
 

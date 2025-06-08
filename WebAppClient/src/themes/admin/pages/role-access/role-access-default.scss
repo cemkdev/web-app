@@ -5,10 +5,38 @@
     padding: 0;
     //padding-bottom: 50px;
     border-radius: 0.375rem;
-    width: 75%;
+    width: 80%;
     max-width: 1200px;
     margin: 0 auto;
     overflow-x: auto;
+    max-height: 100%;
+
+    /////////////////////////////////////////////////
+    ///////// SCROLLABLE TABLE ROW SECTION //////////
+    /////////////////////////////////////////////////
+    overflow-y: auto;
+    /* Scroll alanını ayır ama varsayılan olarak görünmez yap */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            transition: scrollbar-color 0.5s;
+        }
+    }
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    &:hover {
+        transition: scrollbar-color 0.5s;
+    }
 
     /////////////////////////////////////////////////
     /////////// TABLE HEADER ADJUSTMENTS ////////////
@@ -86,10 +114,10 @@
         border-collapse: collapse;
         table-layout: fixed;
 
-        thead {
+        thead tr {
             position: sticky !important;
             top: 0 !important;
-            z-index: 1 !important;
+            z-index: 2 !important;
         }
 
         ///////////////////////// th, td Adjustments - START /////////////////////
@@ -116,6 +144,14 @@
             padding-right: 0;
             margin: 0;
             button {
+                mat-icon.admin {
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    font-size: 20px;
+                    opacity: 0.9;
+                    margin-right: 5px;
+                }
                 font-weight: 600;
                 height: 20px;
                 min-width: 60px;
@@ -125,12 +161,13 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 background-color: transparent;
-                mat-icon {
+                mat-icon.close {
                     font-weight: 600;
                     display: flex;
-                    align-items: center;
+                    align-items: start;
+                    margin-left: 3px !important;
                     font-size: 14px;
-                    opacity: 0.6;
+                    opacity: 0.8;
                 }
             }
         }
@@ -174,17 +211,23 @@
                 text-overflow: ellipsis;
             }
         }
-
-        .http-type {
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-size: 11px;
-            margin-left: 8px;
-            opacity: 0.7;
-            font-weight: 600;
-            display: inline-block;
-            min-width: 40px;
-            text-align: center;
+        .td-endpoints {
+            position: relative;
+            .http-type,
+            .admin-only {
+                position: absolute;
+                right: 10px;
+                padding: 2px 5px;
+                border-radius: 4px;
+                font-size: 10px;
+                margin-left: 8px;
+                opacity: 0.7;
+                font-weight: 500;
+                display: inline-block;
+                min-width: 40px;
+                text-align: right;
+                vertical-align: middle;
+            }
         }
         ///////////////////////// td > Enpoints Adjustments - END /////////////////////
     }

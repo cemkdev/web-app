@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Middlewares\**" />
     <Compile Remove="wwwroot\**" />
-    <Content Remove="Middlewares\**" />
     <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="Middlewares\**" />
     <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="Middlewares\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 

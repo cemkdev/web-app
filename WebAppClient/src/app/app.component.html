@@ -92,14 +92,17 @@
         </li>
         <div
           class="custom-border-vertical"
-          *ngIf="authService.isAuthenticated"
+          *ngIf="authService.isAuthenticated && userAuthService.isAdmin"
         ></div>
         <div
           class="custom-border-horizontal"
-          *ngIf="authService.isAuthenticated"
+          *ngIf="authService.isAuthenticated && userAuthService.isAdmin"
         ></div>
         <!-- ADMIN PANEL -->
-        <li class="nav-item" *ngIf="authService.isAuthenticated">
+        <li
+          class="nav-item"
+          *ngIf="authService.isAuthenticated && userAuthService.isAdmin"
+        >
           <a
             class="nav-link"
             id="go-admin-panel"
@@ -118,6 +121,9 @@
                     data-bs-target="#exampleModal" [routerLink]="'basket'" routerLinkActive="active">
                     <i class="bi bi-cart-check"></i>
                 </a> -->
+        <span *ngIf="userAuthService.username" style="margin-right: 10px"
+          >Hoş geldin, {{ userAuthService.username }}</span
+        >
         <a
           class="btn btn-light"
           id="add-to-cart"
@@ -125,7 +131,7 @@
           data-bs-toggle="modal"
           data-bs-target="#basketModal"
           (click)="loadComponent()"
-          *ngIf="authService.isAuthenticated"
+          *ngIf="authService.isAuthenticated && userAuthService.isAdmin"
         >
           <i class="bi bi-cart-check"></i>
         </a>

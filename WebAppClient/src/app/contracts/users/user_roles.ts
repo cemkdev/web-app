@@ -6,5 +6,6 @@ export class User_Roles {
 export class Role {
     roleId: string;
     roleName: string;
+    isAdmin: boolean;
     isAssigned: boolean;
 }

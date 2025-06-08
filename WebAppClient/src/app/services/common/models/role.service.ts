@@ -46,11 +46,11 @@ export class RoleService {
   }
 
   // CREATE
-  async createRole(name: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
+  async createRole(role: { name: string, isAdmin: boolean }, successCallBack?: () => void, errorCallBack?: (error) => void) {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "roles",
       action: "create-role"
-    }, name);
+    }, role);
 
     const promiseData = firstValueFrom(observable);
     promiseData.then(successCallBack)

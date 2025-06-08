@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
-import { firstValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { TokenResponse } from '../../../contracts/token/tokenResponse';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { IdentityCheck } from '../../../contracts/auth/identity_check';
@@ -9,11 +9,59 @@ import { SilentRefreshService } from '../silent-refresh.service';
 import { Router } from '@angular/router';
 import { _isAuthenticated, AuthService } from '../auth.service';
 import { Log_Out_Response } from '../../../contracts/auth/log_out';
+import { AuthorizationEndpointService } from './authorization-endpoint.service';
+import { HttpHeaders } from '@angular/common/http';
+import { ElementAccessControlService } from '../element-access-control.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
+  private _isAdmin: boolean;
+  private _username: string;
+  private _userId: string;
+  private isAdminSubject = new BehaviorSubject<boolean>(null);
+  private _accessibleMenus: string[] = [];
+
+  // GET-SET Sidebar Menu Items Info
+  get accessibleMenus(): string[] {
+    return this._accessibleMenus;
+  }
+  setAccessibleMenus(menus: string[]) {
+    this._accessibleMenus = menus;
+  }
+
+  // GET-SET isAdmin Info - USED BY INTERCEPTOR
+  get isAdmin$(): Observable<boolean> {
+    return this.isAdminSubject.asObservable();
+  }
+  setIsAdmin$(value: boolean) {
+    this.isAdminSubject.next(value);
+  }
+
+  // GET-SET userId - USED BY whole app
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+  setIsAdmin(value: boolean) {
+    this._isAdmin = value;
+  }
+
+  // GET-SET userId
+  get userId(): string {
+    return this._userId;
+  }
+  setUserId(value: string) {
+    this._userId = value;
+  }
+
+  // GET-SET username
+  get username(): string {
+    return this._username;
+  }
+  setUsername(value: string) {
+    this._username = value;
+  }
 
   constructor(
     private httpClientService: HttpClientService,
@@ -21,12 +69,20 @@ export class UserAuthService {
     private silentRefreshService: SilentRefreshService,
     private router: Router,
     public authService: AuthService,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private authorizationEndpointService: AuthorizationEndpointService,
+    private elementAccessControlService: ElementAccessControlService
   ) {
     this.silentRefreshService.refreshNeeded$.subscribe(() => {
       this.refreshTokenLogin();
     });
     authService.identityCheck();
+  }
+
+  // Called by APP_INITIALIZER to fetch authorization-required sidebar menu items.
+  async preloadAccessibleMenus(): Promise<void> {
+    const menus = await this.authorizationEndpointService.fetchAccessibleMenus();
+    this.setAccessibleMenus(menus);
   }
 
   // Internal Login
@@ -38,8 +94,12 @@ export class UserAuthService {
 
     await firstValueFrom(observable);
 
-    await this.identityCheck(state => {
+    await this.identityCheck(async state => {
       if (state.isAuthenticated) {
+        if (state.isAdmin) {
+          await this.preloadAccessibleMenus();
+          await this.elementAccessControlService.preloadPermissions(this.userId);
+        }
         this.toastrService.message("You have successfully logged in.", "Welcome Back!", {
           messageType: ToastrMessageType.Success,
           position: ToastrPosition.TopRight
@@ -84,19 +144,33 @@ export class UserAuthService {
     try {
       const observable: Observable<IdentityCheck> = this.httpClientService.get({
         controller: "auth",
-        action: "identity-check"
+        action: "identity-check",
+        headers: new HttpHeaders({
+          'X-Skip-Error-Handler': 'true'
+        })
       });
 
       const result = await firstValueFrom(observable);
+      this.setIsAdmin$(result.isAdmin);
+      this.setIsAdmin(result.isAdmin);
+      this.setUserId(result.userId);
+      this.setUsername(result.username);
 
       callBackFunction?.(result);
     } catch (error) {
       const failedState: IdentityCheck = {
+        userId: null,
         isAuthenticated: false,
         username: null,
         expiration: null,
-        refreshBeforeTime: null
+        refreshBeforeTime: null,
+        isAdmin: null
       };
+
+      this.setUsername(null);
+      this.setIsAdmin(null);
+      this.setAccessibleMenus([]);
+      this.elementAccessControlService.clearPermissions();
 
       localStorage.removeItem("accessTokenExpiration");
 
@@ -104,12 +178,28 @@ export class UserAuthService {
     }
   }
 
+  // Used by Resolver
+  identityCheck$(): Observable<IdentityCheck> {
+    return this.httpClientService.get<IdentityCheck>({
+      controller: "auth",
+      action: "identity-check"
+    });
+  }
+
+  checkPageAccess(url: string): Observable<any> {
+    return this.httpClientService.get({
+      controller: 'authorization',
+      action: 'check-access',
+      queryString: `url=${encodeURIComponent(url)}`
+    });
+  }
+
   // Refresh Token
   async refreshTokenLogin(callBackFunction?: (state) => void): Promise<any> {
     try {
       const observable: Observable<any> = this.httpClientService.post({
         controller: "auth",
-        action: "refreshTokenLogin",
+        action: "refresh-token-login",
         withCredentials: true
       }, {});
 
@@ -181,8 +271,12 @@ export class UserAuthService {
 
     await firstValueFrom(observable);
 
-    await this.identityCheck(state => {
+    await this.identityCheck(async state => {
       if (state.isAuthenticated) {
+        if (state.isAdmin) {
+          await this.preloadAccessibleMenus();
+          await this.elementAccessControlService.preloadPermissions(this.userId);
+        }
         this.toastrService.message("Google login has been successful.", "Successfully Logged In!", {
           messageType: ToastrMessageType.Success,
           position: ToastrPosition.BottomRight
@@ -221,8 +315,12 @@ export class UserAuthService {
 
     await firstValueFrom(observable);
 
-    await this.identityCheck(state => {
+    await this.identityCheck(async state => {
       if (state.isAuthenticated) {
+        if (state.isAdmin) {
+          await this.preloadAccessibleMenus();
+          await this.elementAccessControlService.preloadPermissions(this.userId);
+        }
         this.toastrService.message("Facebook login has been successful.", "Successfully Logged In!", {
           messageType: ToastrMessageType.Success,
           position: ToastrPosition.BottomRight
@@ -273,6 +371,11 @@ export class UserAuthService {
           }
         }
 
+        this.setUsername(null);
+        this.setIsAdmin(null);
+        this.setAccessibleMenus([]);
+        await this.elementAccessControlService.clearPermissions();
+
         this.authService.identityCheck();
         callback?.(response);
       })
@@ -286,6 +389,10 @@ export class UserAuthService {
             throw error;
           }
         }
+
+        this.setUsername(null);
+        this.setIsAdmin(null);
+        this.setAccessibleMenus([]);
 
         callback?.();
       });

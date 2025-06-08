@@ -10,6 +10,11 @@ namespace WebAppAPI.Infrastructure.Services.Configurations
 {
     public class ApplicationService : IApplicationService
     {
+        /// <summary>
+        /// It scans all endpoints and sends them to the client before initially adding them to the database.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public List<C.Menu> GetAuthorizeDefinitionEndpoints(Type type)
         {
             Assembly assembly = Assembly.GetAssembly(type);
@@ -42,7 +47,8 @@ namespace WebAppAPI.Infrastructure.Services.Configurations
                                 C.Action confAction = new()
                                 {
                                     ActionType = authorizeDefinitionAttribute.ActionType,
-                                    Definition = authorizeDefinitionAttribute.Definition
+                                    Definition = authorizeDefinitionAttribute.Definition,
+                                    AdminOnly = authorizeDefinitionAttribute.AdminOnly,
                                 };
 
                                 var httpAttribute = attributes.FirstOrDefault(a => a.GetType().IsAssignableTo(typeof(HttpMethodAttribute))) as HttpMethodAttribute;

@@ -1,64 +1,83 @@
 <mat-nav-list>
-    <div class="sidenav-title-row" [ngClass]="collapsedClass">
-        <!-- The "collapsed.set(!collapsed())" operation is performed directly with the click event. -->
-        <a mat-list-item (click)="collapsed.set(!collapsed()); emitCollapseChange()" class="example-icon menu-icon" aria-label="Example icon-button with menu">
-            <mat-icon>menu</mat-icon>
-        </a>
-        <div class="admin-title"><span>Admin Panel</span></div>
-    </div>
-    @for (item of menuItems(); track item.label) {
-        @if(item.subItems){
-            <a mat-list-item class="sidenav-items has-sub"
-                [matTooltip]="collapsed() ? item.label : ''"
-                matTooltipPosition="right"
-                (click)="toggleNested(item)"
-                [ngClass]="[collapsedClass, isAdministrationRouteActive() ? 'active-subItem' : '']"
-            >
-                <div class="left-border"></div>
-                <mat-icon matListItemIcon class="list-item-icon {{item.iconClass}}">{{item.icon}}</mat-icon>
-                <span matListItemTitle class="sidenav-item-labels">{{item.label}}</span>
-                @if(item.subItems){
-                    <span matListItemMeta>
-                        <mat-icon class="expand-icon"
-                            [@rotateIcon]="nestedMenuOpen()">
-                            chevron_right
-                        </mat-icon>
-                    </span>
-                }
-            </a>
-            @if(item.subItems && nestedMenuOpen()){
-                <div class="sub-item" @slideVertical
-                    [class.indented]="!collapsed()">
-                    @for (subItem of item.subItems; track subItem.label){
-                        <a mat-list-item 
-                            class="sidenav-items sub-items"
-                            [ngClass]="collapsedClass"
-                            [routerLink]="subItem.route"
-                            routerLinkActive
-                            #rla="routerLinkActive"
-                            [activated]="rla.isActive"
-                            [routerLinkActiveOptions]="{exact: subItem.exact}"
-                            [matTooltip]="collapsed() ? subItem.label : ''" matTooltipPosition="right"
-                        >
-                                <mat-icon matListItemIcon class={{subItem.iconClass}}>{{subItem.icon}}</mat-icon>
-                                <span matListItemTitle class="sidenav-item-labels">{{subItem.label}}</span>
-                        </a>
-                    }
-                </div>
-            }
-        }@else {
-        <a mat-list-item class="sidenav-items"
-            [ngClass]="collapsedClass"
-            [routerLink]="item.route" routerLinkActive
-            #rla="routerLinkActive"
-            [activated]="rla.isActive"
-            [routerLinkActiveOptions]="{exact: item.exact}"
-            [matTooltip]="collapsed() ? item.label : ''" matTooltipPosition="right"
-        >
-            <div class="left-border"></div>
-            <mat-icon matListItemIcon class={{item.iconClass}}>{{item.icon}}</mat-icon>
-            <span matListItemTitle class="sidenav-item-labels">{{item.label}}</span>
-        </a>
-        }
+  <div class="sidenav-title-row" [ngClass]="collapsedClass">
+    <!-- The "collapsed.set(!collapsed())" operation is performed directly with the click event. -->
+    <a
+      mat-list-item
+      (click)="collapsed.set(!collapsed()); emitCollapseChange()"
+      class="example-icon menu-icon"
+      aria-label="Example icon-button with menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </a>
+    <div class="admin-title"><span>Admin Panel</span></div>
+  </div>
+  @for (item of filteredMenuItems(); track item.label) { @if(item.subItems){
+  <a
+    mat-list-item
+    class="sidenav-items has-sub"
+    [matTooltip]="collapsed() ? item.label : ''"
+    matTooltipPosition="right"
+    (click)="toggleNested(item)"
+    [ngClass]="[
+      collapsedClass,
+      isAdministrationRouteActive() ? 'active-subItem' : ''
+    ]"
+  >
+    <div class="left-border"></div>
+    <mat-icon matListItemIcon class="list-item-icon {{ item.iconClass }}">{{
+      item.icon
+    }}</mat-icon>
+    <span matListItemTitle class="sidenav-item-labels">{{ item.label }}</span>
+    @if(item.subItems){
+    <span matListItemMeta>
+      <mat-icon class="expand-icon" [@rotateIcon]="nestedMenuOpen()">
+        chevron_right
+      </mat-icon>
+    </span>
     }
+  </a>
+  @if(item.subItems && nestedMenuOpen()){
+  <div class="sub-item" @slideVertical [class.indented]="!collapsed()">
+    @for (subItem of item.subItems; track subItem.label){
+    <a
+      mat-list-item
+      class="sidenav-items sub-items"
+      [ngClass]="collapsedClass"
+      [routerLink]="subItem.route"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [activated]="rla.isActive"
+      [routerLinkActiveOptions]="{ exact: subItem.exact }"
+      [matTooltip]="collapsed() ? subItem.label : ''"
+      matTooltipPosition="right"
+    >
+      <mat-icon matListItemIcon class="{{ subItem.iconClass }}">{{
+        subItem.icon
+      }}</mat-icon>
+      <span matListItemTitle class="sidenav-item-labels">{{
+        subItem.label
+      }}</span>
+    </a>
+    }
+  </div>
+  } }@else {
+  <a
+    mat-list-item
+    class="sidenav-items"
+    [ngClass]="collapsedClass"
+    [routerLink]="item.route"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [activated]="rla.isActive"
+    [routerLinkActiveOptions]="{ exact: item.exact }"
+    [matTooltip]="collapsed() ? item.label : ''"
+    matTooltipPosition="right"
+  >
+    <div class="left-border"></div>
+    <mat-icon matListItemIcon class="{{ item.iconClass }}">{{
+      item.icon
+    }}</mat-icon>
+    <span matListItemTitle class="sidenav-item-labels">{{ item.label }}</span>
+  </a>
+  } }
 </mat-nav-list>

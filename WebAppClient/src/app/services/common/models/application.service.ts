@@ -10,10 +10,13 @@ export class ApplicationService {
 
   constructor(private httpClientService: HttpClientService) { }
 
+  // GETS API endpoint spesifications obtained through reflection during runtime.
   async getAuthorizeDefinitionEndpoints() {
     const observable: Observable<Menu[]> = this.httpClientService.get<Menu[]>({
-      controller: "ApplicationServices"
+      controller: "ApplicationServices",
+      action: "get-authorize-definition-endpoints"
     });
-    return await firstValueFrom(observable);
+    const menus = await firstValueFrom(observable);
+    return menus;
   }
 }

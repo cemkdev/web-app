@@ -1,11 +1,16 @@
 <app-header></app-header>
 <mat-sidenav-container class="admin-container" autofocus="false">
-    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()" class="admin-left-side">
-        <app-sidebar (collapsedChange)="onCollapseChange($event)"></app-sidebar>
-    </mat-sidenav>
-    <mat-sidenav-content [ngClass]="collapsedClass" class="sidenav-content">
-        <div *ngIf="isOverlayVisible" class="overlay"></div>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav
+    opened
+    mode="side"
+    [style.width]="sidenavWidth()"
+    class="admin-left-side"
+  >
+    <app-sidebar (collapsedChange)="onCollapseChange($event)"></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content [ngClass]="collapsedClass" class="sidenav-content">
+    <div *ngIf="isOverlayVisible" class="overlay"></div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
 <app-footer></app-footer>

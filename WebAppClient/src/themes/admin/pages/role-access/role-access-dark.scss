@@ -1,6 +1,19 @@
 html.dark {
     .role-access-container {
         background-color: var(--dark-background-darkest);
+
+        /////////////////////////////////////////////////
+        ///////// SCROLLABLE TABLE ROW SECTION //////////
+        /////////////////////////////////////////////////
+        &:hover {
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+        &:hover {
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+
         /////////////////////////////////////////////////
         /////////// FILTER INPUT ADJUSTMENTS ////////////
         /////////////////////////////////////////////////
@@ -15,8 +28,9 @@ html.dark {
                 background: var(--gray-background);
             }
         }
+
         /////////////////////////////////////////////////
-        /////// OUTMOST TABLE SECTION ADJUSTMENTS ///////
+        /////////////// TABLE ADJUSTMENTS ///////////////
         /////////////////////////////////////////////////
         .role-access-table {
             //background-color: var(--dark-background-darker-lighter); // I think it doesn't seem.
@@ -33,9 +47,14 @@ html.dark {
                 background-color: var(--dark-background);
                 color: var(--light-background-3-transparent);
             }
-            th.th-roles {
+            th.th-roles.admin {
                 button {
                     color: var(--gray-background-3-transparent);
+                }
+            }
+            th.th-roles {
+                button {
+                    color: var(--warning-bg-hover);
                 }
             }
             ///////////////////////// th, td Adjustments - END /////////////////////
@@ -51,9 +70,13 @@ html.dark {
                 }
             }
 
-            .http-type {
-                background: var(--light-background-darker);
-                color: var(--dark-text);
+            .td-endpoints {
+                border-right: 1px solid var(--gray-background-transparent);
+                .http-type,
+                .admin-only {
+                    background: var(--gray-background-transparent);
+                    color: var(--light-text);
+                }
             }
             ///////////////////////// td > Enpoints Adjustments - END /////////////////////
         }

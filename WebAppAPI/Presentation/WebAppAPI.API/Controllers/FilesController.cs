@@ -13,7 +13,7 @@ namespace WebAppAPI.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-base-storage-url")]
         public IActionResult GetBaseStorageUrl()
         {
             return Ok(new

@@ -14,7 +14,7 @@ namespace WebAppAPI.Application.Features.Commands.Role.UpdateRole
 
         public async Task<UpdateRoleCommandResponse> Handle(UpdateRoleCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _roleService.UpdateRoleAsync(request.Id, request.Name);
+            var result = await _roleService.UpdateRoleAsync(request.Id, request.Name, request.IsAdmin);
             return new()
             {
                 Succeeded = result

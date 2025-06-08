@@ -1,8 +1,11 @@
-import { Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { UserAuthService } from '../../../../services/common/models/user-auth.service';
+import { AuthorizeDefinitionConstants } from '../../../../constants/authorize-definition.constants';
+import { AuthorizationEndpointService } from '../../../../services/common/models/authorization-endpoint.service';
+import { SuperUser } from '../../../../constants/super-user';
 
 export interface MenuItem {
   icon: string;
@@ -10,6 +13,7 @@ export interface MenuItem {
   label: string;
   route: string;
   exact: boolean;
+  menuName?: string;
   subItems?: MenuItem[];
 }
 
@@ -42,10 +46,14 @@ export class SidebarComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private authorizationEndpointService: AuthorizationEndpointService,
+    private userAuthService: UserAuthService
   ) { }
 
   ngOnInit() {
+    this.buildFilteredMenu();
+
     this.layoutSubscription = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(result => {
         if (result.matches) {
@@ -76,6 +84,47 @@ export class SidebarComponent {
     return this.collapsed() ? 'collapsed' : 'expanded';
   }
 
+  // Build MenuItems Dynamically
+  filteredMenuItems = signal<MenuItem[]>([]);
+  buildFilteredMenu() {
+    const username = this.userAuthService.username;
+
+    if (username == SuperUser.username) {
+      this.filteredMenuItems.set(this.menuItems());
+      return;
+    }
+
+    const accessibleMenuNames = this.userAuthService.accessibleMenus;
+    const allItems = this.menuItems();
+    const visibleItems: MenuItem[] = [];
+
+    for (const item of allItems) {
+
+      if (item.subItems) {
+        const visibleSubItems = item.subItems.filter(subItem => {
+          if (!subItem.menuName) return true;
+          return accessibleMenuNames.includes(subItem.menuName);
+        });
+        // Alt menülerden gösterilecek olan varsa, üst menüyü de göster
+        if (visibleSubItems.length > 0) {
+          visibleItems.push({ ...item, subItems: visibleSubItems });
+        }
+        continue;
+      }
+      // Alt menü yoksa ve menuName tanımlı değilse göster
+      if (!item.menuName) {
+        visibleItems.push(item);
+        continue;
+      }
+      // Tanımlı menuName varsa ve erişim varsa göster
+      if (accessibleMenuNames.includes(item.menuName)) {
+        visibleItems.push(item);
+      }
+    }
+    // signal’ı güncelle
+    this.filteredMenuItems.set(visibleItems);
+  }
+
   menuItems = signal<MenuItem[]>([
     {
       icon: 'dashboard',
@@ -96,14 +145,16 @@ export class SidebarComponent {
       iconClass: '',
       label: 'Products',
       route: '/admin/products',
-      exact: true
+      exact: true,
+      menuName: AuthorizeDefinitionConstants.Products
     },
     {
       icon: 'inventory',
       iconClass: 'material-icons-outlined',
       label: 'Orders',
       route: '/admin/orders',
-      exact: false
+      exact: false,
+      menuName: AuthorizeDefinitionConstants.Orders
     },
     {
       icon: 'settings',
@@ -117,21 +168,24 @@ export class SidebarComponent {
           iconClass: '',
           label: 'Roles',
           route: '/admin/administration/roles',
-          exact: true
+          exact: true,
+          menuName: AuthorizeDefinitionConstants.Roles
         },
         {
           icon: 'lock',
           iconClass: '',
           label: 'Role Access',
           route: '/admin/administration/role-access',
-          exact: true
+          exact: true,
+          menuName: AuthorizeDefinitionConstants.Endpoints
         },
         {
           icon: 'person',
           iconClass: '',
           label: 'Users',
           route: '/admin/administration/users',
-          exact: true
+          exact: true,
+          menuName: AuthorizeDefinitionConstants.Users
         }
       ]
     },

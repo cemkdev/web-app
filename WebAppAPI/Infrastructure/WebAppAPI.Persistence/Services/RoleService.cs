@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WebAppAPI.Application.Abstractions.Services;
+using WebAppAPI.Application.DTOs.Role;
 using WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -13,28 +15,36 @@ namespace WebAppAPI.Persistence.Services
             _roleManager = roleManager;
         }
 
-        public IDictionary<string, string> GetRoles()
+        public async Task<List<RoleGetDto>> GetRolesAsync()
         {
-            return _roleManager.Roles.OrderBy(r => r.DateCreated).ToDictionary(role => role.Id, role => role.Name);
+            var roles = await _roleManager.Roles.OrderBy(r => r.DateCreated).ToListAsync();
+
+            return roles.Select(r => new RoleGetDto()
+            {
+                Id = r.Id,
+                Name = r.Name,
+                IsAdmin = r.IsAdmin
+            }).ToList();
         }
 
-        public async Task<(string id, string name)> GetRoleByIdAsync(string id)
+        public async Task<(string id, string name, bool isAdmin)> GetRoleByIdAsync(string id)
         {
             AppRole role = await _roleManager.FindByIdAsync(id);
             string name = await _roleManager.GetRoleNameAsync(role);
-            return (id, name);
+            return (id, role.Name, role.IsAdmin);
         }
 
-        public async Task<bool> CreateRoleAsync(string name)
+        public async Task<bool> CreateRoleAsync(string name, bool isAdmin)
         {
-            IdentityResult result = await _roleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = name });
+            IdentityResult result = await _roleManager.CreateAsync(new() { Id = Guid.NewGuid().ToString(), Name = name, IsAdmin = isAdmin });
             return result.Succeeded;
         }
 
-        public async Task<bool> UpdateRoleAsync(string id, string name)
+        public async Task<bool> UpdateRoleAsync(string id, string name, bool isAdmin)
         {
             AppRole role = await _roleManager.FindByIdAsync(id);
             role.Name = name;
+            role.IsAdmin = isAdmin;
             IdentityResult result = await _roleManager.UpdateAsync(role);
             return result.Succeeded;
         }

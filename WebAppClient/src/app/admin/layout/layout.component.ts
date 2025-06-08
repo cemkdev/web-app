@@ -13,7 +13,9 @@ export class LayoutComponent {
   isOverlayVisible = true;
   private layoutSubscription: any; // Track screen size with BreakpointObserver
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver
+  ) { }
 
   // We are receiving the boolean value from the child component.
   onCollapseChange(collapseStatus: boolean) {

@@ -6,5 +6,8 @@ namespace WebAppAPI.Application.Abstractions.Services
     {
         public Task<List<RolesEndpointsDto>> GetRolesEndpointsAsync();
         public Task AssignRoleToEndpointsAsync(List<RolesEndpointsDto> rolesEndpoints, Type type);
+
+        Task<bool> HasAccessToMenuAsync(string username, string menuName);
+        Task<List<string>> GetAccessibleMenuNamesAsync(string username);
     }
 }

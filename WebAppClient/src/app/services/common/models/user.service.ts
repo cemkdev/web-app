@@ -40,7 +40,8 @@ export class UserService {
   // CREATE USER
   async create(user: User, callBackFunction?: () => void): Promise<Create_User> {
     const observable: Observable<Create_User | User> = this.httpClientService.post<Create_User | User>({
-      controller: "users"
+      controller: "users",
+      action: "create-user"
     }, user);
     callBackFunction();
 
@@ -51,7 +52,7 @@ export class UserService {
   async updatePassword(userId: string, resetToken: string, password: string, passwordConfirm: string, successCallBack?: () => void, errorCallBack?: (error) => void) {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "users",
-      action: "password-update"
+      action: "update-password"
     }, {
       userId: userId,
       resetToken: resetToken,
@@ -90,7 +91,7 @@ export class UserService {
   async assignRoleToUser(userId: string, roles: string[], successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
     const observable: Observable<any> = this.httpClientService.post({
       controller: "users",
-      action: "assign-role-user"
+      action: "assign-role-to-user"
     }, {
       userId: userId,
       roles: roles

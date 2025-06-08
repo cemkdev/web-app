@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +31,36 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
 import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 import { provideNgxMask } from 'ngx-mask';
 import { DatePipe } from '@angular/common';
+import { UserAuthService } from './services/common/models/user-auth.service';
+import { ElementAccessControlService } from './services/common/element-access-control.service';
+
+// GET Authorized Sidebar Menu Items
+export function preloadUserMenusFactory(userAuthService: UserAuthService): () => Promise<void> {
+  return () =>
+    new Promise<void>((resolve) => {
+      userAuthService.identityCheck(async result => {
+        if (result?.isAuthenticated && result?.isAdmin) {
+          await userAuthService.preloadAccessibleMenus();
+        }
+        // Giriş yapılmamışsa bile resolve etmek ZORUNDASIN yoksa app yüklenmez
+        resolve();
+      });
+    });
+}
+
+// GET Authorized Html Items
+export function preloadPermissionsFactory(userAuthService: UserAuthService, elementAccessControlServiceService: ElementAccessControlService): () => Promise<void> {
+  return () =>
+    new Promise<void>((resolve) => {
+      userAuthService.identityCheck(async result => {
+        if (result?.isAuthenticated) {
+          await elementAccessControlServiceService.preloadPermissions(result?.userId);
+        }
+        // Giriş yapılmamışsa bile resolve etmek ZORUNDASIN yoksa app yüklenmez
+        resolve();
+      });
+    });
+}
 
 @NgModule({
   declarations: [
@@ -58,6 +88,18 @@ import { DatePipe } from '@angular/common';
     GoogleSigninButtonModule
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: preloadUserMenusFactory,
+      deps: [UserAuthService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: preloadPermissionsFactory,
+      deps: [UserAuthService, ElementAccessControlService],
+      multi: true
+    },
     provideAnimationsAsync(),
     { provide: "baseUrl", useValue: "https://localhost:7198/api", multi: true },
     { provide: "baseSignalRUrl", useValue: "https://localhost:7198/", multi: true },

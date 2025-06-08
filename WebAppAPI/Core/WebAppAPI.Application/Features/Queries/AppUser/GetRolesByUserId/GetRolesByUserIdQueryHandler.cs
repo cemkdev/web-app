@@ -17,13 +17,14 @@ namespace WebAppAPI.Application.Features.Queries.AppUser.GetRolesByUserId
         public async Task<List<GetRolesByUserIdQueryResponse>> Handle(GetRolesByUserIdQueryRequest request, CancellationToken cancellationToken)
         {
             var userRoles = await _userService.GetRolesByUserIdentifierAsync(request.UserId);
-            var allRoles = _roleService.GetRoles();
+            var allRoles = await _roleService.GetRolesAsync();
 
             var result = allRoles.Select(roles => new GetRolesByUserIdQueryResponse
             {
-                RoleId = roles.Key,
-                RoleName = roles.Value,
-                IsAssigned = userRoles.Contains(roles.Value)
+                RoleId = roles.Id,
+                RoleName = roles.Name,
+                IsAdmin = roles.IsAdmin,
+                IsAssigned = userRoles.Contains(roles.Name)
             }).ToList();
 
             return result;

@@ -14,6 +14,7 @@ namespace WebAppAPI.Domain.Entities
         public string HttpType { get; set; }
         public string Definition { get; set; }
         public string Code { get; set; }
+        public bool AdminOnly { get; set; }
 
         public Menu Menu { get; set; }
         public ICollection<AppRole> Roles { get; set; }

@@ -80,7 +80,19 @@
             }
 
             .name {
-                width: 280px;
+                padding-left: 30px !important;
+                width: 150px;
+            }
+
+            .is-admin {
+                width: 150px;
+                span {
+                    mat-icon {
+                        font-size: 23px;
+                        margin-right: 5px;
+                        vertical-align: middle;
+                    }
+                }
             }
 
             .set-button {

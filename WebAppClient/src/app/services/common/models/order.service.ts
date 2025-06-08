@@ -14,20 +14,12 @@ export class OrderService {
 
   constructor(private httpClientService: HttpClientService) { }
 
-  // POST / CREATE
-  async create(order: Create_Order): Promise<void> {
-    const observable: Observable<any> = this.httpClientService.post({
-      controller: "orders"
-    }, order);
-
-    await firstValueFrom(observable);
-  }
-
   // GET / LIST / READ
   async getAllOrders(page: number = 0, size: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalOrderCount: number, orders: List_Order[] }> {
     const data = await firstValueFrom(
       this.httpClientService.get<{ totalOrderCount: number, orders: List_Order[] }>({
         controller: "orders",
+        action: "get-all-orders",
         queryString: `page=${page}&size=${size}`
       }).pipe(
         map(response => {
@@ -49,7 +41,8 @@ export class OrderService {
   async getOrderById(id: string, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<Order_Detail> {
     const data = await firstValueFrom(
       this.httpClientService.get<Order_Detail>({
-        controller: "orders"
+        controller: "orders",
+        action: "get-order-by-id"
       }, id).pipe(
         map(response => {
           successCallBack && successCallBack();
@@ -66,10 +59,21 @@ export class OrderService {
     return data;
   }
 
+  // POST / CREATE
+  async create(order: Create_Order): Promise<void> {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "orders",
+      action: "create-order"
+    }, order);
+
+    await firstValueFrom(observable);
+  }
+
   // DELETE
   async delete(id: string) {
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
-      controller: "orders"
+      controller: "orders",
+      action: "delete"
     }, id);
 
     await firstValueFrom(deleteObservable);
@@ -79,7 +83,7 @@ export class OrderService {
   async deleteRange(orderIds: string[]) {
     const deleteObservable: Observable<any> = this.httpClientService.deleteRange<any>({
       controller: "orders",
-      action: "deleterange"
+      action: "delete-range"
     }, {
       orderIds
     });
@@ -91,7 +95,7 @@ export class OrderService {
   async updateOrderStatus(orderId: string, newStatus: number, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
     const observable: Observable<any> = this.httpClientService.put({
       controller: "orders",
-      action: "update-status"
+      action: "update-order-status"
     }, {
       orderId,
       newStatus
@@ -116,7 +120,7 @@ export class OrderService {
     const data = await firstValueFrom(
       this.httpClientService.get<OrderStatusHistory>({
         controller: "orders",
-        action: "get-status"
+        action: "get-order-status-history-by-id"
       }, orderId).pipe(
         map(response => {
           successCallBack && successCallBack();

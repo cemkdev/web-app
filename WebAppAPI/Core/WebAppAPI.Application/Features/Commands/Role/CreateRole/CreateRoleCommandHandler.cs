@@ -14,7 +14,7 @@ namespace WebAppAPI.Application.Features.Commands.Role.CreateRole
 
         public async Task<CreateRoleCommandResponse> Handle(CreateRoleCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _roleService.CreateRoleAsync(request.Name);
+            var result = await _roleService.CreateRoleAsync(request.Name, request.IsAdmin);
             return new()
             {
                 Succeeded = result

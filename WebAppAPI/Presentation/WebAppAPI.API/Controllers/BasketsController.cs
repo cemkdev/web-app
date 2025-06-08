@@ -8,12 +8,13 @@ using WebAppAPI.Application.Features.Commands.Basket.RemoveBasketItem;
 using WebAppAPI.Application.Features.Commands.Basket.UpdateQuantity;
 using WebAppAPI.Application.Features.Queries.Basket.GetAllBasketItems;
 using WebAppAPI.Application.Enums;
+using WebAppAPI.Domain.Constants;
 
 namespace WebAppAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
     public class BasketsController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -23,7 +24,7 @@ namespace WebAppAPI.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("get-all-basket-items")]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Baskets, ActionType = ActionType.Read, Definition = "Get All Basket Items")]
         public async Task<IActionResult> GetAllBasketItems([FromQuery] GetAllBasketItemsQueryRequest getAllBasketItemsQueryRequest)
         {
@@ -31,7 +32,7 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("add-item-to-basket")]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Baskets, ActionType = ActionType.Write, Definition = "Add Item to Basket")]
         public async Task<IActionResult> AddItemToBasket(AddItemToBasketCommandRequest addItemToBasketCommandRequest)
         {
@@ -39,7 +40,7 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("update-basket-item-quantity")]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Baskets, ActionType = ActionType.Update, Definition = "Update Basket Item Quantity")]
         public async Task<IActionResult> UpdateQuantity(UpdateQuantityCommandRequest updateQuantityCommandRequest)
         {
@@ -50,7 +51,7 @@ namespace WebAppAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{BasketItemId}")]
+        [HttpDelete("remove-basket-item-by-id/{BasketItemId}")]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Baskets, ActionType = ActionType.Delete, Definition = "Remove Basket Item")]
         public async Task<IActionResult> RemoveBasketItem([FromRoute] RemoveBasketItemCommandRequest removeBasketItemCommandRequest)
         {

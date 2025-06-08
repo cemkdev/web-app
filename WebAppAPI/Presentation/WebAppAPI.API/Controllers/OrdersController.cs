@@ -11,12 +11,13 @@ using WebAppAPI.Application.Features.Commands.Order.UpdateStatus;
 using WebAppAPI.Application.Features.Queries.Order.GetAllOrders;
 using WebAppAPI.Application.Features.Queries.Order.GetOrderById;
 using WebAppAPI.Application.Features.Queries.Order.GetOrderStatusHistoryById;
+using WebAppAPI.Domain.Constants;
 
 namespace WebAppAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
     public class OrdersController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -26,24 +27,24 @@ namespace WebAppAPI.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Read, Definition = "Get All Orders")]
+        [HttpGet("get-all-orders")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Get All Orders", ActionType = ActionType.Read, AdminOnly = true)]
         public async Task<ActionResult> GetAllOrders([FromQuery] GetAllOrdersQueryRequest getAllOrdersQueryRequest)
         {
             GetAllOrdersQueryResponse response = await _mediator.Send(getAllOrdersQueryRequest);
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Read, Definition = "Get Order by Id")]
+        [HttpGet("get-order-by-id/{id}")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Get Order by Id", ActionType = ActionType.Read)]
         public async Task<ActionResult> GetOrderById([FromRoute] GetOrderByIdQueryRequest getOrderByIdQueryRequest)
         {
             GetOrderByIdQueryResponse response = await _mediator.Send(getOrderByIdQueryRequest);
             return Ok(response);
         }
 
-        [HttpPost]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Write, Definition = "Create Order")]
+        [HttpPost("create-order")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Create Order", ActionType = ActionType.Write)]
         public async Task<ActionResult> CreateOrder(CreateOrderCommandRequest createOrderCommandRequest)
         {
             CreateOrderCommandResponse response = await _mediator.Send(createOrderCommandRequest);
@@ -51,31 +52,31 @@ namespace WebAppAPI.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Delete, Definition = "Delete Order")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Delete Order", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> Delete([FromRoute] RemoveOrderCommandRequest removeOrderCommandRequest)
         {
             RemoveOrderCommandResponse response = await _mediator.Send(removeOrderCommandRequest);
             return Ok();
         }
 
-        [HttpPost("deleterange")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Delete, Definition = "Delete Range of Order")]
+        [HttpPost("delete-range")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Delete Range of Order", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> DeleteRange([FromBody] RemoveRangeOrderCommandRequest removeRangeOrderCommandRequest)
         {
             RemoveRangeOrderCommandResponse response = await _mediator.Send(removeRangeOrderCommandRequest);
             return Ok();
         }
 
-        [HttpPut("update-status")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Update, Definition = "Update Order Status")]
+        [HttpPut("update-order-status")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Update Order Status", ActionType = ActionType.Update, AdminOnly = true)]
         public async Task<IActionResult> UpdateStatus([FromBody] UpdateStatusCommandRequest updateStatusCommandRequest)
         {
             UpdateStatusCommandResponse response = await _mediator.Send(updateStatusCommandRequest);
             return Ok(response);
         }
 
-        [HttpGet("get-status/{orderId}")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Read, Definition = "Get Order Status History by Id")]
+        [HttpGet("get-order-status-history-by-id/{orderId}")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Get Order Status History by Id", ActionType = ActionType.Read)]
         public async Task<ActionResult> GetOrderStatusHistoryById([FromRoute] GetOrderStatusHistoryByIdQueryRequest getOrderStatusHistoryByIdQueryRequest)
         {
             GetOrderStatusHistoryByIdQueryResponse response = await _mediator.Send(getOrderStatusHistoryByIdQueryRequest);

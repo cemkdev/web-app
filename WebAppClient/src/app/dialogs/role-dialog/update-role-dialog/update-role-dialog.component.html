@@ -28,6 +28,14 @@
               >Name is required.</mat-error
             >
           </mat-form-field>
+
+          <!-- Is Admin -->
+          <mat-checkbox formControlName="isAdmin" color="primary">
+            Is Admin Role?
+          </mat-checkbox>
+          <small class="text-muted">
+            If checked, this role will have access to admin panel endpoints.
+          </small>
         </div>
       </div>
     </form>

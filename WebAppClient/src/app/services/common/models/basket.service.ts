@@ -17,7 +17,8 @@ export class BasketService {
   // GET
   async get(): Promise<List_Basket_Item[]> {
     const observable: Observable<List_Basket_Item[]> = this.httpClientService.get({
-      controller: "baskets"
+      controller: "baskets",
+      action: "get-all-basket-items"
     });
     return await firstValueFrom(observable);
   }
@@ -25,7 +26,8 @@ export class BasketService {
   // POST
   async add(basketItem: Create_Basket_Item): Promise<void> {
     const observable: Observable<any> = this.httpClientService.post({
-      controller: "baskets"
+      controller: "baskets",
+      action: "add-item-to-basket"
     }, basketItem);
     await firstValueFrom(observable);
   }
@@ -33,7 +35,8 @@ export class BasketService {
   // UPDATE
   async updateQuantity(basketItem: Update_Basket_Item): Promise<void> {
     const observable: Observable<any> = this.httpClientService.put({
-      controller: "baskets"
+      controller: "baskets",
+      action: "update-basket-item-quantity"
     }, basketItem);
     await firstValueFrom(observable);
   }
@@ -41,7 +44,8 @@ export class BasketService {
   // REMOVE
   async remove(basketItemId: string): Promise<void> {
     const observable: Observable<any> = this.httpClientService.delete({
-      controller: "baskets"
+      controller: "baskets",
+      action: "remove-basket-item-by-id"
     }, basketItemId);
     await firstValueFrom(observable);
   }

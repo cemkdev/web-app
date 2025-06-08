@@ -12,8 +12,10 @@ using System.Text;
 using WebAppAPI.API.Configurations.ColumnWriters;
 using WebAppAPI.API.Extensions;
 using WebAppAPI.API.Filters;
+using WebAppAPI.API.Middlewares;
 using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
+using WebAppAPI.Domain.Constants;
 using WebAppAPI.Infrastructure;
 using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
@@ -95,7 +97,7 @@ builder.Services.AddSingleton(tokenValidationParameters);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
-    //options.Filters.Add<RolePermissionFilter>();
+    options.Filters.Add<RolePermissionFilter>();
 }).ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<ProductCreateValidator>();
 
@@ -103,7 +105,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer("Admin", options =>
+    .AddJwtBearer(AuthSchemes.Authenticated, options =>
     {
         options.TokenValidationParameters = tokenValidationParameters;
 
@@ -134,15 +136,18 @@ if (app.Environment.IsDevelopment())
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 app.UseStaticFiles();
-
 app.UseSerilogRequestLogging();
-
 app.UseHttpLogging();
 app.UseCors();
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<EndpointAdminCheckMiddleware>();
+
+app.UseStatusCodePages();
 
 // Buradan sonra oluşturacağız loglama middleware'ini ki authenticated user'ı da alalım varsa.
 app.Use(async (context, next) =>

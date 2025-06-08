@@ -12,6 +12,9 @@ import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-d
 import { OrderService } from '../../../../services/common/models/order.service';
 import { Router } from '@angular/router';
 import { OrderStatusEnum } from '../../../../enums/order_status_enum';
+import { ElementAccessControlService } from '../../../../services/common/element-access-control.service';
+import { AuthorizeDefinitionConstants } from '../../../../constants/authorize-definition.constants';
+import { EndpointCodeConstants } from '../../../../constants/endpoint-code-constants';
 
 declare var $: any;
 
@@ -43,7 +46,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     private orderService: OrderService,
     private alertifyService: AlertifyService,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private elementAccessControlService: ElementAccessControlService
   ) {
     super(spinner);
   }
@@ -244,5 +248,12 @@ export class ListComponent extends BaseComponent implements OnInit {
       }
     });
     return { badgeClass, statusText };
+  }
+
+  authorizeDefinitionConstants = AuthorizeDefinitionConstants;
+  endpointCodeConstants = EndpointCodeConstants;
+  // Html Item Has Permission Check
+  hasPermission(menuName: string, endpointCode: string): boolean {
+    return this.elementAccessControlService.hasPermission(menuName, endpointCode);
   }
 }

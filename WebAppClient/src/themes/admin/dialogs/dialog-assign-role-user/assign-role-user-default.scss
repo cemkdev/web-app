@@ -8,6 +8,23 @@
 }
 
 mat-dialog-content.dialog-assign-role-user {
+    /////////////////////////////////////////////////
+    ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+    /////////////////////////////////////////////////
+    .role {
+        width: 150px;
+    }
+
+    .is-admin {
+        width: 150px;
+        span {
+            mat-icon {
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+    }
+
     //////////////////////////////////////////////////////////////////
     /////////////////// General Table Adjustments ////////////////////
     //////////////////////////////////////////////////////////////////
@@ -32,8 +49,8 @@ mat-dialog-content.dialog-assign-role-user {
             }
             th.selection,
             td.selection {
-                text-align: right;
-                padding-right: 100px !important;
+                text-align: center;
+                width: 150px;
             }
         }
     }

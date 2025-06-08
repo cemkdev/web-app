@@ -8,5 +8,6 @@ namespace WebAppAPI.Application.DTOs.Configuration
         public string HttpType { get; set; }
         public string Definition { get; set; }
         public string Code { get; set; }
+        public bool AdminOnly { get; set; } = false;
     }
 }

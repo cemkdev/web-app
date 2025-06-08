@@ -1,6 +1,19 @@
 html {
     .role-access-container {
         background-color: var(--light-background-dark);
+
+        /////////////////////////////////////////////////
+        ///////// SCROLLABLE TABLE ROW SECTION //////////
+        /////////////////////////////////////////////////
+        &:hover {
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+        }
+        &:hover {
+            scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+        }
+
         /////////////////////////////////////////////////
         /////////// FILTER INPUT ADJUSTMENTS ////////////
         /////////////////////////////////////////////////
@@ -34,9 +47,14 @@ html {
                 background-color: var(--light-background);
                 color: var(--dark-text-lighter-transparent);
             }
-            th.th-roles {
+            th.th-roles.admin {
                 button {
                     color: var(--dark-text-lighter-2);
+                }
+            }
+            th.th-roles {
+                button {
+                    color: var(--warning-bg-hover);
                 }
             }
             ///////////////////////// th, td Adjustments - END /////////////////////
@@ -53,9 +71,13 @@ html {
                 }
             }
 
-            .http-type {
-                background: var(--light-background-darker);
-                color: var(--dark-text);
+            .td-endpoints {
+                border-right: 1px solid var(--gray-background-transparent-2-darker);
+                .http-type,
+                .admin-only {
+                    background: var(--gray-background);
+                    color: var(--dark-text);
+                }
             }
             ///////////////////////// td > Enpoints Adjustments - END /////////////////////
         }

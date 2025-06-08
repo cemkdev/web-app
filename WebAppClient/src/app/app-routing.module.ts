@@ -1,24 +1,54 @@
-import { model, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { DashboardComponent } from './admin/components/dashboard/dashboard.component';
 import { HomeComponent } from './ui/components/home/home.component';
 import { authGuard } from './guards/common/auth.guard';
+import { adminAccessResolver } from './resolver/admin-access.resolver';
+import { roleGuard } from './guards/common/role.guard';
+import { AuthorizeDefinitionConstants } from './constants/authorize-definition.constants';
 
 const routes: Routes = [
   {
-    path: "admin", component: LayoutComponent, children: [
-      { path: "", component: DashboardComponent, canActivate: [authGuard] },
-      { path: "customers", loadChildren: () => import("./admin/components/customers/customers.module").then(module => module.CustomersModule), canActivate: [authGuard] },
-      { path: "products", loadChildren: () => import("./admin/components/products/products.module").then(module => module.ProductsModule), canActivate: [authGuard] },
-      { path: "orders", loadChildren: () => import("./admin/components/orders/orders.module").then(module => module.OrdersModule), canActivate: [authGuard] },
-      { path: "authorize-menu", loadChildren: () => import("./admin/components/authorize-menu/authorize-menu.module").then(module => module.AuthorizeMenuModule), canActivate: [authGuard] },
-
+    path: "admin", component: LayoutComponent, resolve: { adminAccess: adminAccessResolver }, children: [
+      { path: "", component: DashboardComponent, canActivate: [authGuard, roleGuard] },
+      {
+        path: "customers",
+        loadChildren: () => import("./admin/components/customers/customers.module").then(module => module.CustomersModule),
+        canActivate: [authGuard, roleGuard]
+      },
+      {
+        path: "products",
+        loadChildren: () => import("./admin/components/products/products.module").then(module => module.ProductsModule),
+        canActivate: [authGuard, roleGuard],
+        data: { menuName: AuthorizeDefinitionConstants.Products }
+      },
+      {
+        path: "orders",
+        loadChildren: () => import("./admin/components/orders/orders.module").then(module => module.OrdersModule),
+        canActivate: [authGuard, roleGuard],
+        data: { menuName: AuthorizeDefinitionConstants.Orders }
+      },
       {
         path: "administration", children: [
-          { path: "roles", loadChildren: () => import("./admin/components/role-management/role-management.module").then(m => m.RoleManagementModule), canActivate: [authGuard] },
-          { path: "role-access", loadChildren: () => import("./admin/components/role-access/role-access.module").then(m => m.RoleAccessModule), canActivate: [authGuard] },
-          { path: "users", loadChildren: () => import("./admin/components/user-management/user-management.module").then(m => m.UserManagementModule), canActivate: [authGuard] },
+          {
+            path: "roles",
+            loadChildren: () => import("./admin/components/role-management/role-management.module").then(m => m.RoleManagementModule),
+            canActivate: [authGuard, roleGuard],
+            data: { menuName: AuthorizeDefinitionConstants.Roles }
+          },
+          {
+            path: "role-access",
+            loadChildren: () => import("./admin/components/role-access/role-access.module").then(m => m.RoleAccessModule),
+            canActivate: [authGuard, roleGuard],
+            data: { menuName: AuthorizeDefinitionConstants.Endpoints }
+          },
+          {
+            path: "users",
+            loadChildren: () => import("./admin/components/user-management/user-management.module").then(m => m.UserManagementModule),
+            canActivate: [authGuard, roleGuard],
+            data: { menuName: AuthorizeDefinitionConstants.Users }
+          },
           { path: "", redirectTo: "roles", pathMatch: "full" } // Default route for administration
         ]
       }

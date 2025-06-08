@@ -4,13 +4,13 @@ using WebAppAPI.Application.Abstractions.Services.Configurations;
 using WebAppAPI.Application.Consts;
 using WebAppAPI.Application.CustomAttributes;
 using WebAppAPI.Application.Enums;
-using WebAppAPI.Infrastructure.Services.Configurations;
+using WebAppAPI.Domain.Constants;
 
 namespace WebAppAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
     public class ApplicationServicesController : ControllerBase
     {
         readonly IApplicationService _applicationService;
@@ -20,8 +20,8 @@ namespace WebAppAPI.API.Controllers
             _applicationService = applicationService;
         }
 
-        [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Read, Definition = "Get Authorize Definition Endpoints", Menu = AuthorizeDefinitionConstants.ApplicationServices)]
+        [HttpGet("get-authorize-definition-endpoints")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.ApplicationServices, Definition = "Get Authorize Definition Endpoints", ActionType = ActionType.Read, AdminOnly = true)]
         public IActionResult GetAuthorizeDefinitionEndpoints()
         {
             var data = _applicationService.GetAuthorizeDefinitionEndpoints(typeof(Program));

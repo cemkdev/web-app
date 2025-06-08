@@ -21,6 +21,7 @@ export class ProductService {
     const data = await firstValueFrom(
       this.httpClientService.get<{ totalProductCount: number, products: List_Product[] }>({
         controller: "products",
+        action: "get-all-products",
         queryString: `page=${page}&size=${size}`
       }).pipe(
         map(response => {
@@ -44,6 +45,7 @@ export class ProductService {
     const data = await firstValueFrom(
       this.httpClientService.get<Product_By_Id>({
         controller: "products",
+        action: "get-product-by-id"
       }, id).pipe(
         map(response => {
           successCallBack && successCallBack();
@@ -63,7 +65,8 @@ export class ProductService {
   // CREATE
   create(product: Create_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
     this.httpClientService.post({
-      controller: "products"
+      controller: "products",
+      action: "create-product"
     }, product)
       .subscribe({
         next: result => {
@@ -85,7 +88,8 @@ export class ProductService {
   // PUT / UPDATE
   update(product: Update_Product, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
     this.httpClientService.put({
-      controller: "products"
+      controller: "products",
+      action: "update-product"
     }, product)
       .subscribe({
         next: result => {
@@ -117,7 +121,7 @@ export class ProductService {
   async deleteRange(productIds: string[]) {
     const deleteObservable: Observable<any> = this.httpClientService.deleteRange<any>({
       controller: "products",
-      action: "deleterange"
+      action: "delete-range-of-products"
     }, {
       productIds
     });
@@ -129,7 +133,7 @@ export class ProductService {
   async readImages(id: string, successCallBack?: () => void): Promise<List_Product_Image[]> {
     const getObservable: Observable<List_Product_Image[]> = this.httpClientService.get<List_Product_Image[]>({
       controller: "products",
-      action: "getproductimages"
+      action: "get-product-images-by-product-id"
     }, id);
 
     const images: List_Product_Image[] = await firstValueFrom(getObservable);
@@ -142,7 +146,7 @@ export class ProductService {
   async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
     const deleteObservable = this.httpClientService.delete({
       controller: "products",
-      action: "DeleteProductImage",
+      action: "delete-product-image",
       queryString: `imageId=${imageId}`
     }, id);
     await firstValueFrom(deleteObservable);
@@ -153,7 +157,7 @@ export class ProductService {
   async changeCoverImage(imageId: string, productId: string, successCallBack?: () => void): Promise<void> {
     const changeCoverImageObservable = this.httpClientService.put({
       controller: "products",
-      action: "ChangeCoverImage",
+      action: "change-cover-image",
       queryString: `imageId=${imageId}&productId=${productId}`
     }, {});
     await firstValueFrom(changeCoverImageObservable);

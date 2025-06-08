@@ -1,11 +1,13 @@
-﻿namespace WebAppAPI.Application.Abstractions.Services
+﻿using WebAppAPI.Application.DTOs.Role;
+
+namespace WebAppAPI.Application.Abstractions.Services
 {
     public interface IRoleService
     {
-        IDictionary<string, string> GetRoles();
-        Task<(string id, string name)> GetRoleByIdAsync(string id);
-        Task<bool> CreateRoleAsync(string name);
-        Task<bool> UpdateRoleAsync(string id, string name);
+        Task<List<RoleGetDto>> GetRolesAsync();
+        Task<(string id, string name, bool isAdmin)> GetRoleByIdAsync(string id);
+        Task<bool> CreateRoleAsync(string name, bool isAdmin);
+        Task<bool> UpdateRoleAsync(string id, string name, bool isAdmin);
         Task<bool> DeleteRoleAsync(string id);
     }
 }

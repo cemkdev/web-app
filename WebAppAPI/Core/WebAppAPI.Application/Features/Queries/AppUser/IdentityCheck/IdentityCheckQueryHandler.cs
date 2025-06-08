@@ -17,10 +17,12 @@ namespace WebAppAPI.Application.Features.Queries.AppUser.IdentityCheck
             var identityCheckResult = await _authService.IdentityCheckAsync();
             return new()
             {
+                UserId = identityCheckResult.UserId,
                 Username = identityCheckResult.Username,
                 IsAuthenticated = identityCheckResult.IsAuthenticated,
                 Expiration = identityCheckResult.Expiration,
-                RefreshBeforeTime = identityCheckResult.RefreshBeforeTime
+                RefreshBeforeTime = identityCheckResult.RefreshBeforeTime,
+                IsAdmin = identityCheckResult.IsAdmin
             };
         }
     }

@@ -29,7 +29,13 @@
       class="delete-multiple-item"
       color="error"
       (click)="deleteSelectedOrders()"
-      *ngIf="selection.selected.length != 0"
+      *ngIf="
+        selection.selected.length != 0 &&
+        hasPermission(
+          authorizeDefinitionConstants.Orders,
+          endpointCodeConstants.DeleteRangeofOrder
+        )
+      "
     >
       <mat-icon matTooltip="Delete Selected Orders" matTooltipPosition="above"
         >playlist_remove</mat-icon
@@ -40,7 +46,13 @@
       class="delete-multiple-item"
       color="dismiss"
       disabled
-      *ngIf="selection.selected.length == 0"
+      *ngIf="
+        selection.selected.length == 0 &&
+        hasPermission(
+          authorizeDefinitionConstants.Orders,
+          endpointCodeConstants.DeleteRangeofOrder
+        )
+      "
     >
       <mat-icon matTooltip="Delete Selected Orders" matTooltipPosition="above"
         >playlist_remove</mat-icon
@@ -181,6 +193,12 @@
           class="set-button end-column"
         >
           <button
+            *ngIf="
+              hasPermission(
+                authorizeDefinitionConstants.Products,
+                endpointCodeConstants.DeleteProduct
+              )
+            "
             mat-mini-fab
             class="no-elevation small"
             color="error"

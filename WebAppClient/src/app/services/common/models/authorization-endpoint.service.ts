@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
-import { catchError, firstValueFrom, map, Observable } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable, of } from 'rxjs';
 import { AssignRoleEndpoint } from '../../../entities/assign-role-endpoint';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -48,5 +48,32 @@ export class AuthorizationEndpointService {
     });
 
     await promiseData;
+  }
+
+  // GET Authoriziton for Pages
+  hasAccessToMenu(menuName: string): Promise<boolean> {
+    return firstValueFrom(
+      this.httpClientService.get<{ hasAccess: boolean }>({
+        controller: "endpoints",
+        action: "has-access",
+        queryString: `menuName=${encodeURIComponent(menuName)}`
+      }).pipe(
+        map(response => response.hasAccess),
+        catchError(error => {
+          console.error("Access check failed", error);
+          return of(false);
+        })
+      )
+    );
+  }
+
+  // GET Authorized Sidebar Menu Items
+  async fetchAccessibleMenus(): Promise<string[]> {
+    return firstValueFrom(
+      this.httpClientService.get<string[]>({
+        controller: 'endpoints',
+        action: 'accessible-menus'
+      })
+    );
   }
 }

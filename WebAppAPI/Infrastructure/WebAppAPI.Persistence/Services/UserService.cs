@@ -6,6 +6,7 @@ using WebAppAPI.Application.Exceptions;
 using WebAppAPI.Application.Helpers;
 using WebAppAPI.Application.Repositories;
 using WebAppAPI.Domain.Entities;
+using WebAppAPI.Domain.Entities.Identity;
 using U = WebAppAPI.Domain.Entities.Identity;
 
 namespace WebAppAPI.Persistence.Services
@@ -14,11 +15,13 @@ namespace WebAppAPI.Persistence.Services
     {
         readonly UserManager<U.AppUser> _userManager;
         readonly IEndpointReadRepository _endpointReadRepository;
+        readonly RoleManager<AppRole> _roleManager;
 
-        public UserService(UserManager<U.AppUser> userManager, IEndpointReadRepository endpointReadRepository)
+        public UserService(UserManager<U.AppUser> userManager, IEndpointReadRepository endpointReadRepository, RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
             _endpointReadRepository = endpointReadRepository;
+            _roleManager = roleManager;
         }
 
         public async Task<ListUserDto> GetAllUsersAsync(int page, int size)
@@ -161,6 +164,19 @@ namespace WebAppAPI.Persistence.Services
                     return true;
             }
 
+            return false;
+        }
+
+        public async Task<bool> HasAdminAccessAsync(string username)
+        {
+            var userRoles = await GetRolesByUserIdentifierAsync(username);
+
+            foreach (var roleName in userRoles)
+            {
+                var role = await _roleManager.FindByNameAsync(roleName);
+                if (role?.IsAdmin == true)
+                    return true;
+            }
             return false;
         }
     }

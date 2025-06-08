@@ -62,10 +62,16 @@
     <thead>
       <tr>
         <th class="th-endpoints">Actions</th>
-        <th class="th-roles" *ngFor="let role of selectedRoles">
+        <th
+          class="th-roles {{ role.isAdmin == true ? 'admin' : '' }}"
+          *ngFor="let role of selectedRoles"
+        >
           <button mat-flat-button color="default" (click)="removeRole(role)">
+            <mat-icon iconPositionStart class="admin" *ngIf="role.isAdmin"
+              >admin_panel_settings</mat-icon
+            >
             {{ role.name }}
-            <mat-icon iconPositionEnd>close</mat-icon>
+            <mat-icon iconPositionEnd class="close">close</mat-icon>
           </button>
         </th>
       </tr>
@@ -75,7 +81,9 @@
         <tr>
           <td [attr.colspan]="selectedRoles.length + 1" class="module-name">
             <div class="module-name-wrapper">
-              <mat-icon class="material-icons-outlined">shopping_cart</mat-icon>
+              <mat-icon class="material-icons-outlined"
+                >manage_accounts</mat-icon
+              >
               <span>{{ module.name }} Management</span>
             </div>
           </td>
@@ -83,12 +91,17 @@
         <tr *ngFor="let action of module.actions">
           <td class="td-endpoints">
             {{ action.definition }}
-            <span class="http-type">{{ action.httpType }}</span>
+            <!-- <span class="http-type">{{ action.httpType }}</span> -->
+            <span *ngIf="action.adminOnly" class="admin-only">Admins Only</span>
           </td>
           <td class="td-checkbox" *ngFor="let role of selectedRoles">
             <mat-checkbox
               [(ngModel)]="permissions[action.code][role.id]"
-              [disabled]="isEditing === false"
+              [disabled]="
+                isEditing === false || (!role.isAdmin && action.adminOnly)
+              "
+              matTooltip="Only super admins can assign this endpoint"
+              matTooltipPosition="above"
             ></mat-checkbox>
           </td>
         </tr>

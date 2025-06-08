@@ -1,7 +1,5 @@
 ﻿using MediatR;
-using System.Collections.Generic;
 using WebAppAPI.Application.Abstractions.Services;
-using WebAppAPI.Application.DTOs.Role;
 
 namespace WebAppAPI.Application.Features.Queries.Role.GetRoles
 {
@@ -16,11 +14,12 @@ namespace WebAppAPI.Application.Features.Queries.Role.GetRoles
 
         public async Task<List<GetRolesQueryResponse>> Handle(GetRolesQueryRequest request, CancellationToken cancellationToken)
         {
-            var data = _roleService.GetRoles();
-            var result = data.Select(kvp => new GetRolesQueryResponse
+            var roles = await _roleService.GetRolesAsync();
+            var result = roles.Select(role => new GetRolesQueryResponse
             {
-                Id = kvp.Key,
-                Name = kvp.Value
+                Id = role.Id,
+                Name = role.Name,
+                IsAdmin = role.IsAdmin
             }).ToList();
 
             return result;

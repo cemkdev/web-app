@@ -14,11 +14,12 @@ namespace WebAppAPI.Application.Features.Queries.Role.GetRoleById
 
         public async Task<GetRoleByIdQueryResponse> Handle(GetRoleByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var data = await _roleService.GetRoleByIdAsync(request.Id);
+            var role = await _roleService.GetRoleByIdAsync(request.Id);
             return new()
             {
-                Id = data.id,
-                Name = data.name
+                Id = role.id,
+                Name = role.name,
+                IsAdmin = role.isAdmin
             };
         }
     }

@@ -25,6 +25,7 @@ namespace WebAppAPI.Persistence.Services
         readonly IUserService _userService;
         readonly IMailService _mailService;
         IHttpContextAccessor _httpContextAccessor;
+        readonly IRoleService _roleService;
 
         private readonly int refreshTokenExpirationTime;
 
@@ -36,7 +37,8 @@ namespace WebAppAPI.Persistence.Services
             SignInManager<U.AppUser> signInManager,
             IUserService userService,
             IMailService mailService,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IRoleService roleService)
         {
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
@@ -48,6 +50,7 @@ namespace WebAppAPI.Persistence.Services
             _httpContextAccessor = httpContextAccessor;
 
             refreshTokenExpirationTime = Convert.ToInt32(_configuration["TokenExpirations:RefreshToken"]);
+            _roleService = roleService;
         }
 
         #region Internal Login
@@ -146,7 +149,7 @@ namespace WebAppAPI.Persistence.Services
         #endregion
 
         #region IdentityCheck
-        public Task<IdentityCheckDto> IdentityCheckAsync()
+        public async Task<IdentityCheckDto> IdentityCheckAsync()
         {
             var user = _httpContextAccessor.HttpContext?.User;
 
@@ -158,15 +161,19 @@ namespace WebAppAPI.Persistence.Services
 
             if (!user.Identity.IsAuthenticated)
             {
-                return Task.FromResult(new IdentityCheckDto
+                return new IdentityCheckDto
                 {
-                    IsAuthenticated = false,
+                    UserId = null,
                     Username = null,
+                    IsAuthenticated = false,
                     Expiration = DateTime.MinValue,
-                    RefreshBeforeTime = null
-                });
+                    RefreshBeforeTime = null,
+                    IsAdmin = false
+                };
             }
             var username = user.Identity.Name;
+            var userFromDB = await _userManager.FindByNameAsync(username);
+            var isAdmin = await _userService.HasAdminAccessAsync(username);
 
             var expirationClaim = user.Claims.FirstOrDefault(c => c.Type == "exp")?.Value;
             DateTime expirationDate = DateTime.MinValue;
@@ -179,13 +186,15 @@ namespace WebAppAPI.Persistence.Services
 
             string refreshBeforeTime = _configuration["TokenExpirations:RefreshBeforeTime"];
 
-            return Task.FromResult(new IdentityCheckDto
+            return new IdentityCheckDto
             {
-                IsAuthenticated = true,
+                UserId = userFromDB.Id,
                 Username = username,
+                IsAuthenticated = true,
                 Expiration = expirationDate,
-                RefreshBeforeTime = refreshBeforeTime
-            });
+                RefreshBeforeTime = refreshBeforeTime,
+                IsAdmin = isAdmin
+            };
         }
         #endregion
 

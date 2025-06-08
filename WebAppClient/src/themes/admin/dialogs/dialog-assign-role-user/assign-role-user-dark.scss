@@ -1,4 +1,12 @@
 html.dark {
     mat-dialog-content.dialog-assign-role-user {
+        /////////////////////////////////////////////////
+        ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+        /////////////////////////////////////////////////
+        .is-admin {
+            span.admin {
+                color: var(--primary-bg-alternative);
+            }
+        }
     }
 }

@@ -8,6 +8,8 @@ namespace WebAppAPI.Domain.Entities.Identity
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public ICollection<Endpoint> Endpoints { get; set; }
     }
 }

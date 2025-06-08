@@ -29,5 +29,16 @@ html {
                 }
             }
         }
+
+        .table-container.role-table {
+            /////////////////////////////////////////////////
+            ////// PAGE BASED TD-ROW WIDTH ADJUSTMENTS //////
+            /////////////////////////////////////////////////
+            .is-admin {
+                span.admin {
+                    color: var(--primary-bg-dark);
+                }
+            }
+        }
     }
 }

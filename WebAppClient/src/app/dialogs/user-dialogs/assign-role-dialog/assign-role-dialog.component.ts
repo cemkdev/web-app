@@ -14,7 +14,7 @@ import { Role } from '../../../contracts/users/user_roles';
 })
 export class AssignRoleDialogComponent extends BaseDialog<AssignRoleDialogComponent> implements OnInit {
 
-  displayedColumns: string[] = ['roleName', 'select'];
+  displayedColumns: string[] = ['roleName', 'isAdmin', 'select'];
 
   roles: Role[] = [];
   originalRoles: Role[] = [];
@@ -68,6 +68,7 @@ export class AssignRoleDialogComponent extends BaseDialog<AssignRoleDialogCompon
     return roles.map(role => ({
       roleId: role.roleId,
       roleName: role.roleName,
+      isAdmin: role.isAdmin,
       isAssigned: role.isAssigned
     }));
   }

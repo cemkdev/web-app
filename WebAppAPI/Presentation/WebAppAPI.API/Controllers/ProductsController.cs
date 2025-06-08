@@ -15,6 +15,7 @@ using WebAppAPI.Application.Features.Commands.ProductImageFile.UploadProductImag
 using WebAppAPI.Application.Features.Queries.Product.GetAllProducts;
 using WebAppAPI.Application.Features.Queries.Product.GetByIdProduct;
 using WebAppAPI.Application.Features.Queries.ProductImageFile.GetProductImages;
+using WebAppAPI.Domain.Constants;
 
 namespace WebAppAPI.API.Controllers
 {
@@ -29,59 +30,62 @@ namespace WebAppAPI.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetAllProductsQueryRequest getAllProductsQueryRequest)
+        [HttpGet("get-all-products")]
+        public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductsQueryRequest getAllProductsQueryRequest)
         {
             GetAllProductsQueryResponse response = await _mediator.Send(getAllProductsQueryRequest);
             return Ok(response);
         }
 
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> Get([FromRoute] GetByIdProductQueryRequest getByIdProductQueryRequest)
+        [HttpGet("get-product-by-id/{Id}")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Get Product By Id", ActionType = ActionType.Read, AdminOnly = true)]
+        public async Task<IActionResult> GetProductById([FromRoute] GetByIdProductQueryRequest getByIdProductQueryRequest)
         {
             GetByIdProductQueryResponse response = await _mediator.Send(getByIdProductQueryRequest);
             return Ok(response);
         }
 
-        [HttpPost]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Write, Definition = "Create Product")]
-        public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
+        [HttpPost("create-product")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Create Product", ActionType = ActionType.Write, AdminOnly = true)]
+        public async Task<IActionResult> CreateProduct(CreateProductCommandRequest createProductCommandRequest)
         {
             CreateProductCommandResponse response = await _mediator.Send(createProductCommandRequest);
             return StatusCode((int)HttpStatusCode.Created);
         }
 
-        [HttpPut]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Update, Definition = "Update Product")]
-        public async Task<IActionResult> Put([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
+        [HttpPut("update-product")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Update Product", ActionType = ActionType.Update, AdminOnly = true)]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
         {
             UpdateProductCommandResponse response = await _mediator.Send(updateProductCommandRequest);
             return Ok();
         }
 
         [HttpDelete("{Id}")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Product")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Delete Product", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> Delete([FromRoute] RemoveProductCommandRequest removeProductCommandRequest)
         {
             RemoveProductCommandResponse response = await _mediator.Send(removeProductCommandRequest);
             return Ok();
         }
 
-        [HttpPost("deleterange")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Range of Product")]
+        [HttpPost("delete-range-of-products")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Delete Range of Product", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> DeleteRange([FromBody] RemoveRangeProductCommandRequest removeRangeProductCommandRequest)
         {
             RemoveRangeProductCommandResponse response = await _mediator.Send(removeRangeProductCommandRequest);
             return Ok();
         }
 
+        //todo Handler names must change. This method must move to global point.
+        // Used for all file upload requests coming from the client. However, it's only used for uploading product images right now.
         [HttpPost("[action]")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Write, Definition = "Upload Product Image")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Upload Files", ActionType = ActionType.Write)]
         public async Task<IActionResult> Upload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
         {
             uploadProductImageCommandRequest.Files = Request.Form.Files;
@@ -90,18 +94,18 @@ namespace WebAppAPI.API.Controllers
             return Ok();
         }
 
-        [HttpGet("[action]/{id}")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Read, Definition = "Get Product Images")]
+        [HttpGet("get-product-images-by-product-id/{id}")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Get Product Images", ActionType = ActionType.Read)]
         public async Task<IActionResult> GetProductImages([FromRoute] GetProductImagesQueryRequest getProductImagesQueryRequest)
         {
             List<GetProductImagesQueryResponse> response = await _mediator.Send(getProductImagesQueryRequest);
             return Ok(response);
         }
 
-        [HttpDelete("[action]/{Id}")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Delete, Definition = "Delete Product Image")]
+        [HttpDelete("delete-product-image/{Id}")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Delete Product Image", ActionType = ActionType.Delete, AdminOnly = true)]
         public async Task<IActionResult> DeleteProductImage([FromRoute] RemoveProductImageCommandRequest removeProductImageCommandRequest, [FromQuery] string imageId)
         {
             removeProductImageCommandRequest.ImageId = imageId;
@@ -109,9 +113,9 @@ namespace WebAppAPI.API.Controllers
             return Ok();
         }
 
-        [HttpPut("[action]")]
-        [Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Update, Definition = "Change Cover Image")]
+        [HttpPut("change-cover-image")]
+        [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, Definition = "Change Cover Image", ActionType = ActionType.Update, AdminOnly = true)]
         public async Task<IActionResult> ChangeCoverImage([FromQuery] ChangeCoverImageCommandRequest changeCoverImageCommandRequest)
         {
             ChangeCoverImageCommandResponse response = await _mediator.Send(changeCoverImageCommandRequest);

@@ -19,5 +19,6 @@ namespace WebAppAPI.Application.Abstractions.Services
         Task AssignRoleToUserAsync(string userId, string[] roles);
 
         Task<bool> HasRolePermissionAsync(string username, string code);
+        Task<bool> HasAdminAccessAsync(string username);
     }
 }
