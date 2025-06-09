@@ -28,15 +28,30 @@
       mat-mini-fab
       class="add-item"
       color="primary"
+      matTooltip="Add Product"
+      matTooltipPosition="above"
       (click)="createProduct()"
     >
       <mat-icon>library_add</mat-icon>
+    </button>
+    <!-- Scan QR Code Button -->
+    <button
+      mat-mini-fab
+      class="scan-qrcode"
+      color="tertiary"
+      matTooltip="Scan QR Code"
+      matTooltipPosition="above"
+      (click)="scanQrCode()"
+    >
+      <mat-icon>qr_code_scanner</mat-icon>
     </button>
     <!-- Delete Selected Items Button -->
     <button
       mat-mini-fab
       class="delete-multiple-item"
       color="error"
+      matTooltip="Delete Selected Products"
+      matTooltipPosition="above"
       (click)="deleteSelectedProducts()"
       *ngIf="
         selection.selected.length != 0 &&

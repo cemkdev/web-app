@@ -1,0 +1,49 @@
+<h1 mat-dialog-title class="dialog-delete">
+  <button mat-mini-fab disabled color="tertiary">
+    <mat-icon>qr_code_scanner</mat-icon>
+  </button>
+  Scan QR Code
+</h1>
+<mat-dialog-content class="dialog-delete">
+  <form [formGroup]="productForm">
+    <div class="form-container">
+      <div class="form-content">
+        <!-- STOCK -->
+        <mat-form-field>
+          <mat-label>Stock</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="stock"
+            (wheel)="onWheel($event)"
+          />
+          <mat-icon
+            matSuffix
+            *ngIf="
+              productForm.get('stock')?.invalid &&
+              productForm.get('stock')?.touched
+            "
+            >error_outline</mat-icon
+          >
+          <mat-icon matSuffix>inventory</mat-icon>
+          <mat-error
+            *ngIf="
+              productForm.get('stock')?.invalid &&
+              productForm.get('stock')?.touched
+            "
+            >Stock is required.</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <ngx-scanner-qrcode
+        #action="scanner"
+        (event)="onScan($event, action)"
+      ></ngx-scanner-qrcode>
+    </div>
+  </form>
+
+  <div style="text-align: center"></div>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-delete" align="end">
+  <button mat-raised-button color="default" mat-dialog-close>Close</button>
+</mat-dialog-actions>

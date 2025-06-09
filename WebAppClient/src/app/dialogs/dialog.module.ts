@@ -24,6 +24,11 @@ import { UpdateRoleDialogComponent } from './role-dialog/update-role-dialog/upda
 import { AssignRoleDialogComponent } from './user-dialogs/assign-role-dialog/assign-role-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { QrcodeDialogComponent } from './product-dialogs/qrcode-dialog/qrcode-dialog.component';
+import { ScanQrcodeDialogComponent } from './product-dialogs/scan-qrcode-dialog/scan-qrcode-dialog.component';
+
+import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
+
+LOAD_WASM('assets/wasm/ngx-scanner-qrcode.wasm').subscribe();
 
 @NgModule({
   declarations: [
@@ -35,7 +40,8 @@ import { QrcodeDialogComponent } from './product-dialogs/qrcode-dialog/qrcode-di
     CancelOrderDialogComponent,
     UpdateRoleDialogComponent,
     AssignRoleDialogComponent,
-    QrcodeDialogComponent
+    QrcodeDialogComponent,
+    ScanQrcodeDialogComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +54,8 @@ import { QrcodeDialogComponent } from './product-dialogs/qrcode-dialog/qrcode-di
     ReactiveFormsModule,
     MatTableModule, MatSortModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    NgxScannerQrcodeModule
   ],
   providers: [
     {

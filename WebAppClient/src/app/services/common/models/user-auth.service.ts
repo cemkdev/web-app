@@ -12,6 +12,9 @@ import { Log_Out_Response } from '../../../contracts/auth/log_out';
 import { AuthorizationEndpointService } from './authorization-endpoint.service';
 import { HttpHeaders } from '@angular/common/http';
 import { ElementAccessControlService } from '../element-access-control.service';
+import { MatDialog } from '@angular/material/dialog';
+
+declare var $: any;
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +74,8 @@ export class UserAuthService {
     public authService: AuthService,
     private socialAuthService: SocialAuthService,
     private authorizationEndpointService: AuthorizationEndpointService,
-    private elementAccessControlService: ElementAccessControlService
+    private elementAccessControlService: ElementAccessControlService,
+    private dialog: MatDialog
   ) {
     this.silentRefreshService.refreshNeeded$.subscribe(() => {
       this.refreshTokenLogin();
@@ -370,6 +374,9 @@ export class UserAuthService {
             throw error;
           }
         }
+
+        this.dialog.closeAll();
+        $('.modal').modal('hide');
 
         this.setUsername(null);
         this.setIsAdmin(null);
