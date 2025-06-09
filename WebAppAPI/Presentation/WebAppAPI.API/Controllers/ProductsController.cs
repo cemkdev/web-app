@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebAppAPI.Application.Abstractions;
 using WebAppAPI.Application.Consts;
 using WebAppAPI.Application.CustomAttributes;
 using WebAppAPI.Application.Enums;
@@ -24,10 +25,12 @@ namespace WebAppAPI.API.Controllers
     public class ProductsController : ControllerBase
     {
         readonly IMediator _mediator;
+        readonly IProductService _productService;
 
-        public ProductsController(IMediator mediator)
+        public ProductsController(IMediator mediator, IProductService productService)
         {
             _mediator = mediator;
+            _productService = productService;
         }
 
         [HttpGet("get-all-products")]
@@ -120,6 +123,13 @@ namespace WebAppAPI.API.Controllers
         {
             ChangeCoverImageCommandResponse response = await _mediator.Send(changeCoverImageCommandRequest);
             return Ok(response);
+        }
+
+        [HttpGet("qrcode/{productId}")]
+        public async Task<IActionResult> GetQrCodeFromProduct([FromRoute] string productId)
+        {
+            var data = await _productService.QrCodeFromProductAsync(productId);
+            return File(data, "image/png");
         }
     }
 }

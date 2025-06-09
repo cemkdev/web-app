@@ -1,0 +1,28 @@
+<h1 mat-dialog-title class="dialog-delete">
+  <button mat-mini-fab disabled color="notify">
+    <mat-icon>qr_code</mat-icon>
+  </button>
+  QR Code
+</h1>
+<mat-dialog-content class="dialog-delete">
+  <div style="text-align: center">
+    <img
+      [src]="qrCodeSafeUrl"
+      alt="QR Code"
+      style="width: 200px; height: 200px; margin-bottom: 10px"
+    />
+    <div
+      style="
+        font-weight: 500;
+        font-size: 14px;
+        margin-top: 10px;
+        color: #858585;
+      "
+    >
+      {{ productName }}
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-delete" align="end">
+  <button mat-raised-button color="default" mat-dialog-close>Close</button>
+</mat-dialog-actions>

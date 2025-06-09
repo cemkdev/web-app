@@ -173,7 +173,7 @@ export class RoleManagementComponent extends BaseComponent implements OnInit {
       if (result == 'updated') {
         await this.initializeComponent();
       }
-      else if (result != null && result != 'updated') {
+      else if (result != null && result !== '' && result != 'updated') {
         this.alertifyService.message(result, {
           dismissOthers: true,
           messageType: MessageType.Error,

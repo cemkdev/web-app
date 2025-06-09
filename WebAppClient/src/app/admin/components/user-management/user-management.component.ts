@@ -202,7 +202,7 @@ export class UserManagementComponent extends BaseComponent implements OnInit {
       if (result == 'updated') {
         await this.initializePage();
       }
-      else if (result != null && result != 'updated') {
+      else if (result != null && result !== '' && result != 'updated') {
         this.alertifyService.message(result, {
           dismissOthers: true,
           messageType: MessageType.Error,

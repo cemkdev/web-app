@@ -17,6 +17,7 @@ import { DeleteDialogComponent, DeleteState } from '../../../../dialogs/delete-d
 import { AuthorizeDefinitionConstants } from '../../../../constants/authorize-definition.constants';
 import { EndpointCodeConstants } from '../../../../constants/endpoint-code-constants';
 import { ElementAccessControlService } from '../../../../services/common/element-access-control.service';
+import { QrcodeDialogComponent } from '../../../../dialogs/product-dialogs/qrcode-dialog/qrcode-dialog.component';
 
 declare var $: any;
 
@@ -28,7 +29,7 @@ declare var $: any;
 })
 export class ListComponent extends BaseComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'index', 'name', 'description', 'stock', 'price', 'rating', 'dateCreated', 'dateUpdated', 'images', 'edit', 'delete'];
+  displayedColumns: string[] = ['select', 'index', 'name', 'description', 'stock', 'price', 'rating', 'dateCreated', 'dateUpdated', 'images', 'qrcode', 'edit', 'delete'];
   dataSource: MatTableDataSource<List_Product_Admin_VM> = null;
   selection = new SelectionModel<List_Product_Admin_VM>(true, []);
 
@@ -227,7 +228,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       if (result == 'created') {
         await this.initializeComponent();
       }
-      else if (result != null && result != 'created') {
+      else if (result != null && result !== '' && result != 'created') {
         this.alertifyService.message(result, {
           dismissOthers: true,
           messageType: MessageType.Error,
@@ -251,7 +252,7 @@ export class ListComponent extends BaseComponent implements OnInit {
         await this.getProducts();
         this.manipulateProductData(this.allProducts.products, this.allProducts.totalProductCount);
       }
-      else if (result != null && result != 'updated') {
+      else if (result != null && result !== '' && result != 'updated') {
         this.alertifyService.message(result, {
           dismissOthers: true,
           messageType: MessageType.Error,
@@ -310,6 +311,29 @@ export class ListComponent extends BaseComponent implements OnInit {
         } finally {
           this.hideSpinner(SpinnerType.BallAtom);
         }
+      }
+    });
+  }
+
+  getQrCode(id: string) {
+    const dialogRef = this.dialogService.openDialog({
+      componentType: QrcodeDialogComponent,
+      data: id,
+      options: {
+        width: '450px'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result == 'created') {
+        await this.initializeComponent();
+      }
+      else if (result != null && result !== '' && result != 'created') {
+        this.alertifyService.message(result, {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
       }
     });
   }

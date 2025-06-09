@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppAPI.Application.Abstractions;
 using WebAppAPI.Application.Abstractions.Services;
 using WebAppAPI.Application.Abstractions.Services.Authentications;
 using WebAppAPI.Application.Repositories;
@@ -79,6 +80,8 @@ namespace WebAppAPI.Persistence
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
 
+            // Product Entity Service
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

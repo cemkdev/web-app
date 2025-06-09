@@ -24,7 +24,8 @@ export class HttpClientService {
 
     return this.httpClient.get<T>(url, {
       headers: requestParameter.headers,
-      withCredentials: requestParameter.withCredentials ?? true
+      withCredentials: requestParameter.withCredentials ?? true,
+      responseType: requestParameter.responseType as "json"
     });
   }
 
@@ -39,7 +40,8 @@ export class HttpClientService {
 
     return this.httpClient.post<T>(url, body, {
       headers: requestParameter.headers,
-      withCredentials: requestParameter.withCredentials ?? true
+      withCredentials: requestParameter.withCredentials ?? true,
+      responseType: requestParameter.responseType as "json"
     });
   }
 
@@ -54,7 +56,8 @@ export class HttpClientService {
 
     return this.httpClient.put<T>(url, body, {
       headers: requestParameter.headers,
-      withCredentials: requestParameter.withCredentials ?? true
+      withCredentials: requestParameter.withCredentials ?? true,
+      responseType: requestParameter.responseType as "json"
     });
   }
 
@@ -69,7 +72,8 @@ export class HttpClientService {
 
     return this.httpClient.delete<T>(url, {
       headers: requestParameter.headers,
-      withCredentials: requestParameter.withCredentials ?? true
+      withCredentials: requestParameter.withCredentials ?? true,
+      responseType: requestParameter.responseType as "json"
     });
   }
 
@@ -84,7 +88,8 @@ export class HttpClientService {
 
     return this.httpClient.post<T>(url, body, {
       headers: requestParameter.headers,
-      withCredentials: requestParameter.withCredentials ?? true
+      withCredentials: requestParameter.withCredentials ?? true,
+      responseType: requestParameter.responseType as "json"
     });
   }
 }
@@ -97,4 +102,5 @@ export class RequestParameters {
   baseUrl?: string;
   fullEndPoint?: string;
   withCredentials?: boolean;
+  responseType?: string;
 }

@@ -23,6 +23,7 @@ import { CancelOrderDialogComponent } from './order-detail-dialog/cancel-order-d
 import { UpdateRoleDialogComponent } from './role-dialog/update-role-dialog/update-role-dialog.component';
 import { AssignRoleDialogComponent } from './user-dialogs/assign-role-dialog/assign-role-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { QrcodeDialogComponent } from './product-dialogs/qrcode-dialog/qrcode-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CompleteOrderDialogComponent,
     CancelOrderDialogComponent,
     UpdateRoleDialogComponent,
-    AssignRoleDialogComponent
+    AssignRoleDialogComponent,
+    QrcodeDialogComponent
   ],
   imports: [
     CommonModule,

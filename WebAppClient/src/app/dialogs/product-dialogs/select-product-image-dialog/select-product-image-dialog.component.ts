@@ -8,6 +8,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../../../base/base.component';
 import { DialogService } from '../../../services/common/dialog.service';
 import { DeleteDialogComponent, DeleteState } from '../../delete-dialog/delete-dialog.component';
+import { Product_By_Id } from '../../../contracts/product/product_by_id';
+import { AlertifyService, MessageType, Position } from '../../../services/admin/alertify.service';
 
 declare var $: any;
 
@@ -19,12 +21,15 @@ declare var $: any;
 export class SelectProductImageDialogComponent extends BaseDialog<SelectProductImageDialogComponent> implements OnInit {
 
   images: List_Product_Image[];
+  product: Product_By_Id;
+  productName: string;
 
   constructor(
     dialogRef: MatDialogRef<SelectProductImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState | string,
     private productService: ProductService,
     private spinner: NgxSpinnerService,
+    private alertify: AlertifyService,
     private dialogService: DialogService
   ) {
     super(dialogRef)
@@ -46,6 +51,22 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
 
   async initializeComponent() {
     await this.getImages();
+    await this.getProductNameById(this.data as string);
+  }
+
+  async getProductNameById(id: string) {
+    this.product = await this.productService.readById(id,
+      () => { },
+      (errorMessage) => {
+        this.spinner.hide(SpinnerType.BallAtom);
+        this.alertify.message(errorMessage, {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
+      }
+    );
+    this.productName = this.product.name;
   }
 
   async onUploadFinished(result: 'success' | 'error') {
