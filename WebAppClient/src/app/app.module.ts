@@ -1,3 +1,4 @@
+import { environment } from '../environments/environment';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -80,7 +81,7 @@ export function preloadPermissionsFactory(userAuthService: UserAuthService, elem
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem("accessToken"),
-        allowedDomains: ["localhost:7198"]
+        allowedDomains: environment.allowedDomains
       }
     }),
     SocialLoginModule,
@@ -101,8 +102,8 @@ export function preloadPermissionsFactory(userAuthService: UserAuthService, elem
       multi: true
     },
     provideAnimationsAsync(),
-    { provide: "baseUrl", useValue: "https://localhost:7198/api", multi: true },
-    { provide: "baseSignalRUrl", useValue: "https://localhost:7198/", multi: true },
+    { provide: "baseUrl", useValue: environment.baseUrl, multi: true },
+    { provide: "baseSignalRUrl", useValue: environment.baseSignalRUrl, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: 'SocialAuthServiceConfig',
@@ -113,14 +114,14 @@ export function preloadPermissionsFactory(userAuthService: UserAuthService, elem
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '1006815861518-blgomcen8prs5nanddehdqoo7vvmqm1o.apps.googleusercontent.com', {
+              environment.googleClientId, {
               scopes: 'openid profile email',
             }
             )
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('961617235956531')
+            provider: new FacebookLoginProvider(environment.facebookClientId)
           }
         ],
         onError: (err) => console.error(err)

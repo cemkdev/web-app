@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# launchSettings.json (local debug ayarları)
+WebAppAPI/WebAppAPI.API/Properties/launchSettings.json

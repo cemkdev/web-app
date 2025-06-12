@@ -24,6 +24,11 @@ using WebAppAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
 #region variables
 var tokenValidationParameters = new TokenValidationParameters
 {
@@ -50,15 +55,16 @@ builder.Services.AddHttpContextAccessor(); // Client'tan gelen request neticesin
 
 // Here we call the extension method that adds services to the IoC Container.
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
-builder.Services.AddPersistenceServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddSignalRServices();
 
 builder.Services.AddStorage<AzureStorage>();
 
+var allowedOrigin = builder.Configuration["AngularClientUrl"] ?? throw new InvalidOperationException("AngularClientUrl must be configured in appsettings or environment variables.");
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-    policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+    policy.WithOrigins(allowedOrigin).AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 ));
 
 Logger log = new LoggerConfiguration()

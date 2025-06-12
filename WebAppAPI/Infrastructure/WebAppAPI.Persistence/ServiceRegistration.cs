@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppAPI.Application.Abstractions;
 using WebAppAPI.Application.Abstractions.Services;
@@ -15,12 +16,13 @@ namespace WebAppAPI.Persistence
     public static class ServiceRegistration
     {
         // The method by which we will add services to the built-in IoC Container in the WebAPI project in the Presentation layer.
-        public static void AddPersistenceServices(this IServiceCollection services)
+        public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             // We need to specify the database we will migrate using the Use commands to the "server" we will use.
             // But which server? -> postgresql. That's why we need to install the relevant package to this project.
             // If you execute migration commands via the dotnet CLI, you don't need this service.
-            services.AddDbContext<WebAppAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
+            //services.AddDbContext<WebAppAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
+            services.AddDbContext<WebAppAPIDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {
