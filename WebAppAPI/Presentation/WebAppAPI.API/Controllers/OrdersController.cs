@@ -27,7 +27,6 @@ namespace WebAppAPI.API.Controllers
             _mediator = mediator;
         }
 
-        // dummy comment
         [HttpGet("get-all-orders")]
         [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, Definition = "Get All Orders", ActionType = ActionType.Read, AdminOnly = true)]
         public async Task<ActionResult> GetAllOrders([FromQuery] GetAllOrdersQueryRequest getAllOrdersQueryRequest)
