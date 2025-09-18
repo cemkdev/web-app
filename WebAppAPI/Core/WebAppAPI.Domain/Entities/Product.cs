@@ -9,7 +9,7 @@ namespace WebAppAPI.Domain.Entities
         public float Price { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public float? Rating { get; set; } // Bunu şuan sadece ekranda göstermek için kullanıyoruz. Anlamı yok. Kaldırılacak.
+        public float? Rating { get; set; } // Temporary. Just for demo.
 
         public ICollection<ProductImageFile> ProductImageFiles { get; set; }
         public ICollection<Rating> Ratings { get; set; }

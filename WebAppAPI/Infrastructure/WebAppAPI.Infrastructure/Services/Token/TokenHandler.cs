@@ -25,10 +25,10 @@ namespace WebAppAPI.Infrastructure.Services.Token
         {
             T.Token token = new();
 
-            // Security Key'in simetriğini alıyoruz.
+            // We are getting the symmetric key of the Security Key.
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
 
-            // Şifrelenmiş kimliği oluşturuyoruz.
+            // We are creating the encrypted identity.
             SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
             int configuredAccessTokenLifetime = Convert.ToInt32(_configuration["TokenExpirations:AccessToken"]);
@@ -42,7 +42,8 @@ namespace WebAppAPI.Infrastructure.Services.Token
                 if (user.RefreshTokenEndDate == null || user.RefreshTokenEndDate <= now)
                     throw new SecurityTokenExpiredException("Session expired.");
                 var remaining = user.RefreshTokenEndDate.Value - now;
-                // Token süresi, refresh token süresinden uzun olmasın
+
+                // Make sure the token lifetime isn't longer than the refresh token lifetime.
                 var finalLifetime = remaining < defaultAccessTokenLifetime ? remaining : defaultAccessTokenLifetime;
                 expiration = DateTime.UtcNow.AddSeconds(finalLifetime.TotalSeconds);
             }
@@ -55,12 +56,12 @@ namespace WebAppAPI.Infrastructure.Services.Token
                 audience: _configuration["Token:Audience"],
                 issuer: _configuration["Token:Issuer"],
                 expires: token.Expiration,
-                notBefore: DateTime.UtcNow, // Token, üretildiği andan ne kadar zaman sonra devreye girsin demek.
+                notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentials,
                 claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
                 );
 
-            // Token oluşturucu sınıfından bir örnek alalım.
+            // Let's create an instance of the token generator class.
             JwtSecurityTokenHandler tokenHandler = new();
             token.AccessToken = tokenHandler.WriteToken(SecurityToken);
 
@@ -94,7 +95,7 @@ namespace WebAppAPI.Infrastructure.Services.Token
         public string? GetUsernameFromExpiredToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token); // Expiration kontrolü yapmaz, sadece parse eder.
+            var jwtToken = handler.ReadJwtToken(token); // It does not check for expiration; it only parses.
             var usernameClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
             return usernameClaim?.Value;
         }

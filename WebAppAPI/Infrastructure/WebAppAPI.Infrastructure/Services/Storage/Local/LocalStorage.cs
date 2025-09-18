@@ -38,7 +38,6 @@ namespace WebAppAPI.Infrastructure.Services.Storage.Local
             }
             catch (Exception ex)
             {
-                //todo log!
                 throw ex;
             }
         }
@@ -59,8 +58,6 @@ namespace WebAppAPI.Infrastructure.Services.Storage.Local
                 data.Add((formattedFileName, $"{path}\\{formattedFileName}"));
             }
             return data;
-
-            //todo Eğer ki yukarıdaki if geçerli değilse, burada, dosyaların sunucuda yüklenirken hata alındığına dair uyarıcı bir exception oluşturulup fırlatılması gerekiyor.
         }
     }
 }

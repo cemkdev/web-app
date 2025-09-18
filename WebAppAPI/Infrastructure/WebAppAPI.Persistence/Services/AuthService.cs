@@ -75,7 +75,7 @@ namespace WebAppAPI.Persistence.Services
                 string refreshToken = _tokenHandler.CreateRefreshToken();
                 await _userService.UpdateRefreshTokenAsync(user, refreshToken, refreshTokenExpirationTime);
 
-                // Access token'ı HttpOnly cookie olarak gönderiyoruz
+                // We're sending the access token as an HttpOnly cookie.
                 SetHttpOnlyAccessTokenCookie(token);
 
                 return token;
@@ -180,7 +180,7 @@ namespace WebAppAPI.Persistence.Services
 
             if (expirationClaim != null && long.TryParse(expirationClaim, out var expUnix))
             {
-                // Unix timestamp'tan DateTime'a çevir
+                // Convert Unix timestamp to DateTime.
                 expirationDate = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
             }
 
@@ -238,7 +238,7 @@ namespace WebAppAPI.Persistence.Services
             if (string.IsNullOrEmpty(accessToken))
                 throw new AuthenticationFailedException();
 
-            // Token süresi dolmuş olsa bile kullanıcı adını çıkaralım
+            // Even if the token has expired, let's extract the username.
             var username = _tokenHandler.GetUsernameFromExpiredToken(accessToken);
             if (string.IsNullOrEmpty(username))
                 throw new AuthenticationFailedException("User info could not be extracted from token.");
@@ -291,7 +291,7 @@ namespace WebAppAPI.Persistence.Services
                 string refreshToken = _tokenHandler.CreateRefreshToken();
                 await _userService.UpdateRefreshTokenAsync(user, refreshToken, refreshTokenExpirationTime);
 
-                // Access token'ı HttpOnly cookie olarak gönderiyoruz
+                // We're sending the access token as an HttpOnly cookie.
                 SetHttpOnlyAccessTokenCookie(token);
 
                 return token;
@@ -322,16 +322,16 @@ namespace WebAppAPI.Persistence.Services
                 throw new AuthenticationFailedException();
         }
 
-        // Token'ı HttpOnly cookie olarak gönderme işlemi
+        // Sending the token as an HttpOnly cookie.
         private void SetHttpOnlyAccessTokenCookie(Token token)
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Append("accessToken", token.AccessToken, new CookieOptions
             {
-                HttpOnly = true, // JavaScript erişimini engeller.
-                Secure = true, // Sadece HTTPS üzerinden gönderilir.
-                Expires = token.Expiration, // Token'ın geçerlilik süresi.
-                SameSite = SameSiteMode.Strict, // CSRF'yi engellemek için.
-                Path = "/" // Sadece ilgili path için geçerli olur.
+                HttpOnly = true, // Prevents JavaScript access.
+                Secure = true, // It's only sent over HTTPS.
+                Expires = token.Expiration, // Token's expiration time.
+                SameSite = SameSiteMode.Strict, // To prevent CSRF.
+                Path = "/" // It's only valid for the relevant path.
             });
         }
 

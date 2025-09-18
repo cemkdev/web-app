@@ -76,7 +76,7 @@ namespace WebAppAPI.Persistence.Services
             return rolesEndpoints;
         }
 
-        public async Task AssignRoleToEndpointsAsync(List<RolesEndpointsDto> rolesEndpoints, Type type) // Tüm role ve endpoint'leri alıyoruz client'tan.
+        public async Task AssignRoleToEndpointsAsync(List<RolesEndpointsDto> rolesEndpoints, Type type) // We're getting all roles and endpoints from the client.
         {
             var menus = await _menuReadRepository.GetAll().ToListAsync();
             var endpoints = await _endpointReadRepository.Table
@@ -92,7 +92,7 @@ namespace WebAppAPI.Persistence.Services
                 foreach (var roleEndpoint in roleEndpoints.RoleEndpoints)
                 {
                     Menu? menu = menus.FirstOrDefault(m => m.Name == roleEndpoint.MenuName);
-                    if (menu == null) // menu, db'de yoksa ekleniyor.
+                    if (menu == null) // If the menu doesn't exist in the database, it's added.
                     {
                         menu = new()
                         {
@@ -108,7 +108,7 @@ namespace WebAppAPI.Persistence.Services
                                                 .FirstOrDefault(menu => menu.Name == roleEndpoint.MenuName)?
                                                 .Actions.FirstOrDefault(a => a.Code == roleEndpoint.EndpointCode);
 
-                    if (endpoint == null) // endpoint, db'de yoksa ekleniyor.
+                    if (endpoint == null) // If the endpoint doesn't exist in the database, it's added.
                     {
 
 

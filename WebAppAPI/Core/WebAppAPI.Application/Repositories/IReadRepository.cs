@@ -3,7 +3,6 @@ using WebAppAPI.Domain.Entities.Common;
 
 namespace WebAppAPI.Application.Repositories
 {
-    // We've already added the 'Async' suffix to the method names that will run asynchronously.
     public interface IReadRepository<T> : IRepository<T> where T : BaseEntity
     {
         IQueryable<T> GetAll(bool tracking = true);

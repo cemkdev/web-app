@@ -19,8 +19,6 @@ namespace WebAppAPI.Infrastructure.Operations
             name = Regex.Replace(name, @"-+", "-");
 
             return name;
-
-            //todo Burada her dönüşüm yapıldığında yeni string oluşturuluyor. Bunları daha maliyetsiz string düzenleme yöntemleri ile güncelle.
         }
     }
 }

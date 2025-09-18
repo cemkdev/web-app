@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Context;
@@ -16,10 +17,12 @@ using WebAppAPI.API.Middlewares;
 using WebAppAPI.Application;
 using WebAppAPI.Application.Validators.Products;
 using WebAppAPI.Domain.Constants;
+using WebAppAPI.Domain.Entities.Identity;
 using WebAppAPI.Infrastructure;
 using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
 using WebAppAPI.Persistence;
+using WebAppAPI.Persistence.Seeding;
 using WebAppAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -131,6 +134,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 #endregion
 
 var app = builder.Build();
+
+#region Seed Some Sample Entity Data
+using (var scope = app.Services.CreateScope())
+{
+    var sp = scope.ServiceProvider;
+    var userManager = sp.GetRequiredService<UserManager<AppUser>>();
+    await DemoSeed.CheckAndSeedAsync(sp, userManager);
+}
+#endregion
 
 #region Middlewares
 if (app.Environment.IsDevelopment())

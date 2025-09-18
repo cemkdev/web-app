@@ -11,5 +11,5 @@
         public const string Users = "Users";
     }
 }
-// Client tarafındaki AuthorizeDefinitionConstants'a karşılık geliyor.(src/app/constants/authorize-definition.constants.ts)
-// Client tarafındakinde mecburi ve geçici eklentiler olabilir...
+// Corresponds to AuthorizeDefinitionConstants on the client side.(src/app/constants/authorize-definition.constants.ts)
+// The client-side version may have mandatory and temporary additions...

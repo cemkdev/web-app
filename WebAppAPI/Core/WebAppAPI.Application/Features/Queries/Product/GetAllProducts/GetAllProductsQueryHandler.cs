@@ -19,7 +19,7 @@ namespace WebAppAPI.Application.Features.Queries.Product.GetAllProducts
         public async Task<GetAllProductsQueryResponse> Handle(GetAllProductsQueryRequest request, CancellationToken cancellationToken)
         {
             var totalProductCount = _productReadRepository.GetAll(false).Count();
-            var products = _productReadRepository.GetAll(false).OrderBy(o => o.Stock)
+            var products = _productReadRepository.GetAll(false).OrderByDescending(o => o.Price)
                 .Skip(request.Page * request.Size).Take(request.Size)
                 .Include(i => i.ProductImageFiles)
                 .Select(p => new

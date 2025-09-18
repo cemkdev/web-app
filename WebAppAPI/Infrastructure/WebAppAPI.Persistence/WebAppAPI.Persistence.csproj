@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Core\WebAppAPI.Application\WebAppAPI.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeding\SeedData\" />
+  </ItemGroup>
+
 </Project>

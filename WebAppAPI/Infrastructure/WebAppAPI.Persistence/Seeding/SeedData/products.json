@@ -1,0 +1,956 @@
+[
+  {
+    "id": "ee871416-03c1-4522-a040-9811bf99b6ea",
+    "name": "iPhone 16",
+    "stock": 60,
+    "price": 699,
+    "title": "Apple",
+    "description": "iPhone 16 128GB Ultramarine",
+    "rating": 4.9
+  },
+  {
+    "id": "a0e7e2e1-93b3-4876-9391-2d0acd6cd33a",
+    "name": "iPhone 17 Pro",
+    "stock": 80,
+    "price": 1099,
+    "title": "Apple",
+    "description": "iPhone 17 Pro 256GB Deep Blue",
+    "rating": 4.7
+  },
+  {
+    "id": "de912c56-502d-4d65-a809-9b4fdab3410c",
+    "name": "iPhone 13",
+    "stock": 40,
+    "price": 499.99,
+    "title": "Apple",
+    "description": "iPhone 13 128GB Pink",
+    "rating": 4.7
+  },
+  {
+    "id": "fb7ef7b8-eb0d-4566-bd03-958b4ff448cd",
+    "name": "Galaxy Z Fold7",
+    "stock": 65,
+    "price": 2119.99,
+    "title": "Samsung",
+    "description": "Galaxy Z Fold7 512GB Blue Shadow",
+    "rating": 4.8
+  },
+  {
+    "id": "e38194b3-680a-422b-a2d8-da4ac4636c3b",
+    "name": "Galaxy Z Flip7",
+    "stock": 60,
+    "price": 1099.99,
+    "title": "Samsung",
+    "description": "Galaxy Z Flip7 256GB Blue Shadow",
+    "rating": 4.9
+  },
+  {
+    "id": "39a3b77f-dd8a-460c-ae5d-a650ad3b80ca",
+    "name": "Galaxy S25 Ultra",
+    "stock": 75,
+    "price": 1299.99,
+    "title": "Samsung",
+    "description": "Galaxy S25 Ultra 256GB Titanium Black",
+    "rating": 4.9
+  },
+  {
+    "id": "1e3af4fb-6cda-43ac-8eca-dd8a21ae8e3c",
+    "name": "Huawei Ascend G312",
+    "stock": 1,
+    "price": 319.99,
+    "title": "Huawei",
+    "description": "Convertible kneeler and seat for gardening comfort.",
+    "rating": 4.7
+  },
+  {
+    "id": "8e7f06ee-e9c3-408b-abf2-d4d35326747c",
+    "name": "Samsung D710",
+    "stock": 2,
+    "price": 32.99,
+    "title": "Samsung",
+    "description": "Mild cheese great for sandwiches.",
+    "rating": 2.9
+  },
+  {
+    "id": "2aaeb934-67f1-4ace-a52f-ed6f8abc305f",
+    "name": "Lenovo A60",
+    "stock": 3,
+    "price": 55.99,
+    "title": "Lenovo",
+    "description": "Creamy macaroni and cheese baked to perfection.",
+    "rating": 3.2
+  },
+  {
+    "id": "9f0a1db1-2b94-426a-bea4-5f88f47bcd29",
+    "name": "T-Mobile G2x",
+    "stock": 4,
+    "price": 140.29,
+    "title": "T-Mobile",
+    "description": "Delicious cookies with cranberries and almonds in every bite.",
+    "rating": 4.7
+  },
+  {
+    "id": "5aeaee0f-784b-475a-8f8e-e9683ca53b4a",
+    "name": "Siemens A51",
+    "stock": 5,
+    "price": 80.99,
+    "title": "Siemens",
+    "description": "Marinated shrimp in a garlic and lemon sauce, perfect for grilling.",
+    "rating": 4.7
+  },
+  {
+    "id": "1a73d2e8-722e-4581-b8c9-86ebc92ae774",
+    "name": "Philips X518",
+    "stock": 6,
+    "price": 290.99,
+    "title": "Philips",
+    "description": "Customizable RGB LED light strip, perfect for mood lighting.",
+    "rating": 3.3
+  },
+  {
+    "id": "33e51955-7798-4224-a075-580b6a953dae",
+    "name": "Samsung P260",
+    "stock": 7,
+    "price": 210.99,
+    "title": "Samsung",
+    "description": "Spicy chili in a can, ready to eat for a filling meal.",
+    "rating": 3.4
+  },
+  {
+    "id": "713e21ab-b881-44a8-9ad6-e0dc2f59e083",
+    "name": "Huawei MediaPad M3 Lite 10",
+    "stock": 8,
+    "price": 145.99,
+    "title": "Huawei",
+    "description": "Homemade jam made with blueberries and chia seeds, no added sugar.",
+    "rating": 4.1
+  },
+  {
+    "id": "780b3fdd-193f-4b10-805c-c41db70dad27",
+    "name": "NIU GO 20",
+    "stock": 9,
+    "price": 144.99,
+    "title": "NIU",
+    "description": "Essential tools for on-the-go bike maintenance.",
+    "rating": 4.9
+  },
+  {
+    "id": "4fafc75b-afdb-42c3-b41c-a117f2ed9b0a",
+    "name": "Samsung Exhibit 4G",
+    "stock": 10,
+    "price": 39.99,
+    "title": "Samsung",
+    "description": "Foldable kneeler that doubles as a seat for gardening convenience.",
+    "rating": 3.3
+  },
+  {
+    "id": "a741740a-77cf-4bad-994c-e8af6c6c63ee",
+    "name": "Coolpad Mega 5A",
+    "stock": 11,
+    "price": 25.99,
+    "title": "Coolpad",
+    "description": "Fresh baby spinach leaves, great for salads and smoothies.",
+    "rating": 1.7
+  },
+  {
+    "id": "05716819-8cd8-461a-8498-ce66acff570f",
+    "name": "Motorola A780",
+    "stock": 12,
+    "price": 38.99,
+    "title": "Motorola",
+    "description": "Fresh sliced bell peppers for salads or stir-fries.",
+    "rating": 4.6
+  },
+  {
+    "id": "5f8f8a36-c5b8-431b-8051-a38f9dae4dd4",
+    "name": "Sharp 940SH",
+    "stock": 13,
+    "price": 120.99,
+    "title": "Sharp",
+    "description": "Canned pumpkin puree, perfect for pies and soups.",
+    "rating": 1.3
+  },
+  {
+    "id": "7fcdd0b8-80ec-4404-bb4e-1755d622eb29",
+    "name": "LG G Pad 7.0 LTE",
+    "stock": 14,
+    "price": 49.99,
+    "title": "LG",
+    "description": "Wireless trackpad for enhanced laptop navigation.",
+    "rating": 3.4
+  },
+  {
+    "id": "7b69b649-3ffc-4e57-8982-36d6e916831e",
+    "name": "Bird S288 Plus",
+    "stock": 15,
+    "price": 75.99,
+    "title": "Bird",
+    "description": "A frozen pizza topped with fresh mozzarella, tomatoes, and basil.",
+    "rating": 3.9
+  },
+  {
+    "id": "830477af-63b6-4426-ad9d-f981c93cd247",
+    "name": "Nokia 1800",
+    "stock": 16,
+    "price": 134.99,
+    "title": "Nokia",
+    "description": "Spacious duffle bag for weekend getaways.",
+    "rating": 1.8
+  },
+  {
+    "id": "ce1a752a-29c3-4a06-ab8d-4274bb2f579b",
+    "name": "iNQ Mini 3G",
+    "stock": 17,
+    "price": 129.99,
+    "title": "iNQ",
+    "description": "Modern lamp featuring a USB port for convenient charging.",
+    "rating": 3.5
+  },
+  {
+    "id": "cf6cde88-6b82-47ba-b767-209274e34e99",
+    "name": "Asus Zenpad 8.0 Z380M",
+    "stock": 18,
+    "price": 24.99,
+    "title": "Asus",
+    "description": "A timeless baseball cap that adds a sporty touch to any outfit.",
+    "rating": 4.6
+  },
+  {
+    "id": "6fcccbd5-ed3d-4e5d-937f-baeb92655b69",
+    "name": "Samsung A997 Rugby III",
+    "stock": 19,
+    "price": 29.99,
+    "title": "Samsung",
+    "description": "DIY LED strip lights with remote control.",
+    "rating": 2.0
+  },
+  {
+    "id": "fddf1d3b-3401-46fe-b7a0-e184a1d7919a",
+    "name": "Huawei Ascend Mate7",
+    "stock": 20,
+    "price": 36.99,
+    "title": "Huawei",
+    "description": "Low-carb zucchini noodles, perfect for a healthy alternative to pasta.",
+    "rating": 2.0
+  },
+  {
+    "id": "19d940be-d18b-4ff5-8856-aa7cb17e9f5e",
+    "name": "Motorola Moto G9 Plus",
+    "stock": 21,
+    "price": 100.99,
+    "title": "Motorola",
+    "description": "Durable and soft frisbee designed for dogs to play with.",
+    "rating": 3.9
+  },
+  {
+    "id": "f1afe4de-fb4c-40d2-a5f6-c524b708a732",
+    "name": "Samsung Galaxy On6",
+    "stock": 22,
+    "price": 25.49,
+    "title": "Samsung",
+    "description": "A creamy blend of avocados and lime juice, great for spreads or dips.",
+    "rating": 4.8
+  },
+  {
+    "id": "8e162c6c-5508-482f-8102-b9db61737be5",
+    "name": "Samsung C230",
+    "stock": 23,
+    "price": 39.99,
+    "title": "Samsung",
+    "description": "Cozy faux fur blanket to add warmth and style to your home.",
+    "rating": 1.8
+  },
+  {
+    "id": "5282e65d-2ebe-4aff-bfe2-27d57f9c7c03",
+    "name": "verykool SL5000 Quantum",
+    "stock": 24,
+    "price": 225.99,
+    "title": "verykool",
+    "description": "Nutritious blend of wild rice and quinoa, perfect as a side dish.",
+    "rating": 3.2
+  },
+  {
+    "id": "6dd57e00-d464-428e-9c79-0b6bc8e5168c",
+    "name": "Spice M-5900 Flo TV Pro",
+    "stock": 25,
+    "price": 240.99,
+    "title": "Spice",
+    "description": "Convenient magnetic jars for easy spice storage.",
+    "rating": 2.4
+  },
+  {
+    "id": "737b7013-00a1-49de-9d30-dc4e892c63b5",
+    "name": "QMobile Noir Z7",
+    "stock": 26,
+    "price": 24.99,
+    "title": "QMobile",
+    "description": "Classic leather photo album for keepsakes.",
+    "rating": 1.6
+  },
+  {
+    "id": "4f70b9e5-3632-4648-a6bb-1e687a5c654c",
+    "name": "Micromax Canvas Juice 4G Q461",
+    "stock": 27,
+    "price": 3.99,
+    "title": "Micromax",
+    "description": "Stone-ground mustard infused with craft beer for a gourmet touch.",
+    "rating": 3.5
+  },
+  {
+    "id": "2f7fc7dd-7cc9-4e43-9568-d8ced48e6525",
+    "name": "Honor 10 Lite",
+    "stock": 28,
+    "price": 290.99,
+    "title": "Honor",
+    "description": "Organizational cubes for easy packing and travel.",
+    "rating": 3.2
+  },
+  {
+    "id": "0759428b-a988-48ec-bec6-6227eabb16d9",
+    "name": "alcatel Pop Up",
+    "stock": 29,
+    "price": 39.99,
+    "title": "alcatel",
+    "description": "Ergonomic wireless controller for gaming consoles.",
+    "rating": 1.4
+  },
+  {
+    "id": "02fd3c92-ffb2-437f-baf6-99d9cdb96bbb",
+    "name": "Philips F515",
+    "stock": 30,
+    "price": 64.99,
+    "title": "Philips",
+    "description": "Waterproof rain jacket with adjustable hood.",
+    "rating": 3.1
+  },
+  {
+    "id": "511448cb-a675-4163-9a8f-24d1830ef070",
+    "name": "HTC Desire 20 Pro",
+    "stock": 31,
+    "price": 119.99,
+    "title": "HTC",
+    "description": "A timeless wardrobe staple crafted from soft cotton with a perfect fit.",
+    "rating": 3.5
+  },
+  {
+    "id": "73bee14d-597a-4fe1-88c8-c53eccc27c52",
+    "name": "BLU Lindy",
+    "stock": 32,
+    "price": 19.99,
+    "title": "BLU",
+    "description": "Hands-free waist pack for carrying essentials while walking your dog.",
+    "rating": 3.2
+  },
+  {
+    "id": "d3b4ddef-8ef0-4a88-abd1-c5de424d7e99",
+    "name": "Samsung M2510",
+    "stock": 33,
+    "price": 29.99,
+    "title": "Samsung",
+    "description": "Eco-friendly LED lights for festive decorations.",
+    "rating": 3.9
+  },
+  {
+    "id": "1e2af896-6598-4eef-9cfe-ff0bb8a101be",
+    "name": "vivo V11 (V11 Pro)",
+    "stock": 34,
+    "price": 24.99,
+    "title": "vivo",
+    "description": "Comfortable slide sandals for lounging by the pool.",
+    "rating": 2.6
+  },
+  {
+    "id": "4b4cef6b-e5ac-48aa-a783-0510a9fd4525",
+    "name": "ZTE Blade V20",
+    "stock": 35,
+    "price": 45.19,
+    "title": "ZTE",
+    "description": "Easy-to-make pancake mix with pumpkin spice flavor.",
+    "rating": 2.9
+  },
+  {
+    "id": "7b9f1ec3-88ce-4e08-8cc5-b3d3d0bb8a1c",
+    "name": "NIU Lotto N104",
+    "stock": 36,
+    "price": 36.29,
+    "title": "NIU",
+    "description": "Lightly salted frozen edamame, a protein-packed snack.",
+    "rating": 2.8
+  },
+  {
+    "id": "dff69088-4943-4c15-92fb-e30446295392",
+    "name": "Samsung R910 Galaxy Indulge",
+    "stock": 37,
+    "price": 48.49,
+    "title": "Samsung",
+    "description": "A rich pesto made with sun-dried tomatoes and pine nuts.",
+    "rating": 1.4
+  },
+  {
+    "id": "bc82f942-4eb6-4c8d-93b9-1eb6f2a06a44",
+    "name": "Philips Fizz",
+    "stock": 38,
+    "price": 34.99,
+    "title": "Philips",
+    "description": "Water-resistant blanket for picnics and outdoor events.",
+    "rating": 2.1
+  },
+  {
+    "id": "9b65d660-7bcd-43e2-8e5f-aae5980eac54",
+    "name": "alcatel Pixi 3 (5.5) LTE",
+    "stock": 39,
+    "price": 119.99,
+    "title": "alcatel",
+    "description": "High-quality headphones that block out external noise for immersive listening.",
+    "rating": 4.9
+  },
+  {
+    "id": "a8b65c06-27dd-4b24-85ad-e5307d966bb1",
+    "name": "Sony Ericsson Xperia PLAY CDMA",
+    "stock": 40,
+    "price": 64.99,
+    "title": "Sony",
+    "description": "Track your meals and nutrition with this handy food journal.",
+    "rating": 2.9
+  },
+  {
+    "id": "1f0929ab-0e0f-4a7a-820a-b375c81c86d3",
+    "name": "Sony Xperia X",
+    "stock": 41,
+    "price": 29.99,
+    "title": "Sony",
+    "description": "Set of resistance bands for home workouts.",
+    "rating": 2.9
+  },
+  {
+    "id": "afe1bc6f-d66d-4bc4-899a-52dd4f06ffe7",
+    "name": "Nokia 7900 Crystal Prism",
+    "stock": 42,
+    "price": 20.49,
+    "title": "Nokia",
+    "description": "Everything you need to bake delicious chocolate chip cookies.",
+    "rating": 4.6
+  },
+  {
+    "id": "c2191aa8-a83e-4cfc-8187-d26eccfa8947",
+    "name": "BLU C5",
+    "stock": 43,
+    "price": 45.99,
+    "title": "BLU",
+    "description": "A simple, no-bake cheesecake mix to create your own delicious cheesecake.",
+    "rating": 1.7
+  },
+  {
+    "id": "e2fc1008-2da0-4d4a-a732-ae3bf808ae51",
+    "name": "verykool s5527 Alpha Pro",
+    "stock": 44,
+    "price": 19.99,
+    "title": "verykool",
+    "description": "Multi-angle stand for easy viewing of devices.",
+    "rating": 1.5
+  },
+  {
+    "id": "a09178ea-f427-4a61-9947-7b433efe897d",
+    "name": "Motorola Timeport P7389",
+    "stock": 45,
+    "price": 59.99,
+    "title": "Motorola",
+    "description": "Manual pasta maker for creating fresh pasta at home.",
+    "rating": 4.9
+  },
+  {
+    "id": "f2333f26-71ad-4f7e-a3b4-f237b80a8b1d",
+    "name": "Haier V160",
+    "stock": 46,
+    "price": 3.29,
+    "title": "Haier",
+    "description": "Savory soup made with leeks and potatoes.",
+    "rating": 4.5
+  },
+  {
+    "id": "56523166-dc73-4427-b1a7-c5d853955564",
+    "name": "Meizu PRO 5",
+    "stock": 47,
+    "price": 15.99,
+    "title": "Meizu",
+    "description": "Refreshing sparkling water with lemon and lime flavor",
+    "rating": 2.3
+  },
+  {
+    "id": "cf24d894-4733-4305-b543-2aa20376ab3d",
+    "name": "Samsung Galaxy Ace S5830I",
+    "stock": 48,
+    "price": 22.99,
+    "title": "Samsung",
+    "description": "Durable and shatterproof silicone glasses for outdoor use.",
+    "rating": 2.5
+  },
+  {
+    "id": "e261feb5-62fc-41db-9932-69c3d8ffd100",
+    "name": "BLU Life One X2",
+    "stock": 49,
+    "price": 19.99,
+    "title": "BLU",
+    "description": "Set of roller bottles for blending and applying essential oils.",
+    "rating": 1.9
+  },
+  {
+    "id": "4dc56884-7a08-466f-aecc-27b487bae126",
+    "name": "XOLO Q2500",
+    "stock": 50,
+    "price": 12.99,
+    "title": "XOLO",
+    "description": "Gentle glove for brushing and massaging your pet.",
+    "rating": 2.8
+  },
+  {
+    "id": "43a0a8f0-173a-475a-b76a-af7438f23bf4",
+    "name": "Yezz 5M",
+    "stock": 51,
+    "price": 3.29,
+    "title": "Yezz",
+    "description": "Unsweetened coconut flakes for baking and topping.",
+    "rating": 1.2
+  },
+  {
+    "id": "e62b457e-86da-4188-b4fa-1faa84c352bf",
+    "name": "Philips X622",
+    "stock": 52,
+    "price": 24.99,
+    "title": "Philips",
+    "description": "A timeless baseball cap that adds a sporty touch to any outfit.",
+    "rating": 3.1
+  },
+  {
+    "id": "07a6f377-9123-4368-8f37-6995e25c4bab",
+    "name": "Sony Ericsson Z750",
+    "stock": 53,
+    "price": 2.59,
+    "title": "Sony",
+    "description": "Sweet and tender peach slices preserved in syrup, great for desserts.",
+    "rating": 1.2
+  },
+  {
+    "id": "54b8a6c3-7dd4-4008-9d7b-48afdb0834b6",
+    "name": "Celkon A200",
+    "stock": 54,
+    "price": 18.99,
+    "title": "Celkon",
+    "description": "Manual blender for smoothies and mixing ingredients on the go.",
+    "rating": 3.5
+  },
+  {
+    "id": "b1a4aaab-f14e-4ecc-8371-ab91f3756933",
+    "name": "Gionee S11S",
+    "stock": 55,
+    "price": 39.99,
+    "title": "Gionee",
+    "description": "Complete set for mixing cocktails at home.",
+    "rating": 3.5
+  },
+  {
+    "id": "8fbf5e5a-2970-49b3-ab22-a04150004530",
+    "name": "Lenovo Z5 Pro",
+    "stock": 56,
+    "price": 89.99,
+    "title": "Lenovo",
+    "description": "Retro instant camera for capturing and printing photos instantly.",
+    "rating": 3.9
+  },
+  {
+    "id": "66507a99-05fe-4549-bb16-1b902e50a712",
+    "name": "Yezz Fashion F10",
+    "stock": 57,
+    "price": 69.99,
+    "title": "Yezz",
+    "description": "Easy-to-set-up picnic table for outdoor dining.",
+    "rating": 4.0
+  },
+  {
+    "id": "3d322f6b-b334-43fc-9acc-59c651ce22eb",
+    "name": "Motorola DROID XYBOARD 8.2 MZ609 ",
+    "stock": 58,
+    "price": 115.99,
+    "title": "Motorola",
+    "description": "Bell peppers stuffed with rice and vegetables",
+    "rating": 3.4
+  },
+  {
+    "id": "c980eade-4a33-46b4-b41f-d6bf1729070f",
+    "name": "Samsung R860 Caliber",
+    "stock": 59,
+    "price": 134.99,
+    "title": "Samsung",
+    "description": "Brews coffee with a smooth flavor without bitterness.",
+    "rating": 2.3
+  },
+  {
+    "id": "cdb05de0-17fd-4ea3-9352-12754bdc723d",
+    "name": "alcatel OT-595",
+    "stock": 60,
+    "price": 29.99,
+    "title": "alcatel",
+    "description": "Quick-boiling kettle for home and office use.",
+    "rating": 2.6
+  },
+  {
+    "id": "63a90d66-16c6-44dd-80f5-04a03dc5323d",
+    "name": "NEC 802",
+    "stock": 61,
+    "price": 1.29,
+    "title": "NEC",
+    "description": "Canned chickpeas, perfect for hummus or salads.",
+    "rating": 3.1
+  },
+  {
+    "id": "76a16340-0289-4b98-bc6f-c78a1a63ab55",
+    "name": "Panasonic Lumix Smart Camera CM1",
+    "stock": 62,
+    "price": 34.99,
+    "title": "Panasonic",
+    "description": "Peel and stick wallpaper for easy home decor changes.",
+    "rating": 1.8
+  },
+  {
+    "id": "ad5c3326-9e2b-420e-b5e3-6326ca609c9f",
+    "name": "Karbonn S9 Titanium",
+    "stock": 63,
+    "price": 9.99,
+    "title": "Karbonn",
+    "description": "Soft corner protectors to keep babies safe at home.",
+    "rating": 1.3
+  },
+  {
+    "id": "62d7005d-8bc1-4727-9426-536315b29662",
+    "name": "Samsung N620",
+    "stock": 64,
+    "price": 3.49,
+    "title": "Samsung",
+    "description": "Fresh and zesty salsa, perfect for nachos.",
+    "rating": 4.9
+  },
+  {
+    "id": "a3b57c36-c1cf-471d-a258-66860e272313",
+    "name": "Micromax A119 Canvas XL",
+    "stock": 65,
+    "price": 21.99,
+    "title": "Micromax",
+    "description": "Sweet and chewy taffy flavored like caramel apples, great for fall.",
+    "rating": 4.8
+  },
+  {
+    "id": "23bfc1c4-ef41-4873-aaf6-4040baf4134a",
+    "name": "BLU Studio Mini LTE",
+    "stock": 66,
+    "price": 14.29,
+    "title": "BLU",
+    "description": "Healthy snack bars packed with oats and fruit.",
+    "rating": 3.7
+  },
+  {
+    "id": "13976577-0b6f-4c19-a9ee-82162b9b437d",
+    "name": "Philips X800",
+    "stock": 67,
+    "price": 4.19,
+    "title": "Philips",
+    "description": "Healthy pasta alternative made from chickpeas",
+    "rating": 4.8
+  },
+  {
+    "id": "af8c84c3-0feb-4602-a209-ed0a428f3101",
+    "name": "Vodafone 533 Crystal",
+    "stock": 68,
+    "price": 12.99,
+    "title": "Vodafone",
+    "description": "Miso paste for making traditional Japanese miso soup.",
+    "rating": 3.2
+  },
+  {
+    "id": "de164e5e-964f-4cd6-bfa8-b1d10ad58201",
+    "name": "Asus P565",
+    "stock": 69,
+    "price": 3.99,
+    "title": "Asus",
+    "description": "Fluffy pancakes with buttermilk flavor.",
+    "rating": 1.5
+  },
+  {
+    "id": "4ac0ff92-d702-4a64-b72b-dcd870eb819b",
+    "name": "Vodafone Smart X9",
+    "stock": 70,
+    "price": 3.49,
+    "title": "Vodafone",
+    "description": "Creamy and delicious soup made with real butternut squash, ready to heat.",
+    "rating": 1.6
+  },
+  {
+    "id": "bf91ec3a-be87-42bb-8f53-3ca18bf56f3c",
+    "name": "Wiko Selfy 4G",
+    "stock": 71,
+    "price": 39.99,
+    "title": "Wiko",
+    "description": "Regulate water temperature for safe and comfortable showers.",
+    "rating": 2.4
+  },
+  {
+    "id": "68b98568-0f3f-44e6-b60b-20e2e0d799ed",
+    "name": "Ulefone Note 7T",
+    "stock": 72,
+    "price": 14.5,
+    "title": "Ulefone",
+    "description": "Hearty beef chili, ready to heat and eat.",
+    "rating": 3.3
+  },
+  {
+    "id": "09083ffe-9cf6-4b2a-ad3d-20ebf311de68",
+    "name": "Oppo Joy Plus",
+    "stock": 73,
+    "price": 62.49,
+    "title": "Oppo",
+    "description": "Creamy almond butter made from roasted almonds.",
+    "rating": 2.3
+  },
+  {
+    "id": "3372c08e-83b1-4795-b981-bde9090f331b",
+    "name": "Nokia 5200",
+    "stock": 74,
+    "price": 4.99,
+    "title": "Nokia",
+    "description": "Everything you need for a fresh and delicious Caesar salad.",
+    "rating": 4.8
+  },
+  {
+    "id": "e162a969-ebe8-447b-bf5f-2669257294e1",
+    "name": "Telit T90",
+    "stock": 75,
+    "price": 32.79,
+    "title": "Telit",
+    "description": "Hearty tomato soup made from organic ingredients.",
+    "rating": 3.1
+  },
+  {
+    "id": "ecc067b8-8bd7-4292-9b1d-f26e42902aff",
+    "name": "verykool SL5565 Rocket",
+    "stock": 76,
+    "price": 34.99,
+    "title": "verykool",
+    "description": "Space-efficient shoe rack to keep entryways organized.",
+    "rating": 2.1
+  },
+  {
+    "id": "8ba6cf5f-8ca8-4150-a7b6-b130fb7524fb",
+    "name": "Icemobile G5",
+    "stock": 77,
+    "price": 3.49,
+    "title": "Icemobile",
+    "description": "Refreshing and tangy fermented tea, available in various flavors.",
+    "rating": 3.9
+  },
+  {
+    "id": "72a112f6-7379-45ce-98f1-492a00e52c65",
+    "name": "XOLO 8X-1020",
+    "stock": 78,
+    "price": 69.99,
+    "title": "XOLO",
+    "description": "Lightweight hammock with a sturdy stand for relaxation anywhere.",
+    "rating": 3.1
+  },
+  {
+    "id": "d35b0e2e-88d8-4ae9-a93d-589487f07d63",
+    "name": "Energizer Energy 500",
+    "stock": 79,
+    "price": 10.59,
+    "title": "Energizer",
+    "description": "A healthy vegan cheese alternative packed with nutrients and flavor.",
+    "rating": 2.6
+  },
+  {
+    "id": "ed6813f8-3113-4d47-9c0f-2a05bc9777b3",
+    "name": "Samsung Serenata",
+    "stock": 80,
+    "price": 6.99,
+    "title": "Samsung",
+    "description": "Dairy-free ice cream made with coconut milk, creamy and delicious.",
+    "rating": 2.4
+  },
+  {
+    "id": "907b3781-af38-4ea2-9eae-fcb420380d04",
+    "name": "Acer Liquid Z6",
+    "stock": 81,
+    "price": 39.99,
+    "title": "Acer",
+    "description": "Wireless microphone for singing and performances.",
+    "rating": 4.0
+  },
+  {
+    "id": "025c469a-b353-4a6d-9a2e-6369f39efa4b",
+    "name": "i-mate SP5",
+    "stock": 82,
+    "price": 3.99,
+    "title": "i-mate",
+    "description": "Fresh sliced bell peppers for salads or stir-fries.",
+    "rating": 4.0
+  },
+  {
+    "id": "7aa95483-911d-454a-89df-9e2dd3b71336",
+    "name": "BenQ S700",
+    "stock": 83,
+    "price": 5.99,
+    "title": "BenQ",
+    "description": "Delicious veggie burger patties for grilling or frying.",
+    "rating": 1.5
+  },
+  {
+    "id": "0001966c-e694-48b0-8a29-2f34a85c2c85",
+    "name": "XCute DV1",
+    "stock": 84,
+    "price": 14.99,
+    "title": "XCute",
+    "description": "Rugged phone case for drop protection.",
+    "rating": 2.9
+  },
+  {
+    "id": "311a3ca8-8e17-4dd4-85e3-22ff69c25a6d",
+    "name": "QMobile W1",
+    "stock": 85,
+    "price": 42.99,
+    "title": "QMobile",
+    "description": "A refreshing sparkling beverage with a bold blood orange flavor.",
+    "rating": 2.2
+  },
+  {
+    "id": "1b8ddb76-9cd5-4964-b923-1b71510fe14d",
+    "name": "BLU Energy X 2",
+    "stock": 86,
+    "price": 79.99,
+    "title": "BLU",
+    "description": "Personal massager for muscle recovery.",
+    "rating": 1.8
+  },
+  {
+    "id": "948eb834-ec18-45ac-b900-c0c9b8f11611",
+    "name": "Samsung S300",
+    "stock": 87,
+    "price": 99.99,
+    "title": "Samsung",
+    "description": "Multifunctional smartwatch for fitness tracking.",
+    "rating": 4.3
+  },
+  {
+    "id": "325b8fb5-7add-4241-bb03-74e432a58770",
+    "name": "Xiaomi Redmi Note 9 5G",
+    "stock": 88,
+    "price": 39.99,
+    "title": "Xiaomi",
+    "description": "Breathable polo shirt designed for both style and comfort on the greens.",
+    "rating": 1.9
+  },
+  {
+    "id": "c4faf77e-ef63-4c37-a441-e3dae4b87ef1",
+    "name": "Energizer Energy E241",
+    "stock": 89,
+    "price": 22.99,
+    "title": "Energizer",
+    "description": "Handy belt for carrying garden tools while working.",
+    "rating": 4.7
+  },
+  {
+    "id": "63d4170c-2c9b-4e66-aeb6-c39ac8a8b982",
+    "name": "Motorola A1890",
+    "stock": 90,
+    "price": 5.99,
+    "title": "Motorola",
+    "description": "Crispy almonds coated with cinnamon and sugar for a sweet and crunchy snack.",
+    "rating": 5.0
+  },
+  {
+    "id": "b0303266-e999-4553-8004-8f6441e46c26",
+    "name": "ZTE Groove X501",
+    "stock": 91,
+    "price": 99.99,
+    "title": "ZTE",
+    "description": "Energy-efficient infrared heater for home use.",
+    "rating": 4.3
+  },
+  {
+    "id": "5bc1da41-f7ba-4824-8255-a716f625a28a",
+    "name": "alcatel Idol 3 (4.7)",
+    "stock": 92,
+    "price": 24.99,
+    "title": "alcatel",
+    "description": "Lightweight and moisture-wicking racerback tank for workouts.",
+    "rating": 1.8
+  },
+  {
+    "id": "9696a9e5-e487-4991-a02d-31833a3a11e7",
+    "name": "Sony Ericsson T610",
+    "stock": 93,
+    "price": 1.49,
+    "title": "Sony",
+    "description": "Plain white rice, a staple for any meal.",
+    "rating": 1.1
+  },
+  {
+    "id": "5c8cd063-65fa-4414-8cef-de8f5b22214c",
+    "name": "BLU Dash 4.5",
+    "stock": 94,
+    "price": 14.99,
+    "title": "BLU",
+    "description": "Storage solutions for keeping your car tidy and organized.",
+    "rating": 3.8
+  },
+  {
+    "id": "feae8c4d-56e4-49d7-b345-5744f3ce884a",
+    "name": "Motorola V66",
+    "stock": 95,
+    "price": 4.29,
+    "title": "Motorola",
+    "description": "Fresh salsa made with pineapple and spices",
+    "rating": 3.7
+  },
+  {
+    "id": "b33b2337-2d90-45ff-a035-73edf5621961",
+    "name": "Vertu Ascent Ferrari GT",
+    "stock": 96,
+    "price": 1.49,
+    "title": "Vertu",
+    "description": "Plain white rice, a staple for any meal.",
+    "rating": 2.2
+  },
+  {
+    "id": "57538f15-d884-4e15-833a-e922d29c5336",
+    "name": "ZTE Vital N9810",
+    "stock": 97,
+    "price": 5.99,
+    "title": "ZTE",
+    "description": "Creamy ice cream made with real vanilla beans, perfect for desserts.",
+    "rating": 4.7
+  },
+  {
+    "id": "1a8ac8b2-3314-417b-b55d-141e86be8c6c",
+    "name": "Philips X128",
+    "stock": 98,
+    "price": 4.29,
+    "title": "Philips",
+    "description": "A blend of nuts, seeds, and spices for a healthy snack.",
+    "rating": 3.7
+  },
+  {
+    "id": "6a10a408-471c-4f60-8c3c-17871ae86262",
+    "name": "Microsoft Lumia 640 LTE",
+    "stock": 99,
+    "price": 4.49,
+    "title": "Microsoft",
+    "description": "Crunchy granola with oats, nuts, and honey.",
+    "rating": 4.7
+  },
+  {
+    "id": "d8ab1314-876b-4560-be98-ea02f029e306",
+    "name": "Celkon Campus Colt A401",
+    "stock": 100,
+    "price": 2.79,
+    "title": "Celkon",
+    "description": "Rich and flavorful tomato sauce for pasta or pizza.",
+    "rating": 4.2
+  }
+]

@@ -27,7 +27,7 @@ namespace WebAppAPI.API.Middlewares
                     {
                         bool isAdminOnly = authorizeAttr.AdminOnly;
 
-                        // Response header'a adminOnly bilgisini yaz
+                        // Add adminOnly information into the response header.
                         context.Response.OnStarting(() =>
                         {
                             context.Response.Headers["X-Admin-Only"] = isAdminOnly.ToString().ToLower();
@@ -35,7 +35,7 @@ namespace WebAppAPI.API.Middlewares
                             return Task.CompletedTask;
                         });
 
-                        // Gerekirse context.Items ile de erişebilirsin başka yerlerde
+                        // You can also access it with context.Items in other places if necessary.
                         context.Items["IsAdminOnly"] = isAdminOnly;
                     }
                 }

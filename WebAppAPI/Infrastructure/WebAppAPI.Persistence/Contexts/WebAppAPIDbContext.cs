@@ -7,12 +7,11 @@ using WebAppAPI.Domain.Enums;
 
 namespace WebAppAPI.Persistence.Contexts
 {
-    // It will be placed in the IoC because we need to be able to access it from everywhere.
     public class WebAppAPIDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public WebAppAPIDbContext(DbContextOptions options) : base(options)
         {
-            // It will process in the IoC...
+
         }
 
         public DbSet<Product> Products { get; set; }

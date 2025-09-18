@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using WebAppAPI.Application.Abstractions.Services;
-using WebAppAPI.Application.Repositories;
 
 namespace WebAppAPI.Application.Features.Commands.Role.DeleteRange
 {
@@ -19,7 +18,7 @@ namespace WebAppAPI.Application.Features.Commands.Role.DeleteRange
             {
                 await _roleService.DeleteRoleAsync(RemovingRoleId);
             }
-            return new(); // todo hatalı durumlar hiç handle edilmedi!
+            return new();
         }
     }
 }

@@ -138,7 +138,7 @@ namespace WebAppAPI.Persistence.Services
 
                 if (historySaveResult > 0) // If 'OrderStatusHistory' saving process is success.
                 {
-                    //// Update Order->StatusId
+                    //// Update Order -> StatusId
                     if (newStatus != currentStatus)
                     {
                         order.StatusId = (int)newStatus;

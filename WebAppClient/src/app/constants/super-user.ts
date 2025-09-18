@@ -1,3 +1,3 @@
 export const SuperUser = {
-    username: "jordi-123"
+    username: "owner"
 } as const;

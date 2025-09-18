@@ -84,7 +84,6 @@ namespace WebAppAPI.API.Controllers
             return Ok();
         }
 
-        //todo Handler names must change. This method must move to global point.
         // Used for all file upload requests coming from the client. However, it's only used for uploading product images right now.
         [HttpPost("[action]")]
         [Authorize(AuthenticationSchemes = AuthSchemes.Authenticated)]

@@ -51,7 +51,7 @@ namespace WebAppAPI.Persistence.Services
         public async Task<CreateUserResponse> CreateAsync(CreateUser model)
         {
             U.AppUser user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null) // todo - Hata anlamsız. Anlamlı hata atanacak.
+            if (user != null)
                 throw new Exception();
 
             IdentityResult result = await _userManager.CreateAsync(new()
