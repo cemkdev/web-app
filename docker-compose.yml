@@ -1,0 +1,16 @@
+services:
+  db-postgres:
+    container_name: container_postgres
+    image: postgres:17
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgrewebapp
+      - POSTGRES_PASSWORD=123456Aa.
+      - POSTGRES_DB=WebAppAPIDb
+    volumes:
+      - webapp-volume:/var/lib/postgresql/data
+
+volumes:
+  webapp-volume:

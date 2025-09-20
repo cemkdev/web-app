@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.36" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.36">
       <PrivateAssets>all</PrivateAssets>
@@ -32,10 +25,6 @@
     <ProjectReference Include="..\..\Infrastructure\WebAppAPI.Infrastructure\WebAppAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\WebAppAPI.Persistence\WebAppAPI.Persistence.csproj" />
     <ProjectReference Include="..\..\Infrastructure\WebAppAPI.SignalR\WebAppAPI.SignalR.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="logs\" />
   </ItemGroup>
 
 </Project>

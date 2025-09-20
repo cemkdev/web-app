@@ -44,7 +44,11 @@ namespace WebAppAPI.Infrastructure.Services.Storage.Local
 
         public async Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string path, IFormFileCollection files)
         {
-            string uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, path);
+            var webRoot = _webHostEnvironment.WebRootPath;
+            if (string.IsNullOrWhiteSpace(webRoot))
+                webRoot = Path.Combine(_webHostEnvironment.ContentRootPath, "wwwroot");
+
+            string uploadPath = Path.Combine(webRoot, path);
 
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);

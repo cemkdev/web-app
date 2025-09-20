@@ -445,40 +445,78 @@ namespace WebAppAPI.Persistence.Seeding
             // 10. PRODUCT IMAGES + RELATIONS (add through navigation)
             var fileMeta = new Dictionary<Guid, (string FileName, string Path, string Storage, bool Cover)>
             {
+                #region Azure Storage
+                //// fb7ef7b8... (Galaxy Z Fold 7 seti)
+                //[Guid.Parse("3ee62975-9603-4c57-8d08-b4762a401938")] = ("galaxy-z-fold7-2.jpg", "images/galaxy-z-fold7-2.jpg", "AzureStorage", false),
+                //[Guid.Parse("bafae95c-3a46-4814-9ef8-93d2dcb5d9e8")] = ("galaxy-z-fold7-4.jpg", "images/galaxy-z-fold7-4.jpg", "AzureStorage", false),
+                //[Guid.Parse("eaa1173a-5c12-48a8-9f61-02d46c3cd693")] = ("galaxy-z-fold7-5.jpg", "images/galaxy-z-fold7-5.jpg", "AzureStorage", false),
+                //[Guid.Parse("c6636140-72c7-4aaf-a41d-7ebab27934ff")] = ("galaxy-z-fold7-3.jpg", "images/galaxy-z-fold7-3.jpg", "AzureStorage", true),
+                //[Guid.Parse("e1cbde9f-c164-4f9f-8220-6f5e9306060e")] = ("galaxy-z-fold7.jpg", "images/galaxy-z-fold7.jpg", "AzureStorage", false),
+
+                //// 39a3b77f... (Galaxy S25 seti)
+                //[Guid.Parse("035be0d7-5d1e-4bf2-a76c-9a9c7dde60f7")] = ("galaxy-s25-2.jpg", "images/galaxy-s25-2.jpg", "AzureStorage", false),
+                //[Guid.Parse("20bad5d5-d1fd-4e14-8930-59e177eef2b7")] = ("galaxy-s25-4.jpg", "images/galaxy-s25-4.jpg", "AzureStorage", false),
+                //[Guid.Parse("96df53ca-542e-4e9e-9c59-8210eb3912a9")] = ("galaxy-s25.jpg", "images/galaxy-s25.jpg", "AzureStorage", true),
+                //[Guid.Parse("a6f6f2b6-b145-46aa-8146-173565a87b30")] = ("galaxy-s25-3.jpg", "images/galaxy-s25-3.jpg", "AzureStorage", false),
+
+                //// e38194b3... (Galaxy Z Flip 7 seti)
+                //[Guid.Parse("125b89b6-9662-4156-90e0-1b604af95683")] = ("galaxy-zflip7-2.jpg", "images/galaxy-zflip7-2.jpg", "AzureStorage", false),
+                //[Guid.Parse("7056667a-48aa-468d-b748-269480488e41")] = ("galaxy-zflip7-4.jpg", "images/galaxy-zflip7-4.jpg", "AzureStorage", false),
+                //[Guid.Parse("72d44712-446e-4d36-9ec7-ce1e8cd9b176")] = ("galaxy-zflip7-3.jpg", "images/galaxy-zflip7-3.jpg", "AzureStorage", false),
+                //[Guid.Parse("86387ae5-a15c-43e7-b618-5ebf055d2219")] = ("galaxy-zflip7.jpg", "images/galaxy-zflip7.jpg", "AzureStorage", true),
+                //[Guid.Parse("b0148456-e534-42c6-ab9c-c0802772996d")] = ("galaxy-zflip7-5.jpg", "images/galaxy-zflip7-5.jpg", "AzureStorage", false),
+
+                //// a0e7e2e1... (iPhone 17 Pro Deep Blue seti)
+                //[Guid.Parse("4499b376-111e-41e9-82e9-fc48bedf1892")] = ("iphone-17-pro-deepblue.jpg", "images/iphone-17-pro-deepblue.jpg", "AzureStorage", true),
+                //[Guid.Parse("74ff1581-f5a6-44a6-8999-50aa8a966663")] = ("iphone-17-pro-deepblue-3.jpg", "images/iphone-17-pro-deepblue-3.jpg", "AzureStorage", false),
+                //[Guid.Parse("e6ce807c-878b-4a2c-8040-750b30b28a07")] = ("iphone-17-pro-deepblue-2.jpg", "images/iphone-17-pro-deepblue-2.jpg", "AzureStorage", false),
+
+                //// ee871416... (iPhone 16 seti)
+                //[Guid.Parse("1b34cbb7-5aa7-48cd-91e5-bfa12b512009")] = ("iphone-16.jpg", "images/iphone-16.jpg", "AzureStorage", true),
+                //[Guid.Parse("7ccba00d-fd06-46f0-be31-ab589ca0c865")] = ("iphone-16-2.jpg", "images/iphone-16-2.jpg", "AzureStorage", false),
+                //[Guid.Parse("b3ebd6d6-1c25-482a-91b9-d74a3d8c21aa")] = ("iphone-16-3.jpg", "images/iphone-16-3.jpg", "AzureStorage", false),
+
+                //// de912c56... (Pink Phone seti)
+                //[Guid.Parse("6bb3709f-7d84-4d41-afc4-45fe2cde5ff9")] = ("pink-phone-1.jpg", "images/pink-phone-1.jpg", "AzureStorage", true),
+                //[Guid.Parse("3b749096-08c1-441d-8eb4-79b252f7752c")] = ("pink-phone-2.jpg", "images/pink-phone-2.jpg", "AzureStorage", false),
+                //[Guid.Parse("c868a86b-bd79-46c6-9f6f-9f2df3a878cc")] = ("pink-phone-3.jpg", "images/pink-phone-3.jpg", "AzureStorage", false),
+                #endregion
+                #region Local Storage
                 // fb7ef7b8... (Galaxy Z Fold 7 seti)
-                [Guid.Parse("3ee62975-9603-4c57-8d08-b4762a401938")] = ("galaxy-z-fold7-2.jpg", "images/galaxy-z-fold7-2.jpg", "AzureStorage", false),
-                [Guid.Parse("bafae95c-3a46-4814-9ef8-93d2dcb5d9e8")] = ("galaxy-z-fold7-4.jpg", "images/galaxy-z-fold7-4.jpg", "AzureStorage", false),
-                [Guid.Parse("eaa1173a-5c12-48a8-9f61-02d46c3cd693")] = ("galaxy-z-fold7-5.jpg", "images/galaxy-z-fold7-5.jpg", "AzureStorage", false),
-                [Guid.Parse("c6636140-72c7-4aaf-a41d-7ebab27934ff")] = ("galaxy-z-fold7-3.jpg", "images/galaxy-z-fold7-3.jpg", "AzureStorage", true),
-                [Guid.Parse("e1cbde9f-c164-4f9f-8220-6f5e9306060e")] = ("galaxy-z-fold7.jpg", "images/galaxy-z-fold7.jpg", "AzureStorage", false),
+                [Guid.Parse("3ee62975-9603-4c57-8d08-b4762a401938")] = ("galaxy-z-fold7-2.jpg", "images\\galaxy-z-fold7-2.jpg", "LocalStorage", false),
+                [Guid.Parse("bafae95c-3a46-4814-9ef8-93d2dcb5d9e8")] = ("galaxy-z-fold7-4.jpg", "images\\galaxy-z-fold7-4.jpg", "LocalStorage", false),
+                [Guid.Parse("eaa1173a-5c12-48a8-9f61-02d46c3cd693")] = ("galaxy-z-fold7-5.jpg", "images\\galaxy-z-fold7-5.jpg", "LocalStorage", false),
+                [Guid.Parse("c6636140-72c7-4aaf-a41d-7ebab27934ff")] = ("galaxy-z-fold7-3.jpg", "images\\galaxy-z-fold7-3.jpg", "LocalStorage", true),
+                [Guid.Parse("e1cbde9f-c164-4f9f-8220-6f5e9306060e")] = ("galaxy-z-fold7.jpg", "images\\galaxy-z-fold7.jpg", "LocalStorage", false),
 
                 // 39a3b77f... (Galaxy S25 seti)
-                [Guid.Parse("035be0d7-5d1e-4bf2-a76c-9a9c7dde60f7")] = ("galaxy-s25-2.jpg", "images/galaxy-s25-2.jpg", "AzureStorage", false),
-                [Guid.Parse("20bad5d5-d1fd-4e14-8930-59e177eef2b7")] = ("galaxy-s25-4.jpg", "images/galaxy-s25-4.jpg", "AzureStorage", false),
-                [Guid.Parse("96df53ca-542e-4e9e-9c59-8210eb3912a9")] = ("galaxy-s25.jpg", "images/galaxy-s25.jpg", "AzureStorage", true),
-                [Guid.Parse("a6f6f2b6-b145-46aa-8146-173565a87b30")] = ("galaxy-s25-3.jpg", "images/galaxy-s25-3.jpg", "AzureStorage", false),
+                [Guid.Parse("035be0d7-5d1e-4bf2-a76c-9a9c7dde60f7")] = ("galaxy-s25-2.jpg", "images\\galaxy-s25-2.jpg", "LocalStorage", false),
+                [Guid.Parse("20bad5d5-d1fd-4e14-8930-59e177eef2b7")] = ("galaxy-s25-4.jpg", "images\\galaxy-s25-4.jpg", "LocalStorage", false),
+                [Guid.Parse("96df53ca-542e-4e9e-9c59-8210eb3912a9")] = ("galaxy-s25.jpg", "images\\galaxy-s25.jpg", "LocalStorage", true),
+                [Guid.Parse("a6f6f2b6-b145-46aa-8146-173565a87b30")] = ("galaxy-s25-3.jpg", "images\\galaxy-s25-3.jpg", "LocalStorage", false),
 
                 // e38194b3... (Galaxy Z Flip 7 seti)
-                [Guid.Parse("125b89b6-9662-4156-90e0-1b604af95683")] = ("galaxy-zflip7-2.jpg", "images/galaxy-zflip7-2.jpg", "AzureStorage", false),
-                [Guid.Parse("7056667a-48aa-468d-b748-269480488e41")] = ("galaxy-zflip7-4.jpg", "images/galaxy-zflip7-4.jpg", "AzureStorage", false),
-                [Guid.Parse("72d44712-446e-4d36-9ec7-ce1e8cd9b176")] = ("galaxy-zflip7-3.jpg", "images/galaxy-zflip7-3.jpg", "AzureStorage", false),
-                [Guid.Parse("86387ae5-a15c-43e7-b618-5ebf055d2219")] = ("galaxy-zflip7.jpg", "images/galaxy-zflip7.jpg", "AzureStorage", true),
-                [Guid.Parse("b0148456-e534-42c6-ab9c-c0802772996d")] = ("galaxy-zflip7-5.jpg", "images/galaxy-zflip7-5.jpg", "AzureStorage", false),
+                [Guid.Parse("125b89b6-9662-4156-90e0-1b604af95683")] = ("galaxy-zflip7-2.jpg", "images\\galaxy-zflip7-2.jpg", "LocalStorage", false),
+                [Guid.Parse("7056667a-48aa-468d-b748-269480488e41")] = ("galaxy-zflip7-4.jpg", "images\\galaxy-zflip7-4.jpg", "LocalStorage", false),
+                [Guid.Parse("72d44712-446e-4d36-9ec7-ce1e8cd9b176")] = ("galaxy-zflip7-3.jpg", "images\\galaxy-zflip7-3.jpg", "LocalStorage", false),
+                [Guid.Parse("86387ae5-a15c-43e7-b618-5ebf055d2219")] = ("galaxy-zflip7.jpg", "images\\galaxy-zflip7.jpg", "LocalStorage", true),
+                [Guid.Parse("b0148456-e534-42c6-ab9c-c0802772996d")] = ("galaxy-zflip7-5.jpg", "images\\galaxy-zflip7-5.jpg", "LocalStorage", false),
 
                 // a0e7e2e1... (iPhone 17 Pro Deep Blue seti)
-                [Guid.Parse("4499b376-111e-41e9-82e9-fc48bedf1892")] = ("iphone-17-pro-deepblue.jpg", "images/iphone-17-pro-deepblue.jpg", "AzureStorage", true),
-                [Guid.Parse("74ff1581-f5a6-44a6-8999-50aa8a966663")] = ("iphone-17-pro-deepblue-3.jpg", "images/iphone-17-pro-deepblue-3.jpg", "AzureStorage", false),
-                [Guid.Parse("e6ce807c-878b-4a2c-8040-750b30b28a07")] = ("iphone-17-pro-deepblue-2.jpg", "images/iphone-17-pro-deepblue-2.jpg", "AzureStorage", false),
+                [Guid.Parse("4499b376-111e-41e9-82e9-fc48bedf1892")] = ("iphone-17-pro-deepblue.jpg", "images\\iphone-17-pro-deepblue.jpg", "LocalStorage", true),
+                [Guid.Parse("74ff1581-f5a6-44a6-8999-50aa8a966663")] = ("iphone-17-pro-deepblue-3.jpg", "images\\iphone-17-pro-deepblue-3.jpg", "LocalStorage", false),
+                [Guid.Parse("e6ce807c-878b-4a2c-8040-750b30b28a07")] = ("iphone-17-pro-deepblue-2.jpg", "images\\iphone-17-pro-deepblue-2.jpg", "LocalStorage", false),
 
                 // ee871416... (iPhone 16 seti)
-                [Guid.Parse("1b34cbb7-5aa7-48cd-91e5-bfa12b512009")] = ("iphone-16.jpg", "images/iphone-16.jpg", "AzureStorage", true),
-                [Guid.Parse("7ccba00d-fd06-46f0-be31-ab589ca0c865")] = ("iphone-16-2.jpg", "images/iphone-16-2.jpg", "AzureStorage", false),
-                [Guid.Parse("b3ebd6d6-1c25-482a-91b9-d74a3d8c21aa")] = ("iphone-16-3.jpg", "images/iphone-16-3.jpg", "AzureStorage", false),
+                [Guid.Parse("1b34cbb7-5aa7-48cd-91e5-bfa12b512009")] = ("iphone-16.jpg", "images\\iphone-16.jpg", "LocalStorage", true),
+                [Guid.Parse("7ccba00d-fd06-46f0-be31-ab589ca0c865")] = ("iphone-16-2.jpg", "images\\iphone-16-2.jpg", "LocalStorage", false),
+                [Guid.Parse("b3ebd6d6-1c25-482a-91b9-d74a3d8c21aa")] = ("iphone-16-3.jpg", "images\\iphone-16-3.jpg", "LocalStorage", false),
 
                 // de912c56... (Pink Phone seti)
-                [Guid.Parse("6bb3709f-7d84-4d41-afc4-45fe2cde5ff9")] = ("pink-phone-1.jpg", "images/pink-phone-1.jpg", "AzureStorage", true),
-                [Guid.Parse("3b749096-08c1-441d-8eb4-79b252f7752c")] = ("pink-phone-2.jpg", "images/pink-phone-2.jpg", "AzureStorage", false),
-                [Guid.Parse("c868a86b-bd79-46c6-9f6f-9f2df3a878cc")] = ("pink-phone-3.jpg", "images/pink-phone-3.jpg", "AzureStorage", false),
+                [Guid.Parse("6bb3709f-7d84-4d41-afc4-45fe2cde5ff9")] = ("pink-phone-1.jpg", "images\\pink-phone-1.jpg", "LocalStorage", true),
+                [Guid.Parse("3b749096-08c1-441d-8eb4-79b252f7752c")] = ("pink-phone-2.jpg", "images\\pink-phone-2.jpg", "LocalStorage", false),
+                [Guid.Parse("c868a86b-bd79-46c6-9f6f-9f2df3a878cc")] = ("pink-phone-3.jpg", "images\\pink-phone-3.jpg", "LocalStorage", false),
+                #endregion
             };
 
             var rels = new (Guid ProductId, Guid ImageId)[]

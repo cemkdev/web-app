@@ -55,7 +55,6 @@ export class AppComponent extends BaseComponent {
     this.showSpinner(SpinnerType.BallAtom);
 
     this.userAuthService.logout((res) => {
-
       const url = this.router.url;
       const forbiddenPaths = ['/admin'];
       const isForbidden = forbiddenPaths.some(path => url.startsWith(path));

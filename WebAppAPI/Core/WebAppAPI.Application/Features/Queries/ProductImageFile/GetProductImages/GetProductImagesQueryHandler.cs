@@ -23,7 +23,8 @@ namespace WebAppAPI.Application.Features.Queries.ProductImageFile.GetProductImag
                 .Include(p => p.ProductImageFiles)
                 .FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
-            return product?.ProductImageFiles.Where(i => i.Storage == "AzureStorage").Select(p => new GetProductImagesQueryResponse()
+            //return product?.ProductImageFiles.Where(i => i.Storage == "AzureStorage").Select(p => new GetProductImagesQueryResponse()
+            return product?.ProductImageFiles.Where(i => i.Storage == "LocalStorage").Select(p => new GetProductImagesQueryResponse()
             {
                 Id = p.Id,
                 Path = $"{_configuration["BaseStorageUrl"]}/{p.Path}",

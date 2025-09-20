@@ -21,6 +21,7 @@ using WebAppAPI.Domain.Entities.Identity;
 using WebAppAPI.Infrastructure;
 using WebAppAPI.Infrastructure.Filters;
 using WebAppAPI.Infrastructure.Services.Storage.Azure;
+using WebAppAPI.Infrastructure.Services.Storage.Local;
 using WebAppAPI.Persistence;
 using WebAppAPI.Persistence.Seeding;
 using WebAppAPI.SignalR;
@@ -35,10 +36,10 @@ if (builder.Environment.IsDevelopment())
 #region variables
 var tokenValidationParameters = new TokenValidationParameters
 {
-    ValidateAudience = true, // Oluşturulacak token değerini kimlerin/hangi originlerin/sitelerin kullanacağını belirlediğimiz değerdir. -> www.xyz.com
-    ValidateIssuer = true, // Oluşturulacak token değerini kimin dağıttını ifade edeceğimiz alandır. -> www.myapi.com
-    ValidateLifetime = true, // Oluşturulan token değerinin süresini kontrol edecek olan doğrulamadır.
-    ValidateIssuerSigningKey = true, // Üretilecek token değerinin, uygulamamıza ait bir değer olduğunu ifade eden security key verisinin doğrulanmasıdır.
+    ValidateAudience = true,
+    ValidateIssuer = true,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
 
     ValidAudience = builder.Configuration["Token:Audience"],
     ValidIssuer = builder.Configuration["Token:Issuer"],
@@ -49,12 +50,12 @@ var tokenValidationParameters = new TokenValidationParameters
     //        => expires != null ? expires > DateTime.UtcNow : false,
     ClockSkew = TimeSpan.Zero,
 
-    NameClaimType = ClaimTypes.Name // JWT üzerinde Name claim'ine karşılık gelen değeri, bu ayarla, User.Identity.Name property'sinden elde edebiliriz.
+    NameClaimType = ClaimTypes.Name
 };
 #endregion
 
 #region Services
-builder.Services.AddHttpContextAccessor(); // Client'tan gelen request neticesinde oluşturulan HttpContext nesnesine, katmanlardaki class'lar üzerinden(bussiness logic'ten) erişebilmemizi sağlayan bir servistir.
+builder.Services.AddHttpContextAccessor(); // A service that provides access to the HttpContext from the business logic layer.
 
 // Here we call the extension method that adds services to the IoC Container.
 // However, in order to use this extension method here, we need to add the Presentation Project(Layer) as a reference to this project.
@@ -63,7 +64,8 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddSignalRServices();
 
-builder.Services.AddStorage<AzureStorage>();
+//builder.Services.AddStorage<AzureStorage>();
+builder.Services.AddStorage<LocalStorage>();
 
 var allowedOrigin = builder.Configuration["AngularClientUrl"] ?? throw new InvalidOperationException("AngularClientUrl must be configured in appsettings or environment variables.");
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
@@ -72,7 +74,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 
 Logger log = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("logs/log.txt")
+    //.WriteTo.File("logs/log.txt")
     .WriteTo.PostgreSQL(builder.Configuration.GetConnectionString("PostgreSQL"), "logs",
     needAutoCreateTable: true,
     columnOptions: new Dictionary<string, ColumnWriterBase>
@@ -85,7 +87,7 @@ Logger log = new LoggerConfiguration()
         { "log_event", new LogEventSerializedColumnWriter() },
         { "user_name", new UsernameColumnWriter() }
     })
-    .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
+    //.WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
     .Enrich.FromLogContext()
     .MinimumLevel.Information()
     .CreateLogger();
@@ -135,7 +137,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-#region Seed Some Sample Entity Data
+#region Seed Sample Entity Data
 using (var scope = app.Services.CreateScope())
 {
     var sp = scope.ServiceProvider;
@@ -167,10 +169,8 @@ app.UseMiddleware<EndpointAdminCheckMiddleware>();
 
 app.UseStatusCodePages();
 
-// Buradan sonra oluşturacağız loglama middleware'ini ki authenticated user'ı da alalım varsa.
 app.Use(async (context, next) =>
 {
-    // Burada demek istenen şu; != den öncesi null değilse, veya(||) IsAuthenticated true ise ... (gerisi normal ternary operation.)
     var username = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identity.Name : null;
     LogContext.PushProperty("user_name", username);
     await next();

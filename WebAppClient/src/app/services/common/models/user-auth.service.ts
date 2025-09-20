@@ -370,7 +370,7 @@ export class UserAuthService {
         try {
           await this.socialAuthService.signOut();
         } catch (error) {
-          if (error !== "Not logged in" && !(error && error.message === "Not logged in")) {
+          if ((error !== "Not logged in" && !(error && error.message === "Not logged in")) && error !== "Login providers not ready yet. Are there errors on your console?") {
             throw error;
           }
         }
@@ -392,7 +392,7 @@ export class UserAuthService {
         try {
           await this.socialAuthService.signOut();
         } catch (error) {
-          if (error !== "Not logged in" && !(error && error.message === "Not logged in")) {
+          if ((error !== "Not logged in" && !(error && error.message === "Not logged in")) && error !== "Login providers not ready yet. Are there errors on your console?") {
             throw error;
           }
         }

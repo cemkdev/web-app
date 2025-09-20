@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using WebAppAPI.Application.Abstractions.Services;
-using WebAppAPI.Application.DTOs;
 using WebAppAPI.Domain.Enums;
 
 namespace WebAppAPI.Infrastructure.Services
