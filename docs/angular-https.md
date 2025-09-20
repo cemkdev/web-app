@@ -1,6 +1,7 @@
 # Local HTTPS Setup for Angular Project
 
-This guide explains how to run the Angular project over HTTPS locally. HTTPS is required because the app uses HttpOnly cookies for secure token handling, and modern browsers restrict these cookies over plain HTTP.
+This guide explains how to run the Angular project over HTTPS locally.
+HTTPS is required because the app uses HttpOnly cookies for secure token handling, and modern browsers restrict these cookies over plain HTTP.
 
 ---
 
