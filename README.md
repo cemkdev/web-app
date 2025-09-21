@@ -40,7 +40,7 @@ This project is a modern **e-commerce web application** built with a robust **.N
 # Demo
 - A **demo version** of this project will be available at: **https://demo-example.com**  
 - **Limitations (Demo):**
-  - External login (Facebook/Google) is **disabled**.  
+  - External login (Facebook/Google) is **disabled**. (The Google login button is hidden if no GoogleClientId is provided.)
   - **Reset password** and **update order status** e-mail features are **disabled**.  
 
 ---
