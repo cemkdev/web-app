@@ -118,12 +118,32 @@
                         <div class="col-6 facebook">
                           <!-- Facebook Button -->
                           <button
+                            *ngIf="facebookEnabled"
                             type="button"
                             class="btn btn-outline-secondary social-media-btn facebook-icon"
                             (click)="facebookLogin()"
                           >
                             <i class="bi bi-facebook"></i>
                           </button>
+
+                          <!-- FACEBOOK (disabled) -->
+                          <span
+                            *ngIf="!facebookEnabled"
+                            class="d-inline-block"
+                            tabindex="0"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="left"
+                            title="Social login is disabled because this is a demo."
+                          >
+                            <button
+                              class="btn btn-outline-secondary social-media-btn facebook-icon"
+                              type="button"
+                              disabled
+                              style="pointer-events: none"
+                            >
+                              <i class="bi bi-facebook"></i>
+                            </button>
+                          </span>
                         </div>
                         <div
                           id="google-button"
@@ -137,6 +157,25 @@
                             size="large"
                           >
                           </asl-google-signin-button>
+
+                          <!-- GOOGLE (disabled) -->
+                          <span
+                            *ngIf="!googleEnabled"
+                            class="d-inline-block"
+                            tabindex="0"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="right"
+                            title="Social login is disabled because this is a demo."
+                          >
+                            <button
+                              class="btn btn-outline-secondary social-media-btn google-icon"
+                              type="button"
+                              disabled
+                              style="pointer-events: none"
+                            >
+                              <i class="bi bi-google"></i>
+                            </button>
+                          </span>
                         </div>
                       </div>
                       <div

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BaseComponent, SpinnerType } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../services/common/auth.service';
@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserLogin } from '../../../entities/user-login';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { UserAuthService } from '../../../services/common/models/user-auth.service';
+import { environment } from '../../../../environments/environment';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-login',
@@ -15,9 +18,11 @@ import { UserAuthService } from '../../../services/common/models/user-auth.servi
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   user: Promise<SocialUser>;
+  googleEnabled = !!environment.googleClientId;
+  facebookEnabled = !!environment.facebookClientId;
 
   constructor(
     private location: Location,
@@ -38,6 +43,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   form: FormGroup;
 
+  ngAfterViewInit(): void {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      .forEach((el: any) => new bootstrap.Tooltip(el));
+  }
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       usernameOrEmail: [""],
