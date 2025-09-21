@@ -46,25 +46,29 @@ This project is a modern **e-commerce web application** built with a robust **.N
 ---
 
 # Running Locally
+> **Prerequisite — Angular HTTPS certificates**  
+> This project requires running the Angular client over **HTTPS** during local development.  
+> Before starting, generate dev certificates as described here: [docs/angular-https.md](docs/angular-https.md).
+
 1. You need to fill in the empty values in `appsettings` yourself:
    - **Required**
      - Use the repository’s [`docker-compose.yml`](./docker-compose.yml) to start the **PostgreSQL** container.
-     - Add the **connection string** into `appsettings` (placeholders are already prepared).
-     - **Match API port in client & server configs:**  
-       Update the following to use **your API’s actual port** (the one Visual Studio assigns if `launchSettings.json` is local-only):  
-       - `WebAppClient/src/environments/environment.ts` *(used by `ng serve` / local dev)*
-       - `WebAppClient/src/environments/environment.prod.ts` *(used by production build)*
-         - `allowedDomains: ["localhost:<API_PORT>"]`
-         - `baseUrl: "https://localhost:<API_PORT>/api"`
-         - `baseSignalRUrl: "https://localhost:<API_PORT>/"`
-         - `WebAppAPI/.../appsettings*.json`  
-       - `"BaseStorageUrl": "https://localhost:<API_PORT>"`
+     - **Verify client and API port alignment (WebAppAPI.API HTTPS port):**  
+       Make sure the client and the API use the same **HTTPS port**. Visual Studio may assign different ports if `launchSettings.json` is local-only, so check and adjust if needed. If the ports already match, no change is required.  
+       - `WebAppClient/src/environments/environment.ts` *(used by `ng serve` / local dev)*  
+       - `WebAppClient/src/environments/environment.prod.ts` *(used by production build)*  
+         - `allowedDomains: ["localhost:<API_PORT>"]`  
+         - `baseUrl: "https://localhost:<API_PORT>/api"`  
+         - `baseSignalRUrl: "https://localhost:<API_PORT>/"`  
+       - `WebAppAPI/.../appsettings*.json`  
+         - `"BaseStorageUrl": "https://localhost:<API_PORT>"`
 
    - **Optional**
-     - To test **external login**, enter your **own Google/Facebook client id and secret** values in `appsettings`.
-     - To test the **mail system**, provide your **own e-mail account and settings** in `appsettings`.
+     - To test **external login**, enter your **own Google/Facebook client id and secret** values in `appsettings`.  
+     - To test the **mail system**, provide your **own e-mail account and settings** in `appsettings`.  
      - **Storage** can also be used locally; Azure is not mandatory. You may leave it empty.
 
 2. Angular **HTTPS** run guide: see [`docs/angular-https.md`](docs/angular-https.md).
+
 
 ---
