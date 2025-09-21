@@ -64,7 +64,7 @@ mkdir -p src/assets/certs
 cd src/assets/certs
 ```
 
-Then generate the cert:
+Then generate the cert (run this inside a PowerShell opened in the src/assets/certs directory):
 
 ```powershell
 mkcert localhost 127.0.0.1 ::1
@@ -86,9 +86,7 @@ This will create files like:
 Run Angular using these parameters:
 
 ```bash
-ng serve --ssl true \
-          --ssl-cert src/assets/certs/localhost+2.pem \
-          --ssl-key src/assets/certs/localhost+2-key.pem
+ng serve --ssl true --ssl-cert src/assets/certs/localhost+2.pem --ssl-key src/assets/certs/localhost+2-key.pem
 ```
 
 Adjust file names according to what was generated.
