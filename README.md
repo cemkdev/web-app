@@ -61,14 +61,13 @@ This project is a modern **e-commerce web application** built with a robust **.N
      - `baseSignalRUrl: "https://localhost:<API_PORT>/"`  
    - `WebAppAPI/Presentation/WebAppAPI.API/appsettings*.json`  
      - `"BaseStorageUrl": "https://localhost:<API_PORT>"`
-3. Angular **HTTPS** run guide: see [`docs/angular-https.md`](docs/angular-https.md).
+3. Angular **HTTPS** run guide: see [`docs/angular-https.md`](docs/angular-https.md).  
+4. In Visual Studio, set **WebAppAPI.API** as the sole *Startup Project*.
 
 ### Optional steps
 - To test **external login**, enter your **own Google/Facebook client id and secret** values in `appsettings`.  
 - To test the **mail system**, provide your **own e-mail account and settings** in `appsettings`.  
 - **Storage** can also be used locally; Azure is not mandatory. You may leave it empty.
-
-
 
 
 ---
