@@ -23,6 +23,16 @@ namespace WebAppAPI.Infrastructure.Services
 
         public async Task SendMailAsync(string[] recipients, string subject, string body, bool isBodyHtml = true)
         {
+            // if "Mail" property is empty in appsettings.
+            if (string.IsNullOrWhiteSpace(_configuration["Mail:Username"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Password"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Port"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:EnableSsl"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Host"]))
+            {
+                return;
+            }
+
             MailMessage mail = new();
             foreach (var recipient in recipients)
                 mail.To.Add(recipient);

@@ -95,6 +95,13 @@ namespace WebAppAPI.Persistence.Services
         #region External Login
         public async Task<Token> FacebookLoginAsync(string authToken)
         {
+            // if "ExternalLoginSettings:Facebook" property is empty in appsettings.
+            if (string.IsNullOrWhiteSpace(_configuration["ExternalLoginSettings:Facebook:Client_ID"]) ||
+                string.IsNullOrWhiteSpace(_configuration["ExternalLoginSettings:Facebook:Client_Secret"]))
+            {
+                return null!;
+            }
+
             string accessTokenResponse = await _httpClient.GetStringAsync($"https://graph.facebook.com/oauth/access_token?client_id={_configuration["ExternalLoginSettings:Facebook:Client_ID"]}&client_secret={_configuration["ExternalLoginSettings:Facebook:Client_Secret"]}&grant_type=client_credentials");
 
             FacebookAccessTokenResponse? facebookAccessTokenResponse = JsonSerializer.Deserialize<FacebookAccessTokenResponse>(accessTokenResponse);
@@ -126,6 +133,12 @@ namespace WebAppAPI.Persistence.Services
 
         public async Task<Token> GoogleLoginAsync(string idToken)
         {
+            // if "ExternalLoginSettings:Google" property is empty in appsettings.
+            if (string.IsNullOrWhiteSpace(_configuration["ExternalLoginSettings:Google:Client_ID"]))
+            {
+                return null!;
+            }
+
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
                 Audience = new List<string> { _configuration["ExternalLoginSettings:Google:Client_ID"] }

@@ -18,10 +18,12 @@ namespace WebAppAPI.API.Controllers
     public class AuthController : ControllerBase
     {
         readonly IMediator _mediator;
+        readonly IConfiguration _configuration;
 
-        public AuthController(IMediator mediator)
+        public AuthController(IMediator mediator, IConfiguration configuration)
         {
             _mediator = mediator;
+            _configuration = configuration;
         }
 
         [HttpGet("identity-check")]
@@ -74,6 +76,15 @@ namespace WebAppAPI.API.Controllers
         [HttpPost("password-reset")]
         public async Task<IActionResult> PasswordReset([FromBody] PasswordResetCommandRequest passwordResetCommandRequest)
         {
+            if (string.IsNullOrWhiteSpace(_configuration["Mail:Username"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Password"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Port"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:EnableSsl"]) ||
+                string.IsNullOrWhiteSpace(_configuration["Mail:Host"]))
+            {
+                return Ok(new { Message = "Mail service disabled if mail settings are empty in appsettings." });
+            }
+
             PasswordResetCommandResponse response = await _mediator.Send(passwordResetCommandRequest);
             return Ok(response);
         }
