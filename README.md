@@ -38,7 +38,7 @@ This project is a modern **e-commerce web application** built with a robust **.N
 ---
 
 # Demo
-- A **demo version** of this project will be available at: [**demo**](https://webappang.azurewebsites.net) *(Login requires third-party cookies enabled in your browser.)*
+- A **demo version** of this project will be available at:  [**demo**](https://webappang.azurewebsites.net)  *(Login requires third-party cookies enabled in your browser.)*
 - **Limitations (Demo):**
   - External login (Facebook/Google) is **disabled**. (The Google login button is hidden if no GoogleClientId is provided.)
   - **Reset password** and **update order status** e-mail features are **disabled**.  
